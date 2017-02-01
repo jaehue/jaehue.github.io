@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Jaehue&#39;s</title>
+    <link>jaehue.jang.io/index.xml</link>
+    <description>Recent content on Jaehue&#39;s</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <copyright>&amp;copy; All Rights Reserved.</copyright>
+    <lastBuildDate>Wed, 21 Sep 2016 22:04:23 +0800</lastBuildDate>
+    <atom:link href="jaehue.jang.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Microservice in PangPang</title>
+      <link>/jaehue.jang.io/post/microservice_in_pangpang/</link>
+      <pubDate>Wed, 21 Sep 2016 22:04:23 +0800</pubDate>
+      
+      <guid>/jaehue.jang.io/post/microservice_in_pangpang/</guid>
+      <description>
+
+&lt;h1 id=&#34;microservice-in-pangpang&#34;&gt;Microservice in PangPang&lt;/h1&gt;
+
+&lt;h2 id=&#34;회고&#34;&gt;회고&lt;/h2&gt;
+
+&lt;p&gt;올해 4월부터 micro-service를 지향하면서 일을 해 왔다.
+사실 별로 커 보이지도 않는 기능들을 다양한 서비스로 나누고, 여러 팀에서 나누어 개발을 해 왔다.
+기능적으로 본다면, 샵링크와는 비교도 되지 않을 정도로 작고, 그룹웨어보다도 훨씬 작은 싸이즈이다.
+그 큰 시스템도 하나의 서비스로 잘 돌아가고 있는데
+&lt;code&gt;POS를 통해 위챗 쿠폰을 사용할 수 있게 하자&lt;/code&gt;는 단순한 요구를 위해 OO개의 팀에서 OO개의 서비스를 만들었다.&lt;/p&gt;
+
+&lt;p&gt;그것을 클라우드 환경에 올렸고, 그 과정에서 새로 접한 기술들도 많았다.
+진행 방식도, 지금까지 해 왔던 것처럼 먼저 전체 일정을 세우고, 분석-설계-개발-테스트-오픈으로 이어지는 방식이 아니라
+매주마다 할일을 정하고 그것을 확인하는 방식으로 진행해왔다.&lt;/p&gt;
+
+&lt;p&gt;이것이 마이크로서비스인가?&lt;/p&gt;
+
+&lt;p&gt;사실은 특별히 다른 것은 없다.
+여전히 VisualStudio를 열어놓고 C#으로 코딩을 한다.&lt;/p&gt;
+
+&lt;p&gt;지금과 다른 기술적인 차이/아키텍처적인 차이들이 분명히 있다.
+하지만 그런 것들을 가지고 microserivce라 하는 것은 무리가 있다.
+왜냐하면 microservice와 대비되는 개념인 monolithic 시스템에서도 그런 기술을 많이 채택한다.
+하나의 거대한 서비스가 클라우드 환경에 배포되고, MongoDB와 같은 NoSql을 메인 데이터베이스로 사용하는 경우도 많다.
+그리고 필요에 따라 Queue나 Cache같은 것들을 활용하기도 한다.&lt;/p&gt;
+
+&lt;p&gt;그러면 우리가 하고자 microservice는 도대체 무엇을 하자는 것인가?&lt;/p&gt;
+
+&lt;h2 id=&#34;what-is-microservice&#34;&gt;What is Microservice?&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://martinfowler.com/articles/microservices.html&#34;&gt;microservice에 대해 Martin Fowler가 내린 정의&lt;/a&gt;를 보자.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;developing a single application as a suite of &lt;strong&gt;small&lt;/strong&gt; services&lt;br /&gt;
+작은 서비스의 결합을 통해 하나의 응용프로그램을 개발하는 방법&lt;br /&gt;
+&amp;ndash; Martin Fowler&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;사실 이것이 핵심이다.
+이것을 어떻게 실현하느냐에 대한 다양한 방안들이 존재할 뿐이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Stream-oriented, Event sourcing, Domain Driven Design(Bounded Context), Contract-First(API-First) Design, Decomposed database, Restful Service, Event-Driven Architecture, Messaging, Platform, Queue, RabbitMQ, Kafka, Azure Queue, Ali Message Service, NoSQL, MongoDB, Redis, Azure Table Storage, Aliyun Table Store, Programming, Refactoring, TDD, Cloud Design Pattern, Reactive Programming, Polyglot Programming, Architecting, Docker, API Gateway, Service Discovery, Blue/Green Deployment, Circuit Breaker, CI(Continous Integration), Mornintoring&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;microservice를 실현하는 방법들은 매우 다양해서 혼란이 시작될 가능성이 있다.
+그래서 때로는 microservice의 핵심은 간과한 채, 이것을 구현하는 세련되고 화려한 방법들만 코드안에 어색하게 구겨넣는 실수를 범하기도 한다.
+나도 microservice에 대한 큰 고민 없이 기술적으로 세련되고 멋있어보이는 다양한 것들에 기웃거려보기도 했다.
+기술 자체에 대한 학습은 재미 있었지만, &lt;code&gt;그래서 그것이 microservice인가?&lt;/code&gt;에 대한 질문에는 여전히 대답하기 어려웠다.&lt;/p&gt;
+
+&lt;p&gt;microservice가 작은 서비스의 결함을 통해 하나의 응용 프로그램을 개발하는 방식이라는 핵심에 근거해, 개발자 입장에서 가장 직관적으로 microservice를 해석한 말은 이런 것들이었다.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A single programmer can design, implement, deploy, and maintain.&lt;br /&gt;
+&amp;ndash; Fred George&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Software that fits in your head.&lt;br /&gt;
+&amp;ndash; Dan North&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;A single logical database per service.&lt;br /&gt;
+&amp;ndash; Chris Richardson&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Built &amp;amp; deployed independently.&lt;br /&gt;
+&amp;ndash; 12Factor.net&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;지금까지 PangPang을 해 오면서 학습한 것 한가지는, microservice는 단순히 &lt;code&gt;어떤 기술이냐?&lt;/code&gt;의 문제는 아니라는 것이다.&lt;/p&gt;
+
+&lt;h2 id=&#34;우리의-현주소&#34;&gt;우리의 현주소&lt;/h2&gt;
+
+&lt;p&gt;CSL의 문제점을 많이 얘기한다.
+내 기억으로, 중국 샵링크는 이랜드에서 가장 성공적인 프로젝트 중의 하나로 기억된다.
+그렇게 성공적이었던 프로젝트가 왜 지금 우리 인식속에 문제가 많은 시스템으로 자리잡혀 있을까?&lt;/p&gt;
+
+&lt;p&gt;웨이븐 포스도 성공적인 프로젝트 중 하나였다.
+웨이븐 포스 오픈 당시, 중국에서 스파오, 믹쏘 매장을 오픈할때마다 웨이븐포스가 엄청난 역할을 해 내고 있다는 것을 많이 얘기 했었었다.
+하지만, 시간이 갈수록 웨이븐포스는 점점 샵링크를 닮아가고 있었다.&lt;/p&gt;
+
+&lt;p&gt;5월에 PangPang이라는 이름으로 새로운 포스를 제공하고 위챗을 통해 쿠폰기능을 사용할 수 있도록 했다.
+하지만 여기서도 &lt;small&gt;[1]&lt;/small&gt;누락되는 데이터가 있고, &lt;small&gt;[2]&lt;/small&gt;테스트 버전이 배포되기도 하고, &lt;small&gt;[3]&lt;/small&gt;외부 인터페이스 때문에 장애가 발생하기도 한다.
+&lt;small&gt;[4]&lt;/small&gt;고객이 로그인이 안되서 불만을 얘기하고, &lt;small&gt;[5]&lt;/small&gt;발급된 쿠폰을 사용하지 못하는 경우도 있었다.
+물론 서비스에 문제가 발생하는 것은 자연스러운 일이다. 한번에 완벽한 것을 만드는 것은 불가능하기 때문에 지속적으로 서비스의 완성도를 높여가야 한다.
+하지만 최근 이러한 문제들을 겪으면서 우리가 했던 대답은 &lt;code&gt;고객이 이런저런 요구를 많이해서 프로그램이 복잡해졌어요ㅠㅠ&lt;/code&gt;였다.&lt;/p&gt;
+
+&lt;p&gt;microservice를 하겠다고 야심차게 시작했던 PangPang 역시도 샵링크, 웨이븐을 점점 닮아가는 것을 보게 된다.
+microservice라는 이름으로 포장된 다양한 기술들을 적용했지만, 지금의 모습은 이전과 크게 다르지 않은 듯 하다.&lt;/p&gt;
+
+&lt;p&gt;지금까지 PangPang을 해 오면서 학습한것 한가지는, microservice를 한다는 것은 단순히 기술을 적용 하고 안하고의 문제는 아니었다.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Multi Responsibility&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://vignette2.wikia.nocookie.net/victorinox/images/0/07/8869942853662_SAK_1_6705_S1_46361_eps_1.jpg/revision/latest?cb=20140304054736&amp;path-prefix=ko&#34; style=&#34;width: 250px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;여러 기능을 한번에 만드는 것이 당장에는 쉽다.
+그리고 우리는 항상 이런 그림을 상상한다. 뭐든지 다 잘 되는 서비스.
+새로운 기능을 추가해야 할 때, 이 기능이 의미하는 바가 무었인지? 그래서 어떤 서비스에 어울리는지 고민하지 않고 그냥 지금 열려있는 VisualStudio에서 class하나 추가하고 거기에 코드를 작성하면 일단 동작은 한다.
+기존에 있었던 다른 기능을 함께 사용해야 하면, 옆에 보이는 클래스의 메쏘드를 호출하면 된다.
+잘 동작한다. 그리고 고객은 일단은 받아들인다. 그리고 덮어둔다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://upload.wikimedia.org/wikipedia/commons/4/47/Breadboard_complex.jpg&#34; style=&#34;width: 300px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;하지만 정작 실제의 모습은 이렇게 되어 있지 않았었나?
+작은 기능 하나를 수정하고 싶은데, 어딜 손대야 할지 모르겠다.
+이때 할 수 있는 최선의 대답은 이것이다. &amp;ldquo;안됩니다&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;우리는 이러한 방식에 너무 익숙해져 있다.
+많은 기능들을 한번에 개발하는 것에 익숙하고
+다양한 고객들의 행태에 대해 고민하고 반영하는 것은 여전히 어색하다.&lt;/p&gt;
+
+&lt;p&gt;microservice / multi tenancy의 모습으로 처음 시작했던 PangPang을 지금 돌아보면, 단순함을 유지해야 하는 각각의 서비스는 복잡해져 있었고(Multi Responsibility), 다양한 고객의 행태를 수용하기에는 우리는 너무 하나의 고객에게만 익숙해져 있었다(Single Tenancy).&lt;/p&gt;
+
+&lt;h2 id=&#34;그래서&#34;&gt;그래서?&lt;/h2&gt;
+
+&lt;p&gt;사고의 전환이 없이는 microservice는 여전히 모호한 얘기일 뿐이다.
+문제를 해결해가는 방식을 바꾸지 않으면, 우리가 다양한 시도는 하겠지만 영원히 도달할 수 없는 지점일 수 있다.
+다양한 기술들을 경험할 수 있을진 몰라도, 우리의 삶은 샵링크를 만들때와 크게 달라져 있지 않을수도 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Single Responsibility&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://cdn.myswissarmyknife.com.au/media/catalog/product/cache/36/image/650x/040ec09b1e35df139433887a97daa66f/v/i/victorinox-0.6910-excelsior-without-key-ring-swiss-pocket-knife.jpg&#34; style=&#34;width: 250px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;이 관점을 유지해야 한다.
+복잡한 기능이 한꺼번에 다 들어가 있는 것이 아니라 용도에 맞는 기능 한 가지만을 충실히 수행하는 서비스.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;어떻게 하면 서비스는 한가지 일만 하도록 할 수 있을까?&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;새로운 기능을 추가해야 할 때, 이 기능이 어떤 기능인지 두번, 세번, 네번, 다섯번까지 곱씹으면서 질문해야 한다.
+고객은 왜 이 기능을 요구했을까? 어떤 어려움 때문이었을까?
+우리가 이미 제공했던 기능들이 있는데, 그것은 왜 불편해 했을까?
+이것을 불편해 했으면 다른 것은 어떻게 느낄까?
+고객이 원하는 이것을 그대로 해 주는게 맞을까? 이 기능으로 인해 고객이 나중에 더 큰 불편함을 겪지는 않을까?
+그리고 이 기능은 어느 서비스에 어울리는 기능일까?
+이 서비스에 구현하는게 맞을까?&lt;/p&gt;
+
+&lt;p&gt;얼마전 PangPang에 사용자에 따라 기능에 제한을 두기 위해 권한을 적용해 보았다.
+이것을 하면서 우리가 샵링크 방식에 얼마나 익숙해져 있는지를 알게 되었다.
+샵링크는 조직 구성과 사용자의 직책이 권한과 그대로 연결되어 있다.
+그래서 조직 구성이 바뀌거나 새로운 직책이 생기게 되면, 그것이 권한 체계를 뒤흔들게 된다.
+고객 입장에서 새롭게 조직을 구성하거나 새로운 직책을 만드는 일은 자연스러운 일이다.
+고객은 시장의 변화에 맞게 자연스럽게 일을 했을 뿐인데, 그것이 우리에게는 시스템 전체를 수정해야 할 큰 일이 될 수도 있다.
+그리고 그것은 고객의 비즈니스에 커다란 걸림돌이 되어 버린다.&lt;/p&gt;
+
+&lt;p&gt;조직 구성이나 직책은 회사마다 다르다.
+사용자의 계정과 권한을 관리하는 서비스가 조직 구성이나 사용자 직책에 묶여 있다면,
+그 서비스는 계정과 권한을 관리하는 기능 뿐만 아니라, 조직관리, 사용자 직책관리등의 일까지 하고 있는 것이다.
+조직관리, 사용자 직책관리등의 일은 Account Service가 관여할 일이 아니다.
+그래서 조직구성/직책과 별개로 Role을 정의하고 Role과 사용자를 연결시켰다.
+그리고 Role별로 기능에 제한을 두도록 했다.
+물론 한 사람이 여러개의 Role을 가질 수 있다.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;+---- Account Service ---------+
+|                              |
+|                              |
+|   +------+         +------+  |
+|   | Role +---------+ User |  |
+|   +--+---+         +------+  |
+|      |                       |
+|  +---+------+                |
+|  |Permission|                |
+|  +----------+                |
+|                              |
++------------------------------+
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;이렇게 Role 기반으로 기능에 제한을 두도록 하면 조직 구성이 어떠하든, 사용자의 직책이 어떠하든 자유롭게 서비스의 동작을 제어할 수 있다.
+회사마다 자신들의 정책에 맞게 Role을 구성하면 된다.&lt;/p&gt;
+
+&lt;p&gt;어찌보면 자연스러운 생각인데, CSL 방식만을 경험했던 우리들에게는 아주 생소한 이야기였다.&lt;/p&gt;
+
+&lt;p&gt;최근 티니위니를 매각하면서 우리에게 할당된 큰 과제가 하나 있다.
+바로 티니위니 데이터를 분리해내는 것이다.
+이것이 우리에게 아주 큰 과제로 다가온 이유는, 우리의 시스템은 single-tenant 시스템이기 때문이다.&lt;/p&gt;
+
+&lt;p&gt;우리에는 단 하나의 고객만 있다고 생각하고 시스템을 만들어 왔었다.
+근데, 다 같은 고객이라 생각했던 티니위니가 이제 다른 고객이 되어 버렸다.
+즉, 티니위니 사람들은 티니위니 정보에만 접근해야 하고, 티니위니가 아닌 사람들은 티니위니 정보에 절대로 접근해서는 안된다.
+하나의 서비스 내에 이런 속성들이 생긴 것이다.&lt;/p&gt;
+
+&lt;p&gt;multitenant 관점으로 본다면, 여러 고객의 정보가 하나의 database에 들어 있을 수 있지만, 다른 고객의 정보는 절대 노출되어선 안된다.
+multi tenant 서비스에서는 이러한 것은 아무 문제가 아니다.&lt;/p&gt;
+
+&lt;p&gt;어떻게 하면 기능과 정보와 정책을 분리해서 다양한 고객이 사용할 수 있게 할 것인가?&lt;/p&gt;
+
+&lt;p&gt;더 나아가 tenant별로 데이터까지 완벽하게 분리되어야 한다고 생각해보자.
+서비스를 어떻게 구성해야 이것이 가능할까?&lt;/p&gt;
+
+&lt;h2 id=&#34;todo&#34;&gt;TODO&lt;/h2&gt;
+
+&lt;p&gt;처음 여러분들이 궁금했던 질문들은 대부분 기술적인 것들이었다.
+물론 그러한 궁금증도 아주 중요하고, 그것을 학습하고 소화해내는 것도 아주 중요하다.
+그러한 요소들이 제대로 된 microservice를 실현하는데 아주 큰 도움을 줄 것이다.
+하지만 microservice가 무엇인지, multi tenancy가 무엇인지에 대한 고민없이 접근한다면
+그것은 단순히 나의 기술적인 배경을 넓혀 줄 뿐이지 그것 자체로 우리의 일하는 방식이 바뀌지는 않을 것이다.&lt;/p&gt;
+
+&lt;p&gt;다시 말하지만 microservice는 단순히 다양한 기술을 조합하는 것이 아니다.
+지금 내가 맡고 있는 그 서비스의 집적도를 계속해서 높여나가고, 계속해서 그 한가지의 일에 끈질기게 매달리는 팀이, 제대로 된 microservice를 하는 팀이 될 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://upload.wikimedia.org/wikipedia/commons/4/47/Breadboard_complex.jpg&#34; style=&#34;width: 400px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;지금 내가 운영하고 있는 서비스가 위와 같은 모습일지도 모른다.
+하지만 조금씩, 끈질기게, 서비스의 집적도를 높여가기 위해 노력한다면 이렇게 점점 서비스가 정돈되어지지 않을까?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://tangentsoft.net/elec/bitmaps/iguana-breadboard.jpg&#34; style=&#34;width: 250px;&#34;/&gt;
+&lt;img src=&#34;https://cdn.instructables.com/FU0/11AZ/GYGF8IV4/FU011AZGYGF8IV4.MEDIUM.jpg&#34; style=&#34;width: 250px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;그리고 언젠가는 우리의 서비스도 이렇게 정교한 모습으로 다듬어지지 않을까?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ncc.phinf.naver.net/ncc01/2012/2/6/268/1.jpg&#34; style=&#34;width: 400px;&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;마지막으로 microservice를 아주 잘 표현주고 있는 영상 하나를 소개한다.&lt;/p&gt;
+
+&lt;iframe width=&#34;854&#34; height=&#34;480&#34; src=&#34;https://www.youtube.com/embed/Us-TVg40ExM&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;전세계에 있는 길거리 뮤지션들의 소리로 하나의 음악을 만들고 있다.&lt;/p&gt;
+
+&lt;p&gt;이게 바로 microservice architecture라고 생각한다.
+각 뮤지션들은, 자신의 소리을 충실하게 표현하고 있다.
+그리고 그것을 누군가는 하나로 만들어간다.
+이 모든것이 하나로 어우러져 우리 귀에 멋진 음악으로 들린다.&lt;/p&gt;
+
+&lt;p&gt;microservice를 하는 우리들의 머리속에 이런 이미지가 자리잡혔으면 좋겠다.&lt;br /&gt;
+그리고, 우리도 우리 고객에게 이런것을 줄 수 있으면 좋겠다.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
