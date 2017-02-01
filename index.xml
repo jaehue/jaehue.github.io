@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jaehue&#39;s</title>
-    <link>/index.xml</link>
+    <link>https://jaehue.github.io/index.xml</link>
     <description>Recent content on Jaehue&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <copyright>&amp;copy; All Rights Reserved.</copyright>
     <lastBuildDate>Wed, 21 Sep 2016 22:04:23 +0800</lastBuildDate>
-    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://jaehue.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Microservice in PangPang</title>
-      <link>/post/microservice_in_pangpang/</link>
+      <link>https://jaehue.github.io/post/microservice_in_pangpang/</link>
       <pubDate>Wed, 21 Sep 2016 22:04:23 +0800</pubDate>
       
-      <guid>/post/microservice_in_pangpang/</guid>
+      <guid>https://jaehue.github.io/post/microservice_in_pangpang/</guid>
       <description>
 
 &lt;h1 id=&#34;microservice-in-pangpang&#34;&gt;Microservice in PangPang&lt;/h1&gt;
