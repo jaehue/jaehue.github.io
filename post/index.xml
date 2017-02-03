@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Post-rsses on Jaehue&#39;s</title>
-    <link>http://jaehue.jaehue.io/post/index.xml</link>
+    <link>http://jaehue.jang.io/post/index.xml</link>
     <description>Recent content in Post-rsses on Jaehue&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <copyright>&amp;copy; All Rights Reserved.</copyright>
     <lastBuildDate>Wed, 21 Sep 2016 22:04:23 +0800</lastBuildDate>
-    <atom:link href="http://jaehue.jaehue.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://jaehue.jang.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Microservice in PangPang</title>
-      <link>http://jaehue.jaehue.io/post/microservice_in_pangpang/</link>
+      <link>http://jaehue.jang.io/post/microservice_in_pangpang/</link>
       <pubDate>Wed, 21 Sep 2016 22:04:23 +0800</pubDate>
       
-      <guid>http://jaehue.jaehue.io/post/microservice_in_pangpang/</guid>
+      <guid>http://jaehue.jang.io/post/microservice_in_pangpang/</guid>
       <description>
 
 &lt;h1 id=&#34;microservice-in-pangpang&#34;&gt;Microservice in PangPang&lt;/h1&gt;
@@ -259,10 +259,10 @@ multi tenant 서비스에서는 이러한 것은 아무 문제가 아니다.&lt;
     
     <item>
       <title>2015년 12월의 생각 </title>
-      <link>http://jaehue.jaehue.io/post/20151227/</link>
+      <link>http://jaehue.jang.io/post/20151227/</link>
       <pubDate>Sun, 27 Dec 2015 00:19:01 +0900</pubDate>
       
-      <guid>http://jaehue.jaehue.io/post/20151227/</guid>
+      <guid>http://jaehue.jang.io/post/20151227/</guid>
       <description>&lt;p&gt;이제 이틀후면 한국을 떠난다. 그리고 중국으로 간다. 언제까지 중국에 있냐고 묻는 사람들이 많지만, 사실 계획이 없다 ㅎ
 3주전에 대부분의 짐을 컨테이너에 실어 보냈고, 엊그제 나머지 짐을 EMS로 보냈다. 이제 비행기 타고 출국하는 일만 남았다.&lt;/p&gt;
 
