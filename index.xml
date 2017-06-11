@@ -2,32 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Jaehue&#39;s</title>
-    <link>https://jaehue.github.io/</link>
+    <link>/</link>
     <description>Recent content on Jaehue&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <copyright>&amp;copy; All Rights Reserved.</copyright>
     <lastBuildDate>Wed, 21 Sep 2016 22:04:23 +0800</lastBuildDate>
     
-	<atom:link href="https://jaehue.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Microservice in PangPang</title>
-      <link>https://jaehue.github.io/post/microservice_in_pangpang/</link>
+      <link>/post/microservice_in_pangpang/</link>
       <pubDate>Wed, 21 Sep 2016 22:04:23 +0800</pubDate>
       
-      <guid>https://jaehue.github.io/post/microservice_in_pangpang/</guid>
+      <guid>/post/microservice_in_pangpang/</guid>
       <description>사내 세미나 전 생각 정리를 위한 글
  회고 올해 4월부터 micro-service를 지향하면서 일을 해 왔다. 사실 별로 커 보이지도 않는 기능들을 다양한 서비스로 나누고, 여러 팀에서 나누어 개발을 해 왔다. 기능적으로 본다면, 샵링크(중국 5000여개 매장의 판매 업무를 총괄하는 시스템)와는 비교도 되지 않을 정도로 작고, 그룹웨어보다도 훨씬 작은 싸이즈이다. 그 큰 시스템도 하나의 서비스로 잘 돌아가고 있는데 POS를 통해 위챗 쿠폰을 사용할 수 있게 하자는 단순한 요구를 위해 OO개의 팀에서 OO개의 서비스를 만들었다.</description>
     </item>
     
     <item>
       <title>책 발간을 앞두고</title>
-      <link>https://jaehue.github.io/post/20160327/</link>
+      <link>/post/20160327/</link>
       <pubDate>Sun, 27 Mar 2016 23:43:47 +0900</pubDate>
       
-      <guid>https://jaehue.github.io/post/20160327/</guid>
+      <guid>/post/20160327/</guid>
       <description>2014년 12월에 쓰기 시작했던 책이 이제야 완성이 됐다.
 부끄럽고 민망한 마음이 먼저였다. 이제 나의 부족함이 완전히 드러나 버렸다는 생각에…
 오늘 예배를 드리는데, 그런 생각이 좀 누그러졌다.
@@ -40,20 +40,20 @@ Thanks to…
     
     <item>
       <title>2015년 12월의 생각 </title>
-      <link>https://jaehue.github.io/post/20151227/</link>
+      <link>/post/20151227/</link>
       <pubDate>Sun, 27 Dec 2015 00:19:01 +0900</pubDate>
       
-      <guid>https://jaehue.github.io/post/20151227/</guid>
+      <guid>/post/20151227/</guid>
       <description>이제 이틀후면 한국을 떠난다. 그리고 중국으로 간다. 언제까지 중국에 있냐고 묻는 사람들이 많지만, 사실 계획이 없다 ㅎ 3주전에 대부분의 짐을 컨테이너에 실어 보냈고, 엊그제 나머지 짐을 EMS로 보냈다. 이제 비행기 타고 출국하는 일만 남았다.
 이번 한달은 중국으로 이동할 준비를 한다는 핑계로 일을 하지 않았다. 대학교를 졸업한 후 처음으로 &amp;ldquo;무직&amp;rdquo; 상태로 있었다. 가장 좋았던 것은, 지안이와 많은 시간을 함께 할 수 있었던 것. 그리고 여러가지 생각/묵상들을 많이 할 수 있었던 것.</description>
     </item>
     
     <item>
       <title>8년간의 이랜드 생활을 마무리하며</title>
-      <link>https://jaehue.github.io/post/20140331/</link>
+      <link>/post/20140331/</link>
       <pubDate>Mon, 31 Mar 2014 23:13:56 +0900</pubDate>
       
-      <guid>https://jaehue.github.io/post/20140331/</guid>
+      <guid>/post/20140331/</guid>
       <description>2006.06.26 ~ 2014.03.31
 지난 8년동안 서울 가산동을 매일같이 왔다 갔다 했다. 지금까지 살면서 어느 한 곳에 이렇게 오래 머물렀던 적이 있었던가? 대학교 갓 졸업하고, 외워서 하는 자기소개조차 버벅거리며 제대로 못했었는데 어느새 8년차 직장인이 되어있었고 이제는 벤처 세계로 한번 뛰어들어 보려고 한다.
 지난 목요일엔 부서원들이 송별회를 해 주었다. 그들이 전하는 말 속에 진심이 느껴졌고 준비한 선물에 기분이 참 좋았다. 일단은 선물 자체가 너무 마음에 들었고ㅎㅎ, 고민하며 준비했던 것이 느껴져 참 고마웠다. 아끼는 후배로부터 항상 성장하는 모습을 보여주어서, 항상 웃는 모습을 보여주어서, 좋은 회사를 만들어 주어서 감사하다는 얘기를 들었다.</description>
