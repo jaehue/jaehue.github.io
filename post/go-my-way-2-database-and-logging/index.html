@@ -368,7 +368,7 @@ logrus의 많은 기능을 활용할 것이 아니라면, 그리고 성능에 �
 
 <span style="color: #006699; font-weight: bold">func</span> Logger() echo.MiddlewareFunc {
 	logger <span style="color: #555555">:=</span> logrus.New()
-        <span style="color: #0099FF; font-style: italic">/* logger 초기화 */</span>
+        <span style="color: #0099FF; font-style: italic">/* ... logger 초기화 */</span>
 	<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(next echo.HandlerFunc) echo.HandlerFunc {
 		<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(c echo.Context) <span style="color: #007788; font-weight: bold">error</span> {
 			logEntry <span style="color: #555555">:=</span> logrus.NewEntry(logger)                        
