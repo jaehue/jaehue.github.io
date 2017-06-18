@@ -357,6 +357,8 @@ logrus의 많은 기능을 활용할 것이 아니라면, 그리고 성능에 �
 
 <p><div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">func</span> main() {
 	e <span style="color: #555555">:=</span> echo.New()
+
+	<span style="color: #0099FF; font-style: italic">// 각 request마다 고유의 ID를 부여</span>
 	e.Use(middleware.RequestID())
 	e.Use(Logger())
 
