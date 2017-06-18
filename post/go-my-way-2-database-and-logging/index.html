@@ -380,6 +380,7 @@ logrus의 많은 기능을 활용할 것이 아니라면, 그리고 성능에 �
 			}
                         logEntry = logEntry.WithField(<span style="color: #CC3300">&quot;request_id&quot;</span>, id)
 
+			<span style="color: #0099FF; font-style: italic">// logEntry를 Context에 저장</span>
 			req <span style="color: #555555">:=</span> c.Request()
 			c.SetRequest(req.WithContext(
 				context.WithValue(
