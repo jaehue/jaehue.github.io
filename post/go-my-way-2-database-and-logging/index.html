@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://jaehue.github.io/stylesheets/shiori.css">
+    <link href='//fonts.googleapis.com/css?family=Montserrat:700,400' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="https://jaehue.github.io/favicon.ico">
+    <title>Go My Way #2 - 데이터베이스, 로깅 | Jaehue&#39;s</title>
+    
+    
+
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="navbar-toggle-wrapper visible-xs">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".js-navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <a href="https://jaehue.github.io/" class="navbar-brand">Jaehue&#39;s</a>
+        </div>
+        <div class="collapse navbar-collapse js-navbar-collapse">
+          <ul class="navbar-nav nav">
+            <li><a href="https://jaehue.github.io/post">Archive</a></li>
+
+          </ul>
+          <ul class="navbar-nav nav navbar-right">
+            
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+
+<div class="row">
+  <div class="col-sm-8">
+    <div class="post-header">
+      <h1 class="post-title-main">Go My Way #2 - 데이터베이스, 로깅</h1>
+      <p class="text-muted">Jun 14, 2017</p>
+
+    </div>
+    <div class="post-content">
+      
+
+<p><code>Go My Way</code>는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다.
+이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.</p>
+
+<ul>
+<li><a href="https://jaehue.github.io/post/go-my-way-1-webframework/">Go My Way #1 - 웹 프레임워크</a></li>
+<li>Go My Way #2 - 데이터베이스, 로깅</li>
+<li>Go My Way #3 - Configuration, Tracing, etc.</li>
+<li>번외 - gomobile</li>
+</ul>
+
+<p>이번 글에서는 <code>데이터베이스</code>와 <code>로깅</code>에 대해 소개하겠다.</p>
+
+<h1 id="데이터베이스">데이터베이스</h1>
+
+<p>다른 언어에서 주로 사용하던 ORM(루비의 active record, 닷넷의 entityframework, 자바의 JPA, 등)을 생각한다면 Go의 DB 관련 패키지들은 대부분 <del>2%</del> 20% 이상 부족하다.
+대신 Go 진영에서는 ORM에 대해 회의적인 이야기가 종종 나온다.
+&ldquo;<em>Go의 ORM 툴 중에서 어떤 게 좋은가?</em>&rdquo; 라는 질문<small>(<a href="https://www.reddit.com/r/golang/comments/3ajqa6/golang_which_orm_is_better/">Golang which ORM is better</a>)</small>에, 그냥 가벼운 query mapper 정도의 기능으로 충분하다는 의견이 대부분이고,
+자신은 네이티브 쿼리를 직접 사용하는 것을 선호한다는 의견을 피력한 글<small>(<a href="https://medium.com/bumpers/our-go-is-fine-but-our-sql-is-great-b4857950a243">Our Go is fine but our SQL is great</a>)</small>도 있다.</p>
+
+<p>Go 진영의 전반적인 분위기로는 Active Record나 Hibernate와 같은 똑똑한 ORM은 등장하지 않을 것으로 보인다.</p>
+
+<p>나도 이전에는 DB 접근 시에는 당연히 ORM을 사용해야 한다는 생각을 하고 있었고, 또 네이티브 쿼리를 쓰는 것보다 ORM에서 제공하는 추상화된 DSL을 사용하는 것이 더 똑똑한 방법이라는 근거 없는 생각이 자리 잡고 있었다.
+왜 그렇게 생각했었을까?
+모든 코드는 객체지향스럽게 작성해야 한다는 강박관념이 있었고, 그래서 2차원적으로 테이블을 다루는 쿼리문은 웬지 수준이 낮다고 생각했었나보다.</p>
+
+<p>모델링을 하는 것과 실제 DB를 처리하는 방식은 별개로 생각해야 한다.
+모델을 잘 정의하고 모델 기반으로 전체 프로그램이 동작하도록 한다면 DB 처리 방식은 그렇게 중요하지 않을 수 있다. 네이티브 쿼리를 쓰든, ORM을 쓰든, 적당히 썩어 쓰든, 그 안에서 최적의 방식을 찾아가는게 맞다고 본다.
+Go를 계속해서 사용하다 보니 이론보다는 실용성 관점으로 문제에 접근하게 되었고(그것이 바로 Go의 철학)
+ORM에 대한 Go 진영의 이런 의견에 어느 정도 동의가 되었다.
+<small>(동의 안 하면 어쩔..? 직접 만들 능력은 안 되고, 나를 적응시켜야지 ㅋ)</small></p>
+
+<p>허접스러운 Go의 ORM 도구에 대한 변명은 이 정도로 하고,</p>
+
+<h2 id="xorm">xorm</h2>
+
+<p>그래서 내가 선택한 것은 <a href="http://xorm.io/">xorm</a>이다.
+<a href="https://github.com/jinzhu/gorm">gorm</a>을 오랫동안 써 오다가
+xorm의 한가지 기능이 마음에 들어 xorm으로 갈아탔다.
+xorm은 필드의 타입이 built-in 타입이 아니라면(slice, map, custom type) JSON 문자열로 변환해준다.</p>
+
+<p>예를들면,
+<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">type</span> Product <span style="color: #006699; font-weight: bold">struct</span> {
+	Id     <span style="color: #007788; font-weight: bold">int64</span>
+	Images <span style="color: #006699; font-weight: bold">map</span>[<span style="color: #007788; font-weight: bold">string</span>]Image
+}
+<span style="color: #006699; font-weight: bold">type</span> Image <span style="color: #006699; font-weight: bold">struct</span> {
+	URL    <span style="color: #007788; font-weight: bold">string</span>
+	Width  <span style="color: #007788; font-weight: bold">int32</span>
+	Height <span style="color: #007788; font-weight: bold">int32</span>
+}
+</pre></div>
+
+위와 같이 <code>Product</code>에 Images 필드의 타입을 <code>map[string]Image</code>로 정의하면, xorm은 DB 테이블에 <code>images</code> 필드를 <code>text</code> 타입으로 만들고, <code>map[string]Image</code>를 JSON 문자열로 저장한다.
+DB에서 데이터를 읽을때도 마찬가지, JSON 문자열을 <code>map[string]Image</code> 타입으로 변환해준다.
+당연히, 실제 DB 필드와의 매핑 룰을 재정의 할 수도 있다. 아래의 <a href="https://github.com/go-xorm/core/blob/master/converstion.go#L5"><code>Conversion</code> interface</a>에 정의된 메쏘드를 구현하면 된다.
+<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #0099FF; font-style: italic">// https://github.com/go-xorm/core/blob/master/converstion.go#L5</span>
+<span style="color: #006699; font-weight: bold">type</span> Conversion <span style="color: #006699; font-weight: bold">interface</span> {
+    FromDB([]<span style="color: #007788; font-weight: bold">byte</span>) <span style="color: #007788; font-weight: bold">error</span>
+    ToDB() ([]<span style="color: #007788; font-weight: bold">byte</span>, <span style="color: #007788; font-weight: bold">error</span>)
+}
+</pre></div>
+</p>
+
+<p>우리 회사의 비즈니스는 유동적이라서 모델의 형태를 확정하기 어려운 경우가 많다.
+그런 유동적인 데이터는 필드의 타입을 확정하지 않고 그냥 JSON으로 변환하여 하나의 필드에 저장한다.
+xorm을 쓰기 이 전에는,
+위에서 예로 든 <code>Images</code>를 저장하기 위해 JSON 문자열 저장용 필드인 <code>ImagesRaw</code> 필드를 <code>string</code> 타입으로 만들고 DB에는 <code>ImagesRaw</code> 필드만 저장한다. <code>Product</code>에 대해 CRU<small>(Create/Read/Update)</small> 작업을 할때마다 JSON 변환 작업을 해 주어야 한다.
+여간 귀찮은 일이 아니었다.
+xorm에는 이 기능이 내장되어 있어서 아주 편리하다.</p>
+
+<h2 id="다른-db-도구와의-비교">다른 DB 도구와의 비교</h2>
+
+<p><a href="https://github.com/avelino/awesome-go#database">awesome-go 페이지</a>에 보면 정말 많은 DB 관련 패키지가 있다. (web framework 만큼이나 많다)
+그중에서 내가 직접 사용해 본 것들만 간단하게 소개해 본다.</p>
+
+<blockquote>
+<p>참고로, <a href="https://github.com/avelino/awesome-go">awesome-go</a>에 등록된 패키지는 믿고 써도 될 것 같다.
+무작정 awesome-go에 등록해주는 것이 아니라, 내부적인 <a href="https://github.com/avelino/awesome-go/blob/master/CONTRIBUTING.md#quality-standards">검열(?) 기준</a>이 있다.
+말뿐인 기준이 아니라, 실제 이 기준에 맞게 등록을 거부하기도 하고, 이미 등록된 것이라 할지라도 기준에 부합하지 않는다면 제거하기도 한다.<br />
+그 예로, <a href="https://github.com/avelino/awesome-go/pull/1135">Remove iris from listing #1135</a>에서 <a href="https://github.com/kataras/iris">iris</a>를 제거하였고,
+이후 iris 메인 커미터가 awesome-go에 재등록 요청을 했지만(<a href="https://github.com/avelino/awesome-go/pull/1137">Re-add Iris #1137</a>) 또다시 거부당했다.
+이런 사례를 보면 꽤 엄격하게 퀄리티를 관리하는 것 같다.</p>
+</blockquote>
+
+<h2 id="gorp-https-github-com-go-gorp-gorp"><a href="https://github.com/go-gorp/gorp">gorp</a></h2>
+
+<p>쿼리 실행 결과를 struct에 바인딩해준다.<br />
+<code>an ORM-ish library for Go</code>라고 소개하고 있지만, ORM은 아니 것 같음.<br />
+단순한 query mapper.<br />
+한국 개발자들에게 익숙한 ibatis와 유사하다</p>
+
+<h2 id="sqlx-https-github-com-jmoiron-sqlx"><a href="https://github.com/jmoiron/sqlx">sqlx</a></h2>
+
+<p>단순한 query mapper. gorp와 유사하다.<br />
+gorp에 비해 sqlx가 좀 더 활동이 활발하고 사용하는데도 많은 것 같다.<br />
+단순히 쿼리 결과를 struct에 받아오고 싶다면 sqlx를 추천한다.</p>
+
+<h2 id="gorm-https-github-com-jinzhu-gorm"><a href="https://github.com/jinzhu/gorm">gorm</a></h2>
+
+<p>struct를 기반으로 CRUD 기능을 제공한다. (기본적인 ORM 기능)<br />
+모델 간 Associations<small><em>(belongs-to, has-one, has-many, many-to-many, polymorphism)</em></small>를 정의할 수 있다.
+하지만 실제 사용해보면 불편한 부분이 많다. 연관된 모델을 알아서(?) 가져오지 않는다.
+<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">type</span> User <span style="color: #006699; font-weight: bold">struct</span> { 
+        ID       <span style="color: #007788; font-weight: bold">int64</span>
+        Emails   []Email
+}
+<span style="color: #006699; font-weight: bold">type</span> Email <span style="color: #006699; font-weight: bold">struct</span> {
+        ID      <span style="color: #007788; font-weight: bold">int64</span>
+        UserID  <span style="color: #007788; font-weight: bold">int64</span>
+}
+</pre></div>
+
+위와 같이 has-many 관계로 모델을 정의했을때, <code>User</code>의 <code>Emails</code>를 가져오려면, 아래와 같이 추가 코드를 작성해야 한다.
+<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">db.Model(<span style="color: #555555">&amp;</span>user).Related(<span style="color: #555555">&amp;</span>emails)
+</pre></div>
+
+직접 써보면, gorm이 제공하는 Associations 기능이 큰 도움이 안된다.</p>
+
+<p>like 수는 gorm이 제일 많다.</p>
+
+<h2 id="xorm-http-xorm-io"><a href="http://xorm.io/">xorm</a></h2>
+
+<p>struct를 기반으로 CRUD 기능을 제공한다(기본적인 ORM 기능).
+gorm과 유사하다.<br />
+모델 간 Associations을 정의하는 기능은 없다.<br />
+캐싱 기능을 제공한다.<br />
+built-in 타입이 아닌 필드는 JSON으로 변환해 준다.</p>
+
+<h2 id="squirrel-https-github-com-masterminds-squirrel"><a href="https://github.com/Masterminds/squirrel">squirrel</a></h2>
+
+<p>가벼운 query builder. Go 코드로 쿼리를 생성한다.<br />
+이런 느낌이다.
+<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">sql, args, err <span style="color: #555555">:=</span> sq.
+        Select(<span style="color: #CC3300">&quot;*&quot;</span>).
+        From(<span style="color: #CC3300">&quot;users&quot;</span>).
+        Join(<span style="color: #CC3300">&quot;emails USING (email_id)&quot;</span>).
+        Where(sq.Eq{<span style="color: #CC3300">&quot;deleted_at&quot;</span>: <span style="color: #006699; font-weight: bold">nil</span>}).
+        ToSql()
+<span style="color: #0099FF; font-style: italic">// SELECT * FROM users JOIN emails USING (email_id) WHERE deleted_at IS NULL</span>
+</pre></div>
+
+<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">sql, args, err <span style="color: #555555">:=</span> sq.
+        Insert(<span style="color: #CC3300">&quot;users&quot;</span>).Columns(<span style="color: #CC3300">&quot;name&quot;</span>, <span style="color: #CC3300">&quot;age&quot;</span>).
+        Values(<span style="color: #CC3300">&quot;moe&quot;</span>, <span style="color: #FF6600">13</span>).Values(<span style="color: #CC3300">&quot;larry&quot;</span>, sq.Expr(<span style="color: #CC3300">&quot;? + 5&quot;</span>, <span style="color: #FF6600">12</span>)).
+        ToSql()
+<span style="color: #0099FF; font-style: italic">// INSERT INTO users (name,age) VALUES (?,?),(?,? + 5)</span>
+</pre></div>
+
+하지만 이렇게 만들어진 쿼리를 실행하려면, <code>database/sql</code> 패키지를 직접 사용해서 쿼리를 실행하고 결과를 받아와야 한다.
+squirrel과 sqlx를 함께 쓰는 것도 좋은 방법이다.(굳이 그렇게 쓸 거면 차라리 딴 거를&hellip;)</p>
+
+<h2 id="활용">활용</h2>
+
+<p>데이터베이스 처리를 위한 패키지를 선택했다면, 실제 어플리케이션에서 DB 객체를 사용하는 방법에 대해서도 다양한 케이스가 있다.
+며칠 전 페이스북 Golang Korea 그룹에도 <a href="https://www.facebook.com/groups/golangko/permalink/772578392919642/">DB 객체 관리에 대한 질문</a>이 올라왔었고, 많은 분이 좋은 답변을 주셨다.</p>
+
+<p>나는 웹 어플리케이션을 작성할 때,
+<code>main</code>에서 DB 객체를 만들고,
+미들웨어를 통해 request마다 DB 세션을 만들어 request 내부의 <code>context</code>로 전달한다.
+이렇게 하는 이유는 트랜잭션 관리 때문이다.
+핸들러에서 트랜잭션 처리를 매번 해 주는 불편함을 없애기 위해, 트랜잭션 처리 코드를 미들웨어로 옮겼다.</p>
+
+<p><div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">main(){
+        <span style="color: #0099FF; font-style: italic">/* ... */</span>
+	db, err <span style="color: #555555">:=</span> xorm.NewEngine(driver, connection)
+	<span style="color: #006699; font-weight: bold">if</span> err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
+		<span style="color: #336666">panic</span>(err)
+	}
+	<span style="color: #006699; font-weight: bold">defer</span> db.Close()
+
+        e <span style="color: #555555">:=</span> echo.New()
+        e.Use(dbContext(db))
+        <span style="color: #0099FF; font-style: italic">/* ... */</span>
+}
+
+<span style="color: #006699; font-weight: bold">func</span> dbContext(db <span style="color: #555555">*</span>xorm.Engine) echo.MiddlewareFunc {	
+	<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(next echo.HandlerFunc) echo.HandlerFunc {
+		<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(c echo.Context) <span style="color: #007788; font-weight: bold">error</span> {
+			session <span style="color: #555555">:=</span> db.NewSession()
+			<span style="color: #006699; font-weight: bold">defer</span> session.Close()
+
+			req <span style="color: #555555">:=</span> c.Request()
+			c.SetRequest(req.WithContext(
+				context.WithValue(
+					req.Context(),
+					<span style="color: #CC3300">&quot;DB&quot;</span>,
+					session,
+				),
+			))
+
+			<span style="color: #006699; font-weight: bold">switch</span> req.Method {
+			<span style="color: #006699; font-weight: bold">case</span> <span style="color: #CC3300">&quot;POST&quot;</span>, <span style="color: #CC3300">&quot;PUT&quot;</span>, <span style="color: #CC3300">&quot;DELETE&quot;</span>:
+				<span style="color: #006699; font-weight: bold">if</span> err <span style="color: #555555">:=</span> session.Begin(); err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
+					<span style="color: #006699; font-weight: bold">return</span> echo.NewHTTPError(<span style="color: #FF6600">500</span>, err.Error())
+				}
+				<span style="color: #006699; font-weight: bold">if</span> err <span style="color: #555555">:=</span> next(c); err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
+					session.Rollback()
+					<span style="color: #006699; font-weight: bold">return</span> echo.NewHTTPError(<span style="color: #FF6600">500</span>, err.Error())
+				}
+				<span style="color: #006699; font-weight: bold">if</span> c.Response().Status <span style="color: #555555">&gt;=</span> <span style="color: #FF6600">500</span> {
+					session.Rollback()
+					<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">nil</span>
+				}
+				<span style="color: #006699; font-weight: bold">if</span> err <span style="color: #555555">:=</span> session.Commit(); err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
+					<span style="color: #006699; font-weight: bold">return</span> echo.NewHTTPError(<span style="color: #FF6600">500</span>, err.Error())
+				}
+			<span style="color: #006699; font-weight: bold">default</span>:
+				<span style="color: #006699; font-weight: bold">if</span> err <span style="color: #555555">:=</span> next(c); err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
+					<span style="color: #006699; font-weight: bold">return</span> echo.NewHTTPError(<span style="color: #FF6600">500</span>, err.Error())
+				}
+			}
+
+			<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">nil</span>
+		}
+	}
+}
+</pre></div>
+
+database connection의 스코프는 global 이지만, 트랜잭션 처리를 위해 request마다 세션을 만드는 경우 database session의 스코프는 request 단위가 된다.
+이런 경우는 request scoped 단위로 관리되는 Context에 보관하는 것이 바르다고 생각한다.
+DB에 접근할때는 Context에서 DB 세션을 가져와서 사용한다.
+<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">func</span> (Model) GetById(ctx context.Context, id <span style="color: #007788; font-weight: bold">int64</span>) (<span style="color: #555555">*</span>Model, <span style="color: #007788; font-weight: bold">error</span>) {
+	db <span style="color: #555555">:=</span> ctx.Value(<span style="color: #CC3300">&quot;DB&quot;</span>).(<span style="color: #555555">*</span>xorm.Session)
+	<span style="color: #006699; font-weight: bold">var</span> v Model
+	<span style="color: #006699; font-weight: bold">if</span> has, err <span style="color: #555555">:=</span> db.ID(id).Get(<span style="color: #555555">&amp;</span>v); err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
+		<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">nil</span>, err
+	} <span style="color: #006699; font-weight: bold">else</span> <span style="color: #006699; font-weight: bold">if</span> !has {
+		<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">nil</span>, <span style="color: #006699; font-weight: bold">nil</span>
+	}
+	<span style="color: #006699; font-weight: bold">return</span> <span style="color: #555555">&amp;</span>v, <span style="color: #006699; font-weight: bold">nil</span>
+}
+<span style="color: #006699; font-weight: bold">func</span> (d <span style="color: #555555">*</span>Model) Update(ctx context.Context) (err <span style="color: #007788; font-weight: bold">error</span>) {
+	db <span style="color: #555555">:=</span> ctx.Value(<span style="color: #CC3300">&quot;DB&quot;</span>).(<span style="color: #555555">*</span>xorm.Session)
+	_, err = db.ID(d.Id).Update(d)
+	<span style="color: #006699; font-weight: bold">return</span>
+}
+</pre></div>
+
+하지만 트랜잭션을 관리할 필요가 없고, 경계가 명확한 모듈 내에서라면 DB 객체를 전역으로 만들어 쓰는 방식도 나쁘지 않다고 본다.</p>
+
+<p>이 방식은 <a href="https://jaehue.github.io/post/go-my-way-1/">1편</a>에서 소개한 <a href="https://github.com/pangpanglabs/echosample">echosample</a> 프로젝트에도 적용되어 있다.</p>
+
+<h1 id="logging">Logging</h1>
+
+<p>Logging 얘기를 시작하기 전에, 또 Go의 허접스러운 <code>log</code> 패키지에 대해 변명을 좀 해야겠다. ㅋ</p>
+
+<p>Go에는 <code>log</code> 패키지가 기본으로 제공되는데, 로그 문자열을 <code>io.Writer</code>에 출력해주는 기능밖에 없다.
+대부분의 로그 라이브러리에서 사용하는 방식인 로그 레벨을 지정할 수도 없다.
+Go의 이러한 로깅 방식에 대한 <a href="https://dave.cheney.net/2015/11/05/lets-talk-about-logging">Dave Chaney의 글</a>은 지금까지 고민하지 않고 당연하게 써 오던 로그 방식에 대해 다시 한번 생각해보게 했다.</p>
+
+<p><code>warning</code>이라게 대체 뭘까? 에러도 아니고 에러가 아닌 것도 아니고, 나중에 에러가 될 것 같다는 건가? 솔직히 로그 출력 레벨을 <code>info</code>나 <code>error</code>로 해 놓지, <code>warning</code>으로 해 놓는 경우는 거의 없지 않나? (뭐 있을 수도 있고.) 지금까지의 운영 경험을 되돌아보면 <code>warning</code>과 <code>info</code>의 구분이 좀 모호했다.</p>
+
+<p><code>fatal</code> 레벨은 또 뭐지? Go의 기본 <code>log</code> 패키지에서 <code>log.Fatal()</code>은 로그를 출력함과 동시에 프로그램을 종료한다. 대부분의 leveled logging 패키지도 비슷하게 동작한다.
+그럴 거면 그냥 <code>log.Fatal()</code>을 쓰면 되지, 굳이 leveled logging 방식을 사용할 필요가 있나?</p>
+
+<p><code>error</code> 레벨에 대해서도 생각해보자. <code>error</code> 레벨로 로그를 남길 때는 에러값이 발생했을 때 에러를 처리하기 전 <code>error</code> 레벨로 로그를 남긴다. 하지만, 에러를 처리했다면 이제 그건 더이상 에러가 아니다. 그건 그냥 단순한 <code>info</code>일 뿐이다. 흠&hellip; <code>error</code>와 <code>info</code>가 같아져 버렸네.</p>
+
+<p>로그는 그냥 information을 출력하는 것. 단지 그것뿐이다.
+최소한의 기능으로 로그 패키지를 만든다면, Go에서 기본으로 제공되는 <code>log</code> 패키지와 같은 모습이지 않을까?</p>
+
+<p>하지만 실제로는 기본 <code>log</code> 패키지 대신, 많은 level-based-logging 패키지가 쓰이고 있다. (나도 마찬가지 ㅋ)</p>
+
+<h2 id="logrus">logrus</h2>
+
+<p>난 <a href="https://github.com/sirupsen/logrus">logrus</a>를 사용한다.
+써보면 제일 편하다.
+logrus로 오기까지도 꽤 긴 여정이 있었다.</p>
+
+<p>사실 가장 먼저 사용했던 로그도 logrus였다.
+하지만 <a href="https://github.com/uber-go/zap">zap</a>의 <a href="https://github.com/uber-go/zap#performance">성능 자랑질(?)</a>에 넘어가서 한동안 zap을 사용했었다.
+성능은 좋을지 몰라도, 사용하긴 좀 불편했다.
+zap은 로그 값을 넘길때 반드시 타입을 명시적으로 지정해 주어야 한다.
+<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">logger.Info(<span style="color: #CC3300">&quot;Failed to fetch URL.&quot;</span>,
+	zap.String(<span style="color: #CC3300">&quot;url&quot;</span>, url),
+	zap.Int(<span style="color: #CC3300">&quot;attempt&quot;</span>, <span style="color: #FF6600">3</span>),
+	zap.Duration(<span style="color: #CC3300">&quot;backoff&quot;</span>, time.Second),
+)
+</pre></div>
+
+저게 여간 귀찮은 일이 아니다.
+struct 값 전체를 로그로 남기고 싶은데, 각 필드를 일일이 저렇게 타입별로 넣어주어야 한다.
+물론 성능을 생각하면 저렇게 하는게 맞지만, 꼭 서비스 운영 상황이 아니더라도,
+개발중에 가볍게 로그를 남겨볼 수도 있고, 운영서비스에도 임시로 로그를 넣었다 빼는 경우도 많다.
+그럴땐 그냥 값을 통째로 남기는게 편하지, 저렇게 일일이 필드와 타입을 적는 것은 너무 귀찮은 일이다. (게다가 built-in 타입만 사용할 수 있다.)</p>
+
+<p>logrus는 지정한 Formatter(JsonFormatter, TextFormatter, Custom Formater)를 사용해 어떤 값이든 로그를 남겨준다.
+TextFormatter를 사용하면 <code>fmt.Print</code> 처럼 기본 출력 포맷으로 로그를 남겨준다.
+게다가 <small>로그 모양도 예쁘고<em>(로그가 예뻐야 개발 생산성이 좋아진다?)</em></small> 로그 액션마다 Hook을 넣을수도 있다.
+이미 누군가가 <a href="https://github.com/sirupsen/logrus#hooks">괜찮은 Hook들</a>을 많이 만들어 놓았다.</p>
+
+<p>우리는 카프카를 거쳐 Hadoop으로 모든 로그를 전송하고,
+그리고 필요한 경우 <a href="https://prestodb.io/">presto</a>를 이용해 Haddop에 있는 로그를 조회한다.
+이렇게 로그에 추가 액션을 넣고 싶을때 logrus의 Hook 기능을 사용하면 편리하다.</p>
+
+<p><a href="https://github.com/go-kit/kit/tree/master/log">go-kit log</a>도 편하긴 한데, go-kit log 역시 built-in 타입만 로그를 출력해준다.
+하지만
+logrus의 많은 기능을 활용할 것이 아니라면, 그리고 성능에 많이 신경을 써야 하는 서비스라면 <a href="https://github.com/uber-go/zap">zap</a>과 같은 다른 가벼운 logger를 사용하는 것이 나을 수도 있겠다.</p>
+
+<h2 id="활용-1">활용</h2>
+
+<p>실제 운영 상황에서 여러 request가 동시에 쏟아지는 경우, 로그에 timestamp만 남기면 하나의 request가 어떤 과정으로 처리되는지 추적하기가 어렵다.
+각 요청마다 request_id를 할당하고 그것을 함께 로그로 남기면 여러 request에 대한 로그가 뒤섞여 있어도, 하나의 request가 처리되면서 남기는 로그를 추적할 수 있다.<br />
+그래서 각 request마다 고유 request_id가 부여된 log 객체를 만들어 context로 전달했다.</p>
+
+<p><div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">func</span> main() {
+	e <span style="color: #555555">:=</span> echo.New()
+	e.Use(middleware.RequestID())
+	e.Use(Logger())
+
+        <span style="color: #0099FF; font-style: italic">/* ... */</span>
+
+}
+
+<span style="color: #006699; font-weight: bold">func</span> Logger() echo.MiddlewareFunc {
+	logger <span style="color: #555555">:=</span> logrus.New()
+        <span style="color: #0099FF; font-style: italic">/* logger 초기화 */</span>
+	<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(next echo.HandlerFunc) echo.HandlerFunc {
+		<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(c echo.Context) <span style="color: #007788; font-weight: bold">error</span> {
+			logEntry <span style="color: #555555">:=</span> logrus.NewEntry(logger)                        
+
+			<span style="color: #0099FF; font-style: italic">// Get request_id</span>
+			id <span style="color: #555555">:=</span> c.Request().Header.Get(echo.HeaderXRequestID)
+			<span style="color: #006699; font-weight: bold">if</span> id <span style="color: #555555">==</span> <span style="color: #CC3300">&quot;&quot;</span> {
+				id = c.Response().Header().Get(echo.HeaderXRequestID)
+			}
+                        logEntry = logEntry.WithField(<span style="color: #CC3300">&quot;request_id&quot;</span>, id)
+
+			req <span style="color: #555555">:=</span> c.Request()
+			c.SetRequest(req.WithContext(
+				context.WithValue(
+					req.Context(), 
+					<span style="color: #CC3300">&quot;LOG&quot;</span>, 
+					logEntry,
+				),
+			))
+
+			<span style="color: #006699; font-weight: bold">return</span> next(c)
+		}
+	}
+}
+</pre></div>
+
+echo app에 <code>middleware.RequestID()</code> 미들웨어를 추가하면 각 request마다 고유의 ID를 부여한다.
+이렇게 생성된 <code>request_id</code>를 <code>logEntry</code>에 추가한 상태로 Context 보관한다.
+로그를 사용할때는 Context에서 로그 객체를 가져와서 사용한다.
+<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">logger <span style="color: #555555">:=</span> ctx.Value(<span style="color: #CC3300">&quot;LOG&quot;</span>).(<span style="color: #555555">*</span>logrus.Entry)
+logger.WithFields(logrus.Fields{
+	<span style="color: #CC3300">&quot;url&quot;</span>:     url,
+	<span style="color: #CC3300">&quot;attempt&quot;</span>: <span style="color: #FF6600">3</span>,
+	<span style="color: #CC3300">&quot;backoff&quot;</span>: time.Second,
+}).Info(<span style="color: #CC3300">&quot;Failed to fetch URL.&quot;</span>)
+</pre></div>
+</p>
+
+<hr />
+
+<p><strong><em>이번 포스트에서 다룬 주제인 데이터베이스와 로깅은 구현 방법이 정말 다양한 것 같습니다.<br />
+더 좋은 방안에 대해 함께 논의해보면 좋겠습니다.<br />
+주저하지 말고 의견 주세요 ^^</em></strong></p>
+
+    </div>
+    <div class="post-footer">
+      <a href="https://jaehue.github.io/post" class="btn btn-primary btn-block btn-lg">View All 7 Articles →</a>
+
+    </div>
+    
+		
+ <aside><div id="disqus_thread"></div></aside> 
+
+<script type="text/javascript">
+     
+    var disqus_shortname = 'jaehue';
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  <div class="col-sm-4">
+    
+
+
+
+
+  </div>
+</div>
+      <div class="row footer">
+        <div class="col-sm-12 text-center">
+          <footer>
+
+&copy; 2015.
+Built with <a href="http://gohugo.io/">Hugo</a> (0.21) and
+<a href="https://github.com/chibicode/hugo-theme-shiori">Shiori Theme</a>.
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-91404316-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+</footer>
+
+        </div>
+      </div>
+    </div>
+    <script src="https://jaehue.github.io/javascripts/shiori.js"></script>
+    
+
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
+</html>
+

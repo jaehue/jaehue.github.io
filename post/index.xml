@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <copyright>&amp;copy; All Rights Reserved.</copyright>
-    <lastBuildDate>Mon, 12 Jun 2017 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 14 Jun 2017 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://jaehue.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go My Way #2 - 데이터베이스, 로깅</title>
+      <link>https://jaehue.github.io/post/go-my-way-2-database-and-logging/</link>
+      <pubDate>Wed, 14 Jun 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/post/go-my-way-2-database-and-logging/</guid>
+      <description>Go My Way는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다. 이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.
+ Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - Configuration, Tracing, etc. 번외 - gomobile  이번 글에서는 데이터베이스와 로깅에 대해 소개하겠다.
+데이터베이스 다른 언어에서 주로 사용하던 ORM(루비의 active record, 닷넷의 entityframework, 자바의 JPA, 등)을 생각한다면 Go의 DB 관련 패키지들은 대부분 2% 20% 이상 부족하다.</description>
+    </item>
     
     <item>
       <title>Go My Way #1 - 웹 프레임워크</title>
