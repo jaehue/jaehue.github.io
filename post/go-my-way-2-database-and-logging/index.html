@@ -373,7 +373,7 @@ logrus의 많은 기능을 활용할 것이 아니라면, 그리고 성능에 �
 		<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(c echo.Context) <span style="color: #007788; font-weight: bold">error</span> {
 			logEntry <span style="color: #555555">:=</span> logrus.NewEntry(logger)                        
 
-			<span style="color: #0099FF; font-style: italic">// Get request_id</span>
+			<span style="color: #0099FF; font-style: italic">// request_id를 가져와 logEntry에 셋팅</span>
 			id <span style="color: #555555">:=</span> c.Request().Header.Get(echo.HeaderXRequestID)
 			<span style="color: #006699; font-weight: bold">if</span> id <span style="color: #555555">==</span> <span style="color: #CC3300">&quot;&quot;</span> {
 				id = c.Response().Header().Get(echo.HeaderXRequestID)
