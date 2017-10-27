@@ -92,27 +92,23 @@ xorm의 한가지 기능이 마음에 들어 xorm으로 갈아탔다.
 xorm은 필드의 타입이 built-in 타입이 아니라면(slice, map, custom type) JSON 문자열로 변환해준다.</p>
 
 <p>예를들면,
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">type</span> Product <span style="color: #006699; font-weight: bold">struct</span> {
-	Id     <span style="color: #007788; font-weight: bold">int64</span>
-	Images <span style="color: #006699; font-weight: bold">map</span>[<span style="color: #007788; font-weight: bold">string</span>]Image
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">type</span> Product <span style="color:#069;font-weight:bold">struct</span> {
+	Id     <span style="color:#078;font-weight:bold">int64</span>
+	Images <span style="color:#069;font-weight:bold">map</span>[<span style="color:#078;font-weight:bold">string</span>]Image
 }
-<span style="color: #006699; font-weight: bold">type</span> Image <span style="color: #006699; font-weight: bold">struct</span> {
-	URL    <span style="color: #007788; font-weight: bold">string</span>
-	Width  <span style="color: #007788; font-weight: bold">int32</span>
-	Height <span style="color: #007788; font-weight: bold">int32</span>
-}
-</pre></div>
-
+<span style="color:#069;font-weight:bold">type</span> Image <span style="color:#069;font-weight:bold">struct</span> {
+	URL    <span style="color:#078;font-weight:bold">string</span>
+	Width  <span style="color:#078;font-weight:bold">int32</span>
+	Height <span style="color:#078;font-weight:bold">int32</span>
+}</code></pre></div>
 위와 같이 <code>Product</code>에 Images 필드의 타입을 <code>map[string]Image</code>로 정의하면, xorm은 DB 테이블에 <code>images</code> 필드를 <code>text</code> 타입으로 만들고, <code>map[string]Image</code>를 JSON 문자열로 저장한다.
 DB에서 데이터를 읽을때도 마찬가지, JSON 문자열을 <code>map[string]Image</code> 타입으로 변환해준다.
 당연히, 실제 DB 필드와의 매핑 룰을 재정의 할 수도 있다. 아래의 <a href="https://github.com/go-xorm/core/blob/master/converstion.go#L5"><code>Conversion</code> interface</a>에 정의된 메쏘드를 구현하면 된다.
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #0099FF; font-style: italic">// https://github.com/go-xorm/core/blob/master/converstion.go#L5</span>
-<span style="color: #006699; font-weight: bold">type</span> Conversion <span style="color: #006699; font-weight: bold">interface</span> {
-    FromDB([]<span style="color: #007788; font-weight: bold">byte</span>) <span style="color: #007788; font-weight: bold">error</span>
-    ToDB() ([]<span style="color: #007788; font-weight: bold">byte</span>, <span style="color: #007788; font-weight: bold">error</span>)
-}
-</pre></div>
-</p>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#09f;font-style:italic">// https://github.com/go-xorm/core/blob/master/converstion.go#L5
+</span><span style="color:#09f;font-style:italic"></span><span style="color:#069;font-weight:bold">type</span> Conversion <span style="color:#069;font-weight:bold">interface</span> {
+    FromDB([]<span style="color:#078;font-weight:bold">byte</span>) <span style="color:#078;font-weight:bold">error</span>
+    ToDB() ([]<span style="color:#078;font-weight:bold">byte</span>, <span style="color:#078;font-weight:bold">error</span>)
+}</code></pre></div></p>
 
 <p>우리 회사의 비즈니스는 유동적이라서 모델의 형태를 확정하기 어려운 경우가 많다.
 그런 유동적인 데이터는 필드의 타입을 확정하지 않고 그냥 JSON으로 변환하여 하나의 필드에 저장한다.
@@ -153,20 +149,16 @@ gorp에 비해 sqlx가 좀 더 활동이 활발하고 사용하는데도 많은 
 <p>struct를 기반으로 CRUD 기능을 제공한다. (기본적인 ORM 기능)<br />
 모델 간 Associations<small><em>(belongs-to, has-one, has-many, many-to-many, polymorphism)</em></small>를 정의할 수 있다.
 하지만 실제 사용해보면 불편한 부분이 많다. 연관된 모델을 알아서(?) 가져오지 않는다.
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">type</span> User <span style="color: #006699; font-weight: bold">struct</span> { 
-        ID       <span style="color: #007788; font-weight: bold">int64</span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">type</span> User <span style="color:#069;font-weight:bold">struct</span> { 
+        ID       <span style="color:#078;font-weight:bold">int64</span>
         Emails   []Email
 }
-<span style="color: #006699; font-weight: bold">type</span> Email <span style="color: #006699; font-weight: bold">struct</span> {
-        ID      <span style="color: #007788; font-weight: bold">int64</span>
-        UserID  <span style="color: #007788; font-weight: bold">int64</span>
-}
-</pre></div>
-
+<span style="color:#069;font-weight:bold">type</span> Email <span style="color:#069;font-weight:bold">struct</span> {
+        ID      <span style="color:#078;font-weight:bold">int64</span>
+        UserID  <span style="color:#078;font-weight:bold">int64</span>
+}</code></pre></div>
 위와 같이 has-many 관계로 모델을 정의했을때, <code>User</code>의 <code>Emails</code>를 가져오려면, 아래와 같이 추가 코드를 작성해야 한다.
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">db.Model(<span style="color: #555555">&amp;</span>user).Related(<span style="color: #555555">&amp;</span>emails)
-</pre></div>
-
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">db.Model(<span style="color:#555">&amp;</span>user).Related(<span style="color:#555">&amp;</span>emails)</code></pre></div>
 직접 써보면, gorm이 제공하는 Associations 기능이 큰 도움이 안된다.</p>
 
 <p>like 수는 gorm이 제일 많다.</p>
@@ -183,22 +175,18 @@ built-in 타입이 아닌 필드는 JSON으로 변환해 준다.</p>
 
 <p>가벼운 query builder. Go 코드로 쿼리를 생성한다.<br />
 이런 느낌이다.
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">sql, args, err <span style="color: #555555">:=</span> sq.
-        Select(<span style="color: #CC3300">&quot;*&quot;</span>).
-        From(<span style="color: #CC3300">&quot;users&quot;</span>).
-        Join(<span style="color: #CC3300">&quot;emails USING (email_id)&quot;</span>).
-        Where(sq.Eq{<span style="color: #CC3300">&quot;deleted_at&quot;</span>: <span style="color: #006699; font-weight: bold">nil</span>}).
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">sql, args, err <span style="color:#555">:=</span> sq.
+        Select(<span style="color:#c30">&#34;*&#34;</span>).
+        From(<span style="color:#c30">&#34;users&#34;</span>).
+        Join(<span style="color:#c30">&#34;emails USING (email_id)&#34;</span>).
+        Where(sq.Eq{<span style="color:#c30">&#34;deleted_at&#34;</span>: <span style="color:#069;font-weight:bold">nil</span>}).
         ToSql()
-<span style="color: #0099FF; font-style: italic">// SELECT * FROM users JOIN emails USING (email_id) WHERE deleted_at IS NULL</span>
-</pre></div>
-
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">sql, args, err <span style="color: #555555">:=</span> sq.
-        Insert(<span style="color: #CC3300">&quot;users&quot;</span>).Columns(<span style="color: #CC3300">&quot;name&quot;</span>, <span style="color: #CC3300">&quot;age&quot;</span>).
-        Values(<span style="color: #CC3300">&quot;moe&quot;</span>, <span style="color: #FF6600">13</span>).Values(<span style="color: #CC3300">&quot;larry&quot;</span>, sq.Expr(<span style="color: #CC3300">&quot;? + 5&quot;</span>, <span style="color: #FF6600">12</span>)).
+<span style="color:#555">//</span> SELECT <span style="color:#555">*</span> FROM users JOIN emails USING (email_id) WHERE deleted_at IS NULL</code></pre></div>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">sql, args, err <span style="color:#555">:=</span> sq.
+        Insert(<span style="color:#c30">&#34;users&#34;</span>).Columns(<span style="color:#c30">&#34;name&#34;</span>, <span style="color:#c30">&#34;age&#34;</span>).
+        Values(<span style="color:#c30">&#34;moe&#34;</span>, <span style="color:#f60">13</span>).Values(<span style="color:#c30">&#34;larry&#34;</span>, sq.Expr(<span style="color:#c30">&#34;? + 5&#34;</span>, <span style="color:#f60">12</span>)).
         ToSql()
-<span style="color: #0099FF; font-style: italic">// INSERT INTO users (name,age) VALUES (?,?),(?,? + 5)</span>
-</pre></div>
-
+<span style="color:#555">//</span> INSERT INTO users (name,age) VALUES (<span style="color:#a00;background-color:#faa">?</span>,<span style="color:#a00;background-color:#faa">?</span>),(<span style="color:#a00;background-color:#faa">?</span>,<span style="color:#a00;background-color:#faa">?</span> <span style="color:#555">+</span> <span style="color:#f60">5</span>)</code></pre></div>
 하지만 이렇게 만들어진 쿼리를 실행하려면, <code>database/sql</code> 패키지를 직접 사용해서 쿼리를 실행하고 결과를 받아와야 한다.
 squirrel과 sqlx를 함께 쓰는 것도 좋은 방법이다.(굳이 그렇게 쓸 거면 차라리 딴 거를&hellip;)</p>
 
@@ -213,82 +201,78 @@ squirrel과 sqlx를 함께 쓰는 것도 좋은 방법이다.(굳이 그렇게 �
 이렇게 하는 이유는 트랜잭션 관리 때문이다.
 핸들러에서 트랜잭션 처리를 매번 해 주는 불편함을 없애기 위해, 트랜잭션 처리 코드를 미들웨어로 옮겼다.</p>
 
-<p><div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">main(){
-        <span style="color: #0099FF; font-style: italic">/* ... */</span>
-	db, err <span style="color: #555555">:=</span> xorm.NewEngine(driver, connection)
-	<span style="color: #006699; font-weight: bold">if</span> err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
-		<span style="color: #336666">panic</span>(err)
+<p><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">main(){
+        <span style="color:#09f;font-style:italic">/* ... */</span>
+	db, err <span style="color:#555">:=</span> xorm.NewEngine(driver, connection)
+	<span style="color:#069;font-weight:bold">if</span> err <span style="color:#555">!=</span> <span style="color:#069;font-weight:bold">nil</span> {
+		<span style="color:#366">panic</span>(err)
 	}
-	<span style="color: #006699; font-weight: bold">defer</span> db.Close()
+	<span style="color:#069;font-weight:bold">defer</span> db.Close()
 
-        e <span style="color: #555555">:=</span> echo.New()
+        e <span style="color:#555">:=</span> echo.New()
         e.Use(dbContext(db))
-        <span style="color: #0099FF; font-style: italic">/* ... */</span>
+        <span style="color:#09f;font-style:italic">/* ... */</span>
 }
 
-<span style="color: #006699; font-weight: bold">func</span> dbContext(db <span style="color: #555555">*</span>xorm.Engine) echo.MiddlewareFunc {	
-	<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(next echo.HandlerFunc) echo.HandlerFunc {
-		<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(c echo.Context) <span style="color: #007788; font-weight: bold">error</span> {
-			session <span style="color: #555555">:=</span> db.NewSession()
-			<span style="color: #006699; font-weight: bold">defer</span> session.Close()
+<span style="color:#069;font-weight:bold">func</span> dbContext(db <span style="color:#555">*</span>xorm.Engine) echo.MiddlewareFunc {	
+	<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">func</span>(next echo.HandlerFunc) echo.HandlerFunc {
+		<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">func</span>(c echo.Context) <span style="color:#078;font-weight:bold">error</span> {
+			session <span style="color:#555">:=</span> db.NewSession()
+			<span style="color:#069;font-weight:bold">defer</span> session.Close()
 
-			req <span style="color: #555555">:=</span> c.Request()
+			req <span style="color:#555">:=</span> c.Request()
 			c.SetRequest(req.WithContext(
 				context.WithValue(
 					req.Context(),
-					<span style="color: #CC3300">&quot;DB&quot;</span>,
+					<span style="color:#c30">&#34;DB&#34;</span>,
 					session,
 				),
 			))
 
-			<span style="color: #006699; font-weight: bold">switch</span> req.Method {
-			<span style="color: #006699; font-weight: bold">case</span> <span style="color: #CC3300">&quot;POST&quot;</span>, <span style="color: #CC3300">&quot;PUT&quot;</span>, <span style="color: #CC3300">&quot;DELETE&quot;</span>:
-				<span style="color: #006699; font-weight: bold">if</span> err <span style="color: #555555">:=</span> session.Begin(); err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
-					<span style="color: #006699; font-weight: bold">return</span> echo.NewHTTPError(<span style="color: #FF6600">500</span>, err.Error())
+			<span style="color:#069;font-weight:bold">switch</span> req.Method {
+			<span style="color:#069;font-weight:bold">case</span> <span style="color:#c30">&#34;POST&#34;</span>, <span style="color:#c30">&#34;PUT&#34;</span>, <span style="color:#c30">&#34;DELETE&#34;</span>:
+				<span style="color:#069;font-weight:bold">if</span> err <span style="color:#555">:=</span> session.Begin(); err <span style="color:#555">!=</span> <span style="color:#069;font-weight:bold">nil</span> {
+					<span style="color:#069;font-weight:bold">return</span> echo.NewHTTPError(<span style="color:#f60">500</span>, err.Error())
 				}
-				<span style="color: #006699; font-weight: bold">if</span> err <span style="color: #555555">:=</span> next(c); err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
+				<span style="color:#069;font-weight:bold">if</span> err <span style="color:#555">:=</span> next(c); err <span style="color:#555">!=</span> <span style="color:#069;font-weight:bold">nil</span> {
 					session.Rollback()
-					<span style="color: #006699; font-weight: bold">return</span> echo.NewHTTPError(<span style="color: #FF6600">500</span>, err.Error())
+					<span style="color:#069;font-weight:bold">return</span> echo.NewHTTPError(<span style="color:#f60">500</span>, err.Error())
 				}
-				<span style="color: #006699; font-weight: bold">if</span> c.Response().Status <span style="color: #555555">&gt;=</span> <span style="color: #FF6600">500</span> {
+				<span style="color:#069;font-weight:bold">if</span> c.Response().Status <span style="color:#555">&gt;=</span> <span style="color:#f60">500</span> {
 					session.Rollback()
-					<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">nil</span>
+					<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">nil</span>
 				}
-				<span style="color: #006699; font-weight: bold">if</span> err <span style="color: #555555">:=</span> session.Commit(); err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
-					<span style="color: #006699; font-weight: bold">return</span> echo.NewHTTPError(<span style="color: #FF6600">500</span>, err.Error())
+				<span style="color:#069;font-weight:bold">if</span> err <span style="color:#555">:=</span> session.Commit(); err <span style="color:#555">!=</span> <span style="color:#069;font-weight:bold">nil</span> {
+					<span style="color:#069;font-weight:bold">return</span> echo.NewHTTPError(<span style="color:#f60">500</span>, err.Error())
 				}
-			<span style="color: #006699; font-weight: bold">default</span>:
-				<span style="color: #006699; font-weight: bold">if</span> err <span style="color: #555555">:=</span> next(c); err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
-					<span style="color: #006699; font-weight: bold">return</span> echo.NewHTTPError(<span style="color: #FF6600">500</span>, err.Error())
+			<span style="color:#069;font-weight:bold">default</span>:
+				<span style="color:#069;font-weight:bold">if</span> err <span style="color:#555">:=</span> next(c); err <span style="color:#555">!=</span> <span style="color:#069;font-weight:bold">nil</span> {
+					<span style="color:#069;font-weight:bold">return</span> echo.NewHTTPError(<span style="color:#f60">500</span>, err.Error())
 				}
 			}
 
-			<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">nil</span>
+			<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">nil</span>
 		}
 	}
-}
-</pre></div>
-
+}</code></pre></div>
 database connection의 스코프는 global 이지만, 트랜잭션 처리를 위해 request마다 세션을 만드는 경우 database session의 스코프는 request 단위가 된다.
 이런 경우는 request scoped 단위로 관리되는 Context에 보관하는 것이 바르다고 생각한다.
 DB에 접근할때는 Context에서 DB 세션을 가져와서 사용한다.
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">func</span> (Model) GetById(ctx context.Context, id <span style="color: #007788; font-weight: bold">int64</span>) (<span style="color: #555555">*</span>Model, <span style="color: #007788; font-weight: bold">error</span>) {
-	db <span style="color: #555555">:=</span> ctx.Value(<span style="color: #CC3300">&quot;DB&quot;</span>).(<span style="color: #555555">*</span>xorm.Session)
-	<span style="color: #006699; font-weight: bold">var</span> v Model
-	<span style="color: #006699; font-weight: bold">if</span> has, err <span style="color: #555555">:=</span> db.ID(id).Get(<span style="color: #555555">&amp;</span>v); err <span style="color: #555555">!=</span> <span style="color: #006699; font-weight: bold">nil</span> {
-		<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">nil</span>, err
-	} <span style="color: #006699; font-weight: bold">else</span> <span style="color: #006699; font-weight: bold">if</span> !has {
-		<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">nil</span>, <span style="color: #006699; font-weight: bold">nil</span>
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> (Model) GetById(ctx context.Context, id <span style="color:#078;font-weight:bold">int64</span>) (<span style="color:#555">*</span>Model, <span style="color:#078;font-weight:bold">error</span>) {
+	db <span style="color:#555">:=</span> ctx.Value(<span style="color:#c30">&#34;DB&#34;</span>).(<span style="color:#555">*</span>xorm.Session)
+	<span style="color:#069;font-weight:bold">var</span> v Model
+	<span style="color:#069;font-weight:bold">if</span> has, err <span style="color:#555">:=</span> db.ID(id).Get(<span style="color:#555">&amp;</span>v); err <span style="color:#555">!=</span> <span style="color:#069;font-weight:bold">nil</span> {
+		<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">nil</span>, err
+	} <span style="color:#069;font-weight:bold">else</span> <span style="color:#069;font-weight:bold">if</span> !has {
+		<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">nil</span>, <span style="color:#069;font-weight:bold">nil</span>
 	}
-	<span style="color: #006699; font-weight: bold">return</span> <span style="color: #555555">&amp;</span>v, <span style="color: #006699; font-weight: bold">nil</span>
+	<span style="color:#069;font-weight:bold">return</span> <span style="color:#555">&amp;</span>v, <span style="color:#069;font-weight:bold">nil</span>
 }
-<span style="color: #006699; font-weight: bold">func</span> (d <span style="color: #555555">*</span>Model) Update(ctx context.Context) (err <span style="color: #007788; font-weight: bold">error</span>) {
-	db <span style="color: #555555">:=</span> ctx.Value(<span style="color: #CC3300">&quot;DB&quot;</span>).(<span style="color: #555555">*</span>xorm.Session)
+<span style="color:#069;font-weight:bold">func</span> (d <span style="color:#555">*</span>Model) Update(ctx context.Context) (err <span style="color:#078;font-weight:bold">error</span>) {
+	db <span style="color:#555">:=</span> ctx.Value(<span style="color:#c30">&#34;DB&#34;</span>).(<span style="color:#555">*</span>xorm.Session)
 	_, err = db.ID(d.Id).Update(d)
-	<span style="color: #006699; font-weight: bold">return</span>
-}
-</pre></div>
-
+	<span style="color:#069;font-weight:bold">return</span>
+}</code></pre></div>
 하지만 트랜잭션을 관리할 필요가 없고, 경계가 명확한 모듈 내에서라면 DB 객체를 전역으로 만들어 쓰는 방식도 나쁘지 않다고 본다.</p>
 
 <p>이 방식은 <a href="https://jaehue.github.io/post/go-my-way-1/">1편</a>에서 소개한 <a href="https://github.com/pangpanglabs/echosample">echosample</a> 프로젝트에도 적용되어 있다.</p>
@@ -323,13 +307,11 @@ logrus로 오기까지도 꽤 긴 여정이 있었다.</p>
 하지만 <a href="https://github.com/uber-go/zap">zap</a>의 <a href="https://github.com/uber-go/zap#performance">성능 자랑질(?)</a>에 넘어가서 한동안 zap을 사용했었다.
 성능은 좋을지 몰라도, 사용하긴 좀 불편했다.
 zap은 로그 값을 넘길때 반드시 타입을 명시적으로 지정해 주어야 한다.
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">logger.Info(<span style="color: #CC3300">&quot;Failed to fetch URL.&quot;</span>,
-	zap.String(<span style="color: #CC3300">&quot;url&quot;</span>, url),
-	zap.Int(<span style="color: #CC3300">&quot;attempt&quot;</span>, <span style="color: #FF6600">3</span>),
-	zap.Duration(<span style="color: #CC3300">&quot;backoff&quot;</span>, time.Second),
-)
-</pre></div>
-
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">logger.Info(<span style="color:#c30">&#34;Failed to fetch URL.&#34;</span>,
+	zap.String(<span style="color:#c30">&#34;url&#34;</span>, url),
+	zap.Int(<span style="color:#c30">&#34;attempt&#34;</span>, <span style="color:#f60">3</span>),
+	zap.Duration(<span style="color:#c30">&#34;backoff&#34;</span>, time.Second),
+)</code></pre></div>
 저게 여간 귀찮은 일이 아니다.
 struct 값 전체를 로그로 남기고 싶은데, 각 필드를 일일이 저렇게 타입별로 넣어주어야 한다.
 물론 성능을 생각하면 저렇게 하는게 맞지만, 꼭 서비스 운영 상황이 아니더라도,
@@ -355,58 +337,54 @@ logrus의 많은 기능을 활용할 것이 아니라면, 그리고 성능에 �
 각 요청마다 request_id를 할당하고 그것을 함께 로그로 남기면 여러 request에 대한 로그가 뒤섞여 있어도, 하나의 request가 처리되면서 남기는 로그를 추적할 수 있다.<br />
 그래서 각 request마다 고유 request_id가 부여된 log 객체를 만들어 context로 전달했다.</p>
 
-<p><div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%"><span style="color: #006699; font-weight: bold">func</span> main() {
-	e <span style="color: #555555">:=</span> echo.New()
+<p><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> main() {
+	e <span style="color:#555">:=</span> echo.New()
 
-	<span style="color: #0099FF; font-style: italic">// 각 request마다 고유의 ID를 부여</span>
-	e.Use(middleware.RequestID())
+	<span style="color:#09f;font-style:italic">// 각 request마다 고유의 ID를 부여
+</span><span style="color:#09f;font-style:italic"></span>	e.Use(middleware.RequestID())
 	e.Use(Logger())
 
-        <span style="color: #0099FF; font-style: italic">/* ... */</span>
+        <span style="color:#09f;font-style:italic">/* ... */</span>
 
 }
 
-<span style="color: #006699; font-weight: bold">func</span> Logger() echo.MiddlewareFunc {
-	logger <span style="color: #555555">:=</span> logrus.New()
-        <span style="color: #0099FF; font-style: italic">/* ... logger 초기화 */</span>
-	<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(next echo.HandlerFunc) echo.HandlerFunc {
-		<span style="color: #006699; font-weight: bold">return</span> <span style="color: #006699; font-weight: bold">func</span>(c echo.Context) <span style="color: #007788; font-weight: bold">error</span> {
-			logEntry <span style="color: #555555">:=</span> logrus.NewEntry(logger)                        
+<span style="color:#069;font-weight:bold">func</span> Logger() echo.MiddlewareFunc {
+	logger <span style="color:#555">:=</span> logrus.New()
+        <span style="color:#09f;font-style:italic">/* ... logger 초기화 */</span>
+	<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">func</span>(next echo.HandlerFunc) echo.HandlerFunc {
+		<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">func</span>(c echo.Context) <span style="color:#078;font-weight:bold">error</span> {
+			logEntry <span style="color:#555">:=</span> logrus.NewEntry(logger)                        
 
-			<span style="color: #0099FF; font-style: italic">// request_id를 가져와 logEntry에 셋팅</span>
-			id <span style="color: #555555">:=</span> c.Request().Header.Get(echo.HeaderXRequestID)
-			<span style="color: #006699; font-weight: bold">if</span> id <span style="color: #555555">==</span> <span style="color: #CC3300">&quot;&quot;</span> {
+			<span style="color:#09f;font-style:italic">// request_id를 가져와 logEntry에 셋팅
+</span><span style="color:#09f;font-style:italic"></span>			id <span style="color:#555">:=</span> c.Request().Header.Get(echo.HeaderXRequestID)
+			<span style="color:#069;font-weight:bold">if</span> id <span style="color:#555">==</span> <span style="color:#c30">&#34;&#34;</span> {
 				id = c.Response().Header().Get(echo.HeaderXRequestID)
 			}
-                        logEntry = logEntry.WithField(<span style="color: #CC3300">&quot;request_id&quot;</span>, id)
+                        logEntry = logEntry.WithField(<span style="color:#c30">&#34;request_id&#34;</span>, id)
 
-			<span style="color: #0099FF; font-style: italic">// logEntry를 Context에 저장</span>
-			req <span style="color: #555555">:=</span> c.Request()
+			<span style="color:#09f;font-style:italic">// logEntry를 Context에 저장
+</span><span style="color:#09f;font-style:italic"></span>			req <span style="color:#555">:=</span> c.Request()
 			c.SetRequest(req.WithContext(
 				context.WithValue(
 					req.Context(), 
-					<span style="color: #CC3300">&quot;LOG&quot;</span>, 
+					<span style="color:#c30">&#34;LOG&#34;</span>, 
 					logEntry,
 				),
 			))
 
-			<span style="color: #006699; font-weight: bold">return</span> next(c)
+			<span style="color:#069;font-weight:bold">return</span> next(c)
 		}
 	}
-}
-</pre></div>
-
+}</code></pre></div>
 echo app에 <code>middleware.RequestID()</code> 미들웨어를 추가하면 각 request마다 고유의 ID를 부여한다.
 이렇게 생성된 <code>request_id</code>를 <code>logEntry</code>에 추가한 상태로 Context 보관한다.
 로그를 사용할때는 Context에서 로그 객체를 가져와서 사용한다.
-<div class="highlight" style="background: #f0f3f3"><pre style="line-height: 125%">logger <span style="color: #555555">:=</span> ctx.Value(<span style="color: #CC3300">&quot;LOG&quot;</span>).(<span style="color: #555555">*</span>logrus.Entry)
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">logger <span style="color:#555">:=</span> ctx.Value(<span style="color:#c30">&#34;LOG&#34;</span>).(<span style="color:#555">*</span>logrus.Entry)
 logger.WithFields(logrus.Fields{
-	<span style="color: #CC3300">&quot;url&quot;</span>:     url,
-	<span style="color: #CC3300">&quot;attempt&quot;</span>: <span style="color: #FF6600">3</span>,
-	<span style="color: #CC3300">&quot;backoff&quot;</span>: time.Second,
-}).Info(<span style="color: #CC3300">&quot;Failed to fetch URL.&quot;</span>)
-</pre></div>
-</p>
+	<span style="color:#c30">&#34;url&#34;</span>:     url,
+	<span style="color:#c30">&#34;attempt&#34;</span>: <span style="color:#f60">3</span>,
+	<span style="color:#c30">&#34;backoff&#34;</span>: time.Second,
+}).Info(<span style="color:#c30">&#34;Failed to fetch URL.&#34;</span>)</code></pre></div></p>
 
 <p>이렇게 로그를 남기면, <code>url</code>, <code>attempt</code>, <code>backoff</code> 값과 함께 미들웨어에서 추가한 <code>request_id</code>도 함께 출력이 된다.</p>
 
@@ -452,7 +430,7 @@ logger.WithFields(logrus.Fields{
           <footer>
 
 &copy; 2015.
-Built with <a href="http://gohugo.io/">Hugo</a> (0.21) and
+Built with <a href="http://gohugo.io/">Hugo</a> (0.30) and
 <a href="https://github.com/chibicode/hugo-theme-shiori">Shiori Theme</a>.
 
 
