@@ -99,7 +99,7 @@
 한 서비스의 작은 변경사항이 전혀 예상하지 못했던 곳에서 문제를 일으키기도 한다.</p>
 
 <p>예전에는 비즈니스 로직을 파악하려면 소스코드를 한줄한줄 읽어내려가면 되었지만,
-지금과 같이 여러 서비스들간의 상호작용에 의하 하나의 기능이 완성되는 마이크로 서비스 환경에서는
+지금과 같이 여러 서비스들간의 상호작용에 의해 하나의 기능이 완성되는 마이크로 서비스 환경에서는
 서비스들의 연관관계가 명확하지 않으면 비즈니스 로직도 명확해질 수 없다.</p>
 
 <p>음.. 우리가 고객에게 제공하는 기능이 정확히 어떻게 동작하는지도 모르는 상황이 되어 버렸다.</p>
@@ -166,8 +166,8 @@ nginx에서 남기는 access log는 단순히 사용자의 접속 정보를 보�
 <li>nginx에서 모든 요청에 대해 <code>RequestID</code>를 생성하고 헤더 <code>X-Request-ID</code>에 전달.<br />
 (참고: <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#var_request_id">ngx_http_core_module.html#var_request_id</a>)</li>
 <li>각 마이크로 서비스에서는 모든 요청 처리에 대해 <code>ActionID</code> 생성.</li>
-<li>다른 마이크로 서비스를 호출할때는 <code>RequestID</code>와 자신의 <code>ActionID</code>를 헤더 <code>X-Action-ID</code>에 전달.</li>
-<li>모든 마이크로 서비스에서 요청 처리가 끝나면 헤더를 통해 전달받은 <code>RequestID</code>와 자신이 직접 생성한 <code>ActionID</code>를 로그로 남김.
+<li>다른 마이크로 서비스를 호출할때는 <code>RequestID</code>와 자신의 <code>ActionID</code>를 헤더 <code>X-Request-ID</code>, <code>X-Action-ID</code>에 전달.</li>
+<li>각 마이크로 서비스에서 요청 처리가 끝나면 헤더를 통해 전달받은 <code>RequestID</code>와 자신이 직접 생성한 <code>ActionID</code>를 로그로 남김.
 이때 Header에 <code>X-Action-ID</code>가 존재하면 그것을 <code>ParentActionID</code> 값으로 남긴다.</li>
 </ol>
 
@@ -303,7 +303,7 @@ Request의 처리 완료 상황 뿐만 아니라, 처리 과정 중에도 로그
 <p>앞서 다른 마이크로 서비스를 호출할때는 <code>RequestID</code>와 자신의 <code>ActionID</code>를 헤더에 담아서 전달한다고 설명했다.
 어렵진 않지만 이것 또한 꽤나 번거로운 작업이다.
 편의를 위해 <a href="https://github.com/pangpanglabs/goutils/tree/master/httpreq">github.com/pangpanglabs/goutils/httpreq</a> 패키지를 만들었다.
-다른 마이크로 서비스를 호춣할때는 <a href="https://github.com/pangpanglabs/goutils/tree/master/httpreq">httpreq</a> 패키지를 사용하면 편리하다.</p>
+다른 마이크로 서비스를 호출할때는 <a href="https://github.com/pangpanglabs/goutils/tree/master/httpreq">httpreq</a> 패키지를 사용하면 편리하다.</p>
 
 <p><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">var</span> v ApiResult
 statusCode, err <span style="color:#555">:=</span> httpreq.New(http.MethodPost, <span style="color:#c30">&#34;TARGET_URL&#34;</span>, param).
