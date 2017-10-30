@@ -63,14 +63,14 @@
 
 <p>이번 글에서는 <code>트레이싱</code>에 대해 소개하겠다.</p>
 
-<p>이 글을 작성하는 지금 현재 우리 회사는 클라우드 상에 00개의 마이크로 서비스가 서로 얽혀서 동작하고 있다.
-사용자의 한번의 클릭이 실제로는 여러 마이크로 서비스들을 거치고 거쳐서 최종 결과를 고객에게 보여준다.
+<p>이 글을 작성하는 지금 현재 우리 회사는 클라우드 상에 50여 개의 마이크로 서비스가 서로 얽혀서 동작하고 있다.
+사용자의 한 번의 클릭이 실제로는 여러 마이크로 서비스들을 거치고 거쳐서 최종 결과를 고객에게 보여준다.
 처리 과정 중에 비즈니스적으로 주요 행위가 일어나면 이벤트가 발생하고, consumer service가 그 이벤트를 받아서 여러 액션을 처리한다.</p>
 
 <p><img src="https://jaehue.github.io/images/tracing/microservice.png" alt="microservice" /></p>
 
 <blockquote>
-<p><small>EventBroker: 이벤트를 publish하고 subscription 하는 일련의 과정을 처리해주는 서비스. 내부적으로는 kafka를 사용해서 이벤트를 전달한다.  기본적인 이벤트 전달 기능 외에 consume service들 간 balance 조정, 로깅, offset 관리 등의 일을 처리한다.</small></p>
+<p><small>EventBroker: 이벤트를 publish하고 subscription 하는 일련의 과정을 처리해주는 서비스. 내부적으로는 kafka를 사용해서 이벤트를 전달한다.  기본적인 이벤트 전달 기능 외에 consume service간 balance 조정, 로깅, offset 관리 등의 일을 처리한다.</small></p>
 </blockquote>
 
 <p>마이크로 서비스 환경으로 1년 정도 운영을 해보니 기존의 모노리틱(monolitic) 방식과는 또 다른 어려움이 있었다.</p>
@@ -79,59 +79,59 @@
 
 <h3 id="오류를-추적하기가-어렵다">오류를 추적하기가 어렵다</h3>
 
-<p>이제 더이상 nginx의 access log와 개발자가 개별적으로 남기는 로그 만으로는 문제를 추적하기가 너무 어려워졌다.</p>
+<p>이제 더이상 nginx의 access log와 개발자가 개별적으로 남기는 로그만으로는 문제를 추적하기가 너무 어려워졌다.</p>
 
 <ul>
-<li>위와 같이 복잡한 처리 흐름이 이어지는 경우, A서비스에서는 아무 문제가 없이 처리 되었는데 C서비스는 아예 동작조차 하지 않았다.
+<li>위와 같이 복잡한 처리 흐름이 이어지는 경우, A 서비스에서는 아무 문제가 없이 처리 되었는데 C 서비스는 아예 동작조차 하지 않았다.
 프로그램상의 오류일까? 아니면 네트워크 장애인가? 어디에선가 타임아웃이 발생한 것은 아닐까?</li>
-<li>이벤트를 받아 처리해야 하는 D 서비스가 동작하지 않았다면, 도대체 어디에서 문제가 발생한 것일까? 내 서비스는 문제 없는데(<em>당연하지! 내가 짰으니!!</em>) Event Broker가 이벤트를 먹어버린걸까?</li>
+<li>이벤트를 받아 처리해야 하는 D 서비스가 동작하지 않았다면, 도대체 어디에서 문제가 발생한 것일까? 내 서비스는 문제 없는데(<em>당연하지! 내가 짰으니!!</em>) Event Broker가 이벤트를 먹어버린 걸까?</li>
 </ul>
 
 <p>다른 팀을 의심하기도 하고, 그냥 문제 해결을 포기하고 만다.
-사용자는 불편을 겪고 있는데, 문제가 무엇인지 정의할수도 없다.</p>
+사용자는 불편을 겪고 있는데, 문제가 무엇인지 정의할 수도 없다.</p>
 
 <h3 id="비즈니스-흐름을-파악하기-어렵다">비즈니스 흐름을 파악하기 어렵다</h3>
 
-<p>하나의 마이크로 서비스가 만들어지면, 어느팀이든지 그 서비스를 사용할 수 있다.
-중요한 행위에 대해 이벤트를 정의하고 그 이벤트를 발생시키면, 필요한 누군가가 그 이벤트를 <em>subscribe</em> 해서 또다른 로직을 이어간다.
+<p>하나의 마이크로 서비스가 만들어지면, 어느 팀이든지 그 서비스를 사용할 수 있다.
+중요한 행위에 대해 이벤트를 정의하고 그 이벤트를 발생시키면, 필요한 누군가가 그 이벤트를 <em>subscribe</em> 해서 또 다른 로직을 이어간다.
 이렇게 여러 팀이 개발한 서비스들이 서로 얽히고 얽혀서 하나의 요청이 처리된다.
-이렇게 되다보니 사용자가 버튼 하나를 클릭했을 때 어떤 일이 일어나는지 파악하는 것은 거의 불가능해졌다.
+이렇게 되다 보니 사용자가 버튼 하나를 클릭했을 때 어떤 일이 일어나는지 파악하는 것은 거의 불가능해졌다.
 한 서비스의 작은 변경사항이 전혀 예상하지 못했던 곳에서 문제를 일으키기도 한다.</p>
 
-<p>예전에는 비즈니스 로직을 파악하려면 소스코드를 한줄한줄 읽어내려가면 되었지만,
-지금과 같이 여러 서비스들간의 상호작용에 의해 하나의 기능이 완성되는 마이크로 서비스 환경에서는
-서비스들의 연관관계가 명확하지 않으면 비즈니스 로직도 명확해질 수 없다.</p>
+<p>예전에는 비즈니스 로직을 파악하려면 소스코드를 한 줄 한 줄 읽어내려가면 되었지만,
+지금과 같이 여러 서비스들 간의 상호작용으로 하나의 기능이 완성되는 마이크로 서비스 환경에서는
+서비스들의 연관 관계가 명확하지 않으면 비즈니스 로직도 명확해질 수 없다.</p>
 
 <p>음.. 우리가 고객에게 제공하는 기능이 정확히 어떻게 동작하는지도 모르는 상황이 되어 버렸다.</p>
 
 <h3 id="병목-지점을-찾을-수-없다">병목 지점을 찾을 수 없다</h3>
 
 <p>사용자 수가 갑자기 늘어난 것도 아니고 서버의 자원이 고갈된 것도 아닌데, 응답시간이 유난히 늦어질 때가 있다.
-도대체 어디가 병목인걸까?</p>
+도대체 어디가 병목인 걸까?</p>
 
 <h2 id="트레이스-시스템의-필요">트레이스 시스템의 필요</h2>
 
 <p>이제 서비스의 모든 행위에 대한 기록을 남기고 이것을 투명하게 드러내야 할 필요성이 생겼다.</p>
 
-<p>대표적인 트레이스 솔루션으로는 <a href="http://zipkin.io/">zipkin</a>, <a href="http://lightstep.com/">lightstep</a>, <a href="https://github.com/sourcegraph/appdash">appdash</a>등이 있고, <a href="http://opentracing.io/">opentracing</a>를 사용하면 트레이스 서버로 모든 행위에 대한 정보를 쉽게 전달할 수 있다.
-이런 잘 갖춰진(?) 솔루션들은 지금 당장 설치해서 사용하기는 쉽지만 실제 운영을 해보면 여러 어려움에 부딪힌다.
-그 어려움은 대부분 이 두가지 패턴으로 좁혀지는데,</p>
+<p>대표적인 트레이스 솔루션으로는 <a href="http://zipkin.io/">zipkin</a>, <a href="http://lightstep.com/">lightstep</a>, <a href="https://github.com/sourcegraph/appdash">appdash</a> 등이 있고, <a href="http://opentracing.io/">opentracing</a>를 사용하면 트레이스 서버로 모든 행위에 대한 정보를 쉽게 전달할 수 있다.
+이런 잘 갖춰진(?) 솔루션들은 지금 당장 설치해서 사용하기는 쉽지만, 실제 운영을 해보면 여러 어려움에 부딪힌다.
+그 어려움은 대부분 이 두 가지 패턴으로 좁혀지는데,</p>
 
 <ul>
 <li>기능이 너무 많다.<br />
 그래서 학습해야 할 것도 많다.
 사실 우리가 필요한 기능은 그 솔루션에서 제공하는 기능의 일부분일 뿐이다.
-화려한 UI와 깔끔한 Getting Started 문서에 혹해서 시작은 했지만, 정작 내가 원하는 모습에 도달하기까지 학습해야 할 것이 한두가지가 아니다.
-특정 솔루션의 사용법을 학습하고 있자니, 주객이 전도되는 느낌을 받을때가 있다.</li>
+화려한 UI와 깔끔한 Getting Started 문서에 혹해서 시작은 했지만, 정작 내가 원하는 모습에 도달하기까지 학습해야 할 것이 한둘이 아니다.
+특정 솔루션의 사용법을 학습하고 있자니, 주객이 전도되는 느낌을 받을 때가 있다.</li>
 <li>정작 필요한 기능은 없다.<br />
-여러 기능을 제공하고 있지만 그 기능은 우리에게 딱 맞는 기능이 아니다.
-결국 우리 입맛에 맞게 customizing해서 사용해야 하는데, 그 과정에도 상당한 시간과 노력이 들어간다.</li>
+여러 기능을 제공하고 있지만, 그 기능은 우리에게 딱 맞는 기능이 아니다.
+결국, 우리 입맛에 맞게 customizing해서 사용해야 하는데, 그 과정에도 상당한 시간과 노력이 들어간다.</li>
 </ul>
 
-<p>어떤 솔루션을 처음 도입할때는 그 솔루션의 문제 해결 방식과 사상을 잘 모르고 접근하는 경우가 많다.
-당연한 것이, 어떤 문제를 효율적으로 해결하기 위해 많은 시도를 하다가 최종적으로 최적화된 무언가가 만들어진 것일텐데,
-과정은 모른채 최종 모습만 보고 따라한다면 그것이 제시하는 최적의 방법으로 문제 해결을 못하는 경우가 많다.
-즉 처음에는, 내 손으로 한땀한땀 구성해보고, 솔루션이 문제를 해결하는 방식에 충분한 공감이 되었을때 그것을 사용해야 잘 활용할 수 있다.</p>
+<p>어떤 솔루션을 처음 도입할 때는 그 솔루션의 문제 해결 방식과 사상을 잘 모르고 접근하는 경우가 많다.
+어떤 솔루션이든 어떤 문제를 효율적으로 해결하기 위해 많은 시도를 하다가 최종적으로 최적화된 무언가가 만들어진 것일 텐데,
+과정은 모른 채 최종 모습만 보고 따라 한다면 그것이 제시하는 최적의 방법으로 문제 해결을 못 하는 경우가 많다.
+즉 처음에는, 내 손으로 한 땀 한 땀 구성해보고, 솔루션이 문제를 해결하는 방식에 충분한 공감이 되었을 때 그것을 사용해야 잘 활용할 수 있다.</p>
 
 <p>이런 이유로 트레이스 환경도 직접 구성하기로 했다.</p>
 
@@ -154,9 +154,9 @@ nginx에서 남기는 access log는 단순히 사용자의 접속 정보를 보�
 그리고 각각의 마이크로 서비스에서 처리하는 행위는 고유의 <code>ActionID</code>를 가진다.
 즉 마이크로 서비스에서 처리하는 모든 액션에는 <code>RequestID</code>와 <code>ActionID</code>가 부여된다.
 이때 나를 호출한 caller 서비스의 <code>ActionID</code>는 <code>ParentActionID</code>가 된다.
-<code>RequestID</code>, <code>ActionID</code>, <code>ParentActionID</code> 이 세가지로 실제 요청이 처리되는 흐름을 정확하게 표현할 수 있다.</p>
+<code>RequestID</code>, <code>ActionID</code>, <code>ParentActionID</code> 이 세 가지로 실제 요청이 처리되는 흐름을 정확하게 표현할 수 있다.</p>
 
-<p>위 그림에서 표현한 Request 처리 흐름을 <code>RequestID</code>, <code>ActionID</code>, <code>ParentActionID</code> 세가지로 다시 표현해 보았다.</p>
+<p>위 그림에서 표현한 Request 처리 흐름을 <code>RequestID</code>, <code>ActionID</code>, <code>ParentActionID</code> 세 가지로 다시 표현해 보았다.</p>
 
 <p><img src="https://jaehue.github.io/images/tracing/tracing.png" alt="tracing" /></p>
 
@@ -166,7 +166,7 @@ nginx에서 남기는 access log는 단순히 사용자의 접속 정보를 보�
 <li>nginx에서 모든 요청에 대해 <code>RequestID</code>를 생성하고 헤더 <code>X-Request-ID</code>에 전달.<br />
 (참고: <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#var_request_id">ngx_http_core_module.html#var_request_id</a>)</li>
 <li>각 마이크로 서비스에서는 모든 요청 처리에 대해 <code>ActionID</code> 생성.</li>
-<li>다른 마이크로 서비스를 호출할때는 <code>RequestID</code>와 자신의 <code>ActionID</code>를 헤더 <code>X-Request-ID</code>, <code>X-Action-ID</code>에 전달.</li>
+<li>다른 마이크로 서비스를 호출할 때는 <code>RequestID</code>와 자신의 <code>ActionID</code>를 헤더 <code>X-Request-ID</code>, <code>X-Action-ID</code>에 전달.</li>
 <li>각 마이크로 서비스에서 요청 처리가 끝나면 헤더를 통해 전달받은 <code>RequestID</code>와 자신이 직접 생성한 <code>ActionID</code>를 로그로 남김.
 이때 Header에 <code>X-Action-ID</code>가 존재하면 그것을 <code>ParentActionID</code> 값으로 남긴다.</li>
 </ol>
@@ -214,17 +214,17 @@ nginx에서 남기는 access log는 단순히 사용자의 접속 정보를 보�
 	}
 }</code></pre></div>
 
-<p>하지만 우리가 풀어야 할 과제는 이것 뿐만이 아니다.
-Request의 처리 완료 상황 뿐만 아니라, 처리 과정 중에도 로그를 남겨야 하는 경우가 있다.
+<p>하지만 우리가 풀어야 할 과제는 이것뿐만이 아니다.
+Request의 처리 완료 상황뿐만 아니라, 처리 과정 중에도 로그를 남겨야 하는 경우가 있다.
 이 로그에도 <code>RequestID</code>, <code>ActionID</code>, <code>ParentActionID</code>가 있어야 전후의 맥락을 파악할 수 있다.
 (<em>모든 로그는 전후의 상황을 함께 봐야 의미를 알 수 있다.</em>)
-그리고 기본적인 Web Request 정보 외에도 로직상의 중요한 값들은 함께 남겨 주어야 한다.(예: 현재 세션의 사용자 ID, 주요 파라미터, 처리 결과 요약 정보, 등)
+그리고 기본적인 Web Request 정보 외에도 로직 상의 중요한 값들은 함께 남겨 주어야 한다.(예: 현재 세션의 사용자 ID, 주요 파라미터, 처리 결과 요약 정보, 등)
 즉, 단순히 미들웨어 기능만으로는 부족하다.</p>
 
 <h3 id="logcontext"><code>LogContext</code></h3>
 
 <p>Request가 처리되는 동안 <code>context.Context</code>에는 로그 내용을 담고 있는 <code>LogContext</code>가 보관되어 있다.
-추가로 로그를 남기고 싶을때 <code>context.Context</code>에 있는 <code>LogContext</code>를 사용해서 로그를 남긴다.
+추가로 로그를 남기고 싶을 때 <code>context.Context</code>에 있는 <code>LogContext</code>를 사용해서 로그를 남긴다.
 <div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">type</span> LogContext <span style="color:#069;font-weight:bold">struct</span> {
 	ParentActionID <span style="color:#078;font-weight:bold">string</span>    <span style="color:#c30">`json:&#34;parent_action_id&#34;`</span>
 	ActionID       <span style="color:#078;font-weight:bold">string</span>    <span style="color:#c30">`json:&#34;action_id&#34;`</span>
@@ -250,8 +250,8 @@ Request의 처리 완료 상황 뿐만 아니라, 처리 과정 중에도 로그
 
 <p>로그를 남기는 코드는 아래와 같다.</p>
 
-<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">BehaviorLogger(c.Request().Context()).
-	WithBizAttr(<span style="color:#c30">&#34;maxResultCount&#34;</span>, v.MaxResultCount).
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">BehaviorLogger(ctx).
+	WithBizAttr(<span style="color:#c30">&#34;userID&#34;</span>, currentUser.ID).
 	Log(<span style="color:#c30">&#34;SearchDiscount&#34;</span>)</code></pre></div>
 
 <div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> BehaviorLogger(ctx context.Context) <span style="color:#555">*</span>behaviorlog.LogContext {
@@ -291,7 +291,7 @@ Request의 처리 완료 상황 뿐만 아니라, 처리 과정 중에도 로그
 	}
 }</code></pre></div>
 
-<p><code>LogContext</code>와 관련된 전체 소스코드는 아래 링크를 참조하라.</p>
+<p>Behavior log와 관련된 전체 소스코드는 아래 링크에서 확인할 수 있다.</p>
 
 <ul>
 <li><a href="https://github.com/pangpanglabs/goutils/blob/master/echomiddleware/behavior_logger.go">github.com/pangpanglabs/echomiddleware</a></li>
@@ -316,10 +316,24 @@ statusCode, err <span style="color:#555">:=</span> httpreq.New(http.MethodPost, 
 	WithBehaviorLogContext(behaviorlog.FromCtx(ctx)).
 	Call(<span style="color:#555">&amp;</span>v)</code></pre></div></p>
 
+<h3 id="외부-api-호출하기">외부 API 호출하기</h3>
+
+<p>호출하는 대상 서비스도 같은 방식으로 Behavior log를 남기도록 구성되어 있다면 트레이스 정보가 끊어지지 않고 하나의 흐름으로 이어질 것이다.
+하지만 대상 서비스에서 Behavior log를 남기기 어려운 경우도 있다.
+택배사 API를 사용한다던가 레거시 시스템과 인터페이스이 하는 경우가 대표적인 예다.
+이런 경우는 트레이스 로그의 흐름이 끊어지고 만다.</p>
+
+<p>이렇게 우리의 관리 영역이 아닌 외부 API를 호출하는 경우는 외부 API의 처리 액션에 대한 Behavior log를 호출하는 쪽에서 남기기로 했다.</p>
+
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">BehaviorLogger(ctx).
+	WithBizAttr(<span style="color:#c30">&#34;companyCode&#34;</span>, <span style="color:#c30">&#34;MY_COMPANY_CODE&#34;</span>).
+	WithCallURLInfo(http.MethodGet, <span style="color:#c30">&#34;TARGET_URL&#34;</span>, param, <span style="color:#f60">200</span>).
+	Log(<span style="color:#c30">&#34;GetShippingStatus&#34;</span>)</code></pre></div>
+
 <h2 id="안전한-로그-저장소">안전한 로그 저장소</h2>
 
 <p>모든 트레이스 로그는 kafka를 거쳐 HDFS에 저장된다.
-서로 다른 여러 데이터베이스에 쿼리를 실행할 수 있는 <a href="https://prestodb.io/">Presto</a>를 통해 필요한 데이터를 추출한다.</p>
+서로 다른 여러 데이터베이스에 쿼리를 실행할 수 있는 SQL Engine인 <a href="https://prestodb.io/">Presto</a>를 통해 필요한 데이터를 추출한다.</p>
 
 <p><img src="https://jaehue.github.io/images/tracing/trace_hdfs.png" alt="trace-hdfs" /></p>
 
