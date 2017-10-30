@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko-kr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://jaehue.github.io/stylesheets/shiori.css">
+    <link href='//fonts.googleapis.com/css?family=Montserrat:700,400' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="https://jaehue.github.io/favicon.ico">
+    <title>Go My Way #3 - 트레이싱 | Jaehue&#39;s</title>
+    
+    
+
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <div class="navbar-toggle-wrapper visible-xs">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".js-navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <a href="https://jaehue.github.io/" class="navbar-brand">Jaehue&#39;s</a>
+        </div>
+        <div class="collapse navbar-collapse js-navbar-collapse">
+          <ul class="navbar-nav nav">
+            <li><a href="https://jaehue.github.io/post">Archive</a></li>
+
+          </ul>
+          <ul class="navbar-nav nav navbar-right">
+            
+
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+
+<div class="row">
+  <div class="col-sm-8">
+    <div class="post-header">
+      <h1 class="post-title-main">Go My Way #3 - 트레이싱</h1>
+      <p class="text-muted">Oct 30, 2017</p>
+
+    </div>
+    <div class="post-content">
+      
+
+<p><strong>Go My Way</strong>는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다.
+이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.</p>
+
+<ul>
+<li><a href="https://jaehue.github.io/post/go-my-way-1-webframework/">Go My Way #1 - 웹 프레임워크</a></li>
+<li><a href="https://jaehue.github.io/post/go-my-way-2-database-and-logging/">Go My Way #2 - 데이터베이스, 로깅</a></li>
+<li>Go My Way #3 - 트레이싱</li>
+<li>번외 - gomobile</li>
+</ul>
+
+<p>이번 글에서는 <code>트레이싱</code>에 대해 소개하겠다.</p>
+
+<p>이 글을 작성하는 지금 현재 우리 회사는 클라우드 상에 00개의 마이크로 서비스가 서로 얽혀서 동작하고 있다.
+사용자의 한번의 클릭이 실제로는 여러 마이크로 서비스들을 거치고 거쳐서 최종 결과를 고객에게 보여준다.
+처리 과정 중에 비즈니스적으로 주요 행위가 일어나면 이벤트가 발생하고, consumer service가 그 이벤트를 받아서 여러 액션을 처리한다.</p>
+
+<p><img src="https://jaehue.github.io/images/tracing/microservice.png" alt="microservice" /></p>
+
+<blockquote>
+<p><small>EventBroker: 이벤트를 publish하고 subscription 하는 일련의 과정을 처리해주는 서비스. 내부적으로는 kafka를 사용해서 이벤트를 전달한다.  기본적인 이벤트 전달 기능 외에 consume service들 간 balance 조정, 로깅, offset 관리 등의 일을 처리한다.</small></p>
+</blockquote>
+
+<p>마이크로 서비스 환경으로 1년 정도 운영을 해보니 기존의 모노리틱(monolitic) 방식과는 또 다른 어려움이 있었다.</p>
+
+<h2 id="무엇이-문제인가">무엇이 문제인가?</h2>
+
+<h3 id="오류를-추적하기가-어렵다">오류를 추적하기가 어렵다</h3>
+
+<p>이제 더이상 nginx의 access log와 개발자가 개별적으로 남기는 로그 만으로는 문제를 추적하기가 너무 어려워졌다.</p>
+
+<ul>
+<li>위와 같이 복잡한 처리 흐름이 이어지는 경우, A서비스에서는 아무 문제가 없이 처리 되었는데 C서비스는 아예 동작조차 하지 않았다.
+프로그램상의 오류일까? 아니면 네트워크 장애인가? 어디에선가 타임아웃이 발생한 것은 아닐까?</li>
+<li>이벤트를 받아 처리해야 하는 D 서비스가 동작하지 않았다면, 도대체 어디에서 문제가 발생한 것일까? 내 서비스는 문제 없는데(<em>당연하지! 내가 짰으니!!</em>) Event Broker가 이벤트를 먹어버린걸까?</li>
+</ul>
+
+<p>다른 팀을 의심하기도 하고, 그냥 문제 해결을 포기하고 만다.
+사용자는 불편을 겪고 있는데, 문제가 무엇인지 정의할수도 없다.</p>
+
+<h3 id="비즈니스-흐름을-파악하기-어렵다">비즈니스 흐름을 파악하기 어렵다</h3>
+
+<p>하나의 마이크로 서비스가 만들어지면, 어느팀이든지 그 서비스를 사용할 수 있다.
+중요한 행위에 대해 이벤트를 정의하고 그 이벤트를 발생시키면, 필요한 누군가가 그 이벤트를 <em>subscribe</em> 해서 또다른 로직을 이어간다.
+이렇게 여러 팀이 개발한 서비스들이 서로 얽히고 얽혀서 하나의 요청이 처리된다.
+이렇게 되다보니 사용자가 버튼 하나를 클릭했을 때 어떤 일이 일어나는지 파악하는 것은 거의 불가능해졌다.
+한 서비스의 작은 변경사항이 전혀 예상하지 못했던 곳에서 문제를 일으키기도 한다.</p>
+
+<p>예전에는 비즈니스 로직을 파악하려면 소스코드를 한줄한줄 읽어내려가면 되었지만,
+지금과 같이 여러 서비스들간의 상호작용에 의하 하나의 기능이 완성되는 마이크로 서비스 환경에서는
+서비스들의 연관관계가 명확하지 않으면 비즈니스 로직도 명확해질 수 없다.</p>
+
+<p>음.. 우리가 고객에게 제공하는 기능이 정확히 어떻게 동작하는지도 모르는 상황이 되어 버렸다.</p>
+
+<h3 id="병목-지점을-찾을-수-없다">병목 지점을 찾을 수 없다</h3>
+
+<p>사용자 수가 갑자기 늘어난 것도 아니고 서버의 자원이 고갈된 것도 아닌데, 응답시간이 유난히 늦어질 때가 있다.
+도대체 어디가 병목인걸까?</p>
+
+<h2 id="트레이스-시스템의-필요">트레이스 시스템의 필요</h2>
+
+<p>이제 서비스의 모든 행위에 대한 기록을 남기고 이것을 투명하게 드러내야 할 필요성이 생겼다.</p>
+
+<p>대표적인 트레이스 솔루션으로는 <a href="http://zipkin.io/">zipkin</a>, <a href="http://lightstep.com/">lightstep</a>, <a href="https://github.com/sourcegraph/appdash">appdash</a>등이 있고, <a href="http://opentracing.io/">opentracing</a>를 사용하면 트레이스 서버로 모든 행위에 대한 정보를 쉽게 전달할 수 있다.
+이런 잘 갖춰진(?) 솔루션들은 지금 당장 설치해서 사용하기는 쉽지만 실제 운영을 해보면 여러 어려움에 부딪힌다.
+그 어려움은 대부분 이 두가지 패턴으로 좁혀지는데,</p>
+
+<ul>
+<li>기능이 너무 많다.<br />
+그래서 학습해야 할 것도 많다.
+사실 우리가 필요한 기능은 그 솔루션에서 제공하는 기능의 일부분일 뿐이다.
+화려한 UI와 깔끔한 Getting Started 문서에 혹해서 시작은 했지만, 정작 내가 원하는 모습에 도달하기까지 학습해야 할 것이 한두가지가 아니다.
+특정 솔루션의 사용법을 학습하고 있자니, 주객이 전도되는 느낌을 받을때가 있다.</li>
+<li>정작 필요한 기능은 없다.<br />
+여러 기능을 제공하고 있지만 그 기능은 우리에게 딱 맞는 기능이 아니다.
+결국 우리 입맛에 맞게 customizing해서 사용해야 하는데, 그 과정에도 상당한 시간과 노력이 들어간다.</li>
+</ul>
+
+<p>어떤 솔루션을 처음 도입할때는 그 솔루션의 문제 해결 방식과 사상을 잘 모르고 접근하는 경우가 많다.
+당연한 것이, 어떤 문제를 효율적으로 해결하기 위해 많은 시도를 하다가 최종적으로 최적화된 무언가가 만들어진 것일텐데,
+과정은 모른채 최종 모습만 보고 따라한다면 그것이 제시하는 최적의 방법으로 문제 해결을 못하는 경우가 많다.
+즉 처음에는, 내 손으로 한땀한땀 구성해보고, 솔루션이 문제를 해결하는 방식에 충분한 공감이 되었을때 그것을 사용해야 잘 활용할 수 있다.</p>
+
+<p>이런 이유로 트레이스 환경도 직접 구성하기로 했다.</p>
+
+<h2 id="behavior-log-남기기">Behavior log 남기기</h2>
+
+<p>nginx에서 남기는 access log와 구분하기 위해 각 마이크로 서비스에서 남기는 트레이스 정보를 behavior log라고 부르기로 했다.
+nginx에서 남기는 access log는 단순히 사용자의 접속 정보를 보여주는 것이라면, behavior log는 클라우드 내부의 마이크로 서비스들의 행위를 보여주는 로그인 것이다.</p>
+
+<p>behavior log를 남기는 규칙과 방식은 다음과 같다.</p>
+
+<h3 id="behavior-log-식별하기">behavior log 식별하기</h3>
+
+<ul>
+<li><code>RequestID</code></li>
+<li><code>ActionID</code></li>
+<li><code>ParentActionID</code></li>
+</ul>
+
+<p>사용자의 하나의 요청으로 이루어지는 모든 행위는 모두 같은 <code>RequestID</code>를 가진다.
+그리고 각각의 마이크로 서비스에서 처리하는 행위는 고유의 <code>ActionID</code>를 가진다.
+즉 마이크로 서비스에서 처리하는 모든 액션에는 <code>RequestID</code>와 <code>ActionID</code>가 부여된다.
+이때 나를 호출한 caller 서비스의 <code>ActionID</code>는 <code>ParentActionID</code>가 된다.
+<code>RequestID</code>, <code>ActionID</code>, <code>ParentActionID</code> 이 세가지로 실제 요청이 처리되는 흐름을 정확하게 표현할 수 있다.</p>
+
+<p>위 그림에서 표현한 Request 처리 흐름을 <code>RequestID</code>, <code>ActionID</code>, <code>ParentActionID</code> 세가지로 다시 표현해 보았다.</p>
+
+<p><img src="https://jaehue.github.io/images/tracing/tracing.png" alt="tracing" /></p>
+
+<p>아래는 모든 마이크로 서비스가 지켜야 할 규칙이다.</p>
+
+<ol>
+<li>nginx에서 모든 요청에 대해 <code>RequestID</code>를 생성하고 헤더 <code>X-Request-ID</code>에 전달.<br />
+(참고: <a href="http://nginx.org/en/docs/http/ngx_http_core_module.html#var_request_id">ngx_http_core_module.html#var_request_id</a>)</li>
+<li>각 마이크로 서비스에서는 모든 요청 처리에 대해 <code>ActionID</code> 생성.</li>
+<li>다른 마이크로 서비스를 호출할때는 <code>RequestID</code>와 자신의 <code>ActionID</code>를 헤더 <code>X-Action-ID</code>에 전달.</li>
+<li>모든 마이크로 서비스에서 요청 처리가 끝나면 헤더를 통해 전달받은 <code>RequestID</code>와 자신이 직접 생성한 <code>ActionID</code>를 로그로 남김.
+이때 Header에 <code>X-Action-ID</code>가 존재하면 그것을 <code>ParentActionID</code> 값으로 남긴다.</li>
+</ol>
+
+<p>위 기능을 처리하는 코드는 다음과 같다.
+코드는 <a href="https://jaehue.github.io/post/go-my-way-1-webframework/">[#1 - 웹 프레임워크]</a>에서 설명한 echo 프레임워크를 기준으로 작성했다.</p>
+
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> main() {
+	e <span style="color:#555">:=</span> echo.New()
+	<span style="color:#09f;font-style:italic">/* ... */</span>
+	e.Use(BehaviorMiddleware)
+
+	<span style="color:#069;font-weight:bold">if</span> err <span style="color:#555">:=</span> e.Start(<span style="color:#c30">&#34;:8080&#34;</span>); err <span style="color:#555">!=</span> <span style="color:#069;font-weight:bold">nil</span> {
+		log.Println(err)
+	}
+
+}
+
+<span style="color:#069;font-weight:bold">func</span> BehaviorMiddleware(next echo.HandlerFunc) echo.HandlerFunc {
+	<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">func</span>(c echo.Context) (err <span style="color:#078;font-weight:bold">error</span>) {
+		req <span style="color:#555">:=</span> c.Request()
+
+		requestId <span style="color:#555">:=</span> req.Header.Get(<span style="color:#c30">&#34;X-Request-ID&#34;</span>)
+		actionId <span style="color:#555">:=</span> random.String(<span style="color:#f60">32</span>)
+		parentActionId <span style="color:#555">:=</span> req.Header.Get(<span style="color:#c30">&#34;X-Action-ID&#34;</span>)
+
+		<span style="color:#069;font-weight:bold">defer</span> <span style="color:#069;font-weight:bold">func</span>(begin time.Time) {
+			logrus.WithFields(logrus.Fields{
+				<span style="color:#c30">&#34;request_id&#34;</span>:       requestId,
+				<span style="color:#c30">&#34;action_id&#34;</span>:        actionId,
+				<span style="color:#c30">&#34;parent_action_id&#34;</span>: parentActionId,
+				<span style="color:#c30">&#34;timestamp&#34;</span>:        begin.UnixNano(),
+				<span style="color:#c30">&#34;latency&#34;</span>:          time.Since(begin).Nanoseconds(),
+				<span style="color:#c30">&#34;error&#34;</span>:            err,
+				<span style="color:#09f;font-style:italic">/* ... */</span>
+			}).Info()
+		}(time.Now())
+
+		<span style="color:#09f;font-style:italic">/* ... */</span>
+
+		err = next(c)
+
+		<span style="color:#09f;font-style:italic">/* ... */</span>
+		<span style="color:#069;font-weight:bold">return</span>
+	}
+}</code></pre></div>
+
+<p>하지만 우리가 풀어야 할 과제는 이것 뿐만이 아니다.
+Request의 처리 완료 상황 뿐만 아니라, 처리 과정 중에도 로그를 남겨야 하는 경우가 있다.
+이 로그에도 <code>RequestID</code>, <code>ActionID</code>, <code>ParentActionID</code>가 있어야 전후의 맥락을 파악할 수 있다.
+(<em>모든 로그는 전후의 상황을 함께 봐야 의미를 알 수 있다.</em>)
+그리고 기본적인 Web Request 정보 외에도 로직상의 중요한 값들은 함께 남겨 주어야 한다.(예: 현재 세션의 사용자 ID, 주요 파라미터, 처리 결과 요약 정보, 등)
+즉, 단순히 미들웨어 기능만으로는 부족하다.</p>
+
+<h3 id="logcontext"><code>LogContext</code></h3>
+
+<p>Request가 처리되는 동안 <code>context.Context</code>에는 로그 내용을 담고 있는 <code>LogContext</code>가 보관되어 있다.
+추가로 로그를 남기고 싶을때 <code>context.Context</code>에 있는 <code>LogContext</code>를 사용해서 로그를 남긴다.
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">type</span> LogContext <span style="color:#069;font-weight:bold">struct</span> {
+	ParentActionID <span style="color:#078;font-weight:bold">string</span>    <span style="color:#c30">`json:&#34;parent_action_id&#34;`</span>
+	ActionID       <span style="color:#078;font-weight:bold">string</span>    <span style="color:#c30">`json:&#34;action_id&#34;`</span>
+	RequestID      <span style="color:#078;font-weight:bold">string</span>    <span style="color:#c30">`json:&#34;request_id&#34;`</span>
+	Timestamp      time.Time <span style="color:#c30">`json:&#34;timestamp&#34;`</span>
+	Service        <span style="color:#078;font-weight:bold">string</span>    <span style="color:#c30">`json:&#34;service&#34;`</span>
+
+	Params     <span style="color:#069;font-weight:bold">interface</span>{}            <span style="color:#c30">`json:&#34;params,omitempty&#34;`</span>
+	Controller <span style="color:#078;font-weight:bold">string</span>                 <span style="color:#c30">`json:&#34;controller,omitempty&#34;`</span>
+	Action     <span style="color:#078;font-weight:bold">string</span>                 <span style="color:#c30">`json:&#34;action,omitempty&#34;`</span>	
+	BizAttr    <span style="color:#069;font-weight:bold">map</span>[<span style="color:#078;font-weight:bold">string</span>]<span style="color:#069;font-weight:bold">interface</span>{} <span style="color:#c30">`json:&#34;bizAttr,omitempty&#34;`</span>
+	Err        <span style="color:#078;font-weight:bold">error</span>                  <span style="color:#c30">`json:&#34;error,omitempty&#34;`</span>
+
+	<span style="color:#09f;font-style:italic">/* ... */</span>
+}</code></pre></div></p>
+
+<blockquote>
+<p><small><code>LogContext</code>의 전체 소스코드는 <a href="https://github.com/pangpanglabs/goutils/blob/master/behaviorlog/behaviorlog.go">behaviorlog.go</a>를 참고해주세요</small></p>
+</blockquote>
+
+<p><code>context.Context</code>는 하나의 Request 처리가 완료될 때 까지 스콥(scope)이 유지되므로, 같은 요청을 처리하는 동안 <code>LogContext</code>를 통해 남기는 로그는 같은 <code>RequestID</code>, <code>ActionID</code>를 가진다.
+즉, 모든 로그는 <code>RequestID</code>, <code>ActionID</code>를 가지게 되고, 모든 로그는 어떤 맥락에서 처리가 되었는지 확인이 가능하다.</p>
+
+<p>로그를 남기는 코드는 아래와 같다.</p>
+
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go">BehaviorLogger(c.Request().Context()).
+	WithBizAttr(<span style="color:#c30">&#34;maxResultCount&#34;</span>, v.MaxResultCount).
+	Log(<span style="color:#c30">&#34;SearchDiscount&#34;</span>)</code></pre></div>
+
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> BehaviorLogger(ctx context.Context) <span style="color:#555">*</span>behaviorlog.LogContext {
+	v <span style="color:#555">:=</span> ctx.Value(behaviorlog.LogContextName)
+	<span style="color:#069;font-weight:bold">if</span> logger, ok <span style="color:#555">:=</span> v.(<span style="color:#555">*</span>behaviorlog.LogContext); ok {
+		<span style="color:#069;font-weight:bold">return</span> logger.Clone()
+	}
+	<span style="color:#069;font-weight:bold">return</span> behaviorlog.NewNopContext()
+}</code></pre></div>
+
+<p>미들웨어에서는 <code>LogContext</code>를 사용하여 로그를 남기도록 아래와 같이 수정하였다.</p>
+
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">func</span> BehaviorMiddleware(serviceName <span style="color:#078;font-weight:bold">string</span>) echo.MiddlewareFunc {
+	<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">func</span>(next echo.HandlerFunc) echo.HandlerFunc {
+		<span style="color:#069;font-weight:bold">return</span> <span style="color:#069;font-weight:bold">func</span>(c echo.Context) (err <span style="color:#078;font-weight:bold">error</span>) {
+			req <span style="color:#555">:=</span> c.Request()
+			behaviorLogger <span style="color:#555">:=</span> behaviorlog.New(serviceName, req)
+
+			<span style="color:#09f;font-style:italic">// behaviorLogger를 context.Context에 담음
+</span><span style="color:#09f;font-style:italic"></span>			c.SetRequest(req.WithContext(
+				context.WithValue(req.Context(),
+					behaviorlog.LogContextName, behaviorLogger,
+				)))
+
+			<span style="color:#069;font-weight:bold">if</span> err = next(c); err <span style="color:#555">!=</span> <span style="color:#069;font-weight:bold">nil</span> {
+				c.Error(err)
+				behaviorLogger.Err = err
+			}
+
+			<span style="color:#09f;font-style:italic">/***
+</span><span style="color:#09f;font-style:italic">			 처리 결과를 LogContext에 담는 로직
+</span><span style="color:#09f;font-style:italic">			**/</span>
+
+			behaviorLogger.Write()
+			<span style="color:#069;font-weight:bold">return</span>
+		}
+	}
+}</code></pre></div>
+
+<p><code>LogContext</code>와 관련된 전체 소스코드는 아래 링크를 참조하라.</p>
+
+<ul>
+<li><a href="https://github.com/pangpanglabs/goutils/blob/master/echomiddleware/behavior_logger.go">github.com/pangpanglabs/echomiddleware</a></li>
+<li><a href="https://github.com/pangpanglabs/goutils/blob/master/behaviorlog/behaviorlog.go">github.com/pangpanglabs/behaviorlog</a></li>
+</ul>
+
+<h3 id="다른-서비스-호출하기">다른 서비스 호출하기</h3>
+
+<p>앞서 다른 마이크로 서비스를 호출할때는 <code>RequestID</code>와 자신의 <code>ActionID</code>를 헤더에 담아서 전달한다고 설명했다.
+어렵진 않지만 이것 또한 꽤나 번거로운 작업이다.
+편의를 위해 <a href="https://github.com/pangpanglabs/goutils/tree/master/httpreq">github.com/pangpanglabs/goutils/httpreq</a> 패키지를 만들었다.
+다른 마이크로 서비스를 호춣할때는 <a href="https://github.com/pangpanglabs/goutils/tree/master/httpreq">httpreq</a> 패키지를 사용하면 편리하다.</p>
+
+<p><div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">var</span> v ApiResult
+statusCode, err <span style="color:#555">:=</span> httpreq.New(http.MethodPost, <span style="color:#c30">&#34;TARGET_URL&#34;</span>, param).
+	WithRequestID(<span style="color:#c30">&#34;requestID-1&#34;</span>).
+	WithActionID(<span style="color:#c30">&#34;actionID-1&#34;</span>).
+	Call(<span style="color:#555">&amp;</span>v)</code></pre></div>
+또는
+<div class="highlight"><pre style="background-color:#f0f3f3;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#069;font-weight:bold">var</span> v ApiResult
+statusCode, err <span style="color:#555">:=</span> httpreq.New(http.MethodPost, <span style="color:#c30">&#34;TARGET_URL&#34;</span>, param).
+	WithBehaviorLogContext(behaviorlog.FromCtx(ctx)).
+	Call(<span style="color:#555">&amp;</span>v)</code></pre></div></p>
+
+<h2 id="안전한-로그-저장소">안전한 로그 저장소</h2>
+
+<p>모든 트레이스 로그는 kafka를 거쳐 HDFS에 저장된다.
+서로 다른 여러 데이터베이스에 쿼리를 실행할 수 있는 <a href="https://prestodb.io/">Presto</a>를 통해 필요한 데이터를 추출한다.</p>
+
+<p><img src="https://jaehue.github.io/images/tracing/trace_hdfs.png" alt="trace-hdfs" /></p>
+
+    </div>
+    <div class="post-footer">
+      <a href="https://jaehue.github.io/post" class="btn btn-primary btn-block btn-lg">View All 8 Articles →</a>
+
+    </div>
+    
+		
+ <aside><div id="disqus_thread"></div></aside> 
+
+<script type="text/javascript">
+     
+    var disqus_shortname = 'jaehue';
+
+     
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+  </div>
+  <div class="col-sm-4">
+    
+
+
+
+
+  </div>
+</div>
+      <div class="row footer">
+        <div class="col-sm-12 text-center">
+          <footer>
+
+&copy; 2015.
+Built with <a href="http://gohugo.io/">Hugo</a> (0.30) and
+<a href="https://github.com/chibicode/hugo-theme-shiori">Shiori Theme</a>.
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-91404316-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+</footer>
+
+        </div>
+      </div>
+    </div>
+    <script src="https://jaehue.github.io/javascripts/shiori.js"></script>
+    
+
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+  </body>
+</html>
+
