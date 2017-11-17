@@ -55,12 +55,12 @@
 일 년 전 밤을 지새우며 O2O 시스템을 Event driven 방식으로 바꾸느라 고생했던 순간이 떠올라
 시스템의 구축 과정을 다시 한번 돌아보았다.</p>
 
-<h2 id="배경">배경</h2>
+<h1 id="배경">배경</h1>
 
 <p>작년 한 해 꽤 긴 시간 동안 <em>Event Driven</em> 과 씨름해왔었다.
 그 배경에는 두 가지가 있었다.</p>
 
-<h3 id="1-keeping-track-of-changes-in-a-history">1. Keeping Track of Changes in a History</h3>
+<h2 id="1-keeping-track-of-changes-in-a-history">1. Keeping Track of Changes in a History</h2>
 
 <p>매장을 운영하는 데 있어서 재고 데이터는 아주 중요하다.
 물건을 하나 팔면 재고 수량을 -1 하면 되고 물건이 들어오면 재고 수량을 +1 하면 되지만,
@@ -76,7 +76,7 @@
 
 <p><em>&hellip; 그래서 Event Driven?</em></p>
 
-<h3 id="2-eventual-consistency">2. Eventual Consistency</h3>
+<h2 id="2-eventual-consistency">2. Eventual Consistency</h2>
 
 <p>우리가 제공하는 큰 서비스 중 하나가 O2O(Online to Offline) 서비스인데,
 고객이 온라인에서 물건을 구매하면, 어딘가에 있는 오프라인 매장에서 고객에게 물건을 배송해주는 서비스이다.
@@ -111,7 +111,7 @@
 
 <p><em>&hellip; 그래서 Event Driven?</em></p>
 
-<h2 id="삽질">삽질</h2>
+<h1 id="삽질">삽질</h1>
 
 <p>이런 배경으로 Event Driven에 손을 대기 시작했다.
 Event Driven을 구현하기 위한 여러 개념을 학습했는데 공부를 하면 할수록 모호하기 짝이 없었다.</p>
@@ -131,7 +131,7 @@ Event Driven에서 제안하는 다양한 방식을 직접 구현해보았다.
 이런것들을 코드에 꾸역꾸역 집어 넣어가며 다 구현한 뒤 내 생각은
 &lsquo;이렇게까지 해야 해?&lsquo;였다.</p>
 
-<h2 id="내-멋대로">내 멋대로</h2>
+<h1 id="내-멋대로">내 멋대로</h1>
 
 <p>머릿속을 복잡하게 하는 것들은 싹 다 버리고,
 <a href="https://en.wikipedia.org/wiki/Event-driven_architecture">위키피디아에 나오는 설명</a> 중에서 눈에 들어오는 몇 가지 단어(event emitters, event consumers, event channels)만 뽑아서 그것을 중심으로 설계를 해 보았다.<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup></p>
@@ -157,7 +157,7 @@ Event Driven에서 제안하는 다양한 방식을 직접 구현해보았다.
     <source src="https://jaehue.github.io/images/eventdriven/eventflow.mp4" type="video/mp4" >
 </video> -->
 
-<h2 id="event-broker">Event Broker</h2>
+<h1 id="event-broker">Event Broker</h1>
 
 <p>Event Driven 방식의 시스템에서 가장 중요한 점은 <u><strong>이벤트는 반드시 전달되어야 한다</strong></u>는 것이다.
 이벤트 처리 과정 중 특정 서비스에 장애가 발생하더라도,
@@ -209,7 +209,7 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 
 <p>이런 이유로, 우리는 Event broker를 중심에 두었다.</p>
 
-<h2 id="쐉쓰이-双十一-넘기기">쐉쓰이(双十一) 넘기기</h2>
+<h1 id="쐉쓰이-双十一-넘기기">쐉쓰이(双十一) 넘기기</h1>
 
 <p>그날의 실제 상황은 동료가 쓴 글인 <a href="http://www.popit.kr/%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%94%EB%9D%BC%EB%B3%B8-%EC%A4%91%EA%B5%AD-%EC%87%BC%ED%95%91-%EC%B6%95%EC%A0%9C-%EA%B4%91%EA%B5%B0%EC%A0%9C/">개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)</a>에 생생하게 나타나 있다.
 실제 당일날 MongoDB 인덱스 문제, 디스크 부족으로 인한 kafka 서버 장애, 등 몇몇 문제가 발생하기도 했지만 고객에게는 문제없이 서비스가 제공되었고, 쐉쓰이(双十一)는 무사히 지나갔다.</p>
@@ -231,7 +231,7 @@ consume 서비스의 문제로 이벤트 처리가 늦어지고 있지만, 결�
 우리만 하더라도 쐉쓰이(<sup>11</sup>&frasl;<sub>11</sub>)가 아니었다면 이런 아키텍처를 고민했을까?
 해마다 <sup>11</sup>&frasl;<sub>11</sub> 을 보내면서, 중국 전체의 IT 기술이 다 같이 성장하는 것을 보고 있다.</p>
 
-<h2 id="아쉬움">아쉬움</h2>
+<h1 id="아쉬움">아쉬움</h1>
 
 <p>어쩌면 아직도 몇몇 사람들에겐 중국이 낙후된 나라라는 인식이 박혀있을지도 모른다.
 10년 전쯤에는 확실히 그랬던 것 같다.
