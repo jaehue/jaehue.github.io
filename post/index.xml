@@ -7,10 +7,21 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <copyright>&amp;copy; All Rights Reserved.</copyright>
-    <lastBuildDate>Mon, 30 Oct 2017 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 17 Nov 2017 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://jaehue.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>내 멋대로 구현한 이벤트 드리븐</title>
+      <link>https://jaehue.github.io/post/event-driven/</link>
+      <pubDate>Fri, 17 Nov 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/post/event-driven/</guid>
+      <description>중국 이커머스 최대 행사인 쐉쓰이(双十一)때 11월11일 0시가 되자마자 매출이 급상승함과 동시에 이벤트가 미친듯이 순식간에 몰려들어오는 것을 보고, 일년 전 밤을 지새우며 O2O 시스템을 Event driven 방식으로 바꾸느라 고생했던 순간이 떠올라 시스템의 구축 과정을 다시 한번 돌아보았다.
+배경 작년 한해 꽤 긴 시간 동안 Event Driven 과 씨름해왔었다. 그 배경에는 두가지가 있었다.
+1. Keeping Track of Changes in a History 매장을 운영하는데 있어서 재고 데이터는 아주 중요하다. 물건을 하나 팔면 재고 수량을 -1 하면 되고 물건이 들어오면 재고 수량을 +1 하면 되지만, 이 간단한 말이 그렇게 간단하지가 않더라.</description>
+    </item>
     
     <item>
       <title>Go My Way #3 - 트레이싱</title>
