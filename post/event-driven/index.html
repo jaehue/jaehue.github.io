@@ -306,7 +306,7 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
  <a class="footnote-return" href="#fnref:5"><sup>[return]</sup></a></li>
 <li id="fn:6">개발 당시 최종 버전이었던 v0.10.1.0는 at-most-once/at-list-once 두 가지 형태로만 사용할 수 있었다. v0.11.0.0 이후 버전부터는 exactly once를 보장해준다
  <a class="footnote-return" href="#fnref:6"><sup>[return]</sup></a></li>
-<li id="fn:8">사실 우리 서비스도 이정도 수준의 복원력은 갖추고 있지 않다. 하지만, 필요하다면 kafka에 저장된 이벤트를 기반으로 데이터를 복원하는 것은 어렵지않게 구현할 수 있다. kafka에 저장된 이벤트를 기반으로 데이터를 복원하려면 kafka의 log retention(디스크에 메시지를 얼마나 오랫동안 유지할지에 대한 설정)을 적절하게 셋팅해주어야 한다.
+<li id="fn:8">사실 우리 서비스도 이정도 수준의 복원력은 갖추고 있지 않다. 하지만, 필요하다면 kafka에 저장된 이벤트를 기반으로 데이터를 복원하는 것은 어렵지않게 구현할 수 있다. 데이터 복원을 위해 이벤트를 보존하려면 kafka의 log retention(디스크에 메시지를 얼마나 오랫동안 유지할지에 대한 설정)을 적절하게 셋팅해주어야 한다.
  <a class="footnote-return" href="#fnref:8"><sup>[return]</sup></a></li>
 </ol>
 </div>
