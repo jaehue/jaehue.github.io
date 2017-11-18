@@ -52,8 +52,12 @@
       
 
 <p>중국 이커머스 최대 행사인 쐉쓰이(双十一)때 11월11일 0시가 되자마자 매출이 급상승함과 동시에 이벤트가 <del>미친듯이</del> 순식간에 몰려드는 것을 보고,
-일 년 전 밤을 지새우며 O2O 시스템을 Event driven 방식으로 바꾸느라 고생했던 순간이 떠올라
-시스템의 구축 과정을 다시 한번 돌아보았다.</p>
+일 년 전 밤을 지새우며 O2O 시스템을 Event driven 방식으로 바꾸느라 고생했던 순간이 떠올랐다.</p>
+
+<p>그날의 상황은 동료가 쓴 글인 <a href="http://www.popit.kr/%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%94%EB%9D%BC%EB%B3%B8-%EC%A4%91%EA%B5%AD-%EC%87%BC%ED%95%91-%EC%B6%95%EC%A0%9C-%EA%B4%91%EA%B5%B0%EC%A0%9C/">개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)</a>에 생생하게 나타나 있다.
+실제 당일날 MongoDB 인덱스 문제, 디스크 부족으로 인한 kafka 서버 장애, 등 몇몇 문제가 발생하기도 했지만, 고객에게는 문제없이 서비스가 제공되었고<sup class="footnote-ref" id="fnref:7"><a rel="footnote" href="#fn:7">1</a></sup>, 쐉쓰이(双十一)는 무사히 지나갔다.</p>
+
+<p>이번 글에서는 쐉쓰이(双十一)를 버틸 수 있었던 요소 중 하나였던 Event driven 방식을 소개하려고 한다.</p>
 
 <h1 id="배경">배경</h1>
 
@@ -99,7 +103,7 @@
 
 <p><strong><em>어떻게든 되게 하자!</em></strong></p>
 
-<p>이것이 중국의 여러 서비스를 사용하면서 배운 중국의 방식이었다.<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>
+<p>이것이 중국의 여러 서비스를 사용하면서 배운 중국의 방식이었다.<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">2</a></sup>
 중국의 모바일 서비스에서 다른 그 어떤 것보다 우선시 되는 것이 있다면, <strong>&ldquo;고객이 한번 실행했던 기능은 반드시 처리되어야 한다&rdquo;</strong>는 것이다.
 그것을 위해선 다른 것들<small>(예쁜 UI, 깨알 같은 디테일, 등)</small>은 좀 감수해도 허용이 되더라.
 분명 위챗을 통해 온라인 송금을 했는데 10분이 지나도 상대방에게 전달이 안 되는 경우도 있고<small><em>(언젠가는 된다)</em></small>,
@@ -134,7 +138,7 @@ Event Driven에서 제안하는 다양한 방식을 직접 구현해보았다.
 <h1 id="내-멋대로">내 멋대로</h1>
 
 <p>머릿속을 복잡하게 하는 것들은 싹 다 버리고,
-<a href="https://en.wikipedia.org/wiki/Event-driven_architecture">위키피디아에 나오는 설명</a> 중에서 눈에 들어오는 몇 가지 단어(event emitters, event consumers, event channels)만 뽑아서 그것을 중심으로 설계를 해 보았다.<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup></p>
+<a href="https://en.wikipedia.org/wiki/Event-driven_architecture">위키피디아에 나오는 설명</a> 중에서 눈에 들어오는 몇 가지 단어(event emitters, event consumers, event channels)만 뽑아서 그것을 중심으로 설계를 해 보았다.<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">3</a></sup></p>
 
 <p>사용자 요청을 중심으로 움직이던 시스템을 이벤트에 의해 흘러가도록 설계를 변경하였다.
 비즈니스적으로 중요한 사건과 행위를 도출하여 그것을 화이트보드에 옮겨보았다.
@@ -163,7 +167,7 @@ Event Driven에서 제안하는 다양한 방식을 직접 구현해보았다.
 이벤트 처리 과정 중 특정 서비스에 장애가 발생하더라도,
 또는 엄청난 트래픽에 시스템이 버벅거리고 있다 하더라도 Event는 반드시 전달되어야 한다.</p>
 
-<p>유명한 Queue 도구(예: RabbitMQ, Kafka, etc.)를 사용하면, 도구마다 약간의 차이점은 있지만 큐 자체가 이것을 보장해 준다.<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup>
+<p>유명한 Queue 도구(예: RabbitMQ, Kafka, etc.)를 사용하면, 도구마다 약간의 차이점은 있지만 큐 자체가 이것을 보장해 준다.<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">4</a></sup>
 우리는 우리의 상황을 고려하여 kafka를 선택했다.
 여러 큐 중에서 kafka를 선택한 이유는 아래와 같다.</p>
 
@@ -179,9 +183,9 @@ Event Driven에서 제안하는 다양한 방식을 직접 구현해보았다.
 
 <ol>
 <li>produce/consume 코드 작성은 어렵다.<br />
-<em>&lsquo;이게 뭐가 어려워?&rsquo;</em> 라고 생각하는 사람이 많을 텐데, 이때만 하더라도 우리 개발팀의 수준은 <del>아주 낮았다</del> 그리 높지 않았다.<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup>
+<em>&lsquo;이게 뭐가 어려워?&rsquo;</em> 라고 생각하는 사람이 많을 텐데, 이때만 하더라도 우리 개발팀의 수준은 <del>아주 낮았다</del> 그리 높지 않았다.<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">5</a></sup>
 게다가 그때 당시엔 큐 도구로 어떤 것이 적합한지 확신이 서지 않았었다.
-RabitMQ, Kafka, NSQ, NATS등 여러 큐를 사용하며 비교해 보았지만<sup class="footnote-ref" id="fnref:5"><a rel="footnote" href="#fn:5">5</a></sup> 여전히 확신이 서지 않았다.
+RabitMQ, Kafka, NSQ, NATS등 여러 큐를 사용하며 비교해 보았지만<sup class="footnote-ref" id="fnref:5"><a rel="footnote" href="#fn:5">6</a></sup> 여전히 확신이 서지 않았다.
 여차하면 다른 큐로 교체할 수 있어야 하는데 그러면 모든 produce, consume 코드를 수정해야 했다.
 그래서 각 마이크로서비스는 WEB API만 만들고 Event Broker가 WEB API 호출하여 이벤트를 전달해주는 방식을 취했다.</li>
 <li>Retry<br />
@@ -193,7 +197,7 @@ Event Driven 방식의 시스템에서는 이벤트의 처리 상황이 가장 �
 단순히 큐의 pub/sub 상황뿐만 아니라 이벤트에 의해 비즈니스가 흘러가는 상황을 정확하게 진단하기 위해서는 트레이스 정보를 상세하게 남겨야 한다.
 특히 이벤트 처리에 대한 에러는 한곳에 모여있는 게 이후 이벤트의 전달 상황을 확인하고 조치하기 편리하다.</li>
 <li>offset 관리<br />
-개발 당시에는 kafka가 exactly once 방식을 지원하지 않았기 때문에<sup class="footnote-ref" id="fnref:6"><a rel="footnote" href="#fn:6">6</a></sup> 자체적으로 exactly once를 보장해야 했다.
+개발 당시에는 kafka가 exactly once 방식을 지원하지 않았기 때문에<sup class="footnote-ref" id="fnref:6"><a rel="footnote" href="#fn:6">7</a></sup> 자체적으로 exactly once를 보장해야 했다.
 각 consume 서비스들에게 이벤트가 정확히 한 번씩만 전달되도록 하기 위해 각 consume 서비스들에 전달한 최종 offset을 관리하여 Event가 여러 번 전달되지 않도록 했다.</li>
 <li>consume 서비스들 간 balance 조정<br />
 어떤 이벤트는 모든 consume 서비스들이 같은 속도로 처리해야 하는 경우가 있다.
@@ -209,34 +213,43 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 
 <p>이런 이유로, 우리는 Event broker를 중심에 두었다.</p>
 
-<h1 id="쐉쓰이-双十一-넘기기">쐉쓰이(双十一) 넘기기</h1>
+<h1 id="효과">효과</h1>
 
-<p>그날의 실제 상황은 동료가 쓴 글인 <a href="http://www.popit.kr/%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%94%EB%9D%BC%EB%B3%B8-%EC%A4%91%EA%B5%AD-%EC%87%BC%ED%95%91-%EC%B6%95%EC%A0%9C-%EA%B4%91%EA%B5%B0%EC%A0%9C/">개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)</a>에 생생하게 나타나 있다.
-실제 당일날 MongoDB 인덱스 문제, 디스크 부족으로 인한 kafka 서버 장애, 등 몇몇 문제가 발생하기도 했지만 고객에게는 문제없이 서비스가 제공되었고, 쐉쓰이(双十一)는 무사히 지나갔다.</p>
+<p>이러한 방식의 Event driven 도입으로 시스템은 더욱 유연하고 견고해졌다.</p>
 
-<p><img src="https://jaehue.github.io/images/eventdriven/pubsub.png" alt="pubsub" /></p>
+<ol>
+<li>하나의 마이크로서비스에 문제가 발생한다 할지라도 그것이 전체의 장애로 이어지지 않는다. 단지 지연이 일어날 뿐이다. (서비스 운영자의 심적 부담 측면에서, &lsquo;장애&rsquo;와 &lsquo;지연&rsquo;은 엄청난 차이가 있다)</li>
+<li>이벤트를 처리하는 로직이 추가된 경우, Event broker에 그 이벤트를 처리하는 새로운 consume 서비스를 추가로 연결하기만 하면 되기 때문에 비즈니스의 확장도 쉽다.</li>
+<li>설령 DB가 날라간다 하더라도 이벤트만 보존되어 있다면, 이벤트를 기반으로 데이터의 복원이 가능하다.<sup class="footnote-ref" id="fnref:8"><a rel="footnote" href="#fn:8">8</a></sup></li>
+</ol>
 
-<p>위 그래프는 이벤트의 produce/consume 처리 개수를 분 단위로 보여주고 있다.
-consume 서비스의 문제로 이벤트 처리가 늦어지고 있지만, 결국 모든 이벤트를 문제없이 처리하고 있음을 볼 수 있다.
-(위와 같이 실제 상황을 정확하게 확인할 수 있었던 것은 지난 글에서 소개한 <a href="https://jaehue.github.io/post/go-my-way-3-tracing/">트레이싱</a>의 효과가 컸다.)</p>
+<p>하지만 단점도 있다.
+비즈니스의 흐름이 여러 이벤트로 나눠어 있기 때문에, 문제가 발생할 때 추적하기가 어렵다.
+특히나 Event broker의 존재는 문제의 원인을 파악하는 것을 더욱 어렵게 만든다.
+우리도 초창기에는 이런 어려움이 많았었다.
+지금은 단계마다 상세한 트레이스 로그를 남겨 이벤트 처리 상황을 정확하게 확인할 수 있도록 했다.
+트레이스 로그를 남기는 방법에 대해서는 <a href="https://jaehue.github.io/post/go-my-way-3-tracing/">이전 글</a>을 참고하기 바란다.</p>
 
-<p>광군제를 무사히 보낸 다음 날 동료들끼리 함께 한 저녁 식사 자리에서 이런 얘기를 했었다.</p>
+<h1 id="주석">주석</h1>
 
-<blockquote>
-<p><em>&ldquo;중국의 IT 서비스 기술은 쐉쓰이 때문에 발전하는 것 같다.&rdquo;</em></p>
-</blockquote>
+<!--
+광군제를 무사히 보낸 다음 날 동료들끼리 함께 한 저녁 식사 자리에서 이런 얘기를 했었다.
 
-<p>실제로, 지난 행사 때만 해도 TMALL의 API가 불안정했었고, 택배회사 API도 알 수 없는 에러(<code>500</code>)를 뱉어내는 경우가 많았다.
-하지만 이번 <sup>11</sup>&frasl;<sub>11</sub> 행사때는 외부 API와의 연동이 대부분 원활했었다.
-우리만 하더라도 쐉쓰이(<sup>11</sup>&frasl;<sub>11</sub>)가 아니었다면 이런 아키텍처를 고민했을까?
-해마다 <sup>11</sup>&frasl;<sub>11</sub> 을 보내면서, 중국 전체의 IT 기술이 다 같이 성장하는 것을 보고 있다.
+> *"중국의 IT 서비스 기술은 쐉쓰이 때문에 발전하는 것 같다."*
+
+실제로, 지난 행사 때만 해도 TMALL의 API가 불안정했었고, 택배회사 API도 알 수 없는 에러(`500`)를 뱉어내는 경우가 많았다.
+하지만 이번 11/11 행사때는 외부 API와의 연동이 대부분 원활했었다.
+우리만 하더라도 쐉쓰이(11/11)가 아니었다면 이런 아키텍처를 고민했을까?
+해마다 11/11 을 보내면서, 중국 전체의 IT 기술이 다 같이 성장하는 것을 보고 있다.
 알리바바나 텐센트 같은 큰 기업들은 플랫폼을 제공함으로써 모두가 함께 사용할 수 있는 환경을 조성하고,
 그 위에서 크고 작은 많은 기업이 상생하고 있다.
-그리고 이들은 다 같이 성장하고 있다.</p>
+그리고 이들은 다 같이 성장하고 있다.
 
-<h1 id="아쉬움">아쉬움</h1>
 
-<p>어쩌면 아직도 몇몇 사람들에겐 중국이 낙후된 나라라는 인식이 박혀있을지도 모른다.
+
+# 아쉬움
+
+어쩌면 아직도 몇몇 사람들에겐 중국이 낙후된 나라라는 인식이 박혀있을지도 모른다.
 10년 전쯤에는 확실히 그랬던 것 같다.
 하지만 중국은 빠르게 성장하고 있고, IT 분야에서만큼은 한국을 이미 앞지른 것 같다.
 며칠 전, 이 분야에 관심이 있는 사람들은 이름만 들어도 알만한 꽤 유명한 스타트업을 창업했다가 공동창업자와의 의견 차이와 극심한 스트레스로 5년 만에 중도하차한 고등학교 친구를 만났었다.
@@ -245,12 +258,21 @@ consume 서비스의 문제로 이벤트 처리가 늦어지고 있지만, 결�
 기업의 세계가 마치 커다란 도박판처럼 느껴졌다.
 같이 상생할 방법도 얼마든지 있을 텐데.
 서로의 밥그릇을 빼앗아오려는 노력을 해외 시장으로 돌릴 수 있으면 참 좋을 텐데.
-옆자리에 앉은 사람과의 경쟁만을 요구받았던 지난 학창시절을 생각해볼 때, 어쩌면 당연한 결과일지도 모른다는 생각에 씁쓸했다.</p>
+옆자리에 앉은 사람과의 경쟁만을 요구받았던 지난 학창시절을 생각해볼 때, 어쩌면 당연한 결과일지도 모른다는 생각에 씁쓸했다. -->
 <div class="footnotes">
 
 <hr />
 
 <ol>
+<li id="fn:7">아래 그래프는 이벤트의 produce/consume 처리 개수를 분 단위로 보여주고 있다. 
+<img >
+
+
+    <img src="https://jaehue.github.io/images/eventdriven/pubsub.png" width="700" />
+
+</img>
+ consume 서비스의 문제로 이벤트 처리가 늦어지고 있지만, 결국 모든 이벤트를 문제없이 처리하고 있음을 볼 수 있다. (위와 같이 실제 상황을 정확하게 확인할 수 있었던 것은 지난 글에서 소개한 트레이싱의 효과가 컸다.)
+ <a class="footnote-return" href="#fnref:7"><sup>[return]</sup></a></li>
 <li id="fn:1">중국의 모바일 서비스에 대해서는 <a href="http://www.popit.kr/%EC%A4%91%EA%B5%AD-%EB%AA%A8%EB%B0%94%EC%9D%BC-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%97%90-%EB%B9%A0%EC%A7%80%EB%8B%A4/">중국 모바일 서비스에 빠지다</a>에 잘 소개되어 있다.
  <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
 <li id="fn:2">이것은 함께 일하는 <a href="https://www.facebook.com/profile.php?id=100017950085523">안영회</a>님을 흉내낸 방식이다. 코딩하다가 문제가 잘 안 풀릴 때면 위키피디아를 펴놓고 잘 읽히지도 않는 영어를 쳐다보곤 한다.
@@ -263,6 +285,8 @@ consume 서비스의 문제로 이벤트 처리가 늦어지고 있지만, 결�
  <a class="footnote-return" href="#fnref:5"><sup>[return]</sup></a></li>
 <li id="fn:6">개발 당시 최종 버전이었던 v0.10.1.0는 at-most-once/at-list-once 두 가지 형태로만 사용할 수 있었다. v0.11.0.0 이후 버전부터는 exactly once를 보장해준다
  <a class="footnote-return" href="#fnref:6"><sup>[return]</sup></a></li>
+<li id="fn:8">사실 우리 서비스도 이정도 수준의 복원력은 갖추고 있지 않다. 하지만, 필요하다면 kafka에 저장된 이벤트를 기반으로 데이터를 복원하는 것은 어렵지않게 구현할 수 있다. kafka에 저장된 이벤트를 기반으로 데이터를 복원하려면 kafka의 log retention(디스크에 메시지를 얼마나 오랫동안 유지할지에 대한 설정)을 적절하게 셋팅해주어야 한다.
+ <a class="footnote-return" href="#fnref:8"><sup>[return]</sup></a></li>
 </ol>
 </div>
 
