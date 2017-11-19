@@ -2,11 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://jaehue.github.io/post/event-driven/</loc>
-    <lastmod>2017-11-17T00:00:00+08:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://jaehue.github.io/post/go-my-way-3-tracing/</loc>
     <lastmod>2017-10-30T00:00:00+08:00</lastmod>
   </url>
@@ -53,13 +48,13 @@
   
   <url>
     <loc>https://jaehue.github.io/</loc>
-    <lastmod>2017-11-17T00:00:00+08:00</lastmod>
+    <lastmod>2017-10-30T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jaehue.github.io/post/</loc>
-    <lastmod>2017-11-17T00:00:00+08:00</lastmod>
+    <lastmod>2017-10-30T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
