@@ -54,7 +54,7 @@
 <p>중국 이커머스 최대 행사인 쐉쓰이(双十一)때 11월11일 0시가 되자마자 매출이 급상승함과 동시에 이벤트가 <del>미친듯이</del> 순식간에 몰려드는 것을 보고,
 일 년 전 밤을 지새우며 O2O 시스템을 Event driven 방식으로 바꾸느라 고생했던 순간이 떠올랐다.</p>
 
-<p>그날의 상황은 동료가 쓴 글인 <a href="http://www.popit.kr/%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%94%EB%9D%BC%EB%B3%B8-%EC%A4%91%EA%B5%AD-%EC%87%BC%ED%95%91-%EC%B6%95%EC%A0%9C-%EA%B4%91%EA%B5%B0%EC%A0%9C/">개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)</a>에 생생하게 나타나 있다.
+<p>쐉쓰이의 분위기는 동료가 쓴 글인 <a href="http://www.popit.kr/%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%94%EB%9D%BC%EB%B3%B8-%EC%A4%91%EA%B5%AD-%EC%87%BC%ED%95%91-%EC%B6%95%EC%A0%9C-%EA%B4%91%EA%B5%B0%EC%A0%9C/">개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)</a>에 생생하게 나타나 있다.
 실제 당일날 MongoDB 인덱스 문제, 디스크 부족으로 인한 kafka 서버 장애, 등 몇몇 문제가 발생하기도 했지만, 고객에게는 문제없이 서비스가 제공되었고<sup class="footnote-ref" id="fnref:7"><a rel="footnote" href="#fn:7">1</a></sup>, 쐉쓰이(双十一)는 무사히 지나갔다.</p>
 
 <p>이번 글에서는 쐉쓰이(双十一)를 버틸 수 있었던 요소 중 하나였던 Event driven 방식을 소개하려고 한다.</p>
@@ -84,7 +84,7 @@
 
 <p>우리가 제공하는 큰 서비스 중 하나가 O2O(Online to Offline) 서비스인데,
 고객이 온라인에서 물건을 구매하면, 어딘가에 있는 오프라인 매장에서 고객에게 물건을 배송해주는 서비스이다.
-알리바바가 운영하는 天猫(tmall.com)에서 주문이 발생하면, 중국 전역에 있는 7000개 매장에서 그 상황을 바로 알 수 있다.
+알리바바가 운영하는 天猫(tmall.com)에서 주문이 발생하면, 중국 전역에 있는 수천개 매장에서 그 상황을 바로 알 수 있다.
 그리고 내 매장에 물건이 있으면 그 주문을 찜하고(抢单) 내 매장에 있는 물건을 보내면 된다.</p>
 
 <p>11/11은 광군제라고, 중국판 Black Friday다.
@@ -131,7 +131,7 @@ Event Driven에서 제안하는 다양한 방식을 직접 구현해보았다.
 여러 언어들을(Go, C#, Ruby) 사용해서 데이터베이스도 바꿔가며(MongoDB, EventStore, Kafka, Mysql, RavenDB,,,) 이것저것 다 적용해보고, 우리 비즈니스를 거의 4~5가지 버전으로 만들어도 보았다.
 그래도 여전히 &lsquo;이게 맞나?&lsquo;라는 의문이 가시지 않았다.</p>
 
-<p>CQRS, Event Soucing, Command, Event, Aggregation, Snapshop,,,<br />
+<p>CQRS, Event Soucing, Command, Event, Aggregation, Snapshot,,,<br />
 이런것들을 코드에 꾸역꾸역 집어 넣어가며 다 구현한 뒤 내 생각은
 &lsquo;이렇게까지 해야 해?&lsquo;였다.</p>
 
@@ -304,7 +304,7 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
  <a class="footnote-return" href="#fnref:4"><sup>[return]</sup></a></li>
 <li id="fn:5"><a href="https://github.com/jaehue/anyq">https://github.com/jaehue/anyq</a> 를 보면 여러 큐를 사용하려고 시도했던 흔적을 볼 수 있다.
  <a class="footnote-return" href="#fnref:5"><sup>[return]</sup></a></li>
-<li id="fn:6">개발 당시 최종 버전이었던 v0.10.1.0는 at-most-once/at-list-once 두 가지 형태로만 사용할 수 있었다. v0.11.0.0 이후 버전부터는 exactly once를 보장해준다
+<li id="fn:6">개발 당시 최종 버전이었던 v0.10.1.0는 at-most-once/at-least-once 두 가지 형태로만 사용할 수 있었다. v0.11.0.0 이후 버전부터는 exactly once를 보장해준다
  <a class="footnote-return" href="#fnref:6"><sup>[return]</sup></a></li>
 <li id="fn:8">사실 우리 서비스도 이정도 수준의 복원력은 갖추고 있지 않다. 하지만, 필요하다면 kafka에 저장된 이벤트를 기반으로 데이터를 복원하는 것은 어렵지않게 구현할 수 있다. 데이터 복원을 위해 이벤트를 보존하려면 kafka의 log retention(디스크에 메시지를 얼마나 오랫동안 유지할지에 대한 설정)을 적절하게 셋팅해주어야 한다.
  <a class="footnote-return" href="#fnref:8"><sup>[return]</sup></a></li>
@@ -313,7 +313,7 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 
     </div>
     <div class="post-footer">
-      <a href="https://jaehue.github.io/post" class="btn btn-primary btn-block btn-lg">View All 10 Articles →</a>
+      <a href="https://jaehue.github.io/post" class="btn btn-primary btn-block btn-lg">View All 11 Articles →</a>
 
     </div>
     
