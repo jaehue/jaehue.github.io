@@ -170,13 +170,13 @@ defer resourceA.Close()     // will never panic!
 <p>출처: <a href="http://dave.cheney.net/2014/03/19/channel-axioms">http://dave.cheney.net/2014/03/19/channel-axioms</a></p>
 
 <ul>
-<li>A send to a nil channel blocks forever<br />
+<li>A send to a nil channel blocks forever
 nil 채널에 값을 전달하면 영원히 블럭된다.</li>
-<li>A receive from a nil channel blocks forever<br />
+<li>A receive from a nil channel blocks forever
 nil 채널로부터 값을 받으려고 하면 영원히 블럭된다.</li>
-<li>A send to a closed channel panics<br />
+<li>A send to a closed channel panics
 close된 채널이 값을 보내면 panic이 발생한다.</li>
-<li>A receive from a closed channel returns the zero value immediately<br />
+<li>A receive from a closed channel returns the zero value immediately
 close된 채널로 값을 받으려고 하면 즉시 zero value가 리턴된다.</li>
 </ul>
 </blockquote>
@@ -365,11 +365,11 @@ deadlock이나 race condition이 발생했을때의 full stack trace를 보여�
 Race Detector는 유닛테스트 뿐만 아니라 개발환경나 테스트 환경에서도 사용된다.</p>
 
 <ul>
-<li>Reports when variable access is not synchronized<br />
+<li>Reports when variable access is not synchronized
 변수의 접근이 synchronized 되지 않았을때 report 함</li>
-<li>Crashes with a full stack trace, including the read and write goroutines<br />
+<li>Crashes with a full stack trace, including the read and write goroutines
 read, write 고루틴을 포함해서 전체 stack trace 정보를 보여주면서 crash</li>
-<li>Should be used in unit tests, development, and testing environments<br />
+<li>Should be used in unit tests, development, and testing environments
 유닛 테스트 뿐만 아니라 개발, 테스트 환경에서도 사용된다.</li>
 </ul>
 
@@ -444,17 +444,17 @@ $ go install -race mypkg // to install the package
 <p>가장 많은 상황은 network timeout이다.</p>
 
 <ul>
-<li>network dial timeout<br />
-네트워크 상에서 연결을 처음 맺을때<br />
+<li>network dial timeout
+네트워크 상에서 연결을 처음 맺을때
 예를 들어 port는 살아 있지만 어떠한 이유로 인해 응답을 주지 않는 경우가 있다. 리소스를 만들다가 hang이 걸리는 경우도 있다.
 그런 경우는 타임아웃을 걸어 다른 조치를 취하도록 해야 한다.</li>
-<li>network connection inactivity timeout<br />
-network connection이 일정 시간 동안 inactive 상태인 경우<br />
-connection을 맺은 상태로 두지말고, 우선 끊고 다시 연결하거나<br />
+<li>network connection inactivity timeout
+network connection이 일정 시간 동안 inactive 상태인 경우
+connection을 맺은 상태로 두지말고, 우선 끊고 다시 연결하거나
 connection pool로 connection을 관리해서 다른 일을 처리하는데 사용</li>
-<li>total connection timeout<br />
-전체 connection 시간이 일정 시간을 넘어 선 경우<br />
-정상적으로 처리 중이지만, client의 상황이 일정 시간을 넘어서면 가치가 없는 경우가 있다.<br />
+<li>total connection timeout
+전체 connection 시간이 일정 시간을 넘어 선 경우
+정상적으로 처리 중이지만, client의 상황이 일정 시간을 넘어서면 가치가 없는 경우가 있다.
 예를들어 지금 접속자가 몇명인지를 체크해야 하는데, 실제로 그것을 처리하는 어떤 과정이 오래 걸린다면, 그냥 안보여주는 것도 방법이다.</li>
 </ul>
 
@@ -517,23 +517,23 @@ Heap 중에서도 실제 allicate되어 사용되고 있는 메모리와 idle �
 <p>자, 그러면 이러한 수치를 통해 어떤 관점으로 봐야 하는지 이야기를 해 보자.</p>
 
 <ul>
-<li>How much memory does the service use when idle?<br />
-idle 상태일때 사용하는 메모리는 어느 정도인가?<br />
+<li>How much memory does the service use when idle?
+idle 상태일때 사용하는 메모리는 어느 정도인가?
 아무 일을 하고 있지도 않은데 많은 메모리를 사용하고 있다면 점검을 해 보아야 한다.</li>
-<li>How much memory per connection?<br />
-하나의 connection이 사용하는 메모리는 어느 정도인가?<br />
+<li>How much memory per connection?
+하나의 connection이 사용하는 메모리는 어느 정도인가?
 이런 정보를 바탕으로, 동시 접속자 몇 명을 수용 할 수 있는지를 알 수 있고, scaling을 조절할 수 있다.
 특정 기간동안 이벤트성으로 사용되는 서비스가 있다면,
 &lsquo;예를들면 광복절을 기념하여 OO 쇼핑몰에서 쿠폰을 쏩니다!!&rsquo; 이런 행사를 한다고 했을때,
 예측되는 접속자 수에 맞게 서버를 구성하고
 그래프의 추이를 보면서 스케일링을 조정할 수 있다.</li>
-<li>Does the system reclaim memory that&rsquo;s no longer used?<br />
+<li>Does the system reclaim memory that&rsquo;s no longer used?
 더이상 사용하지 않는 메모리를 잘 회수하고 있는지? (GC)</li>
-<li>What&rsquo;s the garbage collector doing? GODEBUG=gctrace=1<br />
+<li>What&rsquo;s the garbage collector doing? GODEBUG=gctrace=1
 GC가 일을 제대로 하는지 trace 정보를 통해 확인할 수도 있다.
 <code>GODEBUG=gctrace=1</code> 환경변수를 셋팅하면 GC 트레이싱이 가능하다.
 (<a href="http://dave.cheney.net/tag/gc">http://dave.cheney.net/tag/gc</a>)</li>
-<li>Where is memory allocated? (PPROF)<br />
+<li>Where is memory allocated? (PPROF)
 좀 더 세부적으로 들어가서, 어떤 고루틴이 얼만큼의 메모리를 사용하고 있는지에 대해서도 궁금할 것이다.</li>
 </ul>
 
@@ -547,13 +547,13 @@ GC가 일을 제대로 하는지 trace 정보를 통해 확인할 수도 있다.
 <p><code>pprof</code>는 동작중인 프로세스의 상태를 점검해준다.</p>
 
 <ul>
-<li>Blocking profile<br />
+<li>Blocking profile
 blocking 된 것들은 없는지 확인할 수 있고</li>
-<li>Goroutine count and full stacktraces<br />
+<li>Goroutine count and full stacktraces
 goroutine의 수와 그것의 stacktrace를 확인할 수 있다</li>
-<li>Heap profile<br />
+<li>Heap profile
 Heap 상태를 프로파일링 해 주고</li>
-<li>Stacktraces that lead to thread creations<br />
+<li>Stacktraces that lead to thread creations
 tread를 생성하는 stacktrace를 확인할 수 있다</li>
 </ul>
 
@@ -599,11 +599,11 @@ func main() {
 <p><code>pprof</code>를 사용하면 이런 것들을 확인할 수 있다.</p>
 
 <ul>
-<li>How many goroutines when nobody is connected?<br />
+<li>How many goroutines when nobody is connected?
 아무도 접속하지 않았을때 몇개의 goroutine이 떠 있나?</li>
-<li>How many goroutines per connection?<br />
+<li>How many goroutines per connection?
 한 connection당 몇개의 goroutine이 필요하나?</li>
-<li>Are all goroutines cleaned up after all connections close?<br />
+<li>Are all goroutines cleaned up after all connections close?
 모든 connection이 닫히면 모든 goroutine이 clean up 되나?</li>
 </ul>
 
@@ -718,16 +718,16 @@ Global한 서비스를 운영하고 있는 경우는 필요할때가 있다.</p>
 <p>그래서 몇가지 팁을 소개한다.</p>
 
 <ul>
-<li>Create a semi-unique string per request<br />
+<li>Create a semi-unique string per request
 각 request를 식별할 수 있는 로그 문자열을 만들어라.
 여러 request가 동시에 쏟아지는 경우, timestamp만 남기면 하나의 request가 어떤 과정으로 처리되는지 추적하기가 어렵다.
 heroku에 웹 어플리케이션을 배포하면, 매 요청 정보를 로그로 남기는데, 좋은 예이다.
 로그를 보면 각 요청마다 request_id를 할당하고 그것을 함께 로그로 남긴다.
 이렇게 하면 여러 request에 대한 로그가 뒤섞여 있어도, 하나의 request가 처리되면서 남기는 로그를 추적할 수 있다.</li>
-<li>Use this request string as a prefix in all log entries<br />
+<li>Use this request string as a prefix in all log entries
 log에 의미있는 prefix를 사용해라.
 추적하고 싶은 의미 있는 작업에 대해서는 그 의미를 담고 있는 적절한 prefix를 달아주는 것이 좋다.</li>
-<li>Always log at least the start and end of a request<br />
+<li>Always log at least the start and end of a request
 적어도 시작과 끝에는 항상 로그를 남겨라.
 실제 로깅 기능을 disable해도 되니까.</li>
 </ul>
@@ -801,15 +801,6 @@ log에 의미있는 prefix를 사용해라.
 Built with <a href="http://gohugo.io/">Hugo</a> (0.37.1) and
 <a href="https://github.com/chibicode/hugo-theme-shiori">Shiori Theme</a>.
 
-
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-91404316-1', 'auto');
-ga('send', 'pageview');
-</script>
 
 </footer>
 

@@ -51,7 +51,7 @@
     <div class="post-content">
       
 
-<p>루비의 Ruby on Rails, 자바의 Spring, 파이썬의 Django, 노드의 Express.<br />
+<p>루비의 Ruby on Rails, 자바의 Spring, 파이썬의 Django, 노드의 Express.
 대부분의 인기 있는 언어는 메인 프레임워크가 있다.
 그래서 고민 없이 그 언어에 맞는 메인 프레임워크를 사용한다.
 하지만 Go는 이런 게 없다.
@@ -79,7 +79,7 @@ Go는 많은 기능을 하나의 프레임워크에 담아놓는 방식보다, �
 데이터를 저장하려면 DB도 필요하고, 로그도 좀 잘 남기고 싶고, 웹 요청이 처리되는 트레이스 정보도 보고 싶고,,, 이런 걸 하나하나 풀어가려면 또다시 수많은 선택지 앞에서 먹먹해진다.
 그래서 2편과 3편에서는 웹 요청을 받아들여서 로직을 처리하는 기능 이외에, DB, Logging, Tracing, Vendoring, Confugration, Test등과 같은 것들을 어떤 방식으로 구현하는지 소개한다.</p>
 
-<p>마지막에는 번외로, <a href="https://github.com/golang/go/wiki/Mobile">gomobile</a>에 대해 소개하겠다.<br />
+<p>마지막에는 번외로, <a href="https://github.com/golang/go/wiki/Mobile">gomobile</a>에 대해 소개하겠다.
 몇몇 컨퍼런스에서 소개가 되긴 했지만, 실제로 Go를 모바일 개발에 사용하는 것을 많이 꺼린다.
 하지만 우리 회사에서 서비스하는 모바일 앱 안에는 Go 패키지가 들어가있다. gomobile에 제약사항이 있긴 하지만, 제약사항을 잘 고려해서 프로그램을 작성하면 꽤 쓸만하다.
 마지막으로 모바일 앱에서 Go를 어떻게 사용했는지 소개할 것이다.</p>
@@ -92,8 +92,8 @@ Go는 많은 기능을 하나의 프레임워크에 담아놓는 방식보다, �
 
 <hr />
 
-<p><strong><em>앞으로 소개할 내용에 대한 토론, 충고, 지적, 논쟁, 질문, 물어뜯기,,,<br />
-어떤 형태로든 의견을 주신다면 감사히 받아들이겠습니다.<br />
+<p><strong><em>앞으로 소개할 내용에 대한 토론, 충고, 지적, 논쟁, 질문, 물어뜯기,,,
+어떤 형태로든 의견을 주신다면 감사히 받아들이겠습니다.
 저의 생각은 항상 열려 있습니다. ^^</em></strong></p>
 
 <hr />
@@ -146,7 +146,7 @@ github의 like수는 gin이 더 많았지만, 후발주자인 echo에 더 마음
 그 상황에서 echo가 더 끌렸던 이유는, echo가 gin보다 훨씬 더 활동이 활발하다는 점이었다.
 echo를 실제 서비스에 사용해 보았었고, 아주 마음에 들었었다.</p>
 
-<p>참고로, 웹 프레임워크를 선택할 때 성능은 고려하지 않았다.<br />
+<p>참고로, 웹 프레임워크를 선택할 때 성능은 고려하지 않았다.
 Go 패키지 중에 좋은 성능을 강조하는 패키지들이 있는데, 난 그 부분은 무시한다.
 <a href="https://github.com/kataras/iris#-iris">iris에 소개된 벤치마크 자료</a>를 보면, iris의 초당 요청 처리 수 그래프 선이 450,000 이상으로 올라가 있는 것을 볼 수 있다.
 초당 450,000건을 처리할 만큼의 고성능 서비스가 우리에게 필요한가?
@@ -210,7 +210,7 @@ controller 디렉토리와 model 디렉토리를 나누는 전통적인 MVC 프�
 │   └── js/
 |── views/
 |   ├── 404.html
-|   ├── 500.html    
+|   ├── 500.html
 |   ├── index.html
 |   └── layout/
 └── main.go
@@ -238,7 +238,7 @@ JWT 인증 처리 미들웨어를 넣고, 세션/쿠키 사용을 위한 구성�
 
 <p>circuit breaker, metrics, tracing과 같은 개발자들이 좋아할 만한 요소도 많고,
 마이크로서비스를 한다면 <code>A toolkit for microservices</code>라고 소개하고 있는 go-kit을 왠지 꼭 써야 할 것 같고,
-그리고 go-kit의 영향을 받은 프레임워크, 패키지들도 많은 것 같고&hellip;<br />
+그리고 go-kit의 영향을 받은 프레임워크, 패키지들도 많은 것 같고&hellip;
 하지만 막상 쓰기엔 부담스러웠다.
 뭘 어떻게 하라는 건지 정돈된 문서도 없고,
 다양한 example만 제공되는데, example들의 소스도 눈에 잘 안 들어왔었다.</p>
@@ -247,8 +247,8 @@ JWT 인증 처리 미들웨어를 넣고, 세션/쿠키 사용을 위한 구성�
 
 <p>&ldquo;Go My Way #3 - gomobile&rdquo;에서 소개할 테지만
 우리 회사는 모바일 앱 개발에도 Go를 사용한다.
-중국은 네트워크 상황이 좋지 않은 곳도 있어서(건물 지하 푸드코트에서는 네트워크 신호가 아주 약함), 서버로 통신하는 데이터의 양을 최소화해야 했다.<br />
-그때 떠오른 것이 grpc.<br />
+중국은 네트워크 상황이 좋지 않은 곳도 있어서(건물 지하 푸드코트에서는 네트워크 신호가 아주 약함), 서버로 통신하는 데이터의 양을 최소화해야 했다.
+그때 떠오른 것이 grpc.
 go-kit의 transport를 사용하면 쉽게 grpc로 전환이 가능하다.
 상황에 따라 http 통신을 할 수도 있고, grpc 통신을 할 수도 있고.
 이 얼마나 멋진 기능인가?</p>
@@ -269,8 +269,8 @@ go-kit의 transport를 사용하면 쉽게 grpc로 전환이 가능하다.
 서비스의 무중단 배포를 위해 <a href="https://martinfowler.com/bliki/BlueGreenDeployment.html">Blue-Green Deploy</a> 방식으로 배포하고 있고,
 유동적으로 변하는 서비스의 주소는 <a href="https://www.consul.io/">consul</a>에 등록이 된다.
 NGINX는 consul을 watching하고 있다가 서비스 정보가 변경되면 NGINX 설정 파일을 변경한다.
-NGINX는 Reverse Proxy 기능을 통해 웹 요청을 실제 service로 연결을 한다.<br />
-즉, 우리는 실제 서비스를 직접 외부로 노출하지 않는다.<br />
+NGINX는 Reverse Proxy 기능을 통해 웹 요청을 실제 service로 연결을 한다.
+즉, 우리는 실제 서비스를 직접 외부로 노출하지 않는다.
 그런데 NGINX에서 grpc는 Reverse Proxy가 안된다.
 Go로 만들어진 웹서버인 <a href="https://caddyserver.com/">Caddy</a>에서는 grpc도 Reverse Proxy가 가능하다는 것을 확인하였고,
 grpc 서비스에 대해서는 <a href="https://caddyserver.com/">Caddy</a>가 API Gateway 역할을 하도록 했다.</p>
@@ -334,15 +334,6 @@ circuit breaker, metrics, tracing와 같은 기능도 아직은 우리 서비스
 Built with <a href="http://gohugo.io/">Hugo</a> (0.37.1) and
 <a href="https://github.com/chibicode/hugo-theme-shiori">Shiori Theme</a>.
 
-
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-91404316-1', 'auto');
-ga('send', 'pageview');
-</script>
 
 </footer>
 

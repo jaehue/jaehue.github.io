@@ -68,8 +68,32 @@
   </url>
   
   <url>
+    <loc>https://jaehue.github.io/tags/eventdriven/</loc>
+    <lastmod>2017-11-17T00:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/golang/</loc>
+    <lastmod>2017-11-17T00:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/categories/it/</loc>
+    <lastmod>2017-11-17T00:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jaehue.github.io/</loc>
     <lastmod>2018-05-11T09:52:28+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/microservice/</loc>
+    <lastmod>2016-09-21T22:04:23+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -81,6 +105,37 @@
   
   <url>
     <loc>https://jaehue.github.io/tags/</loc>
+    <lastmod>2017-11-17T00:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/categories/%EB%AC%B5%EC%83%81/</loc>
+    <lastmod>2018-02-15T09:42:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/%EC%8B%A0%EB%AA%85%EA%B8%B0/</loc>
+    <lastmod>2018-05-11T09:52:28+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/categories/%EC%8B%A0%EC%95%99/</loc>
+    <lastmod>2018-05-11T09:52:28+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/%EC%97%AC%ED%96%89/</loc>
+    <lastmod>2018-02-15T09:42:36+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/%EC%A4%91%EA%B5%ADit/</loc>
+    <lastmod>2017-11-17T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
