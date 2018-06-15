@@ -7,14 +7,36 @@
 	<title>내 멋대로 구현한 이벤트 드리븐</title>
 	<meta name="description" content="">
 	<meta name="generator" content="Hugo 0.37.1" />
-	
+	<meta property="og:title" content="내 멋대로 구현한 이벤트 드리븐" />
+<meta property="og:description" content="중국 이커머스 최대 행사인 쐉쓰이(双十一)때 11월11일 0시가 되자마자 매출이 급상승함과 동시에 이벤트가 미친듯이 순식간에 몰려드는 것을 보고, 일 년 전 밤을 지새우며 O2O 시스템을 Event driven 방식으로 바꾸느라 고생했던 순간이 떠올랐다.
+쐉쓰이의 분위기는 동료가 쓴 글인 개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)에 생생하게 나타나 있다. 실제 당일날 MongoDB 인덱스 문제, 디스크 부족으로 인한 kafka 서버 장애, 등 몇몇 문제가 발생하기도 했지만, 고객에게는 문제없이 서비스가 제공되었고1, 쐉쓰이(双十一)는 무사히 지나갔다.
+이번 글에서는 쐉쓰이(双十一)를 버틸 수 있었던 요소 중 하나였던 Event driven 방식을 소개하려고 한다." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jaehue.github.io/post/event-driven/" />
+
+
+
+<meta property="article:published_time" content="2017-11-17T00:00:00&#43;08:00"/>
+
+<meta property="article:modified_time" content="2017-11-17T00:00:00&#43;08:00"/>
+
+
+
+
+
+
+
+
+
+
+
 	
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
-	<link rel="stylesheet" href="https://jaehue.github.io/css/style.css">
-	<script type="text/javascript" src="https://jaehue.github.io/js/scripts.js"></script>
-	<link rel="shortcut icon" href="https://jaehue.github.io/favicon.ico">
+	<link rel="stylesheet" href="/css/style.css">
+	<script type="text/javascript" src="/js/scripts.js"></script>
+	<link rel="shortcut icon" href="/favicon.ico">
 	
 <script>
 window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -29,7 +51,7 @@ ga('send', 'pageview');
 		<header class="header">
 			<div class="container container-inner">
 				<div class="logo" role="banner">
-					<a class="logo__link" href="https://jaehue.github.io/" title="Jaehue&#39;s" rel="home">
+					<a class="logo__link" href="/" title="Jaehue&#39;s" rel="home">
 						<div class="logo__title">Jaehue&#39;s</div>
 						<div class="logo__tagline">생각들</div>
 					</a>
@@ -47,7 +69,7 @@ ga('send', 'pageview');
 <time class="post__meta-date meta-date" datetime="2017-11-17T00:00:00">November 17, 2017</time>
 <span class="post__meta-categories meta-categories">
 	<svg class="icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
-	<span class="meta-categories__list"><a class="meta-categories__link" href="https://jaehue.github.io/categories/it" rel="category">IT</a></span>
+	<span class="meta-categories__list"><a class="meta-categories__link" href="/categories/it" rel="category">IT</a></span>
 </span></div>
 		</header>
 		<div class="post__content clearfix">
@@ -146,7 +168,7 @@ Event Driven에서 제안하는 다양한 방식을 직접 구현해보았다.
 비즈니스적으로 중요한 사건과 행위를 도출하여 그것을 화이트보드에 옮겨보았다.
 왼쪽 아래로 써 내려간 것이 이벤트(Event)였고, 오른쪽 옆으로 나열한 것이 처리해야 할 행위(Command)였다.</p>
 
-<p><img src="https://jaehue.github.io/images/eventdriven/events.png" alt="events" /></p>
+<p><img src="/images/eventdriven/events.png" alt="events" /></p>
 
 <p>우리 중 몇몇은 이것을 &ldquo;지도&rdquo;라고 불렀다.
 개발을 하다가 모호한 상황이 발생하면 모두 저 화이트보드 앞으로 모여 지도를 다시 그렸다.
@@ -160,7 +182,7 @@ Event Driven에서 제안하는 다양한 방식을 직접 구현해보았다.
 이렇게 각 서비스는 Event를 중심으로 서로 얽혀서 돌아가게 되었다.</p>
 
 <!-- <video width="99%" height="540" autoplay loop muted >
-    <source src="https://jaehue.github.io/images/eventdriven/eventflow.mp4" type="video/mp4" >
+    <source src="/images/eventdriven/eventflow.mp4" type="video/mp4" >
 </video> -->
 
 <h1 id="event-broker">Event Broker</h1>
@@ -291,7 +313,7 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 <img >
 
 
-    <img src="https://jaehue.github.io/images/eventdriven/pubsub.png" width="700" />
+    <img src="/images/eventdriven/pubsub.png" width="700" />
 
 </img>
  consume 서비스의 문제로 이벤트 처리가 늦어지고 있지만, 결국 모든 이벤트를 문제없이 처리하고 있음을 볼 수 있다. (위와 같이 실제 상황을 정확하게 확인할 수 있었던 것은 <a href="https://jaehue.github.io/post/go-my-way-3-tracing/">지난 글</a>에서 소개한 트레이싱의 효과가 컸다.)
@@ -318,14 +340,33 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 <div class="post__tags tags clearfix">
 	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16"><path d="M16 9.5c0 .373-.24.74-.5 1l-5 5c-.275.26-.634.5-1 .5-.373 0-.74-.24-1-.5L1 8a2.853 2.853 0 0 1-.7-1C.113 6.55 0 5.973 0 5.6V1.4C0 1.034.134.669.401.401.67.134 1.034 0 1.4 0h4.2c.373 0 .95.113 1.4.3.45.187.732.432 1 .7l7.5 7.502c.26.274.5.632.5.998zM3.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
 	<ul class="tags__list">
-		<li class="tags__item"><a class="tags__link btn" href="https://jaehue.github.io/tags/eventdriven/" rel="tag">eventdriven</a></li>
-		<li class="tags__item"><a class="tags__link btn" href="https://jaehue.github.io/tags/golang/" rel="tag">golang</a></li>
-		<li class="tags__item"><a class="tags__link btn" href="https://jaehue.github.io/tags/%EC%A4%91%EA%B5%ADit/" rel="tag">중국IT</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/eventdriven/" rel="tag">eventdriven</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/%EC%A4%91%EA%B5%ADit/" rel="tag">중국IT</a></li>
 	</ul>
 </div>
 	</article>
 	
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="장재휴 avatar" src="/images/jaehue.JPG" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 장재휴</span>
+	</div>
+	<div class="authorbox__description">
+		Why Not Change the World?
+	</div>
+</div>
 	
+<nav class="post-nav row clearfix">
+	<div class="post-nav__item post-nav__item--prev col-1-2">
+		<a class="post-nav__link" href="/post/go-my-way-3-tracing/" rel="prev"><span class="post-nav__caption">«&thinsp;Previous</span><p class="post-nav__post-title">Go My Way #3 - 트레이싱</p></a>
+	</div>
+	<div class="post-nav__item post-nav__item--next col-1-2">
+		<a class="post-nav__link" href="/post/uganda-outreach/" rel="next"><span class="post-nav__caption">Next&thinsp;»</span><p class="post-nav__post-title">🇺🇬 우간다 아웃리치</p></a>
+	</div>
+</nav>
 	
 <section class="comments">
 	<div id="disqus_thread"></div>
@@ -368,11 +409,11 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/post/camp_of_god/">하나님의 군대</a></li>
-			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/post/uganda-diary/">우간다에서의 생각들</a></li>
-			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/post/uganda-outreach/">🇺🇬 우간다 아웃리치</a></li>
-			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/post/event-driven/">내 멋대로 구현한 이벤트 드리븐</a></li>
-			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/post/go-my-way-3-tracing/">Go My Way #3 - 트레이싱</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/camp_of_god/">하나님의 군대</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/uganda-diary/">우간다에서의 생각들</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/uganda-outreach/">🇺🇬 우간다 아웃리치</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/event-driven/">내 멋대로 구현한 이벤트 드리븐</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/go-my-way-3-tracing/">Go My Way #3 - 트레이싱</a></li>
 		</ul>
 	</div>
 </div>
@@ -381,9 +422,9 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 	<h4 class="widget__title">Categories</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/categories/it">It</a></li>
-			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/categories/%eb%ac%b5%ec%83%81">묵상</a></li>
-			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/categories/%ec%8b%a0%ec%95%99">신앙</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/it">It</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%eb%ac%b5%ec%83%81">묵상</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%ec%8b%a0%ec%95%99">신앙</a></li>
 		</ul>
 	</div>
 </div>
@@ -410,12 +451,12 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 <div class="widget-taglist widget">
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
-		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/eventdriven" title="Eventdriven">Eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/golang" title="Golang">Golang (5)</a>
-		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/microservice" title="Microservice">Microservice (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/%ec%8b%a0%eb%aa%85%ea%b8%b0" title="신명기">신명기 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/%ec%97%ac%ed%96%89" title="여행">여행 (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/%ec%a4%91%ea%b5%adit" title="중국it">중국it (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven" title="Eventdriven">Eventdriven (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang (5)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/microservice" title="Microservice">Microservice (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%8b%a0%eb%aa%85%ea%b8%b0" title="신명기">신명기 (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%97%ac%ed%96%89" title="여행">여행 (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%a4%91%ea%b5%adit" title="중국it">중국it (1)</a>
 	</div>
 </div>
 </aside>
