@@ -1,55 +1,57 @@
 <!DOCTYPE html>
 <html lang="ko-kr">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://jaehue.github.io/stylesheets/shiori.css">
-    <link href='//fonts.googleapis.com/css?family=Montserrat:700,400' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Merriweather:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="https://jaehue.github.io/favicon.ico">
-    <title>Go My Way #1 - 웹 프레임워크 | Jaehue&#39;s</title>
-    
-    
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Go My Way #1 - 웹 프레임워크</title>
+	<meta name="description" content="">
+	<meta name="generator" content="Hugo 0.37.1" />
+	
+	
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="https://jaehue.github.io/css/style.css">
+	<script type="text/javascript" src="https://jaehue.github.io/js/scripts.js"></script>
+	<link rel="shortcut icon" href="https://jaehue.github.io/favicon.ico">
+	
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-91404316-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
 
-  </head>
-  <body>
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <div class="navbar-toggle-wrapper visible-xs">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".js-navbar-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <a href="https://jaehue.github.io/" class="navbar-brand">Jaehue&#39;s</a>
-        </div>
-        <div class="collapse navbar-collapse js-navbar-collapse">
-          <ul class="navbar-nav nav">
-            <li><a href="https://jaehue.github.io/post">Archive</a></li>
+</head>
+<body class="body body-right-sidebar">
+	<div class="container container-outer">
+		<header class="header">
+			<div class="container container-inner">
+				<div class="logo" role="banner">
+					<a class="logo__link" href="https://jaehue.github.io/" title="Jaehue&#39;s" rel="home">
+						<div class="logo__title">Jaehue&#39;s</div>
+						<div class="logo__tagline">생각들</div>
+					</a>
+				</div>
+			</div>
+			<div class="divider"></div>
+		</header>
+		<div class="wrapper clearfix">
 
-          </ul>
-          <ul class="navbar-nav nav navbar-right">
-            
-
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-
-<div class="row">
-  <div class="col-sm-8">
-    <div class="post-header">
-      <h1 class="post-title-main">Go My Way #1 - 웹 프레임워크</h1>
-      <p class="text-muted">Jun 12, 2017</p>
-
-    </div>
-    <div class="post-content">
-      
+<main class="main content">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Go My Way #1 - 웹 프레임워크</h1><div class="post__meta meta">
+<svg class="icon icon-time" width="16" height="14" viewBox="0 0 16 16"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+<time class="post__meta-date meta-date" datetime="2017-06-12T00:00:00">June 12, 2017</time>
+<span class="post__meta-categories meta-categories">
+	<svg class="icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta-categories__list"><a class="meta-categories__link" href="https://jaehue.github.io/categories/it" rel="category">IT</a></span>
+</span></div>
+		</header>
+		<div class="post__content clearfix">
+			
 
 <p>루비의 Ruby on Rails, 자바의 Spring, 파이썬의 Django, 노드의 Express.
 대부분의 인기 있는 언어는 메인 프레임워크가 있다.
@@ -295,57 +297,122 @@ circuit breaker, metrics, tracing와 같은 기능도 아직은 우리 서비스
 기능이 많지 않은 서비스는 <code>net/http</code> 만으로도 충분하다.
 예를들면, <a href="https://en.wikipedia.org/wiki/CAPTCHA">CAPTCHA</a> 기능만 따로 빼내서 별도의 서비스로 만들어야 한다면, 이러한 서비스는 많은 기능이 필요 없기 때문에 <code>net/http</code>를 바로 사용해도 큰 어려움은 없다.</p>
 
-    </div>
-    <div class="post-footer">
-      <a href="https://jaehue.github.io/post" class="btn btn-primary btn-block btn-lg">View All 13 Articles →</a>
-
-    </div>
-    
+		</div>
 		
- <aside><div id="disqus_thread"></div></aside> 
-
-<script type="text/javascript">
-     
-    var disqus_shortname = 'jaehue';
-
-     
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16"><path d="M16 9.5c0 .373-.24.74-.5 1l-5 5c-.275.26-.634.5-1 .5-.373 0-.74-.24-1-.5L1 8a2.853 2.853 0 0 1-.7-1C.113 6.55 0 5.973 0 5.6V1.4C0 1.034.134.669.401.401.67.134 1.034 0 1.4 0h4.2c.373 0 .95.113 1.4.3.45.187.732.432 1 .7l7.5 7.502c.26.274.5.632.5.998zM3.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link btn" href="https://jaehue.github.io/tags/golang/" rel="tag">golang</a></li>
+	</ul>
+</div>
+	</article>
+	
+	
+	
+<section class="comments">
+	<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
     (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jaehue" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
     })();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
 
-  </div>
-  <div class="col-sm-4">
-    
+</main>
 
-
-
-
-  </div>
+<aside class="sidebar">
+	
+<div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
+	</form>
 </div>
-      <div class="row footer">
-        <div class="col-sm-12 text-center">
-          <footer>
+	
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/post/camp_of_god/">하나님의 군대</a></li>
+			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/post/uganda-diary/">우간다에서의 생각들</a></li>
+			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/post/uganda-outreach/">🇺🇬 우간다 아웃리치</a></li>
+			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/post/event-driven/">내 멋대로 구현한 이벤트 드리븐</a></li>
+			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/post/go-my-way-3-tracing/">Go My Way #3 - 트레이싱</a></li>
+		</ul>
+	</div>
+</div>
+	
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/categories/it">It</a></li>
+			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/categories/%eb%ac%b5%ec%83%81">묵상</a></li>
+			<li class="widget__item"><a class="widget__link" href="https://jaehue.github.io/categories/%ec%8b%a0%ec%95%99">신앙</a></li>
+		</ul>
+	</div>
+</div>
+	
+<div class="widget-social widget">
+	<h4 class="widget-social__title widget__title">Social</h4>
+	<div class="widget-social__content widget__content">
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="Facebook" rel="noopener noreferrer" href="https://facebook.com/bbugguj" target="_blank">
+				<svg class="widget-social__link-icon icon-facebook" viewBox="0 0 352 352" width="24" height="24" fill="#fff"><path d="m0 32v288c0 17.5 14.5 32 32 32h288c17.5 0 32-14.5 32-32v-288c0-17.5-14.5-32-32-32h-288c-17.5 0-32 14.5-32 32zm320 0v288h-83v-108h41.5l6-48h-47.5v-31c0-14 3.5-23.5 23.5-23.5h26v-43.5c-4.4-.6-19.8-1.5-37.5-1.5-36.9 0-62 22.2-62 63.5v36h-42v48h42v108h-155v-288z"/></svg>
+				<span>Facebook</span>
+			</a>
+		</div>
+		
+		<div class="widget-social__item widget__item">
+			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/jaehue" target="_blank">
+				<svg class="widget-social__link-icon icon-github" viewBox="0 0 384 374" width="24" height="24" fill="#fff"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
+				<span>GitHub</span>
+			</a>
+		</div>
+	</div>
+</div>
+	
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/eventdriven" title="Eventdriven">Eventdriven (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/golang" title="Golang">Golang (5)</a>
+		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/microservice" title="Microservice">Microservice (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/%ec%8b%a0%eb%aa%85%ea%b8%b0" title="신명기">신명기 (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/%ec%97%ac%ed%96%89" title="여행">여행 (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="https://jaehue.github.io/tags/%ec%a4%91%ea%b5%adit" title="중국it">중국it (1)</a>
+	</div>
+</div>
+</aside>
+	</div>
+		<footer class="footer">
+			<div class="container container-inner">
+				<div class="footer__copyright">&copy; 2018 Jaehue&#39;s. <span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span></div>
+			</div>
+		</footer>
+	</div>
 
-&copy; 2015.
-Built with <a href="http://gohugo.io/">Hugo</a> (0.37.1) and
-<a href="https://github.com/chibicode/hugo-theme-shiori">Shiori Theme</a>.
-
-
-</footer>
-
-        </div>
-      </div>
-    </div>
-    <script src="https://jaehue.github.io/javascripts/shiori.js"></script>
-    
-
-
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-
-  </body>
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+</body>
 </html>
-
