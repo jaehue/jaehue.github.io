@@ -206,28 +206,28 @@ Event Driven에서 제안하는 다양한 방식을 직접 구현해보았다.
 그 이유는,</p>
 
 <ol>
-<li>produce/consume 코드 작성은 어렵다.
+<li>produce/consume 코드 작성은 어렵다.<br />
 <em>&lsquo;이게 뭐가 어려워?&rsquo;</em> 라고 생각하는 사람이 많을 텐데, 이때만 하더라도 우리 개발팀의 수준은 <del>아주 낮았다</del> 그리 높지 않았다.<sup class="footnote-ref" id="fnref:4"><a href="#fn:4">5</a></sup>
 게다가 그때 당시엔 큐 도구로 어떤 것이 적합한지 확신이 서지 않았었다.
 RabitMQ, Kafka, NSQ, NATS등 여러 큐를 사용하며 비교해 보았지만<sup class="footnote-ref" id="fnref:5"><a href="#fn:5">6</a></sup> 여전히 확신이 서지 않았다.
 여차하면 다른 큐로 교체할 수 있어야 하는데 그러면 모든 produce, consume 코드를 수정해야 했다.
 그래서 각 마이크로서비스는 WEB API만 만들고 Event Broker가 WEB API 호출하여 이벤트를 전달해주는 방식을 취했다.</li>
-<li>Retry
+<li>Retry<br />
 Consume 서비스의 문제로 이벤트 전달이 실패할 수도 있다. 일시적인 문제로 event를 처리하지 못했다면 retry를 해서 이벤트를 다시 전달해 주어야 한다.
 그렇다고 모든 경우에 똑같은 retry 규칙을 적용할 순 없다. 순간적인 네트워크 문제로 실패한 경우는 2~3번 재시도 만에 성공이 되지만, DB timeout 같은 에러를 똑같은 방식으로 retry 해버리면 꽤 긴 시간 동안 다른 이벤트를 처리하지 못한다.
 즉 retry도 상황에 맞게 rule을 정의하고 그 rule에 따라 처리해야 한다.</li>
-<li>트레이스
+<li>트레이스<br />
 Event Driven 방식의 시스템에서는 이벤트의 처리 상황이 가장 중요한 정보이다.
 단순히 큐의 pub/sub 상황뿐만 아니라 이벤트에 의해 비즈니스가 흘러가는 상황을 정확하게 진단하기 위해서는 트레이스 정보를 상세하게 남겨야 한다.
 특히 이벤트 처리에 대한 에러는 한곳에 모여있는 게 이후 이벤트의 전달 상황을 확인하고 조치하기 편리하다.</li>
-<li>offset 관리
+<li>offset 관리<br />
 개발 당시에는 kafka가 exactly once 방식을 지원하지 않았기 때문에<sup class="footnote-ref" id="fnref:6"><a href="#fn:6">7</a></sup> 자체적으로 exactly once를 보장해야 했다.
 각 consume 서비스들에게 이벤트가 정확히 한 번씩만 전달되도록 하기 위해 각 consume 서비스들에 전달한 최종 offset을 관리하여 Event가 여러 번 전달되지 않도록 했다.</li>
-<li>consume 서비스들 간 balance 조정
+<li>consume 서비스들 간 balance 조정<br />
 어떤 이벤트는 모든 consume 서비스들이 같은 속도로 처리해야 하는 경우가 있다.
 A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비스가 아직 첫 번째 이벤트 처리를 완료하지 않았는데 B 서비스가 세 번째 이벤트를 처리해버리면 데이터의 정합성이 깨지는 경우가 있다.
 이런 경우 Event broker가 consume 서비스들의 처리 속도를 맞춰준다.</li>
-<li>partition 분산
+<li>partition 분산<br />
 이벤트 종류에 따라 집중되는 시간대가 다르다.
 지난 <sup>11</sup>&frasl;<sub>11</sub> 상황에서는 0시부터 3시 사이에는 TMALL에서 발생한 고객의 구매 이벤트가 집중적으로 들어왔고
 직원들이 출근하는 시간 즈음에는 抢单(배송 찜하기) 이벤트가 몰리다가 그 후로 택배를 발송하는 행위들이 이어졌다.
@@ -409,11 +409,11 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/how-to-use-golang-context/">Golang에서 Context 사용하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/camp_of_god/">하나님의 군대</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/uganda-diary/">우간다에서의 생각들</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/uganda-outreach/">🇺🇬 우간다 아웃리치</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/event-driven/">내 멋대로 구현한 이벤트 드리븐</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/go-my-way-3-tracing/">Go My Way #3 - 트레이싱</a></li>
 		</ul>
 	</div>
 </div>
@@ -429,30 +429,12 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 	</div>
 </div>
 	
-<div class="widget-social widget">
-	<h4 class="widget-social__title widget__title">Social</h4>
-	<div class="widget-social__content widget__content">
-		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="Facebook" rel="noopener noreferrer" href="https://facebook.com/bbugguj" target="_blank">
-				<svg class="widget-social__link-icon icon-facebook" viewBox="0 0 352 352" width="24" height="24" fill="#fff"><path d="m0 32v288c0 17.5 14.5 32 32 32h288c17.5 0 32-14.5 32-32v-288c0-17.5-14.5-32-32-32h-288c-17.5 0-32 14.5-32 32zm320 0v288h-83v-108h41.5l6-48h-47.5v-31c0-14 3.5-23.5 23.5-23.5h26v-43.5c-4.4-.6-19.8-1.5-37.5-1.5-36.9 0-62 22.2-62 63.5v36h-42v48h42v108h-155v-288z"/></svg>
-				<span>Facebook</span>
-			</a>
-		</div>
-		
-		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/jaehue" target="_blank">
-				<svg class="widget-social__link-icon icon-github" viewBox="0 0 384 374" width="24" height="24" fill="#fff"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
-				<span>GitHub</span>
-			</a>
-		</div>
-	</div>
-</div>
 	
 <div class="widget-taglist widget">
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
 		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven" title="Eventdriven">Eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang (5)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang (6)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/microservice" title="Microservice">Microservice (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%8b%a0%eb%aa%85%ea%b8%b0" title="신명기">신명기 (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%97%ac%ed%96%89" title="여행">여행 (2)</a>
