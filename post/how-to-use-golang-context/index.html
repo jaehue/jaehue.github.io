@@ -346,10 +346,10 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 }</code></pre></div>
 
 <p>맨 마지막 필드로 <code>ctx context.Context</code>가 정의되어 있다.
-이 컨텍스트를 통해 웹 요청이 완료될 때까지 유지해야 하는 값을 보관할 수 있다.</p>
+이 컨텍스트에 웹 요청이 완료될 때까지 유지해야 하는 값을 보관할 수 있다.</p>
 
-<p>웹 서버에서 요청이 들어오면 <code>http.Request</code> 값을 만들어 핸들러 함수로 전달하는데 <a href="https://golang.org/src/net/http/server.go#L2767">이때 컨텍스트를 생성</a>한다.
-<code>http.Request</code>의 <code>Context</code> 함수를 사용하면 컨텍스트를 가져올 수 있다.</p>
+<p>웹 서버에서 요청이 들어오면 <code>http.Request</code> 값을 만들어 핸들러 함수로 전달하는데 이때 컨텍스트를 생성한다.
+<code>http.Request</code>의 <code>Context</code> 함수를 사용하면 이 컨텍스트를 가져올 수 있다.</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">http</span>
 
