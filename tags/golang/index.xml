@@ -6,10 +6,21 @@
     <description>Recent content in Golang on Jaehue&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Fri, 17 Nov 2017 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 15 Jun 2018 14:42:34 +0800</lastBuildDate>
     
 	<atom:link href="https://jaehue.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go언어에서 Context 사용하기</title>
+      <link>https://jaehue.github.io/post/how-to-use-golang-context/</link>
+      <pubDate>Fri, 15 Jun 2018 14:42:34 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/post/how-to-use-golang-context/</guid>
+      <description>Go에는 다른 대중적인 언어와 다른 개념들이 좀 있다.
+ 클래스를 과감히 빼버렸고 (그래서 상속이 없다) Exception이란 것도 없다 (예외 상황 자체를 허용하지 않겠다는 의지인가? 멋있어 보일진 몰라도 솔직히 불편하다. ㅠㅠ 궁시렁 궁시렁&amp;hellip;) 고루틴과 채널을 이용한 병행처리 모델도 친숙한 개념은 아니다  여기에 한 가지 더 보태자면, Context란 녀석이다.
+처음 얘기한 세 가지는 Go 언어를 사용해서 뭔가를 만들려면 반드시 알아야 할 개념이기 때문에 Go 언어를 처음 접하는 대부분의 사람들은 시간을 할애해서 이 부분에 대해 공부를 한다.</description>
+    </item>
     
     <item>
       <title>내 멋대로 구현한 이벤트 드리븐</title>
