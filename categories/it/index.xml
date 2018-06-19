@@ -6,7 +6,7 @@
     <description>Recent content in It on Jaehue&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Fri, 15 Jun 2018 14:42:34 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 Jun 2018 00:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://jaehue.github.io/categories/it/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,7 +14,7 @@
     <item>
       <title>Go언어에서 Context 사용하기</title>
       <link>https://jaehue.github.io/post/how-to-use-golang-context/</link>
-      <pubDate>Fri, 15 Jun 2018 14:42:34 +0800</pubDate>
+      <pubDate>Tue, 19 Jun 2018 00:00:00 +0900</pubDate>
       
       <guid>https://jaehue.github.io/post/how-to-use-golang-context/</guid>
       <description>Go에는 다른 대중적인 언어와 다른 개념들이 좀 있다.
