@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Jaehue&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Fri, 17 Nov 2017 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 19 Jun 2018 15:16:24 +0800</lastBuildDate>
     
 	<atom:link href="https://jaehue.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title></title>
+      <link>https://jaehue.github.io/tags/</link>
+      <pubDate>Tue, 19 Jun 2018 15:16:24 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/tags/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Eventdriven</title>
@@ -23,7 +32,7 @@
     <item>
       <title>Golang</title>
       <link>https://jaehue.github.io/tags/golang/</link>
-      <pubDate>Fri, 17 Nov 2017 00:00:00 +0800</pubDate>
+      <pubDate>Tue, 19 Jun 2018 00:00:00 +0900</pubDate>
       
       <guid>https://jaehue.github.io/tags/golang/</guid>
       <description></description>

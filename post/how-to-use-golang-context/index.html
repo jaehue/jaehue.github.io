@@ -288,20 +288,20 @@ dead lock이나 race condition 같은 치명적인 상태에 빠질 수도 있�
 
 <h2 id="timeout-deadline">Timeout &amp; Deadline</h2>
 
-<p>이번에 소개할 방식은 일정 시간이 되면 컨텍스트에 자동으로 취소 시그널이 전달되도록 하는 방식이다.
+<p>이번에 소개할 방식은 일정 시간이 되면 컨텍스트에 자동으로 취소 신호가 전달되도록 하는 방식이다.
 Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 
-<p><code>context.WithDeadline</code> 함수는 두 번째 파라미터로 <code>time.Time</code> 값을 받는데, 이 시간이 되면 컨텍스트에 취소 시그널이 전달된다</p>
+<p><code>context.WithDeadline</code> 함수는 두 번째 파라미터로 <code>time.Time</code> 값을 받는데, 이 시간이 되면 컨텍스트에 취소 신호가 전달된다</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithDeadline</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">d</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
 
 <p><code>context.WithTimeout</code> 함수도 동작 방식은 같다.
 한 가지 차이점은 두번째 파라미터로 <code>time.Duration</code> 값을 받는다는 것이다.
-두 번째 파라미터로 전달한 duration이 지나면 컨텍스트에 취소 시그널이 전달된다.</p>
+두 번째 파라미터로 전달한 duration이 지나면 컨텍스트에 취소 신호가 전달된다.</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">timeout</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
 
-<p>컨텍스트의 <code>Deadline</code> 메서드를 사용하면 컨텍스트로 취소 시그널이 전달될 때까지 남은 시간을 확인할 수 있다.
+<p>컨텍스트의 <code>Deadline</code> 메서드를 사용하면 컨텍스트로 취소 신호가 전달될 때까지 남은 시간을 확인할 수 있다.
 작업을 시작하기 전 남은 시간을 먼저 확인을 해서, 충분한 시간이 있을 때만 작업을 수행하도록 할 수 있다.</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Context</span> <span style="color:#66d9ef">interface</span> {
@@ -346,7 +346,7 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 }</code></pre></div>
 
 <p>맨 마지막 필드로 <code>ctx context.Context</code>가 정의되어 있다.
-이 컨텍스트에 웹 요청이 완료될 때까지 유지해야 하는 값을 보관할 수 있다.</p>
+이 컨텍스트에 웹 요청이 완료될 때까지 유지해야 하는 값을 보관한다.</p>
 
 <p>웹 서버에서 요청이 들어오면 <code>http.Request</code> 값을 만들어 핸들러 함수로 전달하는데 이때 컨텍스트를 생성한다.
 <code>http.Request</code>의 <code>Context</code> 함수를 사용하면 이 컨텍스트를 가져올 수 있다.</p>
@@ -426,6 +426,18 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 
 <p><a href="https://github.com/jaehue/golang-ctx-example.git">https://github.com/jaehue/golang-ctx-example.git</a></p>
 
+<h2 id="사족">사족</h2>
+
+<p>이 글의 서두에서도 말했지만 Go에는 다른 대중적인 언어와 다른 개념들이 좀 있어서 <em>Go스럽게(?)</em> 코드를 작성하는 것이 어려울 수 있다.
+그래서 이전에 사용했던 언어의 방식을 그대로 Go로 가지고 와서 작성하는 경우도 많이 봐 왔다.
+이런 코드를 보면 문법은 분명 Go 언어인데 로직의 전개 방식은 굉장히 어색했다.
+그리고 그런 코드는 실제 런타임에서도 문제를 일으키게 된다.
+그러다 보면 &ldquo;Go 언어는 왜이래?&ldquo;라는 불만을 남기기도 하고 자연스레 Go 언어와 멀어진다.
+문제를 해결하는 Go언어의 방식이 있는데, 그 방식에 충분히 젖어들기 전에 나만의 방법대로 코드를 작성해가면 불편함을 많이 느끼게 된다.</p>
+
+<p>Go 언어를 처음 사용할때는 Go에서 가이드하는 방식을 최대한 그대로 따라해보는 것을 권장한다.
+Go 언어에 많이 익숙해져서 언어의 기능을 충분히 잘 활용할 수 있는 수준이 되면 그때의 상황에 맞게 효율적으로 나만의 방식대로 코드를 작성</p>
+
 		</div>
 		
 <div class="post__tags tags clearfix">
@@ -451,6 +463,9 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 <nav class="post-nav row clearfix">
 	<div class="post-nav__item post-nav__item--prev col-1-2">
 		<a class="post-nav__link" href="/post/camp_of_god/" rel="prev"><span class="post-nav__caption">«&thinsp;Previous</span><p class="post-nav__post-title">하나님의 군대</p></a>
+	</div>
+	<div class="post-nav__item post-nav__item--next col-1-2">
+		<a class="post-nav__link" href="/post/creation-and-evolution/" rel="next"><span class="post-nav__caption">Next&thinsp;»</span><p class="post-nav__post-title">Creation-and-Evolution</p></a>
 	</div>
 </nav>
 	
@@ -495,11 +510,11 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/creation-and-evolution/">Creation-and-Evolution</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/how-to-use-golang-context/">Go언어에서 Context 사용하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/camp_of_god/">하나님의 군대</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/uganda-diary/">우간다에서의 생각들</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/uganda-outreach/">🇺🇬 우간다 아웃리치</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/event-driven/">내 멋대로 구현한 이벤트 드리븐</a></li>
 		</ul>
 	</div>
 </div>
@@ -508,6 +523,7 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 	<h4 class="widget__title">Categories</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/categories/"></a></li>
 			<li class="widget__item"><a class="widget__link" href="/categories/it">IT</a></li>
 			<li class="widget__item"><a class="widget__link" href="/categories/%eb%ac%b5%ec%83%81">묵상</a></li>
 			<li class="widget__item"><a class="widget__link" href="/categories/%ec%8b%a0%ec%95%99">신앙</a></li>
@@ -519,6 +535,7 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 <div class="widget-taglist widget">
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/" title=""> (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven" title="Eventdriven">Eventdriven (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang (6)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/microservice" title="Microservice">Microservice (1)</a>
