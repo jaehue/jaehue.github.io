@@ -6,29 +6,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Go언어로 안전한 서비스 만들기</title>
 	<meta name="description" content="">
-	<meta name="generator" content="Hugo 0.37.1" />
+	<meta name="generator" content="Hugo 0.50" />
 	<meta property="og:title" content="Go언어로 안전한 서비스 만들기" />
 <meta property="og:description" content="http://blog.remotty.com에 게시한 글을 Go 언어에 대해 발행한 글을 수집하는 차원에서 이곳으로 옮겨왔다.
  서비스를 만들때 비정상적으로 서비스가 종료되지 않고 안전하게 실행되도록 하는 것은 아주 중요하다(Resilency). 이번 포스트에서는 Resilency를 유지하면서 서비스를 작성하는 여러가지 방법에 대해서 소개하겠다. 오늘 소개하는 글은 지난 7월에 덴버에서 열린 GopherCon 2015에서 Blake Caldwell라는 사람이 발표한 내용을 기반으로 몇가지 설명을 곁들여서 작성한 것이다. (https://sourcegraph.com/blog/live/gophercon2015/123664481750)
 사실 어떤 사람들에게는 쉬운 내용일 수 있다. 당연한 얘기를 하는 것일수도 있고&hellip; 하지만 기본을 탄탄히 하자는 의미에서, 그리고 지난 7월 덴버에서 열린 GopherCon 2015에서도 발표되었던 내용이니 한번 읽어보면 좋을 것 같다." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/resilent-go-service/" />
-
-
-
-<meta property="article:published_time" content="2015-08-15T00:00:00&#43;09:00"/>
-
+<meta property="og:url" content="https://jaehue.github.io/post/resilent-go-service/" /><meta property="article:published_time" content="2015-08-15T00:00:00&#43;09:00"/>
 <meta property="article:modified_time" content="2015-08-15T00:00:00&#43;09:00"/>
-
-
-
-
-
-
-
-
-
-
 
 	
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -38,12 +23,16 @@
 	<script type="text/javascript" src="/js/scripts.js"></script>
 	<link rel="shortcut icon" href="/favicon.ico">
 	
-<script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-91404316-1', 'auto');
-ga('send', 'pageview');
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91404316-1', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
 <body class="body body-right-sidebar">
@@ -819,7 +808,7 @@ log에 의미있는 prefix를 사용해라.
 	
 <section class="comments">
 	<div id="disqus_thread"></div>
-<script>
+<script type="application/javascript">
     var disqus_config = function () {
     
     
@@ -858,11 +847,11 @@ log에 의미있는 prefix를 사용해라.
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/everyday-transformation/">매일 변화하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/how-to-use-golang-context/">Go언어에서 Context 사용하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/camp_of_god/">하나님의 군대</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/uganda-diary/">우간다에서의 생각들</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/uganda-outreach/">🇺🇬 우간다 아웃리치</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/event-driven/">내 멋대로 구현한 이벤트 드리븐</a></li>
 		</ul>
 	</div>
 </div>
@@ -882,6 +871,7 @@ log에 의미있는 prefix를 사용해라.
 <div class="widget-taglist widget">
 	<h4 class="widget__title">Tags</h4>
 	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/4%ec%b0%a8-%ec%82%b0%ec%97%85%ed%98%81%eb%aa%85" title="4차 산업혁명">4차 산업혁명 (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven" title="Eventdriven">Eventdriven (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang (6)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/microservice" title="Microservice">Microservice (1)</a>
