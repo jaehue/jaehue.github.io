@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jaehue.github.io/post/manado-outreach/</loc>
+    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaehue.github.io/post/everyday-transformation/</loc>
     <lastmod>2018-12-20T22:51:16+08:00</lastmod>
   </url>
@@ -18,13 +23,13 @@
   </url>
   
   <url>
-    <loc>https://jaehue.github.io/post/uganda-diary/</loc>
-    <lastmod>2018-02-15T09:42:36+08:00</lastmod>
+    <loc>https://jaehue.github.io/post/uganda-outreach/</loc>
+    <lastmod>2018-02-17T10:00:00+08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://jaehue.github.io/post/uganda-outreach/</loc>
-    <lastmod>2018-02-14T14:21:48+08:00</lastmod>
+    <loc>https://jaehue.github.io/post/uganda-diary/</loc>
+    <lastmod>2018-02-15T09:42:36+08:00</lastmod>
   </url>
   
   <url>
@@ -73,6 +78,18 @@
   </url>
   
   <url>
+    <loc>https://jaehue.github.io/tags/</loc>
+    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/categories/</loc>
+    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://jaehue.github.io/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/</loc>
     <lastmod>2018-12-20T22:51:16+08:00</lastmod>
     <priority>0</priority>
@@ -80,6 +97,7 @@
   
   <url>
     <loc>https://jaehue.github.io/categories/</loc>
+    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -103,7 +121,7 @@
   
   <url>
     <loc>https://jaehue.github.io/</loc>
-    <lastmod>2018-12-20T22:51:16+08:00</lastmod>
+    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -115,13 +133,13 @@
   
   <url>
     <loc>https://jaehue.github.io/post/</loc>
-    <lastmod>2018-12-20T22:51:16+08:00</lastmod>
+    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jaehue.github.io/tags/</loc>
-    <lastmod>2018-12-20T22:51:16+08:00</lastmod>
+    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -145,7 +163,7 @@
   
   <url>
     <loc>https://jaehue.github.io/tags/%EC%97%AC%ED%96%89/</loc>
-    <lastmod>2018-02-15T09:42:36+08:00</lastmod>
+    <lastmod>2018-02-17T10:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
