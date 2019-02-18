@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jaehue.github.io/post/manado-diary/</loc>
+    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaehue.github.io/post/manado-outreach/</loc>
     <lastmod>2019-02-16T09:39:30+08:00</lastmod>
   </url>
@@ -108,7 +113,7 @@
   
   <url>
     <loc>https://jaehue.github.io/</loc>
-    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
+    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -120,7 +125,7 @@
   
   <url>
     <loc>https://jaehue.github.io/post/</loc>
-    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
+    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -132,7 +137,7 @@
   
   <url>
     <loc>https://jaehue.github.io/categories/%EB%AC%B5%EC%83%81/</loc>
-    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
+    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -150,7 +155,7 @@
   
   <url>
     <loc>https://jaehue.github.io/tags/%EC%97%AC%ED%96%89/</loc>
-    <lastmod>2019-02-16T09:39:30+08:00</lastmod>
+    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
     <priority>0</priority>
   </url>
   
