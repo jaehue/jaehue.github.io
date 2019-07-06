@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jaehue.github.io/post/dream/</loc>
+    <lastmod>2019-07-06T21:47:17+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaehue.github.io/post/manado-diary/</loc>
     <lastmod>2019-02-16T09:39:34+08:00</lastmod>
   </url>
@@ -83,6 +88,24 @@
   </url>
   
   <url>
+    <loc>https://jaehue.github.io/tags/</loc>
+    <lastmod>2019-07-06T21:47:17+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/post/bible_study_10/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/post/bible_study_5/</loc>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/post/dream/</loc>
+  </url>
+  
+  <url>
     <loc>https://jaehue.github.io/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/</loc>
     <lastmod>2018-12-20T22:51:16+08:00</lastmod>
     <priority>0</priority>
@@ -113,7 +136,7 @@
   
   <url>
     <loc>https://jaehue.github.io/</loc>
-    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
+    <lastmod>2019-07-06T21:47:17+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -125,19 +148,19 @@
   
   <url>
     <loc>https://jaehue.github.io/post/</loc>
-    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
+    <lastmod>2019-07-06T21:47:17+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jaehue.github.io/tags/</loc>
-    <lastmod>2018-12-20T22:51:16+08:00</lastmod>
+    <lastmod>2019-07-06T21:47:17+08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://jaehue.github.io/categories/%EB%AC%B5%EC%83%81/</loc>
-    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
+    <lastmod>2019-07-06T21:47:17+08:00</lastmod>
     <priority>0</priority>
   </url>
   
