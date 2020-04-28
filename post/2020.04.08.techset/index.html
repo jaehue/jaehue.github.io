@@ -1,1112 +1,133 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="&quot;&quot;">
-<meta name="thumbnail" content="&quot;&quot;">
-<meta name="categories" content="">
-<meta name="date" content="&quot;2020-04-04T13:46:40+08:00&quot;"><style>body {
-  max-width: 980px;
-  border: 1px solid #ddd;
-  outline: 1300px solid #fff;
-  margin: 16px auto;
-}
-
-body .markdown-body
-{
-  padding: 45px;
-}
-
-@font-face {
-  font-family: fontawesome-mini;
-  src: url(data:font/woff;charset=utf-8;base64,d09GRgABAAAAABE0AA8AAAAAHWwAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABWAAAADsAAABUIIslek9TLzIAAAGUAAAAQwAAAFY3d1HZY21hcAAAAdgAAACqAAACOvWLi0FjdnQgAAAChAAAABMAAAAgBtX/BGZwZ20AAAKYAAAFkAAAC3CKkZBZZ2FzcAAACCgAAAAIAAAACAAAABBnbHlmAAAIMAAABdQAAAjkYT9TNWhlYWQAAA4EAAAAMwAAADYQ6WvNaGhlYQAADjgAAAAfAAAAJAc6A1pobXR4AAAOWAAAACAAAAA0Kmz/7mxvY2EAAA54AAAAHAAAABwQPBJubWF4cAAADpQAAAAgAAAAIAEHC/NuYW1lAAAOtAAAAYQAAALxhQT4h3Bvc3QAABA4AAAAfgAAAMS3SYh9cHJlcAAAELgAAAB6AAAAhuVBK7x4nGNgZGBg4GIwYLBjYHJx8wlh4MtJLMljkGJgYYAAkDwymzEnMz2RgQPGA8qxgGkOIGaDiAIAJjsFSAB4nGNgZHZmnMDAysDAVMW0h4GBoQdCMz5gMGRkAooysDIzYAUBaa4pDA4Pwz+yMwf9z2KIYg5imAYUZgTJAQDcoQvQAHic7ZHNDYJAFIRnBXf94cDRIiyCKkCpwFCPJ092RcKNDoYKcN4+EmMPvpdvk539zQyAPYBCXEUJhBcCrJ5SQ9YLnLJe4qF5rdb+uWPDngNHTkta101pNyWa8lMhn6xx2dqUnW4q9YOIhAOOeueMSgsR/6ry+P7O5s6xVNg4chBsHUuFnWNJ8uZYwrw7chrsHXkODo7cB0dHOYCTY8kv0VE2WJKD6gOlWjsxAAB4nGNgQAMSEMgc9D8LhAESbAPdAHicrVZpd9NGFB15SZyELCULLWphxMRpsEYmbMGACUGyYyBdnK2VoIsUO+m+8Ynf4F/zZNpz6Dd+Wu8bLySQtOdwmpOjd+fN1czbZRJaktgL65GUmy/F1NYmjew8CemGTctRfCg7eyFlisnfBVEQrZbatx2HREQiULWusEQQ+x5ZmmR86FFGy7akV03KLT3pLlvjQb1V334aOsqxO6GkZjN0aD2yJVUYVaJIpj1S0qZlqPorSSu8v8LMV81QwohOImm8GcbQSN4bZ7TKaDW24yiKbLLcKFIkmuFBFHmU1RLn5IoJDMoHzZDyyqcR5cP8iKzYo5xWsEu20/y+L3mndzk/sV9vUbbkQB/Ijuzg7HQlX4RbW2HctJPtKFQRdtd3QmzZ7FT/Zo/ymkYDtysyvdCMYKl8hRArP6HM/iFZLZxP+ZJHo1qykRNB62VO7Es+gdbjiClxzRhZ0N3RCRHU/ZIzDPaYPh788d4plgsTAngcy3pHJZwIEylhczRJ2jByYCVliyqp9a6YOOV1WsRbwn7t2tGXzmjjUHdiPFsPHVs5UcnxaFKnmUyd2knNoykNopR0JnjMrwMoP6JJXm1jNYmVR9M4ZsaERCICLdxLU0EsO7GkKQTNoxm9uRumuXYtWqTJA/Xco/f05la4udNT2g70s0Z/VqdiOtgL0+lp5C/xadrlIkXp+ukZfkziQdYCMpEtNsOUgwdv/Q7Sy9eWHIXXBtju7fMrqH3WRPCkAfsb0B5P1SkJTIWYVYhWQGKta1mWydWsFqnI1HdDmla+rNMEinIcF8e+jHH9XzMzlpgSvt+J07MjLj1z7UsI0xx8m3U9mtepxXIBcWZ5TqdZlu/rNMfyA53mWZ7X6QhLW6ejLD/UaYHlRzodY3lBC5p038GQizDkAg6QMISlA0NYXoIhLBUMYbkIQ1gWYQjLJRjC8mMYwnIZhrC8rGXV1FNJ49qZWAZsQmBijh65zEXlaiq5VEK7aFRqQ54SbpVUFM+qf2WgXjzyhjmwFkiXyJpfMc6Vj0bl+NYVLW8aO1fAsepvH472OfFS1ouFPwX/1dZUJb1izcOTq/Abhp5sJ6o2qXh0TZfPVT26/l9UVFgL9BtIhVgoyrJscGcihI86nYZqoJVDzGzMPLTrdcuan8P9NzFCFlD9+DcUGgvcg05ZSVnt4KzV19uy3DuDcjgTLEkxN/P6VvgiI7PSfpFZyp6PfB5wBYxKZdhqA60VvNknMQ+Z3iTPBHFbUTZI2tjOBIkNHPOAefOdBCZh6qoN5E7hhg34BWFuwXknXKJ6oyyH7kXs8yik/Fun4kT2qGiMwLPZG2Gv70LKb3EMJDT5pX4MVBWhqRg1FdA0Um6oBl/G2bptQsYO9CMqdsOyrOLDxxb3lZJtGYR8pIjVo6Of1l6iTqrcfmYUl++dvgXBIDUxf3vfdHGQyrtayTJHbQNTtxqVU9eaQ+NVh+rmUfW94+wTOWuabronHnpf06rbwcVcLLD2bQ7SUiYX1PVhhQ2iy8WlUOplNEnvuAcYFhjQ71CKjf+r+th8nitVhdFxJN9O1LfR52AM/A/Yf0f1A9D3Y+hyDS7P95oTn2704WyZrqIX66foNzBrrblZugbc0HQD4iFHrY64yg18pwZxeqS5HOkh4GPdFeIBwCaAxeAT3bWM5lMAo/mMOT7A58xh0GQOgy3mMNhmzhrADnMY7DKHwR5zGHzBnHWAL5nDIGQOg4g5DJ4wJwB4yhwGXzGHwdfMYfANc+4DfMscBjFzGCTMYbCv6dYwzC1e0F2gtkFVoANTT1jcw+JQU2XI/o4Xhv29Qcz+wSCm/qjp9pD6Ey8M9WeDmPqLQUz9VdOdIfU3Xhjq7wYx9Q+DmPpMvxjLZQa/jHyXCgeUXWw+5++J9w/bxUC5AAEAAf//AA94nIVVX2hbZRQ/5/t7893s5ja9f7ouzdZ0TTqz3bRJmogbWya6bG6Cq0VbSV2ddIJjFtfIQHEig80Hda8yUN/0YQz8AyriiyD+xQd92R4HCnaCb3samnpumrpsCsLlfPf7zvedc37nL3CAtc/5W/wQZGA3tOBSY/g+TMjHmwzEoM1Q8+ZjRZY4oJhmBw5/YB6Za0yC5AkhlwA1A1yCBIBOwCII0Cj0U8BAMdUCzq05sKwkP7SlUY6fcJk4Fb/RyE79/6P5hjM/F4aZiXBoeMgzcqQ4Xi1hPqfDLG5FT+lchCVU3lYMyvuwhl1mqndQL0RsuloLywHtthLXI06OblTrhfWVnpSJ5+mwu/JdbtuN3IAnkW0LLMcRwaC7ktrlzridM6kVdyf9uO1UNBByI7JhwtG2sEwab07ORBeilWhqavJCqV0qzZTOl/7ZXQ5TbTcdcFelyGhhRDAQpdqp1FEX3w3cFTc1k9pJQkmm4ySCbSikxRP2QOfN+0tHS5MrpQuTU1Mk5nw0E5Xa0WvrOwDyGax9yB9ma6DAg82wHc43SAGTI4GjBWebOePAERFE8/AHaQpZASSTy8A4WwZiLQMQ82mFKATO0ILicRAoDm9p5P99E5b/fXG+kQYY3TYUuqmERWYoT0u/GNYL2q/4WB3LaVS+VynXsVYIcWw6DkCh3nX1D+VzlYN4LClF5yexSQos8exqZ3KVP+wtrC54u4Nznq6cq+xpMpUUnZ8FUYzE86ud0g28NOIv3Gj5/rmA3ABs7S/ywzFuQ4qyd6QxfNtiQIaEgp3w/entQg4Vcbqa16M5FfpeUB8t1+qeg7mI7cUyOe79wOk86gSxkVec4KPTX69++5x68Yubn5/F+w52z7u08sJX7fZXv8ekT/d2mILJxq6sn+SC6qEJknzLJCxyZEKwWVqYmAPBxBE/9DLeZiWHu7lcr/VytrCRuHojncNuTt9h46tmacmYisnSamdN2bZptcsmSysdVsy1PrOvOzF3xN64Rb937t/og9KHxYdcjIUqFAmIAHGHNzlns+RTPgeUYAQm9DwpNxfxbhhBHPaw3/gfTcXO2L+eJVIx5nsyGkvm9X4/f+bGkH45G0PaSjcMXTjcZyTvi3UdHoCDjQd3IDUVsgwYmUoJK/gp4JJxeRI0MKHZIkgynyIBqBTOUs6rOVCojvjZ4mCQz49ZMlMcp8QoYk6NoBfsxnJtsBohpa8iGJS+ZH7gU7NxME6cmF+t7cO9vB8d3jTWSct0ycW9ranXmolNDwmVkNnxe+8JtoztwS5rKJ0xWS95tQ/1zMYzg69MzUZnNtl1ofNbsml/OJm6f9wjRjpnu2o4MzHzn77IQkRd+1DjwMQ2pqSjGMMhyjrgTbBAKksuUm0iU7hI0aN2wOKOq7WYBSH0HGihj/jkiPxAfmwsEbfYrjMG+j3ij932Db/LV7I/xruNrhnroxjR9HRMb2nTvO0ZXOoHPk8H2ZhDPx93qcE/53sH5np/dkIP7zzhTVKdR/BAY/9ElkkR+A6lJGsqpJ4oQcTxpvBT3Kn58VkaJjgHyPEIws57xkaHh9KuVpDEpJZeMbZ5w/zBHi5NMQ4r5VphsFqID7TyB9eR4pX216c3AHxpdAwoqU9qg0ZJ6yVLKmMSz1iG2z27ifx18NkY0LPx1W/wCc2l5LrznrIsiKsqbmB78A9wIGx4tI8rjihVHJyY9pgMirenVq0yWg7Iw7eogG7ZgYM3qR9959A/fZkg6MnD/exlkmc+jWV4SB15XUR+eqC6l6ZmgPtN9z5JMfik05OV8ljylunJ4J+wA/FUaQSSKotsYsCWqaPBidBLcxkWx7XKFRIb45TGaEhjlF9uUVPqXOtcIwsXbBvfoZXIyRYFdkfnqjExH98xpnPczqzjX/uNdO1Y17Wpi5+6Ts8BXtjVFasp9KZ1mOiNbH65c5w6HgmyF2jFCZywM8mWjRc7T5Pmt0lRy7Y71+jYbpGyvwG4sH0XeJxjYGRgYADiwBB/53h+m68M3MwvgCIM1z5N/g6j///9v5H5BbMnkMvBwAQSBQCIcA9gAHicY2BkYGAO+p8FJF/8//v/F/MLBqAICuAFALYQB5kAeJxjfsHAwLwAiCNB+P9fbJjJmoGBMRUo/wKCAfO2EnQAAAAAANoBXgGcAgICVALaA1IDvAPkBAYEPARyAAEAAAANAF0ABAAAAAAAAgAUACQAcwAAAG4LcAAAAAB4nHWRzWrCQBSFT+pPqUIXLXTTzayKUohGKIibCoLuhbrrYtTRxCYZmYyKyz5Fd32HvlDfoO/QkziIFJtw9bvnnpl7ZwLgBt/wcHieGAf2UGd24Atcou+4RH3kuEweO66QXx1XyaHjGh6ROa7jFp/cwStfMVvhy7GHO+/e8QWuvcBxifqz4zL5xXGF/Oa4Sn53XMPE+3Bcx4P3M9DrvYmWoRWNQVN02kFXTPdCU4pSGQu5saE2meiLhU6timPtz3SSs9ypTCdqrJabWJoT5QQnymSRTkXgt0/UkUqVkVbN807ZdtmxdiEWRidi6HqItdErNbN+aO2612qd9sYAGmvsYRBhyUu0EGhQbfK/gzYCdElTOgSdB1eEFBIxFYkNV4RFJWPeZyyYpVQVHTHZx4y/yVGX2LGWFZri51TccUOn5B7nPefVCSPvGhVVwUl9znveO2KkhV8Wk82PZ8qwZf8OVcu1+fSmWCMw/HMOwXvKaysqM+p+cVuWag8tvv+c+xdd+4+teJxtjUEOwiAURJla24KliQfhUA2g/Sl+CKXx+loNrpzVezOLEY34Ron/0WhwQoszOvQYIKFwwQiNSbSBeO2SZ0tBP4j3zVjKNng32ZmtD1VVXCuOiw/pJ8S3WOU6l+K5UOTaDC4+2TjKMtN9KQf1ezLx/Sg/00FCvABHhjDjAAB4nGPw3sFwIihiIyNjX+QGxp0cDBwMyQUbGVidNjEwMmiBGJu5mBg5ICw+BjCLzWkX0wGgNCeQze60i8EBwmZmcNmowtgRGLHBoSNiI3OKy0Y1EG8XRwMDI4tDR3JIBEhJJBBs5mFi5NHawfi/dQNL70YmBhcADHYj9AAA) format('woff');
-}
-
-.markdown-body {
-  font-family: sans-serif;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  color: #333333;
-  overflow: hidden;
-  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-  word-wrap: break-word;
-}
-
-.markdown-body a {
-  background: transparent;
-}
-
-.markdown-body a:active,
-.markdown-body a:hover {
-  outline: 0;
-}
-
-.markdown-body b,
-.markdown-body strong {
-  font-weight: bold;
-}
-
-.markdown-body mark {
-  background: #ff0;
-  color: #000;
-  font-style: italic;
-  font-weight: bold;
-}
-
-.markdown-body sub,
-.markdown-body sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-.markdown-body sup {
-  top: -0.5em;
-}
-.markdown-body sub {
-  bottom: -0.25em;
-}
-
-.markdown-body h1 {
-  font-size: 2em;
-  margin: 0.67em 0;
-}
-
-.markdown-body img {
-  border: 0;
-}
-
-.markdown-body hr {
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
-  height: 0;
-}
-
-.markdown-body pre {
-  overflow: auto;
-}
-
-.markdown-body code,
-.markdown-body kbd,
-.markdown-body pre,
-.markdown-body samp {
-  font-family: monospace, monospace;
-  font-size: 1em;
-}
-
-.markdown-body input {
-  color: inherit;
-  font: inherit;
-  margin: 0;
-}
-
-.markdown-body html input[disabled] {
-  cursor: default;
-}
-
-.markdown-body input {
-  line-height: normal;
-}
-
-.markdown-body input[type="checkbox"] {
-  box-sizing: border-box;
-  padding: 0;
-}
-
-.markdown-body table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-.markdown-body td,
-.markdown-body th {
-  padding: 0;
-}
-
-.markdown-body .codehilitetable {
-  border: 0;
-  border-spacing: 0;
-}
-
-.markdown-body .codehilitetable tr {
-  border: 0;
-}
-
-.markdown-body .codehilitetable pre,
-.markdown-body .codehilitetable div.codehilite {
-  margin: 0;
-}
-
-.markdown-body .linenos,
-.markdown-body .code,
-.markdown-body .codehilitetable td {
-  border: 0;
-  padding: 0;
-}
-
-.markdown-body td:not(.linenos) .linenodiv {
-  padding: 0 !important;
-}
-
-.markdown-body .code {
-  width: 100%;
-}
-
-.markdown-body .linenos div pre,
-.markdown-body .linenodiv pre,
-.markdown-body .linenodiv {
-  border: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  -webkit-border-top-left-radius: 3px;
-  -webkit-border-bottom-left-radius: 3px;
-  -moz-border-radius-topleft: 3px;
-  -moz-border-radius-bottomleft: 3px;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
-}
-
-.markdown-body .code div pre,
-.markdown-body .code div {
-  border: 0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  border-radius: 0;
-  -webkit-border-top-right-radius: 3px;
-  -webkit-border-bottom-right-radius: 3px;
-  -moz-border-radius-topright: 3px;
-  -moz-border-radius-bottomright: 3px;
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
-}
-
-.markdown-body * {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.markdown-body input {
-  font: 13px Helvetica, arial, freesans, clean, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
-  line-height: 1.4;
-}
-
-.markdown-body a {
-  color: #4183c4;
-  text-decoration: none;
-}
-
-.markdown-body a:hover,
-.markdown-body a:focus,
-.markdown-body a:active {
-  text-decoration: underline;
-}
-
-.markdown-body hr {
-  height: 0;
-  margin: 15px 0;
-  overflow: hidden;
-  background: transparent;
-  border: 0;
-  border-bottom: 1px solid #ddd;
-}
-
-.markdown-body hr:before,
-.markdown-body hr:after {
-  display: table;
-  content: " ";
-}
-
-.markdown-body hr:after {
-  clear: both;
-}
-
-.markdown-body h1,
-.markdown-body h2,
-.markdown-body h3,
-.markdown-body h4,
-.markdown-body h5,
-.markdown-body h6 {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  line-height: 1.1;
-}
-
-.markdown-body h1 {
-  font-size: 30px;
-}
-
-.markdown-body h2 {
-  font-size: 21px;
-}
-
-.markdown-body h3 {
-  font-size: 16px;
-}
-
-.markdown-body h4 {
-  font-size: 14px;
-}
-
-.markdown-body h5 {
-  font-size: 12px;
-}
-
-.markdown-body h6 {
-  font-size: 11px;
-}
-
-.markdown-body blockquote {
-  margin: 0;
-}
-
-.markdown-body ul,
-.markdown-body ol {
-  padding: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdown-body ol ol,
-.markdown-body ul ol {
-  list-style-type: lower-roman;
-}
-
-.markdown-body ul ul ol,
-.markdown-body ul ol ol,
-.markdown-body ol ul ol,
-.markdown-body ol ol ol {
-  list-style-type: lower-alpha;
-}
-
-.markdown-body dd {
-  margin-left: 0;
-}
-
-.markdown-body code,
-.markdown-body pre,
-.markdown-body samp {
-  font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  font-size: 12px;
-}
-
-.markdown-body pre {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdown-body kbd {
-  background-color: #e7e7e7;
-  background-image: -moz-linear-gradient(#fefefe, #e7e7e7);
-  background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
-  background-image: linear-gradient(#fefefe, #e7e7e7);
-  background-repeat: repeat-x;
-  border-radius: 2px;
-  border: 1px solid #cfcfcf;
-  color: #000;
-  padding: 3px 5px;
-  line-height: 10px;
-  font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  display: inline-block;
-}
-
-.markdown-body>*:first-child {
-  margin-top: 0 !important;
-}
-
-.markdown-body>*:last-child {
-  margin-bottom: 0 !important;
-}
-
-.markdown-body .headerlink {
-  font: normal 400 16px fontawesome-mini;
-  vertical-align: middle;
-  margin-left: -16px;
-  float: left;
-  display: inline-block;
-  text-decoration: none;
-  opacity: 0;
-  color: #333;
-}
-
-.markdown-body .headerlink:focus {
-  outline: none;
-}
-
-.markdown-body h1 .headerlink {
-  margin-top: 0.8rem;
-}
-
-.markdown-body h2 .headerlink,
-.markdown-body h3 .headerlink {
-  margin-top: 0.6rem;
-}
-
-.markdown-body h4 .headerlink {
-  margin-top: 0.2rem;
-}
-
-.markdown-body h5 .headerlink,
-.markdown-body h6 .headerlink {
-  margin-top: 0;
-}
-
-.markdown-body .headerlink:hover,
-.markdown-body h1:hover .headerlink,
-.markdown-body h2:hover .headerlink,
-.markdown-body h3:hover .headerlink,
-.markdown-body h4:hover .headerlink,
-.markdown-body h5:hover .headerlink,
-.markdown-body h6:hover .headerlink {
-  opacity: 1;
-  text-decoration: none;
-}
-
-.markdown-body h1 {
-  padding-bottom: 0.3em;
-  font-size: 2.25em;
-  line-height: 1.2;
-  border-bottom: 1px solid #eee;
-}
-
-.markdown-body h2 {
-  padding-bottom: 0.3em;
-  font-size: 1.75em;
-  line-height: 1.225;
-  border-bottom: 1px solid #eee;
-}
-
-.markdown-body h3 {
-  font-size: 1.5em;
-  line-height: 1.43;
-}
-
-.markdown-body h4 {
-  font-size: 1.25em;
-}
-
-.markdown-body h5 {
-  font-size: 1em;
-}
-
-.markdown-body h6 {
-  font-size: 1em;
-  color: #777;
-}
-
-.markdown-body p,
-.markdown-body blockquote,
-.markdown-body ul,
-.markdown-body ol,
-.markdown-body dl,
-.markdown-body table,
-.markdown-body pre,
-.markdown-body .admonition {
-  margin-top: 0;
-  margin-bottom: 16px;
-}
-
-.markdown-body hr {
-  height: 4px;
-  padding: 0;
-  margin: 16px 0;
-  background-color: #e7e7e7;
-  border: 0 none;
-}
-
-.markdown-body ul,
-.markdown-body ol {
-  padding-left: 2em;
-}
-
-.markdown-body ul ul,
-.markdown-body ul ol,
-.markdown-body ol ol,
-.markdown-body ol ul {
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.markdown-body li>p {
-  margin-top: 16px;
-}
-
-.markdown-body dl {
-  padding: 0;
-}
-
-.markdown-body dl dt {
-  padding: 0;
-  margin-top: 16px;
-  font-size: 1em;
-  font-style: italic;
-  font-weight: bold;
-}
-
-.markdown-body dl dd {
-  padding: 0 16px;
-  margin-bottom: 16px;
-}
-
-.markdown-body blockquote {
-  padding: 0 15px;
-  color: #777;
-  border-left: 4px solid #ddd;
-}
-
-.markdown-body blockquote>:first-child {
-  margin-top: 0;
-}
-
-.markdown-body blockquote>:last-child {
-  margin-bottom: 0;
-}
-
-.markdown-body table {
-  display: block;
-  width: 100%;
-  overflow: auto;
-  word-break: normal;
-  word-break: keep-all;
-}
-
-.markdown-body table th {
-  font-weight: bold;
-}
-
-.markdown-body table th,
-.markdown-body table td {
-  padding: 6px 13px;
-  border: 1px solid #ddd;
-}
-
-.markdown-body table tr {
-  background-color: #fff;
-  border-top: 1px solid #ccc;
-}
-
-.markdown-body table tr:nth-child(2n) {
-  background-color: #f8f8f8;
-}
-
-.markdown-body img {
-  max-width: 100%;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.markdown-body code,
-.markdown-body samp {
-  padding: 0;
-  padding-top: 0.2em;
-  padding-bottom: 0.2em;
-  margin: 0;
-  font-size: 85%;
-  background-color: rgba(0,0,0,0.04);
-  border-radius: 3px;
-}
-
-.markdown-body code:before,
-.markdown-body code:after {
-  letter-spacing: -0.2em;
-  content: "\00a0";
-}
-
-.markdown-body pre>code {
-  padding: 0;
-  margin: 0;
-  font-size: 100%;
-  word-break: normal;
-  white-space: pre;
-  background: transparent;
-  border: 0;
-}
-
-.markdown-body .codehilite {
-  margin-bottom: 16px;
-}
-
-.markdown-body .codehilite pre,
-.markdown-body pre {
-  padding: 16px;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  background-color: #f7f7f7;
-  border-radius: 3px;
-}
-
-.markdown-body .codehilite pre {
-  margin-bottom: 0;
-  word-break: normal;
-}
-
-.markdown-body pre {
-  word-wrap: normal;
-}
-
-.markdown-body pre code {
-  display: inline;
-  max-width: initial;
-  padding: 0;
-  margin: 0;
-  overflow: initial;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: transparent;
-  border: 0;
-}
-
-.markdown-body pre code:before,
-.markdown-body pre code:after {
-  content: normal;
-}
-
- 
-.markdown-body .admonition {
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  position: relative;
-  border-radius: 3px;
-  border: 1px solid #e0e0e0;
-  border-left: 6px solid #333;
-  padding: 10px 10px 10px 30px;
-}
-
-.markdown-body .admonition table {
-  color: #333;
-}
-
-.markdown-body .admonition p {
-  padding: 0;
-}
-
-.markdown-body .admonition-title {
-  font-weight: bold;
-  margin: 0;
-}
-
-.markdown-body .admonition>.admonition-title {
-  color: #333;
-}
-
-.markdown-body .attention>.admonition-title {
-  color: #a6d796;
-}
-
-.markdown-body .caution>.admonition-title {
-  color: #d7a796;
-}
-
-.markdown-body .hint>.admonition-title {
-  color: #96c6d7;
-}
-
-.markdown-body .danger>.admonition-title {
-  color: #c25f77;
-}
-
-.markdown-body .question>.admonition-title {
-  color: #96a6d7;
-}
-
-.markdown-body .note>.admonition-title {
-  color: #d7c896;
-}
-
-.markdown-body .admonition:before,
-.markdown-body .attention:before,
-.markdown-body .caution:before,
-.markdown-body .hint:before,
-.markdown-body .danger:before,
-.markdown-body .question:before,
-.markdown-body .note:before {
-  font: normal normal 16px fontawesome-mini;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  line-height: 1.5;
-  color: #333;
-  position: absolute;
-  left: 0;
-  top: 0;
-  padding-top: 10px;
-  padding-left: 10px;
-}
-
-.markdown-body .admonition:before {
-  content: "\f056\00a0";
-  color: 333;
-}
-
-.markdown-body .attention:before {
-  content: "\f058\00a0";
-  color: #a6d796;
-}
-
-.markdown-body .caution:before {
-  content: "\f06a\00a0";
-  color: #d7a796;
-}
-
-.markdown-body .hint:before {
-  content: "\f05a\00a0";
-  color: #96c6d7;
-}
-
-.markdown-body .danger:before {
-  content: "\f057\00a0";
-  color: #c25f77;
-}
-
-.markdown-body .question:before {
-  content: "\f059\00a0";
-  color: #96a6d7;
-}
-
-.markdown-body .note:before {
-  content: "\f040\00a0";
-  color: #d7c896;
-}
-
-.markdown-body .admonition::after {
-  content: normal;
-}
-
-.markdown-body .attention {
-  border-left: 6px solid #a6d796;
-}
-
-.markdown-body .caution {
-  border-left: 6px solid #d7a796;
-}
-
-.markdown-body .hint {
-  border-left: 6px solid #96c6d7;
-}
-
-.markdown-body .danger {
-  border-left: 6px solid #c25f77;
-}
+<!DOCTYPE html>
+<html lang="ko-kr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>적당히 갖춰나간 운영 환경</title>
+	<meta name="description" content="">
+	<meta name="generator" content="Hugo 0.50" />
+	<meta property="og:title" content="적당히 갖춰나간 운영 환경" />
+<meta property="og:description" content="2016년, 중국 패션 리테일 영역의 클라우드 서비스 회사가 되겠다는 야심 찬 희망을 품고 아기 발걸음1을 시작했고, 2020년 현재 아래와 같은 구성을 갖추었다. 처음부터 이런 구성을 그려놓고 차근차근 갖춰 나간 것은 아니었다. 2016년 봄, 알리(Ali) 클라우드에 3대의 리눅스 서버를 구매해서 1대에 대충 스테이징 환경과 각종 관리 툴을 세팅하고 2대 서버에 운영을 위한 최소한의 구성만 갖춘 채 첫 번째 기능을 출시했다. 매번 필요할 때마다 점진적으로 아키텍처를 개선해 나갔고, 4년이 지난 지금 꽤 그럴싸한(?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://jaehue.github.io/post/2020.04.08.techset/" /><meta property="article:published_time" content="2020-04-04T13:46:40&#43;08:00"/>
+<meta property="article:modified_time" content="2020-04-04T13:46:40&#43;08:00"/>
+
+	
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">
+	<script type="text/javascript" src="/js/scripts.js"></script>
+	<link rel="shortcut icon" href="/favicon.ico">
+	
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-91404316-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</head>
+<body class="body body-right-sidebar">
+	<div class="container container-outer">
+		<header class="header">
+			<div class="container container-inner">
+				<div class="logo" role="banner">
+					<a class="logo__link" href="/" title="Jaehue&#39;s" rel="home">
+						<div class="logo__title">Jaehue&#39;s</div>
+						<div class="logo__tagline">생각들</div>
+					</a>
+				</div>
+			</div>
+			<div class="divider"></div>
+		</header>
+		<div class="wrapper clearfix">
+
+<main class="main content">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">적당히 갖춰나간 운영 환경</h1><div class="post__meta meta">
+<svg class="icon icon-time" width="16" height="14" viewBox="0 0 16 16"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
+<time class="post__meta-date meta-date" datetime="2020-04-04T13:46:40">April 04, 2020</time>
+<span class="post__meta-categories meta-categories">
+	<svg class="icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
+	<span class="meta-categories__list"><a class="meta-categories__link" href="/categories/it" rel="category">IT</a></span>
+</span></div>
+		</header>
+		<div class="post__content clearfix">
+			
+
+<p>2016년, 중국 패션 리테일 영역의 클라우드 서비스 회사가 되겠다는 야심 찬 희망을 품고 <u>아기 발걸음</u><sup class="footnote-ref" id="fnref:1"><a href="#fn:1">1</a></sup>을 시작했고, 2020년 현재 아래와 같은 구성을 갖추었다.
+처음부터 이런 구성을 그려놓고 차근차근 갖춰 나간 것은 아니었다.
+2016년 봄, 알리(Ali) 클라우드에 3대의 리눅스 서버를 구매해서 1대에 대충 스테이징 환경과 각종 관리 툴을 세팅하고 2대 서버에 운영을 위한 최소한의 구성만 갖춘 채 첫 번째 기능을 출시했다.
+매번 필요할 때마다 점진적으로 아키텍처를 개선해 나갔고, 4년이 지난 지금 꽤 그럴싸한(?) 모양을 갖추게 되었다.
+지금 우리가 갖추고 있는 기술 셋을 소개해본다.</p>
+
+<h1 id="infra-구성">Infra 구성</h1>
+
+<p><img src="/images/20200408/server.png" alt="" /></p>
+
+<p>2개의 클라우드 회사를 사용하고 있다. 사용자들이 직접 사용하는 기능은 모두 알리 클라우드에서 운영되고 있고, 화웨이(Huawei) 클라우드에는 data federation을 위한 하둡 클러스터와 각종 도구를 구성해 놓았다. 레거시와 인터페이스를 하기 위해 IDC 내에도 쿠버네티스<sub>kubernetes, k8s</sub> 환경을 구성해 놓았다.</p>
+
+<p>2개 클라우드에 나눠서 세팅한 것에는 특별한 이유는 없다.
+2016년 알리 클라우드에서 먼저 서비스를 시작하였는데, 그해 여름, 이제 막 클라우드 사업을 시작한 화웨이가 공짜로 서버를 줄 테니 한번 써보고 피드백을 달라고 했다.
+이제 막 시작하는 클라우드 환경에 중요한 서비스를 올리긴 어려웠고, 장애가 생겨도 괜찮은(?)<sub> 그런 게 어딨어 ㅡ,.ㅡ;;</sub> 기능을 화웨이 클라우드에 구성해보았다.
+무료 사용 기간이 끝나고, 또 한 번 싸게 사용할 기회가 생겨 지금까지도 data federation을 위한 서비스는 화웨이 클라우드에서 돌아가고 있다.
+여러 개의 클라우드 업체를 사용한다고 해서 딱히 좋은 건 없더라. 오히려 번거로운 게 더 많다.</p>
 
-.markdown-body .question {
-  border-left: 6px solid #96a6d7;
-}
-
-.markdown-body .note {
-  border-left: 6px solid #d7c896;
-}
-
-.markdown-body .admonition>*:first-child {
-  margin-top: 0 !important;
-}
-
-.markdown-body .admonition>*:last-child {
-  margin-bottom: 0 !important;
-}
-
- 
-.markdown-body .progress {
-  display: block;
-  width: 300px;
-  margin: 10px 0;
-  height: 24px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background-color: #ededed;
-  position: relative;
-  box-shadow: inset -1px 1px 3px rgba(0, 0, 0, .1);
-}
-
-.markdown-body .progress-label {
-  position: absolute;
-  text-align: center;
-  font-weight: bold;
-  width: 100%; margin: 0;
-  line-height: 24px;
-  color: #333;
-  text-shadow: 1px 1px 0 #fefefe, -1px -1px 0 #fefefe, -1px 1px 0 #fefefe, 1px -1px 0 #fefefe, 0 1px 0 #fefefe, 0 -1px 0 #fefefe, 1px 0 0 #fefefe, -1px 0 0 #fefefe, 1px 1px 2px #000;
-  -webkit-font-smoothing: antialiased !important;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.markdown-body .progress-bar {
-  height: 24px;
-  float: left;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  background-color: #96c6d7;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), inset 0 -1px 0 rgba(0, 0, 0, .1);
-  background-size: 30px 30px;
-  background-image: -webkit-linear-gradient(
-    135deg, rgba(255, 255, 255, .4) 27%,
-    transparent 27%,
-    transparent 52%, rgba(255, 255, 255, .4) 52%,
-    rgba(255, 255, 255, .4) 77%,
-    transparent 77%, transparent
-  );
-  background-image: -moz-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, .4) 27%, transparent 27%,
-    transparent 52%, rgba(255, 255, 255, .4) 52%,
-    rgba(255, 255, 255, .4) 77%, transparent 77%,
-    transparent
-  );
-  background-image: -ms-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, .4) 27%, transparent 27%,
-    transparent 52%, rgba(255, 255, 255, .4) 52%,
-    rgba(255, 255, 255, .4) 77%, transparent 77%,
-    transparent
-  );
-  background-image: -o-linear-gradient(
-    135deg,
-    rgba(255, 255, 255, .4) 27%, transparent 27%,
-    transparent 52%, rgba(255, 255, 255, .4) 52%,
-    rgba(255, 255, 255, .4) 77%, transparent 77%,
-    transparent
-  );
-  background-image: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, .4) 27%, transparent 27%,
-    transparent 52%, rgba(255, 255, 255, .4) 52%,
-    rgba(255, 255, 255, .4) 77%, transparent 77%,
-    transparent
-  );
-}
-
-.markdown-body .progress-100plus .progress-bar {
-  background-color: #a6d796;
-}
-
-.markdown-body .progress-80plus .progress-bar {
-  background-color: #c6d796;
-}
-
-.markdown-body .progress-60plus .progress-bar {
-  background-color: #d7c896;
-}
-
-.markdown-body .progress-40plus .progress-bar {
-  background-color: #d7a796;
-}
-
-.markdown-body .progress-20plus .progress-bar {
-  background-color: #d796a6;
-}
-
-.markdown-body .progress-0plus .progress-bar {
-  background-color: #c25f77;
-}
-
-.markdown-body .candystripe-animate .progress-bar{
-  -webkit-animation: animate-stripes 3s linear infinite;
-  -moz-animation: animate-stripes 3s linear infinite;
-  animation: animate-stripes 3s linear infinite;
-}
-
-@-webkit-keyframes animate-stripes {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 60px 0;
-  }
-}
-
-@-moz-keyframes animate-stripes {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 60px 0;
-  }
-}
-
-@keyframes animate-stripes {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 60px 0;
-  }
-}
-
-.markdown-body .gloss .progress-bar {
-  box-shadow:
-    inset 0 4px 12px rgba(255, 255, 255, .7),
-    inset 0 -12px 0 rgba(0, 0, 0, .05);
-}
-
- 
-.markdown-body .critic_mark {
-  background: #ff0;
-}
-
-.markdown-body .critic_delete {
-  color: #c82829;
-  text-decoration: line-through;
-}
-
-.markdown-body .critic_insert {
-  color: #718c00 ;
-  text-decoration: underline;
-}
-
-.markdown-body .critic_comment {
-  color: #8e908c;
-  font-style: italic;
-}
-
-.markdown-body .headeranchor {
-  font: normal normal 16px fontawesome-mini;
-  line-height: 1;
-  display: inline-block;
-  text-decoration: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-
-.headeranchor:before {
-  content: '\e157';
-}
-
-.markdown-body .task-list-item {
-  list-style-type: none;
-}
-
-.markdown-body .task-list-item+.task-list-item {
-  margin-top: 3px;
-}
-
-.markdown-body .task-list-item input {
-  margin: 0 4px 0.25em -20px;
-  vertical-align: middle;
-}
-
- 
-@media only screen and (min-width: 480px) {
-  .markdown-body {
-    font-size:14px;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  .markdown-body {
-    font-size:16px;
-  }
-}
-
-@media print {
-  .markdown-body * {
-    background: transparent !important;
-    color: black !important;
-    filter:none !important;
-    -ms-filter: none !important;
-  }
-
-  .markdown-body {
-    font-size:12pt;
-    max-width:100%;
-    outline:none;
-    border: 0;
-  }
-
-  .markdown-body a,
-  .markdown-body a:visited {
-    text-decoration: underline;
-  }
-
-  .markdown-body .headeranchor-link {
-    display: none;
-  }
-
-  .markdown-body a[href]:after {
-    content: " (" attr(href) ")";
-  }
-
-  .markdown-body abbr[title]:after {
-    content: " (" attr(title) ")";
-  }
-
-  .markdown-body .ir a:after,
-  .markdown-body a[href^="javascript:"]:after,
-  .markdown-body a[href^="#"]:after {
-    content: "";
-  }
-
-  .markdown-body pre {
-    white-space: pre;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-  }
-
-  .markdown-body pre,
-  .markdown-body blockquote {
-    border: 1px solid #999;
-    padding-right: 1em;
-    page-break-inside: avoid;
-  }
-
-  .markdown-body .progress,
-  .markdown-body .progress-bar {
-    -moz-box-shadow: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
-
-  .markdown-body .progress {
-    border: 1px solid #ddd;
-  }
-
-  .markdown-body .progress-bar {
-    height: 22px;
-    border-right: 1px solid #ddd;
-  }
-
-  .markdown-body tr,
-  .markdown-body img {
-    page-break-inside: avoid;
-  }
-
-  .markdown-body img {
-    max-width: 100% !important;
-  }
-
-  .markdown-body p,
-  .markdown-body h2,
-  .markdown-body h3 {
-    orphans: 3;
-    widows: 3;
-  }
-
-  .markdown-body h2,
-  .markdown-body h3 {
-    page-break-after: avoid;
-  }
-}
-</style><style> 
-.codehilite {background-color:#fff;color:#333333;}
-.codehilite .hll {background-color:#ffffcc;}
-.codehilite .c{color:#999988;font-style:italic}
-.codehilite .err{color:#a61717;background-color:#e3d2d2}
-.codehilite .k{font-weight:bold}
-.codehilite .o{font-weight:bold}
-.codehilite .cm{color:#999988;font-style:italic}
-.codehilite .cp{color:#999999;font-weight:bold}
-.codehilite .c1{color:#999988;font-style:italic}
-.codehilite .cs{color:#999999;font-weight:bold;font-style:italic}
-.codehilite .gd{color:#000000;background-color:#ffdddd}
-.codehilite .ge{font-style:italic}
-.codehilite .gr{color:#aa0000}
-.codehilite .gh{color:#999999}
-.codehilite .gi{color:#000000;background-color:#ddffdd}
-.codehilite .go{color:#888888}
-.codehilite .gp{color:#555555}
-.codehilite .gs{font-weight:bold}
-.codehilite .gu{color:#800080;font-weight:bold}
-.codehilite .gt{color:#aa0000}
-.codehilite .kc{font-weight:bold}
-.codehilite .kd{font-weight:bold}
-.codehilite .kn{font-weight:bold}
-.codehilite .kp{font-weight:bold}
-.codehilite .kr{font-weight:bold}
-.codehilite .kt{color:#445588;font-weight:bold}
-.codehilite .m{color:#009999}
-.codehilite .s{color:#dd1144}
-.codehilite .n{color:#333333}
-.codehilite .na{color:teal}
-.codehilite .nb{color:#0086b3}
-.codehilite .nc{color:#445588;font-weight:bold}
-.codehilite .no{color:teal}
-.codehilite .ni{color:purple}
-.codehilite .ne{color:#990000;font-weight:bold}
-.codehilite .nf{color:#990000;font-weight:bold}
-.codehilite .nn{color:#555555}
-.codehilite .nt{color:navy}
-.codehilite .nv{color:teal}
-.codehilite .ow{font-weight:bold}
-.codehilite .w{color:#bbbbbb}
-.codehilite .mf{color:#009999}
-.codehilite .mh{color:#009999}
-.codehilite .mi{color:#009999}
-.codehilite .mo{color:#009999}
-.codehilite .sb{color:#dd1144}
-.codehilite .sc{color:#dd1144}
-.codehilite .sd{color:#dd1144}
-.codehilite .s2{color:#dd1144}
-.codehilite .se{color:#dd1144}
-.codehilite .sh{color:#dd1144}
-.codehilite .si{color:#dd1144}
-.codehilite .sx{color:#dd1144}
-.codehilite .sr{color:#009926}
-.codehilite .s1{color:#dd1144}
-.codehilite .ss{color:#990073}
-.codehilite .bp{color:#999999}
-.codehilite .vc{color:teal}
-.codehilite .vg{color:teal}
-.codehilite .vi{color:teal}
-.codehilite .il{color:#009999}
-.codehilite .gc{color:#999;background-color:#EAF2F5}
-</style><title>"적당히 갖춘 운영 환경"</title></head><body><article class="markdown-body"><ul>
-<li>&rdquo;&rdquo;
-tags:</li>
-<li>&rdquo;&rdquo;
-draft: true</li>
-</ul>
-<hr />
-<p>2016년, 중국 패션 리테일 영역의 클라우드 서비스 회사가 되겠다는 야심찬 희망을 가지고 아기발걸음을 시작했고, 2020년 현재 아래와 같은 구성을 갖추었다.
-처음부터 이런 구성을 그려놓고 차근차근 갖춰 나간것은 아니었다.
-2016년 봄, 알리 클라우드에 3대의 리눅스 서버를 구매해서 1대에 대충 스테이징 환경과 각종 관리툴을 셋팅하고 2대 서버에 운영을 위한 최소한의 구성만 갖춘채 첫번째 기능을 출시했다.
-매번 필요할때마다 점진적으로 아키텍처를 개선해 나갔고, 4년이 지난 지금 꽤 그럴싸한(?) 모양을 갖추게 되었다.
-지금 우리가 갖추고 있는 기술셋을 소개해본다.</p>
-<h1 id="infra">Infra 구성<a class="headerlink" href="#infra" title="Permanent link"></a></h1>
-<p><img alt="" src="/images/20200408/server.png" /></p>
-<p>2개의 클라우드 회사를 사용하고 있다. 사용자들이 직접 사용하는 기능은 모두 알리클라우드에서 운영되고 있고, 화웨이 클라우드에는 data federation을 위한 하둡 클러스터와 각종 도구들을 구성해 놓았다. 레거시와 인터페이스를 하기 위해 IDC 내에도 쿠버네티스<sub>kubernetes, k8s</sub> 환경을 구성해 놓았다.</p>
-<p>2개 클라우드에 나눠서 셋팅한 것에는 특별한 이유는 없다.
-2016년 알리 클라우드에서 먼저 서비스를 시작하였는데, 그 해 여름, 이제 막 클라우드 사업을 시작한 화웨이가 공짜로 서버를 줄테니 한번 써보고 피드백을 달라고 했다. 
-이제 막 시작하는 클라우드 환경에 중요한 서비스를 올리긴 어려웠고, 장애가 생겨도 괜찮은(?)<sub>그런게 어딧어 ㅡ,.ㅡ;;</sub> 기능을 화웨이 클라우드에 구성해보았다.
-무료 사용 기간이 끝나고, 또 한번 싸게 사용할 수 있는 기회가 생겨 지금까지도 data federation을 위한 서비스는 화웨이 클라우드에서 돌아가고 있다.
-여러개의 클라우드 업체를 사용한다고 해서 딱히 좋은건 없더라. 오히려 번거로운게 더 많다.</p>
 <p>대부분의 기능은 리눅스 서버에서 동작한다.
-하지만 몇몇 마이크로서비스는 윈도우 서버와 MSSQL 서버에 의존하고 있어서 Windows Server도 사용하고 있다.
-mysql, mongodb, redis등의 데이터베이스는 직접 운영을 하지 않고 ali cloud에서 FaaS 형태로 제공하는 RDS를 사용하고 있다.
-파일 저장 공간으로는 ali cloud에서 제공하는 OSS를 사용한다.</p>
-<h1 id="kubernetes">쿠버네티스<sub>kubernetes</sub> 구성<a class="headerlink" href="#kubernetes" title="Permanent link"></a></h1>
+하지만 몇몇 마이크로 서비스는 윈도우 서버와 MSSQL DB에 의존하고 있어서 윈도우 서버도 사용하고 있다.
+mysql, mongodb, redis등의 데이터베이스는 직접 운영을 하지 않고 알리 클라우드에서 FaaS 형태로 제공하는 RDS를 사용하고 있다.
+파일 저장 공간으로는 OSS(AWS의 S3와 유사)를 사용한다.</p>
+
+<h1 id="쿠버네티스-sub-kubernetes-sub-구성">쿠버네티스<sub>kubernetes</sub> 구성</h1>
+
 <p>처음부터 쿠버네티스를 사용했던 것은 아니다.
 2016년 당시 <a href="https://docs.docker.com/engine/swarm/">도커 스웜(swarm)</a>, <a href="https://mesosphere.github.io/marathon/">Marathon</a>, <a href="https://rancher.com/">Rancher</a> 등 다양한 도커 오케스트레이션 도구가 있었다.
-여러가지 도구들이 각자의 장점을 얘기하며 춘추전국시대를 만들고 있었지만 기능은 대동소이했다.
-이 중 하나를 선택하는 것도 피곤했고, 잘 모를때는 맨땅에 직접 해 봐야 한다는 생각으로 한땀한땀 운영 환경을 만들었다. 개발자들이 두려움없이 배포할 수 있도록 consul, nginx, jenkins를 사용하여 <a href="https://martinfowler.com/bliki/BlueGreenDeployment.html">Blue-Green Deploy</a> 방식으로 배포하고 구동할 수 있는 환경을 직접 구성했다.
+여러 가지 도구들이 각자의 장점을 얘기하며 춘추전국시대를 만들고 있었지만, 기능은 대동소이했다.
+이 중 하나를 선택하는 것도 피곤했고, 잘 모를 때는 맨땅에 직접 해 봐야 한다는 생각으로 한 땀 한 땀 운영 환경을 만들었다. 개발자들이 두려움 없이 배포할 수 있도록 consul, nginx, jenkins를 사용하여 <a href="https://martinfowler.com/bliki/BlueGreenDeployment.html">Blue-Green Deploy</a> 방식으로 배포하고 구동할 수 있는 환경을 직접 구성했다.
 하지만 서비스 규모가 점점 커지면서 오케스트레이션을 위한 도구가 필요했고, 2017년 쿠버네티스를 도입했다.
-하지만 여전히 운영되고 있는 서비스가 있어서 한번에 쿠버네티스로 전환하기는 어려웠다.
-시간을 두고 차근차근 쿠버네티스 환경으로 옮겨왔고, 현제는 모든 서비스가 쿠버네티스 클러스터에서 동작하고 있다.
+하지만 여전히 운영되고 있는 서비스가 있어서 한 번에 쿠버네티스로 전환하기는 어려웠다.
+시간을 두고 차근차근 쿠버네티스 환경으로 옮겨왔고, 현재는 모든 서비스가 쿠버네티스 클러스터에서 동작하고 있다.
 아래는 쿠버네티스 클러스터 현황이다.</p>
+
 <ul>
-<li>production: 274 services, 647 pods</li>
-<li>staging/qa: 570 services, 667 pods</li>
+<li>production
+
+<ul>
+<li><strong><font size=4>274</font></strong> services</li>
+<li><strong><font size=4>647</font></strong> pods</li>
+</ul></li>
+<li>staging/qa
+
+<ul>
+<li><strong><font size=4>570</font></strong> services</li>
+<li><strong><font size=4>667</font></strong> pods</li>
+</ul></li>
 </ul>
-<p>여기서 쿠버네티스 자체에 대한 설명은 하지 않고, 우리가 실제 적용하고 있는 몇가지 사항만 소개하겠다.</p>
-<h2 id="ingress-kong">Ingress: kong<a class="headerlink" href="#ingress-kong" title="Permanent link"></a></h2>
+
+<p>여기서 쿠버네티스 자체에 대해 설명은 하지 않고, 우리가 실제 적용하고 있는 몇 가지 사항만 소개하겠다.</p>
+
+<h2 id="ingress-kong">Ingress: kong</h2>
+
 <p>외부에서 쿠버네티스 클러스터의 내부로 접근하기 위한 <code>ingress</code>로는 kong을 사용한다.
 nginx를 바로 사용해도 되지만 url mapping, JWT 인증 등 gateway로 사용하기 위한 다양한 plugin이 제공되기 때문에 kong을 선택했다.
-(사실 kong은 nginx 기반에 약간의 편리한 기능을 추가한 제품이다.)
+(사실 kong은 nginx 기반에 약간의 편리한 기능을 추가한 제품이다)
 <a href="https://docs.konghq.com/hub/">kong 공식문서</a>에 사용할 수 있는 플러그인들이 소개되어 있다.</p>
-<h2 id="_1">리소스 할당<a class="headerlink" href="#_1" title="Permanent link"></a></h2>
+
+<h2 id="리소스-할당">리소스 할당</h2>
+
 <p>각 <code>pod</code>에는 사용할 리소스의 양을 명시할 수 있는데, 이때 request와 limit라는 개념을 사용한다.
 request는 <code>pod</code>가 생성될 때 할당되는 양이고, limit는 실행되다가 리소스가 더 필요한 경우 추가로 사용할 수 있는 양이다.
 request를 <code>pod</code>에 할당하는 최소 리소스, limit는 최대 리소스라고 생각하면 된다.
-대부분의 <code>pod</code>의 리소스는 다음과 같이 셋팅했다.
-<div class="codehilite"><pre>{
+대부분의 <code>pod</code>의 리소스는 다음과 같이 세팅했다.</p>
+
+<pre><code>{
     &quot;limits&quot;: {
         &quot;cpu&quot;: &quot;500m&quot;,
         &quot;memory&quot;: &quot;512Mi&quot;
@@ -1116,452 +137,410 @@ request를 <code>pod</code>에 할당하는 최소 리소스, limit는 최대 �
         &quot;memory&quot;: &quot;64Mi&quot;
     }
 }
-</pre></div></p>
+</code></pre>
+
 <p>우리는 대부분의 backend api는 Go로 작성한다.
-Go는 여러 장점이 있지만, 그 중 하나가 서버 자원을 아주 적게 사용한다는 것이다.
-limit를 위와 같이 셋팅해 놓았지만, 특별한 행사(중국에서는 한국인에게 잘 알려진 11.11 외에도 6.18, 3.8. 5.20등 다양한 온라인 커머스 행사들이 있다)로 사용자 요청이 집중되지 않는 한, 평소에는 cpu 0.02, memory 10MB를 넘는 일은 거의 없다.</p>
-<p>그래서 얼마나 버티나?
-11.11 피크타임때 초당 000개의 사용자 요청을 처리하였다.
-하지만 이것은 사용자가 실제로 요청을 한 갯수고, backend api 서비스 기준으로는 초당 000개의 요청을 처리했다.</p>
-<h2 id="namespace">Namespace<a class="headerlink" href="#namespace" title="Permanent link"></a></h2>
-<p>Namespaces는 k8s 클러스터 내부를 논리적으로 구분하는 단위다.
-우리 회사가 서비스하고 있는 영역은 크게 아래 2가지이다</p>
-<ul>
-<li>백화점과 같은 판매채널을 다루는 유통 사업</li>
-<li>판매채널에 제품을 공급하는 브랜드 사업</li>
-</ul>
-<p>이 둘은 구성요소들은 비슷해 보이지만, 업무 행태와 다루는 데이터에는 차이점이 꽤 많다.
+Go는 여러 장점이 있지만, 그중 하나가 서버 자원을 아주 적게 사용한다는 것이다.
+limit를 위와 같이 세팅해 놓았지만, 특별한 행사(중국에서는 한국인에게 잘 알려진 11.11 외에도 6.18, 3.8. 5.20등 다양한 온라인 커머스 행사들이 있다)로 사용자 요청이 집중되지 않는 한, 평소에는 cpu 0.05, memory 10MB를 넘는 일은 거의 없다.</p>
+
+<!-- 그래서 얼마나 버티나?
+11.11 피크타임 때 초당 000개의 사용자 요청을 처리하였다.
+하지만 이것은 사용자가 실제로 요청을 한 개수고, backend api 서비스 기준으로는 초당 000개의 요청을 처리했다. -->
+
+<!-- ## Namespace
+
+Namespaces는 k8s 클러스터 내부를 논리적으로 구분하는 단위다.
+우리 회사가 서비스하고 있는 영역은 크게 아래 2가지이다
+
+- 백화점과 같은 판매채널을 다루는 유통 사업
+- 판매채널에 제품을 공급하는 브랜드 사업
+
+이 둘은 구성요소들은 비슷해 보이지만, 업무 행태와 다루는 데이터에는 차이점이 꽤 많다.
 설령 로직이 같다 하더라도 완전히 다르게 취급되어야 한다.
-그래서 같은 이름의 마이크로서비스라 하더라도, 실제로는 다르게 동작해야 한다.</p>
-<p>우리는 이 두 영역을 namespace로 구분해 놓았다.</p>
-<h2 id="_2">배포<a class="headerlink" href="#_2" title="Permanent link"></a></h2>
+그래서 같은 이름의 마이크로 서비스라 하더라도, 실제로는 다르게 동작해야 한다.
+
+우리는 이 두 영역을 namespace로 구분해 놓았다. -->
+
+<h2 id="배포">배포</h2>
+
 <p>우리는 배포 작업 도구로 jenkins를 사용한다.
-아래는 배포 작업시 jenkins에서 실행되는 작업이다.</p>
+아래는 배포 작업 시 jenkins에서 실행되는 작업이다.</p>
+
 <ol>
 <li>gitlab에서 배포할 버전의 소스를 내려받는다</li>
 <li>새로운 도커 이미지를 만들어 docker private registry에 push 한다.</li>
 <li>kubectl 명령으로 api 서버로 배포 명령을 전달한다.</li>
 </ol>
-<p><img alt="" src="/images/20200408/jenkins_job.png" /></p>
-<p>쿠버네티스에서 새로운 어플리케이션을 배포한다는 것은, 결국 특정 node에 동작중인 <code>pod</code>를 제거하고 새로운 도커 이미지가 적용된 <code>pod</code>를 생성하는 것이다. 물론 <code>pod</code>만 내렸다 올리면 되는게 아니라 일정 갯수의 ReplicaSet이 유지되어야 하고, <code>pod</code>를 외부와 연결해주는 <code>service</code>/<code>ingress</code>와의 연결도 끊김없이 유지되어야 한다. 그래서 <code>deployment</code>를 통해 인스턴스가 원하는 상태로 유지되도록 한다.
-쿠버네티스 클러스터내에서 각 인스턴스들이 안정적으로 유지되려면 이러한 셋팅들이 jenkins 작업으로 정확하게 등록되어야 하는데, 이러한 개념을 일반 개발자들이 정확히 이해하고 jenkins 작업을 스스로 만들기란 대단이 어렵다.
+
+<p><img src="/images/20200408/jenkins_job.png" alt="" /></p>
+
+<p>쿠버네티스에서 새로운 어플리케이션을 배포한다는 것은, 결국 특정 노드에 동작 중인 <code>pod</code>를 제거하고 새로운 도커 이미지가 적용된 <code>pod</code>를 생성하는 것이다. 물론 <code>pod</code>만 내렸다 올리면 되는 게 아니라 일정 개수의 ReplicaSet이 유지되어야 하고, <code>pod</code>를 외부와 연결해주는 <code>service</code>/<code>ingress</code>와의 연결도 끊김 없이 유지되어야 한다. 그래서 <code>deployment</code>를 통해 인스턴스가 원하는 상태로 유지되도록 한다.
+쿠버네티스 클러스터 내에서 각 인스턴스가 안정적으로 유지되려면 이러한 세팅들이 jenkins 작업으로 정확하게 등록되어야 하는데, 이러한 개념을 일반 개발자들이 정확히 이해하고 jenkins 작업을 스스로 만들기란 대단히 어렵다.
 그래서 어플리케이션 타입별로 템플릿을 만들고, 해당 템플릿대로 jenkins 작업을 만들 수 있도록 하였다.</p>
-<p><img alt="" src="/images/20200408/k8s_svm.png" /></p>
-<p>처음부터 이런 도구를 제공한 것은 아니었다. 
-새로운 마이크로서비스를 배포할때마다 인프라 담당자에게 생성해달라고 하거나 확인을 요청해 왔었는데, 그 담당자는 귀찮았는지 이런 웹페이지를 만들어 직접 등록을 하게 하더라.
+
+<p><img src="/images/20200408/k8s_svm.png" alt="" /></p>
+
+<p>처음부터 이런 도구를 제공한 것은 아니었다.
+새로운 마이크로 서비스를 배포할 때마다 인프라 담당자에게 생성해달라고 하거나 확인을 요청해 왔었는데, 그 담당자는 귀찮았는지 이런 웹페이지를 만들어 직접 등록을 하게 하더라.
 (우린 전체 인프라 및 어플리케이션 환경 관리를 2명이 다 하고 있음)</p>
-<p>이러한 환경에서 개발자들은 두려움 없이 새로운 마이크로서비스를 만들고 배포를 한다.</p>
-<h1 id="_3">관문<a class="headerlink" href="#_3" title="Permanent link"></a></h1>
+
+<p>이러한 환경에서 개발자들은 두려움 없이 새로운 마이크로 서비스를 만들고 배포를 한다.</p>
+
+<p>우리 회사의 쿠버네티스 도입기는 <a href="https://youtu.be/wPNLgQVzYzo">Open Infrastructure &amp; Cloud Native Days Korea 2019 행사</a>에 소개된 적이 있다.
+<a href="https://www.slideshare.net/babokim/open-infradays-2019msak8s">발표 슬라이드</a> 및 <a href="https://www.popit.kr/%ED%9B%84%EA%B8%B0msa-k8s%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8C%80%EB%A5%99%EC%9D%98-%EC%84%9C%EB%B9%84%EC%8A%A4-%EA%B0%9C%EB%B0%9C-%EC%82%AC%EB%A1%80/">후기</a>에서 현장감이 살아있는 더 상세한 이야기를 볼 수 있다.</p>
+
+<h1 id="관문">관문</h1>
+
 <p>중국의 많은 서비스는 위챗에서 시작한다.
 그래서 중국에선 위챗을 빼고 서비스를 하기는 <del>불가능하다</del> 어렵다.
-위챗이 제공해주는 편리한 기능이 많을 뿐만 아니라, 위챗은 이미 사용자들의 실제 생활 속으로 아주 깊숙히 들어가 있어서 새로운 기능을 제공할 때 위챗을 사용하면 확산하기도 쉽다.
+위챗이 편리한 기능을 많이 제공해줄 뿐만 아니라, 위챗은 이미 사용자들의 실제 생활 속으로 아주 깊숙이 들어가 있어서 새로운 기능을 제공할 때 위챗을 사용하면 확산하기도 쉽다.
 위챗은 연동된 서비스들을 실행할 때 사용자들의 인증을 보장해주기 위해 OAuth 기능을 제공하고 있다.
 이를 이용하면 로그인을 쉽게 구현할 수 있다.
 위챗 OAuth 연동 방법에 대한 상세한 내용은 <a href="https://www.popit.kr/wechat%EC%97%90-%EB%82%98%EB%A7%8C%EC%9D%98-%EC%84%9C%EB%B9%84%EC%8A%A4-%EB%A7%8C%EB%93%A4%EA%B8%B0-%EC%B2%AB%EA%B1%B8%EC%9D%8C/">WeChat에 나만의 서비스 만들기 첫걸음</a> 글에 자세히 소개되어 있다.</p>
-<h2 id="_4">위챗 로그인<a class="headerlink" href="#_4" title="Permanent link"></a></h2>
+
+<h2 id="위챗-로그인">위챗 로그인</h2>
+
 <p>우리는 3가지 방식으로 서비스를 제공한다.</p>
+
 <ol>
-<li>위챗공식계정(微信公众号)<br />
-   대상: 물건 구매 고객<br />
-   물건을 구매하는 고객은 위챗공식계정(微信公众号)내에서 자신의 포인트, 쿠폰, 구매이력 등을 확인할 수 있다.</li>
-<li>위챗기업계정(微信企业号)<br />
-   대상: 기업내 사용자<br />
-   위챗기업계정(微信企业号) 내에 별도의 app을 추가할 수 있는데, 매장 등 현장에서 일하는 사람을 위한 기능은 위챗기업계정(微信企业号)을 통해 제공한다.</li>
+<li>위챗 공식계정(微信公众号)<br />
+대상: 물건 구매 고객<br />
+물건을 구매하는 고객은 위챗 공식계정(微信公众号) 내에서 자신의 포인트, 쿠폰, 구매 이력 등을 확인할 수 있다.</li>
+<li>위챗 기업계정(微信企业号)<br />
+대상: 기업 내 사용자<br />
+위챗 기업계정(微信企业号) 내에 별도의 App을 추가할 수 있는데, 매장 등 현장에서 일하는 사람을 위한 기능은 위챗 기업계정(微信企业号)을 통해 제공한다.</li>
 <li>포탈<br />
-   대상: 사무실에서 PC를 켜고 업무를 보는 사람을 위한 기능<br />
-   아이디/패스워드 같은건 필요없고, 첫 화면에 뜨는 QR 코드를 위챗으로 스캔을 하면 로그인이 된다.</li>
+대상: 사무실에서 PC를 켜고 업무를 보는 사람을 위한 기능<br />
+아이디/패스워드 같은 건 필요 없고, 첫 화면에 뜨는 QR 코드를 위챗으로 스캔을 하면 로그인이 된다.</li>
 </ol>
-<p><img alt="" src="/images/20200408/wechat_login.png" /></p>
-<p>모두 다 위챗이 시작점이다.<br />
-Wechat OAuth 인증 과정을 거친 후 login service에서 JWT 토큰을 발급하면 로그인이 완료된다.</p>
+
+<p>모두 다 위챗이 시작점이다.</p>
+
+<p><img src="/images/20200408/wechat_login.png" alt="" /></p>
+
+<p>Wechat OAuth 인증 과정을 거친 후 login service에서 JWT 토큰을 발급하면 로그인이 완료된다.</p>
+
 <p>JWT의 장점은 인증에 필요한 모든 정보는 토큰 자체에 포함되어 있기 때문에 별도의 인증 서버를 둘 필요가 없다는 점이다. 대부분의 언어에서 JWT를 처리하는 라이브러리를 제공하고 있어서 쉽게 사용할 수 있다.
-하지만 한번 발급된 토큰은 유효기간이 만료되기 전까지는 파기할 수 없다는 단점도 있지만, 이 단점은 무시하기로 했다. ㅋㅋ
-(Refresh Token이라는 새로운 토큰을 통해 이 단점을 보완할 수 있는 방법이 있다지만, 누가 우리 시스템을 해킹 하겠어?ㅋ 그냥 무시!)
+하지만 한번 발급된 토큰은 유효기간이 만료되기 전까지는 파기할 수 없다는 단점도 있지만, 이 단점은 무시하기로 했다. ㅋㅋ<br />
 JWT 토큰은 세 파트로 나누어져 있고, 각 파트는 점으로 구분되어 있다.
 즉, <code>aaaa.bbbb.cccc</code>와 같은 형태인데, 순서대로 헤더(Header), 페이로드(Payload), 서명(Sinature)이다.
-서명(Sinature) 파트는 토큰이 변조되지 않았음을 증명하는데 사용되는데 이때 SECRET KEY가 필요하다.
+서명(Sinature) 파트는 토큰이 변조되지 않았음을 증명하는 데 사용되는데 이때 SECRET KEY가 필요하다.
 우리는 페이로드(Payload) 파트에 미리 정의된 클레임 외에 사용자의 신원을 확인할 수 있는 ID를 추가했다</p>
-<p><img alt="" src="/images/20200408/jwt_token_sample.png" /></p>
-<h2 id="_5">인증<a class="headerlink" href="#_5" title="Permanent link"></a></h2>
-<p>위챗 로그인을 통해 JWT 토큰을 획득하고나면, 이 후 모든 요청은 헤더에 JWT 토큰을 달고 다녀야 한다.</p>
-<p><img alt="" src="/images/20200408/auth.png" /></p>
+
+<p><img src="/images/20200408/jwt_token_sample.png" alt="" /></p>
+
+<h2 id="인증">인증</h2>
+
+<p>위챗 로그인을 통해 JWT 토큰을 획득하고 나면, 이후 모든 요청은 헤더에 JWT 토큰을 달고 다녀야 한다.</p>
+
+<p><img src="/images/20200408/auth.png" alt="" /></p>
+
 <p>JWT 토큰으로 아래 2가지를 체크할 수 있다.</p>
+
 <ol>
-<li>이 토큰이 유효한가? <code>signature의 무결성 검증</code> <br />
-   SECRET KEY로 복호화 한  서명(Sinature)의 무결성 확인 + 페이로드(Payload)에 있는 만료시간 체크</li>
-<li>이 토큰은 누구에게 발급한 것인가? <code>payload의 신원 확인</code> <br />
-   페이로드(Payload)에 담겨 있는 사용자 ID</li>
+<li>이 토큰이 유효한가? <code>signature의 무결성 검증</code><br />
+SECRET KEY로 복호화한  서명(Sinature)의 무결성 확인 + 페이로드(Payload)에 있는 만료 시간 체크</li>
+<li>이 토큰은 누구에게 발급한 것인가? <code>payload의 신원 확인</code><br />
+페이로드(Payload)에 담겨 있는 사용자 ID</li>
 </ol>
-<p>쿠버네티스의 Kong Ingress Controller JWT plugin에서는 signature의 무결성을 검증하고, 
-각 마이크로서비스에서는 payload의 신원을 확인한다.
-JWT 토큰을 발급하는 login service와 Kong의 JWT plugin은 동일한 SECRET KEY를 사용해야 한다.
-각 마이크로서비스에서는 payload의 신원만 확인하기 때문에 SECRET KEY가 필요없다.
+
+<p>쿠버네티스의 Ingress로 사용하는 Kong에 JWT plugin을 추가하여 signature의 무결성을 검증한다.
+각 마이크로 서비스에서는 payload의 신원을 확인한다.
+JWT 토큰을 발급하는 login service와 Kong의 JWT plugin은 같은 SECRET KEY를 사용해야 한다.
+각 마이크로 서비스에서는 payload의 신원만 확인하기 때문에 SECRET KEY가 필요 없다.
 login service와 Kong의 JWT plugin에서 사용하는 SECRET KEY는 주기적으로 변경해주고 있다.</p>
-<h1 id="_6">서비스 연계<a class="headerlink" href="#_6" title="Permanent link"></a></h1>
-<p>마이크로서비스간 통신 방식으로 아래 2가지를 사용한다.</p>
+
+<h1 id="서비스-연계">서비스 연계</h1>
+
+<p>마이크로 서비스 간 통신 방식으로 아래 2가지를 사용한다.</p>
+
 <ol>
 <li>web api<br />
-다른 마이크로서비스를 호출해야 할 때 web api를 사용한다.
-grpc의 장점에 대해 많은 얘기가 나오고 있지만, 우리는 grpc를 사용했을때 얻는 장점이 크지 않다고 판단하여(엄청 번거로움) 그냥 web api 방식으로 json 데이터를 주고 받는다.</li>
+다른 마이크로 서비스를 호출해야 할 때 web api를 사용한다.
+grpc의 장점에 대해 많은 얘기가 나오고 있지만, 우리는 grpc를 사용했을 때 얻는 장점이 크지 않다고 판단하여(엄청 번거로움) 그냥 web api 방식으로 json 데이터를 주고받는다.<br />
+web api를 작성하는 방법에 대해서는 <a href="/post/go-my-way-1-webframework/">Go My Way #1 - 웹 프레임워크</a>, <a href="/post/go-my-way-2-database-and-logging/">Go My Way #2 - 데이터베이스, 로깅</a> 글에 자세히 소개되어 있다.</li>
 <li>kafka message<br />
 요청 처리 과정 중에 비즈니스적으로 주요 행위가 일어나면 kafa로 이벤트를 전송하고, consumer service가 그 이벤트를 받아서 여러 액션을 처리한다.</li>
 </ol>
-<p><img alt="" src="/images/20200408/interface.png" /></p>
-<p>하나의 요청이 하나의 마이크로서비스에서 처리가 끝나는 경우는 드물고, 대부분 여러 서비스를 거치면서 처리된다.
+
+<p><img src="/images/20200408/interface.png" alt="" /></p>
+
+<p>하나의 요청이 하나의 마이크로 서비스에서 처리가 끝나는 경우는 드물고, 대부분 여러 서비스를 거치면서 처리된다.
 마이크로 서비스 환경으로 1년 정도 운영을 해보니 기존의 모노리틱(monolitic) 방식과는 또 다른 어려움이 있었다.</p>
 
+<!-- 이런 마이크로 서비스 환경에서는 <sup>1</sup><u>오류를 추적</u>하고 <sup>2</sup><u>병목 지점을 찾기</u> 위해, 그리고 <sup>3</sup><u>비즈니스 흐름을 파악</u>하기 위해 트레이스 도구가 필요하다. (개발자가 개별적으로 남기는 로그만으로는 어렵다.) -->
 
-<h2 id="_7">무엇이 문제인가?<a class="headerlink" href="#_7" title="Permanent link"></a></h2>
-<h3 id="_8">오류를 추적하기가 어렵다<a class="headerlink" href="#_8" title="Permanent link"></a></h3>
+<h2 id="무엇이-문제인가">무엇이 문제인가?</h2>
+
+<h3 id="오류를-추적하기가-어렵다">오류를 추적하기가 어렵다</h3>
+
 <p>이제 더이상 nginx의 access log와 개발자가 개별적으로 남기는 로그만으로는 문제를 추적하기가 너무 어려워졌다.</p>
+
 <ul>
-<li>위와 같이 복잡한 처리 흐름이 이어지는 경우, A 서비스에서는 아무 문제가 없이 처리 되었는데 C 서비스는 아예 동작조차 하지 않았다.
+<li>위와 같이 복잡한 처리 흐름이 이어지는 경우, A 서비스에서는 아무 문제가 없이 처리되었는데 C 서비스는 아예 동작조차 하지 않았다.
 프로그램상의 오류일까? 아니면 네트워크 장애인가? 어디에선가 타임아웃이 발생한 것은 아닐까?</li>
-<li>이벤트를 받아 처리해야 하는 D 서비스가 동작하지 않았다면, 도대체 어디에서 문제가 발생한 것일까? 내 서비스는 문제 없는데(<em>당연하지! 내가 짰으니!!</em>) kafka가 이벤트를 먹어버린 걸까?</li>
+<li>이벤트를 받아 처리해야 하는 D 서비스가 동작하지 않았다면, 도대체 어디에서 문제가 발생한 것일까? 내 서비스는 문제없는데(<em>당연하지! 내가 짰으니!!</em>) kafka가 이벤트를 먹어버린 걸까?</li>
 </ul>
+
 <p>다른 동료를 의심하기도 하고, 그냥 문제 해결을 포기하고 만다.
 사용자는 불편을 겪고 있는데, 문제가 무엇인지 정의할 수도 없다.</p>
-<h3 id="_9">비즈니스 흐름을 파악하기 어렵다<a class="headerlink" href="#_9" title="Permanent link"></a></h3>
+
+<h3 id="비즈니스-흐름을-파악하기-어렵다">비즈니스 흐름을 파악하기 어렵다</h3>
+
 <p>하나의 마이크로 서비스가 만들어지면, 어느 팀이든지 그 서비스를 사용할 수 있다.
 중요한 행위에 대해 이벤트를 정의하고 그 이벤트를 발생시키면, 필요한 누군가가 그 이벤트를 <em>subscribe</em> 해서 또 다른 로직을 이어간다.
 이렇게 여러 팀이 개발한 서비스들이 서로 얽히고 얽혀서 하나의 요청이 처리된다.
 이렇게 되다 보니 사용자가 버튼 하나를 클릭했을 때 어떤 일이 일어나는지 파악하는 것은 거의 불가능해졌다.
 한 서비스의 작은 변경사항이 전혀 예상하지 못했던 곳에서 문제를 일으키기도 한다.</p>
-<p>예전에는 비즈니스 로직을 파악하려면 소스코드를 한 줄 한 줄 읽어내려가면 되었지만,
-지금과 같이 여러 서비스들 간의 상호작용으로 하나의 기능이 완성되는 마이크로 서비스 환경에서는
+
+<p>예전에는 비즈니스 로직을 파악하려면 소스 코드를 한 줄 한 줄 읽어내려가면 되었지만,
+지금과 같이 여러 서비스 간의 상호작용으로 하나의 기능이 완성되는 마이크로 서비스 환경에서는
 서비스들의 연관 관계가 명확하지 않으면 비즈니스 로직도 명확해질 수 없다.</p>
+
 <p>음.. 우리가 고객에게 제공하는 기능이 정확히 어떻게 동작하는지도 모르는 상황이 되어 버렸다.</p>
-<h3 id="_10">병목 지점을 찾을 수 없다<a class="headerlink" href="#_10" title="Permanent link"></a></h3>
+
+<h3 id="병목-지점을-찾을-수-없다">병목 지점을 찾을 수 없다</h3>
+
 <p>사용자 수가 갑자기 늘어난 것도 아니고 서버의 자원이 고갈된 것도 아닌데, 응답시간이 유난히 늦어질 때가 있다.
 도대체 어디가 병목인 걸까?</p>
-<h2 id="_11">트레이스 시스템의 필요<a class="headerlink" href="#_11" title="Permanent link"></a></h2>
+
+<h2 id="트레이스-시스템의-필요">트레이스 시스템의 필요</h2>
+
 <p>이제 서비스의 모든 행위에 대한 기록을 남기고 이것을 투명하게 드러내야 할 필요성이 생겼다.</p>
+
 <p>대표적인 트레이스 솔루션으로는 <a href="http://zipkin.io/">zipkin</a>, <a href="http://lightstep.com/">lightstep</a>, <a href="https://github.com/sourcegraph/appdash">appdash</a> 등이 있고, <a href="http://opentracing.io/">opentracing</a>를 사용하면 트레이스 서버로 모든 행위에 대한 정보를 쉽게 전달할 수 있다.
 이런 잘 갖춰진(?) 솔루션들은 지금 당장 설치해서 사용하기는 쉽지만, 실제 운영을 해보면 여러 어려움에 부딪힌다.
 그 어려움은 대부분 이 두 가지 패턴으로 좁혀지는데,</p>
+
 <ul>
 <li>기능이 너무 많다.<br />
-  그래서 학습해야 할 것도 많다.
-  사실 우리가 필요한 기능은 그 솔루션에서 제공하는 기능의 일부분일 뿐이다.
-  화려한 UI와 깔끔한 Getting Started 문서에 혹해서 시작은 했지만, 정작 내가 원하는 모습에 도달하기까지 학습해야 할 것이 한둘이 아니다.
-  특정 솔루션의 사용법을 학습하고 있자니, 주객이 전도되는 느낌을 받을 때가 있다.</li>
+그래서 학습해야 할 것도 많다.
+사실 우리가 필요한 기능은 그 솔루션에서 제공하는 기능의 일부분일 뿐이다.
+화려한 UI와 깔끔한 Getting Started 문서에 혹해서 시작은 했지만, 정작 내가 원하는 모습에 도달하기까지 학습해야 할 것이 한둘이 아니다.
+특정 솔루션의 사용법을 학습하고 있자니, 주객이 전도되는 느낌을 받을 때가 있다.</li>
 <li>정작 필요한 기능은 없다.<br />
-  여러 기능을 제공하고 있지만, 그 기능은 우리에게 딱 맞는 기능이 아니다.
-  결국, 우리 입맛에 맞게 customizing해서 사용해야 하는데, 그 과정에도 상당한 시간과 노력이 들어간다.</li>
+여러 기능을 제공하고 있지만, 그 기능은 우리에게 딱 맞는 기능이 아니다.
+결국, 우리 입맛에 맞게 customizing 해서 사용해야 하는데, 그 과정에도 상당한 시간과 노력이 들어간다.</li>
 </ul>
+
 <p>어떤 솔루션을 처음 도입할 때는 그 솔루션의 문제 해결 방식과 사상을 잘 모르고 접근하는 경우가 많다.
 어떤 솔루션이든 어떤 문제를 효율적으로 해결하기 위해 많은 시도를 하다가 최종적으로 최적화된 무언가가 만들어진 것일 텐데,
 과정은 모른 채 최종 모습만 보고 따라 한다면 그것이 제시하는 최적의 방법으로 문제 해결을 못 하는 경우가 많다.
 즉 처음에는, 내 손으로 한 땀 한 땀 구성해보고, 솔루션이 문제를 해결하는 방식에 충분한 공감이 되었을 때 그것을 사용해야 잘 활용할 수 있다.</p>
+
 <p>이런 이유로 트레이스 환경을 직접 구성했다.</p>
-<h2 id="behaviorlog-sqllog">behaviorlog, sqllog<a class="headerlink" href="#behaviorlog-sqllog" title="Permanent link"></a></h2>
+
+<p>트레이스 환경을 구축하게된 상세한 이야기는 <a href="https://jaehue.github.io/post/go-my-way-3-tracing/">Go My Way #3 - 트레이싱</a> 글에 소개되어 있다.</p>
+
+<h2 id="behaviorlog-sqllog">behaviorlog, sqllog</h2>
+
 <p>nginx에서 남기는 accesslog와 구분하기 위해 각 마이크로 서비스에서 남기는 트레이스 정보를 behaviorlog라고 부르기로 했다.
 nginx에서 남기는 accesslog는 단순히 사용자의 접속 정보를 보여주는 것이라면, behaviorlog는 쿠버네티스 클러스터 내부의 마이크로 서비스들의 행위를 보여주는 로그인 것이다.
 그리고 sqllog는 각 마이크로 서비스에서 실행하는 쿼리 실행에 대한 로그이다.</p>
-<p>behaviorlog와 sqllog를 남기는 규칙과 방식은 다음과 같다</p>
-<h3 id="_12">식별하기<a class="headerlink" href="#_12" title="Permanent link"></a></h3>
-<ul>
-<li>SessionID</li>
-<li>RequestID</li>
-<li>ActionID</li>
-<li>ParentActionID</li>
-</ul>
-<p>사용자의 하나의 요청으로 이루어지는 모든 행위는 모두 같은 RequestID를 가진다. 그리고 각각의 마이크로 서비스에서 처리하는 행위는 고유의 ActionID를 가진다. 즉 마이크로 서비스에서 처리하는 모든 액션에는 RequestID와 ActionID가 부여된다. 이때 나를 호출한 caller 서비스의 ActionID는 ParentActionID가 된다. RequestID, ActionID, ParentActionID 이 세 가지로 실제 요청이 처리되는 흐름을 정확하게 표현할 수 있다.</p>
-<h2 id="_13">단순 로그인이 문제가 아니다<a class="headerlink" href="#_13" title="Permanent link"></a></h2>
-<ul>
-<li>레거시 사용자 가져오기</li>
-<li>거지같이 마구잡이로 변경하는 것 인지하기</li>
-</ul>
-<p>우리는 사용자를 2가지 타입으로 구분했다.</p>
-<ul>
-<li>member<br />
-  물건을 구매하는 고객</li>
-<li>colleague<br />
-  그들에게 물건을 제공하기 위한 일을 하는 모든 사람들</li>
-</ul>
-<p>사실 사용자 관리는 어느 시스템이든 필수로 있어야 하는 기능이다.
-그리고 필요한 기능도 크게 다르지 않아 보인다. 그냥 뻔하다.
-사용자의 신상정보와 몇가지 권한들을 잘 그루핑해서 관리해주면 되지 않나?
-하지만 그건 조직 관리가 칼같이 될때 얘기지, 그런 조직이 어디 있나?</p>
-<p>어느정도 규모있는 회사라면 사용자를 관리하는 지점이 한두군데가 아니다.
-정직원들의 정보는 SAP의 HR에서 넘어오고, 오프라인 매장의 판매원들은 외부 업체가 관리하고 있는데 그 업체에서 판매원들 정보를 IF 해 준다.
-이렇게만 딱딱 돌아간다면 참 좋을텐데, 실제 세상은 그렇지 않다.
-수시로 조직이 변경되기도 하고, 다른 조직으로 새로 발령이 나기도 하고,
-인사시스템에 기록된 팀/직책과 다르게 일하는 사람도 많다.
-특히나 인사 이동이 일어날때는 인수인계라는 명목으로 인사 발령과 상관없이 특수(?) 권한을 가져야 한다.
-게다가 높은 자리에 앉아있는 꼰대들은 아무 명분없이 이권한 저권한 달라고 하고, 그냥 귀찮으니 다른 사람에게 그냥 위임해 버릴때도 많다.
-제대로 된 사용자 관리를 위해 꽤 괜찮은 UI를 만들고, &ldquo;이제 사용자 관련 변경은 여기서 해 주세요&rdquo;라고 해도, 지금까지 해 오던 방식이 습관이 된 담당자들은 쉽게 바뀌지 않는다. 이미 그들 머리속에는 다 규칙이 있다. 단, 그들의 머리속을 아무도 이해할 수 없다는 것이 함정&hellip;
-사용자 데이터는 그냥 걸레가 되어버린다.
-우린 그 걸레에 가장 중요한 사용자 신원/권한 관리를 의존해야만 했다.</p>
-<h3 id="_14">조직체계와 권한은 다르다.<a class="headerlink" href="#_14" title="Permanent link"></a></h3>
-<p>부서장은 부서장의 권한을 갖고, 브랜드장은 브랜드장의 권한을 갖는다.
-그럴 것 같다. 하지만 실제는 그렇지 않더라.
-브랜드장은 워낙 바쁘신 분이라, 많은 일을 직접 하지 않고 다른 누군가가 대신 해준다(?)
-그리고 그런 분들은 여러 책임과 권한을 많이 가지고 있어서, 그것을 함께 담당(?)하려는 사람들이 많다.
-그래서 단 1명이어야 할 브랜드장 권한을 5~6명이 가지고 있는 경우도 있다.
-실제로는 브랜드장이 아닌데 온라인에서는 브랜드장인 사람들이 존재하는 것이다.
-그래. 잘못되었다. 하지만 실상을 들여다보면 의외로 그럴만한 이유들이 있다.
-그것을 무리하게 바꾸기 어렵다. 일단 지금의 방식을 인정하자. 
-권한과 조직체계를 떨어뜨려 놓으면 된다.</p>
-<p>권한 <em>&ndash;</em> 조직</p>
-<h3 id="_15">모든것을 공개하자<a class="headerlink" href="#_15" title="Permanent link"></a></h3>
-<p>그러면 이러한 상황을 그대로 둬야 하나?
-내가 가지고 있는 신념 중 하나는 소프트웨어 개발자는 &ldquo;현실의 문제를 IT 기술로 해결하는 사람&rdquo;이다.
-분명히 문제인데 그냥 그것을 덮어버리는 것은 내가 가지고 있는 직업윤리에 맞지 않다.
-어떤 방식으로든 해결해가야 한다.</p>
-<p>하지만 &ldquo;옳다 그르다&rdquo; 라는 관점으로 접근하면 서로의 생각은 잘 좁혀지 않고 골만 깊어질 수 있다.
-그럴땐, 그냥 사실을 그대로 드러내고 그 상황을 공유하는 것이 좋은 방법인 것 같다.
-누가 어떤 이유로 어떤 권한을 가지게 되었는지, 그 상황을 샅샅히 드러내는 것이다.
-관련된 사람들이 사실을 확인할 수 있도록 해 주고, 그들이 합의점을 찾을 수 있도록 해 주는 것 까지가 서비스 제공자의 역할이 아닌가 생각한다.</p>
-<p>그러면, 어디까지 드러내고 있나?</p>
-<h1 id="_16">서비스 연계<a class="headerlink" href="#_16" title="Permanent link"></a></h1>
-<h2 id="web-api">web-api<a class="headerlink" href="#web-api" title="Permanent link"></a></h2>
-<p>마이크로 서비스에 대해 검색을 해 보면 grpc에 대한 얘기가 따라 나오는 경우가 많다.
-마이크로서비스간 통신을 할 때 grpc를 사용하면 성능의 잇점을 누릴 수 있다.
-json 포맷을 사용하는 것에 비해 데이터 크기를 줄일 수 있고, json 문자열을 객체로 변환할때 cpu를 절약할 수 있다.</p>
-<script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2152_RC02/embed_loader.js"></script>
 
-<p><script type="text/javascript"> trends.embed.renderExploreWidget(&ldquo;TIMESERIES&rdquo;, {&ldquo;comparisonItem&rdquo;:[{&ldquo;keyword&rdquo;:&rdquo;microservice&rdquo;,&rdquo;geo&rdquo;:&rdquo;&ldquo;,&rdquo;time&rdquo;:&rdquo;today 5-y&rdquo;},{&ldquo;keyword&rdquo;:&rdquo;grpc&rdquo;,&rdquo;geo&rdquo;:&rdquo;&ldquo;,&rdquo;time&rdquo;:&rdquo;today 5-y&rdquo;}],&rdquo;category&rdquo;:0,&rdquo;property&rdquo;:&rdquo;&ldquo;}, {&ldquo;exploreQuery&rdquo;:&rdquo;date=today%205-y&amp;q=microservice,grpc&rdquo;,&rdquo;guestPath&rdquo;:&rdquo;<a href="https://trends.google.co.kr:443/trends/embed/">https:</script></p>
-<p>하지만, grpc를 사용하는것은 꽤나 번거롭다.
-우리는 벡엔드 api로 주로 Go 언어를 사용하고 있는데, Go 언어에서 grpc를 사용하려면</p>
+<p>behaviorlog와 sqllog를 남기는 규칙과 방식은 다음과 같다</p>
+
+<h3 id="식별하기">식별하기</h3>
+
 <ul>
-<li>endpoint로 노출할 기능을 정의하고</li>
-<li>endpoint 각각에 대해 request, response를 변환하는 코드를 넣은 후</li>
-<li>client와 server에 각각 transport layer를 만들어야 한다.</li>
-<li>그리고 모든 request, response 타입에 대해 decode/encode 함수를 만들어야 하고</li>
-<li>grpc 사용을 위해 모든 reqeust, response 타입에 대해 proto file을 만들어야 한다.</li>
+<li>SessionID<br />
+보통 웹 개발에서 세션(session)은 서버와 클라이언트와의 연결을 유지해주기 위해 서버에 사용자 정보를 저장하는 방법을 의미한다.
+하지만 앞에서 말했듯이 우리는 JWT 인증을 사용한다.
+JWT 토큰 자체에 인증에 필요한 모든 정보가 포함되어 있으므로 별도의 저장 방법은 필요 없다.
+그런데 무슨 SessionID?<br />
+특정 기술의 이름으로써의 세션이 아닌, 사용자가 로그인한 후부터 로그아웃하기 전까지의 행동의 묶음이라는 개념적인 의미로 생각한다면, <strong><u>한번 발급받은 JWT 토큰이 사용되는 기간</u></strong>을 세션이라 할 수 있다.
+앞서 JWT 토큰의 구조에 관해 얘기했는데, JWT 토큰의 마지막인 서명(Sinature) 파트를 세션으로 사용하기로 했다.
+즉, 한번 로그인을 해서 JWT 토큰을 획득한 후 해당 토큰을 사용한 모든 행동이 같은 <code>SessionID</code>로 묶인다.</li>
+<li>RequestID<br />
+사용자의 하나의 요청으로 이루어지는 모든 행위는 모두 같은 <code>RequestID</code>를 가진다.<br /></li>
+<li>ActionID<br />
+각각의 마이크로 서비스에서 처리하는 행위는 고유의 <code>ActionID</code>를 가진다.<br /></li>
+<li>ParentActionID<br />
+나를 호출한 caller 서비스의 ActionID는 <code>ParentActionID</code>가 된다.</li>
 </ul>
-<p>우리 서비스는 CPU를 아껴야 할 만큼 많은 트래픽을 감당하고 있지 않다.
-json 포맷으로 web api를 사용하는게 개발하기는 가장 쉽다.
-json 데이터의 사이즈를 줄여야 하고 cpu를 아껴야 할 만큼 사용량이 폭발한다면 행복한 마음으로 기꺼야 야근을 해서, 나 혼자서라도 모두 grpc로 바꾸리다.. 라는 생각으로, 지금까지 그냥 web api를 사용하고 있다.</p>
-<h2 id="kafka-message">kafka message<a class="headerlink" href="#kafka-message" title="Permanent link"></a></h2>
-<p>복잡한 업무를 작은 마이크로서비스로 잘게 쪼개서 연결하다 보면, 곧 api의 call 거미줄에서 벗어나기 어렵다.
-api-call 거미줄에서 벗어나기 =&gt; message를 받아서 처리한다.
-진짜 이렇게만 하면 되나? 하나의 event가 어디에까지 파급을 미치는지 알아내려면?
-그냥 kafka message만 뿌려선 안된다. 의미있는 event를 도출해내야 한다
-    + 3개로 운영 / 2개씩 replica
-    + kafka message에도 JWT token, request_id, action_id를 넣어서 보낸다</p>
-<h2 id="api">적절한 api 사용하기<a class="headerlink" href="#api" title="Permanent link"></a></h2>
-<p>사실 각 마이크로서비스간 연계를 탄탄하게 만들어주는 것은 통신 방식이 아니다. 어떤 방식으로 통신하는가보다 더 중요한 것은 ‘적절한 상황에 적절한 api를 사용하는가?‘이다. 나는 코드 리뷰를 통해 이 부분을 어느정도 보장할 수 있다고 생각한다. 이 부분에 대해서는 MSA 조직 만들기(후속작) 글에서 좀 더 자세하게 이야기 해 볼 예정이다.</p>
-<h2 id="_17">추적하기<a class="headerlink" href="#_17" title="Permanent link"></a></h2>
-<p>behaviorlog, sqllog =&gt; kafka =&gt; hdfs</p>
-<p>우리 회사는 클라우드 상에 150여 개의 마이크로 서비스가 서로 얽혀서 동작하고 있다. 사용자의 한 번의 클릭이 실제로는 여러 마이크로 서비스들을 거치고 거쳐서 최종 결과를 고객에게 보여준다. 처리 과정 중에 비즈니스적으로 주요 행위가 일어나면 kafa로 이벤트를 전송하고, consumer service가 그 이벤트를 받아서 여러 액션을 처리한다.</p>
-<p><img alt="" src="https://jaehue.github.io/images/tracing/microservice.png" /></p>
-<h3 id="_18">무엇이 문제인가?<a class="headerlink" href="#_18" title="Permanent link"></a></h3>
-<h4 id="_19">오류를 추적하기가 어렵다<a class="headerlink" href="#_19" title="Permanent link"></a></h4>
-<p>이제 더이상 nginx의 access log와 개발자가 개별적으로 남기는 로그만으로는 문제를 추적하기가 너무 어려워졌다.</p>
-<ul>
-<li>위와 같이 복잡한 처리 흐름이 이어지는 경우, A 서비스에서는 아무 문제가 없이 처리 되었는데 C 서비스는 아예 동작조차 하지 않았다. 프로그램상의 오류일까? 아니면 네트워크 장애인가? 어디에선가 타임아웃이 발생한 것은 아닐까?</li>
-<li>이벤트를 받아 처리해야 하는 D 서비스가 동작하지 않았다면, 도대체 어디에서 문제가 발생한 것일까? 내 서비스는 문제 없는데(당연하지! 내가 짰으니!!) Event Broker가 이벤트를 먹어버린 걸까?
-다른 팀을 의심하기도 하고, 그냥 문제 해결을 포기하고 만다. 사용자는 불편을 겪고 있는데, 문제가 무엇인지 정의할 수도 없다.</li>
-</ul>
-<h4 id="_20">비즈니스 흐름을 파악하기 어렵다<a class="headerlink" href="#_20" title="Permanent link"></a></h4>
-<p>하나의 마이크로 서비스가 만들어지면, 어느 팀이든지 그 서비스를 사용할 수 있다. 중요한 행위에 대해 이벤트를 정의하고 그 이벤트를 발생시키면, 필요한 누군가가 그 이벤트를 subscribe 해서 또 다른 로직을 이어간다. 이렇게 여러 팀이 개발한 서비스들이 서로 얽히고 얽혀서 하나의 요청이 처리된다. 이렇게 되다 보니 사용자가 버튼 하나를 클릭했을 때 어떤 일이 일어나는지 파악하는 것은 거의 불가능해졌다. 한 서비스의 작은 변경사항이 전혀 예상하지 못했던 곳에서 문제를 일으키기도 한다.</p>
-<p>예전에는 비즈니스 로직을 파악하려면 소스코드를 한 줄 한 줄 읽어내려가면 되었지만, 지금과 같이 여러 서비스들 간의 상호작용으로 하나의 기능이 완성되는 마이크로 서비스 환경에서는 서비스들의 연관 관계가 명확하지 않으면 비즈니스 로직도 명확해질 수 없다.</p>
-<p>음.. 우리가 고객에게 제공하는 기능이 정확히 어떻게 동작하는지도 모르는 상황이 되어 버렸다.</p>
-<h1 id="_21">모니터링<a class="headerlink" href="#_21" title="Permanent link"></a></h1>
-<p>이 글을 작성하는 지금 현재 우리 회사는 클라우드 상에 50여 개의 마이크로 서비스가 서로 얽혀서 동작하고 있다. 사용자의 한 번의 클릭이 실제로는 여러 마이크로 서비스들을 거치고 거쳐서 최종 결과를 고객에게 보여준다. 처리 과정 중에 비즈니스적으로 주요 행위가 일어나면 이벤트가 발생하고, consumer service가 그 이벤트를 받아서 여러 액션을 처리한다.</p>
-<p><img alt="" src="https://jaehue.github.io/images/tracing/microservice.png" /></p>
-<h1 id="_22">배포<a class="headerlink" href="#_22" title="Permanent link"></a></h1>
-<h2 id="_23">환경<a class="headerlink" href="#_23" title="Permanent link"></a></h2>
-<p>우리는 아래 3가지 runtime 환경을 가지고 있다.</p>
-<ul>
-<li>staging</li>
-<li>qa</li>
-<li>production</li>
-</ul>
-<p>보통은 development / staging / production으로 나누던데, 이런 구분은 좀 특이한가?
-사실 사연이 있다 ㅎ
-2016년 처음에는 development / staging / production 3가지 환경으로 시작을 했었다.
-당연히, 개발/테스트는 development 환경에서, 운영 직전 확인은 staging 환경에서 했었다.
-하지만 개인 PC에서 해야 할 작업을 development DB에 직접 붙어서 하기 시작했고, development 환경은 늘 오류 투성이여서 못 쓸 지경까지 되었다. 
-그러자 하나 둘 staging에서 개발/테스트을 하기 시작했다.
-staging에서 개발/테스트 환경이 되었고, 운영 전 확인할 환경은 없어져 버렸다.
-개발자들에게 피곤하게 &ldquo;개발/테스트는 development에서 하구요, staging은 운영 배포 확인 용도로만 사용하세요~&rdquo;라고 말하기도 귀찮고, 그렇게 말한다고 해서 들을 것도 아니고(잔소리&hellip;) 그냥 &ldquo;qa&rdquo;라는 이름의 새로운 환경을 만들었다.</p>
-<p>그 전에는 대부분의 로직은 MSSQL DB의 Stored Procedure에 있었고, 운영배포 절차 같은건 없고 그냥 운영서버의 프로시저를 수정하면 끝이었다.
-10년동안 이런 운영방식에 이미 익숙해져있는 개발자들에게 처음부터 환경의 구분을 명확히 인식시키는 것은 불가능한 일이었다.
-차츰차츰 나아지길 기대하는 마음으로, 아무것에도 오염되지 않은 새로운 환경인 QA를 만들었다.
-QA가 또 오염되어 버리면? 또 만들지머 ㅎㅎ</p>
-<h2 id="git-branch">git branch<a class="headerlink" href="#git-branch" title="Permanent link"></a></h2>
-<ul>
-<li>master branch<br />
-  운영되고 있는 브런치</li>
-<li>qa branch<br />
-  운영 배포 전, QA 환경에서 테스트를 거친 브런치</li>
-<li>작업 branch<br />
-  gitlab 이슈를 처리하기 위한 작업 브런치는 이슈 번호와 동일하게&hellip;</li>
-</ul>
-<h2 id="_24">작업 방식<a class="headerlink" href="#_24" title="Permanent link"></a></h2>
-<p>모든 작업의 시작은 <a href="https://dooray.com/home/">두레이</a>다.</p>
+
+<p><code>SessionID</code>, <code>RequestID</code>, <code>ActionID</code>, <code>ParentActionID</code> 이 네 가지로 실제 요청이 처리되는 흐름을 정확하게 표현할 수 있다.</p>
+
+<p><img src="/images/20200408/behaviorlog.png" alt="" /></p>
+
+<p>아래는 모든 마이크로 서비스가 지켜야 할 규칙이다.</p>
+
 <ol>
-<li>두레이에 태스트를 등록하고 필요한 기능에 대해 논의를 한다</li>
-<li>두레이에서 코드로 구현해야 할 기능과 개발자가 정해지면 gitlab에 이슈를 등록한다.</li>
-<li>개발자는 gitlab의 이슈 번호로 branch를 생성하고 개발을 시작한다.</li>
-<li>개인 repository에서 개발한 내용을 staging 환경에서 테스트 해 볼 수 있다.</li>
-<li>개발이 완료되면 PR을 보낸다</li>
-<li>코드 리뷰를 진행하고, 리뷰가 완료되면 담당자를 QA로 변경한다.</li>
-<li>QA는 이슈내용을 확인하고 qa branch에 merge 한다.</li>
-<li>qa branch에 merge되면 자동으로 QA 환경에 배포된다.</li>
-<li>QA 환경에서 QA는 다시 한번 테스트를 한다.</li>
-<li>운영 배포는 QA가 결정한다.</li>
-<li>운영에 배포할 항목을 master branch에 merge를 하고, tag를 만든다.</li>
-<li>QA는 해당 tag로 운영 배포를 진행한다.</li>
+<li>Kong에서 외부의 요청을 수신하면 새로운 <code>RequestID</code>를 만들어 헤더 <code>X-Request-ID</code>에 담는다.</li>
+<li>각 마이크로 서비스에서는 모든 요청 처리에 대해 <code>ActionID</code>를 생성한다.</li>
+<li>다른 마이크로 서비스를 호출할 때는 <code>RequestID</code>와 자신의 <code>ActionID</code>를 헤더 <code>X-Request-ID</code>, <code>X-Action-ID</code>에 담는다.</li>
+<li>각 마이크로 서비스에서 요청 처리가 끝나면 처리 로그를 카프카로 전달한다.(토픽명: behaviorlog)<br />
+로그 식별자:
+
+<ul>
+<li><code>SessionID</code>: JWT 토큰의 서명(Sinature) 파트</li>
+<li><code>RequestID</code>: Header의 X-Request-ID</li>
+<li><code>ActionID</code>: 자신이 직접 생성한 식별자</li>
+<li><code>ParentActionID</code>: Header의 X-Action-ID</li>
+</ul></li>
+<li>쿼리를 실행하는 경우 쿼리, 파라미터, 실행 시간의 내용을 담아 sqllog를 남긴다. 이때 behaviorlog와 동일한 식별자를 사용한다.</li>
 </ol>
-<h2 id="_25">긴급한 상황이 발생했다!<a class="headerlink" href="#_25" title="Permanent link"></a></h2>
-<p>이전 회사에서도 긴급한 상황은 늘 발생했고, 그걸때마다 &ldquo;긴급배포&rdquo;라는 이름으로 묻고 따지지도 않고 절차도 다 무시해버리는 배포를 해 왔었다.
-우리에겐 이제 &ldquo;긴급배포&rdquo;란 것은 없다.
-현장에 문제가 생겨 수정 요청이 들어오면, 잘 모르면 우선 &ldquo;1주일 후에 적용해 드릴께요&rdquo;라고 말한다.
-어제까지 잘 돌아가던 기능이 갑자기 오늘부터 현장의 업무가 어려울만큼 문제를 일이키진 않는다.
-물론 드러나지 않은 잠재 bug가 어느 순간 드러나게 되서 오늘부트 문제를 일이킬 수 있다.
-그럴땐 롤백을 한다.
-문제를 유발한 코드가 master branch에 들어오기 이전 버전으로 롤백을 하는 것이다.
-모든 운영배포는 tag를 남기기 때문에, 문제가 생기기 이전 코드의 tag를 찾아, 그 버전으로 다시 배포를 하면 끝이다.
-물론 현장과의 호흡이 중요하다.
-현장에서는 &ldquo;무조건 빨리&rdquo;를 얘기하지만, 그건 길들이기 나름이라 생각한다.
-어짜피 칼자루는 개발자한테 있다.
-빨리 배포해달라고 떼를 쓰고 협박을 한다 하더라도 결국 개발자의 손가락이 결정한다.
-이러한 방식에 현장 사람들이 따라오게 하려면 노련함도 필요하겠지만, 우리 개발자들이 더 유리한 위치라 생각하고, 그들을 길들이자!</p>
-<p>먼저 인프라 규모를 소개한다.
-생각보다 크진 않다.
-우리의 서비스는 물건을 구매하는 고객에게 직접 제공하는 기능인 많지 않다.
-물건을 팔기위한 행위를 하는 사람들이 우리 서비스의 이용자이다.
-우리의 사업 모델을 B2B2C(기업과 기업 간 거래-B2B-와 기업과 소비자 간 거래-B2C-를 결합)라고 한다면
-B2B영역에 조금 더 비중을 두고 있고, B2C 영역은 위챗, TMALL, 등 중국 내 이미 대중화 된 다른 서비스와 연계해서 제공하는 기능들이 대부분이다.
-그래서 다들 중국에서 IT 서비스를 한다면 우와~ 하는 반응을 보이기도 하는데, 중국에서 IT 서비스를 한다고 다 대규모/고용량,, 이렇진 않다.
-중국은 Hub 역할을 하는 몇몇 플랫폼들이 있는데, 여기서 탄탄한 수로를 만들어주고 수많은 기업들이 공생하며 거대한 중국을 움직여간다고 생각하면 된다.
-어쨌든, 우리도 그렇게 중국 플랫폼의 수로 위에서 우리만의 비즈니스를 제공하고 있다고 생각하면 된다.
-그래도 11.11 双十一 때의 처리량은 엄청남(<a href="https://www.popit.kr/%EB%82%B4-%EB%A9%8B%EB%8C%80%EB%A1%9C-%EA%B5%AC%ED%98%84%ED%95%9C-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EB%93%9C%EB%A6%AC%EB%B8%90/">https://www.popit.kr/%EB%82%B4-%EB%A9%8B%EB%8C%80%EB%A1%9C-%EA%B5%AC%ED%98%84%ED%95%9C-%EC%9D%B4%EB%B2%A4%ED%8A%B8-%EB%93%9C%EB%A6%AC%EB%B8%90/</a>)</p>
-<h2 id="_26">기술셋<a class="headerlink" href="#_26" title="Permanent link"></a></h2>
-<ul>
-<li>application
-golang, reactjs, java, c#, python</li>
-<li>data
-mysql, mssql, redis, mongodb, kafka, hadoop, presto, zeppline</li>
-<li>infra
-aliyun, linux, docker, k8s, nginx, oss</li>
-</ul>
-<h2 id="backend">backend 규모<a class="headerlink" href="#backend" title="Permanent link"></a></h2>
-<ul>
-<li>운영서버<ul>
-<li>Aliyun      <ul>
-<li>Application Server: 8대<ul>
-<li>k8s master: 1대</li>
-<li>k8s node: 8대</li>
-<li>kong gateway: 3대(고정)
-  외부 진입점</li>
-<li>kafka: 3대(고정)            <br />
-  내부/외부 다 오픈
-  외부에서는 tls 방식으로. 실제는 상해IDC에서 api log, sql log 전송 용도로 사용</li>
-</ul>
-</li>
-<li>Database<ul>
-<li>MongoDB</li>
-<li>MySQL</li>
-<li>MSSQL</li>
-<li>Redis</li>
-</ul>
-</li>
-<li>OSS</li>
-</ul>
-</li>
-<li>huawei cloud<ul>
-<li>hadoop, presto, zeppline</li>
-</ul>
-</li>
-<li>상해IDC<ul>
-<li>Application Server: 5대<ul>
-<li>DMZ<ul>
-<li>gateway</li>
-</ul>
-</li>
-<li>intranet<ul>
-<li>k8s master: 1대</li>
-<li>k8s node: 4대</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>컨테이너 수: 000개</li>
-<li>오케스트레이션: k8s<ul>
-<li>비즈니스 영역을 namespace로 구분
-  url만 봐도 어떤 서비스인지 알 수 있게
-  <a href="https://pangpang.dooray.com/project/posts/2458643287966674594">https://pangpang.dooray.com/project/posts/2458643287966674594</a><ul>
-<li>실제 namespace는 어디에 사용되나? =&gt; internal url<ul>
-<li><a href="http://order-api.retail:5000">http://order-api.retail:5000</a></li>
-<li><a href="http://member-api.brand:5000">http://member-api.brand:5000</a></li>
-</ul>
-</li>
-<li>배포/설정파일도 namespace로 구분</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>배포 방식<ul>
-<li>gitlab PR -&gt; code review -&gt; merge -&gt; QA 배포 -&gt; 테스트 -&gt; tag 생성 -&gt; 운영 자동배포</li>
-<li>gitlab webhook으로 jenkins에 전달 -&gt; git pull -&gt; docker image 생성 -&gt; private docker hub에 push -&gt; k8s를 통해 배포</li>
-</ul>
-</li>
-<li>peak time때 1분간 요청 수<ul>
-<li>gateway 통과:</li>
-<li>backend api 실행:</li>
-</ul>
-</li>
-<li>11.11때 1분간 요청 수<ul>
-<li>gateway 통과:</li>
-<li>backend api 실행:</li>
-</ul>
-</li>
-<li>팀 인원: 00명</li>
-</ul>
-<h2 id="_27">인증 방식<a class="headerlink" href="#_27" title="Permanent link"></a></h2>
-<ul>
-<li>wechat QR 스캔</li>
-<li>JWT 토큰<ul>
-<li>k8s kong plugin으로. gateway 레벨에서 차단. 내부 api안에서는 별도 인증체크 하지 않는다</li>
-<li>특정 주기마다 secret을 변경</li>
-<li>단점도 있지만 그냥 무시</li>
-</ul>
-</li>
-<li>단순 로그인 처리가 문제가 아니다. 사용자 관리가 어렵다<ul>
-<li>레거시 사용자 가져오기</li>
-<li>거지같이 마구잡이로 변경하는 것 인지하기</li>
-</ul>
-</li>
-</ul>
-<h2 id="communication">모듈간 communication<a class="headerlink" href="#communication" title="Permanent link"></a></h2>
-<p>MSA. 거미줄처럼 얽혀버린 호출 관계
-api의 호출 graph를 그릴 수 있어야 한다
-누가 호출했는지 알아야 한다</p>
-<ul>
-<li>그냥 다 web api로<ul>
-<li>JWT token, request_id, action_id를 항상 달고 다닌다<ul>
-<li>JWT token: 신원 확인</li>
-<li>request_id: 어떤 요청으로 시작된 액션인가?</li>
-<li>액션 고유 ID</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>kafka event로
-api-call 거미줄에서 벗어나기 =&gt; message를 받아서 처리한다.
-진짜 이렇게만 하면 되나? 하나의 event가 어디에까지 파급을 미치는지 알아내려면?
-그냥 kafka message만 뿌려선 안된다. 의미있는 event를 도출해내야 한다<ul>
-<li>3개로 운영 / 2개씩 replica</li>
-<li>kafka message에도 JWT token, request_id, action_id를 넣어서 보낸다</li>
-</ul>
-</li>
-</ul>
-<h2 id="_28">어려운건 이게 아니다<a class="headerlink" href="#_28" title="Permanent link"></a></h2>
-<p>사실 각 마이크로서비스간 연계를 탄탄하게 만들어주는 것은 통신 방식이 아니다.
-어떤 방식으로 통신하는가보다 더 중요한 것은 &lsquo;적절한 상황에 적절한 api를 사용하는가?&rsquo;이다.
-나는 코드 리뷰를 통해 이 부분을 어느정도 보장할 수 있다고 생각한다.
-이 부분에 대해서는 <a href="">MSA 조직 만들기</a>글에서 좀 더 자세하게 이야기 해 볼 예정이다.</p>
-<h1 id="_29">개발방식<a class="headerlink" href="#_29" title="Permanent link"></a></h1>
-<p><a href="https://pangpang.dooray.com/project/posts/2680944071608518666">https://pangpang.dooray.com/project/posts/2680944071608518666</a></p>
-<p>하지만 다른 api를 호출하는 것을 Go 코드로 작성하는 것도 <small>별거 아니지만</small> 은근이 귀찮다.
-<code>http.Client</code>의 <code>Transport</code>를 수정해서 사용하고 있는
-timeout, <code>MaxIdleConnsPerHost</code></p></article></body></html>
+
+<h3 id="로그-활용">로그 활용</h3>
+
+<p>behaviorlog, sqllog는 kong에서 남기는 accesslog와 함께 kafka를 거쳐 HDFS에 저장된다.
+서로 다른 데이터베이스에 쿼리를 실행할 수 있는 SQL Engine인 <a href="https://prestodb.io/">Presto</a>를 통해 필요한 데이터를 추출한다.</p>
+
+<p><img src="/images/20200408/tracing.png" alt="" /></p>
+
+<h5 id="zepplin을-통해-트레이스-정보를-조회">Zepplin을 통해 트레이스 정보를 조회</h5>
+
+<p><img src="/images/20200408/zepplin.png" alt="" /></p>
+
+<h5 id="트레이스-정보를-활용하여-직접-제작한-모니터링-도구">트레이스 정보를 활용하여 직접 제작한 모니터링 도구</h5>
+
+<div class="row post-image-bg">
+    <video width="99%" autoplay loop muted>
+        <source type="video/mp4" src="/images/20200408/mingbai.mov"></source>
+    </video>
+</div>
+
+<h1 id="마무리">마무리</h1>
+
+<p>사실 소개한 각 요소가 나름의 비하인드 스토리를 가지고 있다.
+&ldquo;<strong>지금</strong>&ldquo;과 &ldquo;<strong>우리</strong>&ldquo;라는 제약 속에서 <strong>오늘의 최선</strong>의 선택을 해가며 차츰차츰 형성된 것이기 때문이다.
+이번 글에서는 전반적인 기술요소들을 소개했다면, 다음 글에서는 각 부분으로 시선을 좁혀서, 지금 모습에 도달하기까지의 과정을 이야기해 보고 싶다.<br />
+그리고, 마이크로 서비스는 조직문화와 분리해서는 얘기할 수 없다.
+어떤 기술을 사용하고 하지 않고의 문제가 아니다.
+지난 4년간 만들어왔던 조직 문화에 대해서도 후속 글을 써 보겠다.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">아기발걸음(Baby steps): 익스트림 프로그래밍<sub>Extreme Programming, XP</sub> 원칙 중 하나. 중요한 변화를 한번에 몰아서 시도하는 것은 위험하기 때문에, 할 수 있는 최소한으로 작은 단계를 빠른 속도로 밟아나가는 방법을 말한다.
+ <a class="footnote-return" href="#fnref:1"><sup>[return]</sup></a></li>
+</ol>
+</div>
+
+		</div>
+		
+<div class="post__tags tags clearfix">
+	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16"><path d="M16 9.5c0 .373-.24.74-.5 1l-5 5c-.275.26-.634.5-1 .5-.373 0-.74-.24-1-.5L1 8a2.853 2.853 0 0 1-.7-1C.113 6.55 0 5.973 0 5.6V1.4C0 1.034.134.669.401.401.67.134 1.034 0 1.4 0h4.2c.373 0 .95.113 1.4.3.45.187.732.432 1 .7l7.5 7.502c.26.274.5.632.5.998zM3.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item"><a class="tags__link btn" href="/tags/%EC%A4%91%EA%B5%ADit/" rel="tag">중국IT</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/microservice/" rel="tag">microservice</a></li>
+		<li class="tags__item"><a class="tags__link btn" href="/tags/kubernetes/" rel="tag">kubernetes</a></li>
+	</ul>
+</div>
+	</article>
+	
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="장재휴 avatar" src="/images/jaehue.JPG" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About 장재휴</span>
+	</div>
+	<div class="authorbox__description">
+		Why Not Change the World?
+	</div>
+</div>
+	
+<nav class="post-nav row clearfix">
+	<div class="post-nav__item post-nav__item--prev col-1-2">
+		<a class="post-nav__link" href="/post/2020.03.26/" rel="prev"><span class="post-nav__caption">«&thinsp;Previous</span><p class="post-nav__post-title">투표합시다</p></a>
+	</div>
+</nav>
+	
+<section class="comments">
+	<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jaehue" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+</main>
+
+<aside class="sidebar">
+	
+<div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
+	</form>
+</div>
+	
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/2020.04.08.techset/">적당히 갖춰나간 운영 환경</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/2020.03.26/">투표합시다</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/2019.12.27.agile_life/">있는 모습 그대로</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/2019.12.14.%EA%B8%B8%EA%B2%8C%EB%8B%AC%EB%A6%AC%EA%B8%B0/">길게 달리기</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/dream/">꿈</a></li>
+		</ul>
+	</div>
+</div>
+	
+<div class="widget-categories widget">
+	<h4 class="widget__title">Categories</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/categories/"></a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/it">IT</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%eb%ac%b5%ec%83%81">묵상</a></li>
+			<li class="widget__item"><a class="widget__link" href="/categories/%ec%8b%a0%ec%95%99">신앙</a></li>
+		</ul>
+	</div>
+</div>
+	
+	
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/" title=""> (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/4%ec%b0%a8-%ec%82%b0%ec%97%85%ed%98%81%eb%aa%85" title="4차 산업혁명">4차 산업혁명 (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven" title="Eventdriven">Eventdriven (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang (7)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes" title="Kubernetes">Kubernetes (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/microservice" title="Microservice">Microservice (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%eb%ac%b5%ec%83%81" title="묵상">묵상 (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%8b%a0%eb%aa%85%ea%b8%b0" title="신명기">신명기 (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%95%84%ec%9b%83%eb%a6%ac%ec%b9%98" title="아웃리치">아웃리치 (4)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%97%ac%ed%96%89" title="여행">여행 (4)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%a4%91%ea%b5%adit" title="중국it">중국it (2)</a>
+	</div>
+</div>
+</aside>
+	</div>
+		<footer class="footer">
+			<div class="container container-inner">
+				<div class="footer__copyright">&copy; 2020 Jaehue&#39;s. <span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span></div>
+			</div>
+		</footer>
+	</div>
+
+<script>
+	var navigation = responsiveNav(".menu", {
+		navClass: "menu--collapse",
+	});
+</script>
+</body>
+</html>
