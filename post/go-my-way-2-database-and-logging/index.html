@@ -1,28 +1,39 @@
 <!DOCTYPE html>
-<html lang="ko-kr">
+<html class="no-js" lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Go My Way #2 - 데이터베이스, 로깅</title>
+	<title>Go My Way #2 - 데이터베이스, 로깅 - Jaehue&#39;s</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-	<meta name="generator" content="Hugo 0.50" />
-	<meta property="og:title" content="Go My Way #2 - 데이터베이스, 로깅" />
+		<meta property="og:title" content="Go My Way #2 - 데이터베이스, 로깅" />
 <meta property="og:description" content="Go My Way는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다. 이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.
  Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - Configuration, Tracing, etc. 번외 - gomobile  이번 글에서는 데이터베이스와 로깅에 대해 소개하겠다.
 데이터베이스 다른 언어에서 주로 사용하던 ORM(루비의 active record, 닷넷의 entityframework, 자바의 JPA, 등)을 생각한다면 Go의 DB 관련 패키지들은 대부분 2% 20% 이상 부족하다." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/go-my-way-2-database-and-logging/" /><meta property="article:published_time" content="2017-06-14T00:00:00&#43;08:00"/>
-<meta property="article:modified_time" content="2017-06-14T00:00:00&#43;08:00"/>
+<meta property="og:url" content="https://jaehue.github.io/post/go-my-way-2-database-and-logging/" />
+<meta property="article:published_time" content="2017-06-14T00:00:00+08:00" />
+<meta property="article:modified_time" content="2017-06-14T00:00:00+08:00" />
 
-	
+		<meta itemprop="name" content="Go My Way #2 - 데이터베이스, 로깅">
+<meta itemprop="description" content="Go My Way는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다. 이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.
+ Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - Configuration, Tracing, etc. 번외 - gomobile  이번 글에서는 데이터베이스와 로깅에 대해 소개하겠다.
+데이터베이스 다른 언어에서 주로 사용하던 ORM(루비의 active record, 닷넷의 entityframework, 자바의 JPA, 등)을 생각한다면 Go의 DB 관련 패키지들은 대부분 2% 20% 이상 부족하다.">
+<meta itemprop="datePublished" content="2017-06-14T00:00:00&#43;08:00" />
+<meta itemprop="dateModified" content="2017-06-14T00:00:00&#43;08:00" />
+<meta itemprop="wordCount" content="1741">
+
+
+
+<meta itemprop="keywords" content="golang," />
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 	<link rel="stylesheet" href="/css/style.css">
-	<script type="text/javascript" src="/js/scripts.js"></script>
-	<link rel="shortcut icon" href="/favicon.ico">
 	
+	<link rel="shortcut icon" href="/favicon.ico">
+		
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -35,75 +46,66 @@ if (!doNotTrack) {
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-<body class="body body-right-sidebar">
-	<div class="container container-outer">
+<body class="body">
+	<div class="container container--outer">
 		<header class="header">
-			<div class="container container-inner">
-				<div class="logo" role="banner">
-					<a class="logo__link" href="/" title="Jaehue&#39;s" rel="home">
-						<div class="logo__title">Jaehue&#39;s</div>
-						<div class="logo__tagline">생각들</div>
-					</a>
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Jaehue&#39;s" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Jaehue&#39;s</div>
+					<div class="logo__tagline">생각들</div>
 				</div>
-			</div>
-			<div class="divider"></div>
-		</header>
-		<div class="wrapper clearfix">
-
-<main class="main content">
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">Go My Way #2 - 데이터베이스, 로깅</h1><div class="post__meta meta">
-<svg class="icon icon-time" width="16" height="14" viewBox="0 0 16 16"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
-<time class="post__meta-date meta-date" datetime="2017-06-14T00:00:00">June 14, 2017</time>
-<span class="post__meta-categories meta-categories">
-	<svg class="icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
-	<span class="meta-categories__list"><a class="meta-categories__link" href="/categories/it" rel="category">IT</a></span>
-</span></div>
-		</header>
-		<div class="post__content clearfix">
-			
-
-<p><strong>Go My Way</strong>는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다.
+			<h1 class="post__title">Go My Way #2 - 데이터베이스, 로깅</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-06-14T00:00:00&#43;08:00">2017-06-14</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
+	</span>
+</div></div>
+		</header><div class="content post__content clearfix">
+			<p><strong>Go My Way</strong>는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다.
 이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.</p>
-
 <ul>
 <li><a href="/post/go-my-way-1-webframework/">Go My Way #1 - 웹 프레임워크</a></li>
 <li>Go My Way #2 - 데이터베이스, 로깅</li>
 <li><a href="/post/go-my-way-3-tracing/">Go My Way #3 - Configuration, Tracing, etc.</a></li>
 <li>번외 - gomobile</li>
 </ul>
-
 <p>이번 글에서는 <code>데이터베이스</code>와 <code>로깅</code>에 대해 소개하겠다.</p>
-
 <h1 id="데이터베이스">데이터베이스</h1>
-
 <p>다른 언어에서 주로 사용하던 ORM(루비의 active record, 닷넷의 entityframework, 자바의 JPA, 등)을 생각한다면 Go의 DB 관련 패키지들은 대부분 <del>2%</del> 20% 이상 부족하다.
 대신 Go 진영에서는 ORM에 대해 회의적인 이야기가 종종 나온다.
-&ldquo;<em>Go의 ORM 툴 중에서 어떤 게 좋은가?</em>&rdquo; 라는 질문<small>(<a href="https://www.reddit.com/r/golang/comments/3ajqa6/golang_which_orm_is_better/">Golang which ORM is better</a>)</small>에, 그냥 가벼운 query mapper 정도의 기능으로 충분하다는 의견이 대부분이고,
-자신은 네이티브 쿼리를 직접 사용하는 것을 선호한다는 의견을 피력한 글<small>(<a href="https://medium.com/bumpers/our-go-is-fine-but-our-sql-is-great-b4857950a243">Our Go is fine but our SQL is great</a>)</small>도 있다.</p>
-
+&ldquo;<em>Go의 ORM 툴 중에서 어떤 게 좋은가?</em>&rdquo; 라는 질문<!-- raw HTML omitted -->(<a href="https://www.reddit.com/r/golang/comments/3ajqa6/golang_which_orm_is_better/">Golang which ORM is better</a>)<!-- raw HTML omitted -->에, 그냥 가벼운 query mapper 정도의 기능으로 충분하다는 의견이 대부분이고,
+자신은 네이티브 쿼리를 직접 사용하는 것을 선호한다는 의견을 피력한 글<!-- raw HTML omitted -->(<a href="https://medium.com/bumpers/our-go-is-fine-but-our-sql-is-great-b4857950a243">Our Go is fine but our SQL is great</a>)<!-- raw HTML omitted -->도 있다.</p>
 <p>Go 진영의 전반적인 분위기로는 Active Record나 Hibernate와 같은 똑똑한 ORM은 등장하지 않을 것으로 보인다.</p>
-
 <p>나도 이전에는 DB 접근 시에는 당연히 ORM을 사용해야 한다는 생각을 하고 있었고, 또 네이티브 쿼리를 쓰는 것보다 ORM에서 제공하는 추상화된 DSL을 사용하는 것이 더 똑똑한 방법이라는 근거 없는 생각이 자리 잡고 있었다.
 왜 그렇게 생각했었을까?
 모든 코드는 객체지향스럽게 작성해야 한다는 강박관념이 있었고, 그래서 2차원적으로 테이블을 다루는 쿼리문은 웬지 수준이 낮다고 생각했었나보다.</p>
-
 <p>모델링을 하는 것과 실제 DB를 처리하는 방식은 별개로 생각해야 한다.
 모델을 잘 정의하고 모델 기반으로 전체 프로그램이 동작하도록 한다면 DB 처리 방식은 그렇게 중요하지 않을 수 있다. 네이티브 쿼리를 쓰든, ORM을 쓰든, 적당히 썩어 쓰든, 그 안에서 최적의 방식을 찾아가는게 맞다고 본다.
 Go를 계속해서 사용하다 보니 이론보다는 실용성 관점으로 문제에 접근하게 되었고(그것이 바로 Go의 철학)
 ORM에 대한 Go 진영의 이런 의견에 어느 정도 동의가 되었다.
-<small>(동의 안 하면 어쩔..? 직접 만들 능력은 안 되고, 나를 적응시켜야지 ㅋ)</small></p>
-
+<!-- raw HTML omitted -->(동의 안 하면 어쩔..? 직접 만들 능력은 안 되고, 나를 적응시켜야지 ㅋ)<!-- raw HTML omitted --></p>
 <p>허접스러운 Go의 ORM 도구에 대한 변명은 이 정도로 하고,</p>
-
 <h2 id="xorm">xorm</h2>
-
 <p>그래서 내가 선택한 것은 <a href="http://xorm.io/">xorm</a>이다.
 <a href="https://github.com/jinzhu/gorm">gorm</a>을 오랫동안 써 오다가
 xorm의 한가지 기능이 마음에 들어 xorm으로 갈아탔다.
 xorm은 필드의 타입이 built-in 타입이 아니라면(slice, map, custom type) JSON 문자열로 변환해준다.</p>
-
 <p>예를들면,
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Product</span> <span style="color:#66d9ef">struct</span> {
 	<span style="color:#a6e22e">Id</span>     <span style="color:#66d9ef">int64</span>
@@ -122,19 +124,15 @@ DB에서 데이터를 읽을때도 마찬가지, JSON 문자열을 <code>map[str
     <span style="color:#a6e22e">FromDB</span>([]<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">error</span>
     <span style="color:#a6e22e">ToDB</span>() ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>)
 }</code></pre></div></p>
-
 <p>우리 회사의 비즈니스는 유동적이라서 모델의 형태를 확정하기 어려운 경우가 많다.
 그런 유동적인 데이터는 필드의 타입을 확정하지 않고 그냥 JSON으로 변환하여 하나의 필드에 저장한다.
 xorm을 쓰기 이 전에는,
-위에서 예로 든 <code>Images</code>를 저장하기 위해 JSON 문자열 저장용 필드인 <code>ImagesRaw</code> 필드를 <code>string</code> 타입으로 만들고 DB에는 <code>ImagesRaw</code> 필드만 저장한다. <code>Product</code>에 대해 CRU<small>(Create/Read/Update)</small> 작업을 할때마다 JSON 변환 작업을 해 주어야 한다.
+위에서 예로 든 <code>Images</code>를 저장하기 위해 JSON 문자열 저장용 필드인 <code>ImagesRaw</code> 필드를 <code>string</code> 타입으로 만들고 DB에는 <code>ImagesRaw</code> 필드만 저장한다. <code>Product</code>에 대해 CRU<!-- raw HTML omitted -->(Create/Read/Update)<!-- raw HTML omitted --> 작업을 할때마다 JSON 변환 작업을 해 주어야 한다.
 여간 귀찮은 일이 아니었다.
 xorm에는 이 기능이 내장되어 있어서 아주 편리하다.</p>
-
 <h2 id="다른-db-도구와의-비교">다른 DB 도구와의 비교</h2>
-
 <p><a href="https://github.com/avelino/awesome-go#database">awesome-go 페이지</a>에 보면 정말 많은 DB 관련 패키지가 있다. (web framework 만큼이나 많다)
 그중에서 내가 직접 사용해 본 것들만 간단하게 소개해 본다.</p>
-
 <blockquote>
 <p>참고로, <a href="https://github.com/avelino/awesome-go">awesome-go</a>에 등록된 패키지는 믿고 써도 될 것 같다.
 무작정 awesome-go에 등록해주는 것이 아니라, 내부적인 <a href="https://github.com/avelino/awesome-go/blob/master/CONTRIBUTING.md#quality-standards">검열(?) 기준</a>이 있다.
@@ -143,24 +141,18 @@ xorm에는 이 기능이 내장되어 있어서 아주 편리하다.</p>
 이후 iris 메인 커미터가 awesome-go에 재등록 요청을 했지만(<a href="https://github.com/avelino/awesome-go/pull/1137">Re-add Iris #1137</a>) 또다시 거부당했다.
 이런 사례를 보면 꽤 엄격하게 퀄리티를 관리하는 것 같다.</p>
 </blockquote>
-
-<h2 id="gorp-https-github-com-go-gorp-gorp"><a href="https://github.com/go-gorp/gorp">gorp</a></h2>
-
+<h2 id="gorphttpsgithubcomgo-gorpgorp"><a href="https://github.com/go-gorp/gorp">gorp</a></h2>
 <p>쿼리 실행 결과를 struct에 바인딩해준다.
 <code>an ORM-ish library for Go</code>라고 소개하고 있지만, ORM은 아니 것 같음.
 단순한 query mapper.
 한국 개발자들에게 익숙한 ibatis와 유사하다</p>
-
-<h2 id="sqlx-https-github-com-jmoiron-sqlx"><a href="https://github.com/jmoiron/sqlx">sqlx</a></h2>
-
+<h2 id="sqlxhttpsgithubcomjmoironsqlx"><a href="https://github.com/jmoiron/sqlx">sqlx</a></h2>
 <p>단순한 query mapper. gorp와 유사하다.
 gorp에 비해 sqlx가 좀 더 활동이 활발하고 사용하는데도 많은 것 같다.
 단순히 쿼리 결과를 struct에 받아오고 싶다면 sqlx를 추천한다.</p>
-
-<h2 id="gorm-https-github-com-jinzhu-gorm"><a href="https://github.com/jinzhu/gorm">gorm</a></h2>
-
+<h2 id="gormhttpsgithubcomjinzhugorm"><a href="https://github.com/jinzhu/gorm">gorm</a></h2>
 <p>struct를 기반으로 CRUD 기능을 제공한다. (기본적인 ORM 기능)
-모델 간 Associations<small><em>(belongs-to, has-one, has-many, many-to-many, polymorphism)</em></small>를 정의할 수 있다.
+모델 간 Associations<!-- raw HTML omitted -->*(belongs-to, has-one, has-many, many-to-many, polymorphism)*<!-- raw HTML omitted -->를 정의할 수 있다.
 하지만 실제 사용해보면 불편한 부분이 많다. 연관된 모델을 알아서(?) 가져오지 않는다.
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
         <span style="color:#a6e22e">ID</span>       <span style="color:#66d9ef">int64</span>
@@ -173,19 +165,14 @@ gorp에 비해 sqlx가 좀 더 활동이 활발하고 사용하는데도 많은 
 위와 같이 has-many 관계로 모델을 정의했을때, <code>User</code>의 <code>Emails</code>를 가져오려면, 아래와 같이 추가 코드를 작성해야 한다.
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Model</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>).<span style="color:#a6e22e">Related</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">emails</span>)</code></pre></div>
 직접 써보면, gorm이 제공하는 Associations 기능이 큰 도움이 안된다.</p>
-
 <p>like 수는 gorm이 제일 많다.</p>
-
-<h2 id="xorm-http-xorm-io"><a href="http://xorm.io/">xorm</a></h2>
-
+<h2 id="xormhttpxormio"><a href="http://xorm.io/">xorm</a></h2>
 <p>struct를 기반으로 CRUD 기능을 제공한다(기본적인 ORM 기능).
 gorm과 유사하다.
 모델 간 Associations을 정의하는 기능은 없다.
 캐싱 기능을 제공한다.
 built-in 타입이 아닌 필드는 JSON으로 변환해 준다.</p>
-
-<h2 id="squirrel-https-github-com-masterminds-squirrel"><a href="https://github.com/Masterminds/squirrel">squirrel</a></h2>
-
+<h2 id="squirrelhttpsgithubcommastermindssquirrel"><a href="https://github.com/Masterminds/squirrel">squirrel</a></h2>
 <p>가벼운 query builder. Go 코드로 쿼리를 생성한다.
 이런 느낌이다.
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sql</span>, <span style="color:#a6e22e">args</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sq</span>.
@@ -202,18 +189,14 @@ built-in 타입이 아닌 필드는 JSON으로 변환해 준다.</p>
 <span style="color:#f92672">//</span> <span style="color:#a6e22e">INSERT</span> <span style="color:#a6e22e">INTO</span> <span style="color:#a6e22e">users</span> (<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">age</span>) <span style="color:#a6e22e">VALUES</span> (<span style="color:#960050;background-color:#1e0010">?</span>,<span style="color:#960050;background-color:#1e0010">?</span>),(<span style="color:#960050;background-color:#1e0010">?</span>,<span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>)</code></pre></div>
 하지만 이렇게 만들어진 쿼리를 실행하려면, <code>database/sql</code> 패키지를 직접 사용해서 쿼리를 실행하고 결과를 받아와야 한다.
 squirrel과 sqlx를 함께 쓰는 것도 좋은 방법이다.(굳이 그렇게 쓸 거면 차라리 딴 거를&hellip;)</p>
-
 <h2 id="활용">활용</h2>
-
 <p>데이터베이스 처리를 위한 패키지를 선택했다면, 실제 어플리케이션에서 DB 객체를 사용하는 방법에 대해서도 다양한 케이스가 있다.
 며칠 전 페이스북 Golang Korea 그룹에도 <a href="https://www.facebook.com/groups/golangko/permalink/772578392919642/">DB 객체 관리에 대한 질문</a>이 올라왔었고, 많은 분이 좋은 답변을 주셨다.</p>
-
 <p>나는 웹 어플리케이션을 작성할 때,
 <code>main</code>에서 DB 객체를 만들고,
 미들웨어를 통해 request마다 DB 세션을 만들어 request 내부의 <code>context</code>로 전달한다.
 이렇게 하는 이유는 트랜잭션 관리 때문이다.
 핸들러에서 트랜잭션 처리를 매번 해 주는 불편함을 없애기 위해, 트랜잭션 처리 코드를 미들웨어로 옮겼다.</p>
-
 <p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">main</span>(){
         <span style="color:#75715e">/* ... */</span>
 	<span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">NewEngine</span>(<span style="color:#a6e22e">driver</span>, <span style="color:#a6e22e">connection</span>)
@@ -287,35 +270,23 @@ DB에 접근할때는 Context에서 DB 세션을 가져와서 사용한다.
 	<span style="color:#66d9ef">return</span>
 }</code></pre></div>
 하지만 트랜잭션을 관리할 필요가 없고, 경계가 명확한 모듈 내에서라면 DB 객체를 전역으로 만들어 쓰는 방식도 나쁘지 않다고 본다.</p>
-
 <p>이 방식은 <a href="/post/go-my-way-1/">1편</a>에서 소개한 <a href="https://github.com/pangpanglabs/echosample">echosample</a> 프로젝트에도 적용되어 있다.</p>
-
 <h1 id="logging">Logging</h1>
-
 <p>Logging 얘기를 시작하기 전에, 또 Go의 허접스러운 <code>log</code> 패키지에 대해 변명을 좀 해야겠다. ㅋ</p>
-
 <p>Go에는 <code>log</code> 패키지가 기본으로 제공되는데, 로그 문자열을 <code>io.Writer</code>에 출력해주는 기능밖에 없다.
 대부분의 로그 라이브러리에서 사용하는 방식인 로그 레벨을 지정할 수도 없다.
 Go의 이러한 로깅 방식에 대한 <a href="https://dave.cheney.net/2015/11/05/lets-talk-about-logging">Dave Chaney의 글</a>은 지금까지 고민하지 않고 당연하게 써 오던 로그 방식에 대해 다시 한번 생각해보게 했다.</p>
-
 <p><code>warning</code>이라게 대체 뭘까? 에러도 아니고 에러가 아닌 것도 아니고, 나중에 에러가 될 것 같다는 건가? 솔직히 로그 출력 레벨을 <code>info</code>나 <code>error</code>로 해 놓지, <code>warning</code>으로 해 놓는 경우는 거의 없지 않나? (뭐 있을 수도 있고.) 지금까지의 운영 경험을 되돌아보면 <code>warning</code>과 <code>info</code>의 구분이 좀 모호했다.</p>
-
 <p><code>fatal</code> 레벨은 또 뭐지? Go의 기본 <code>log</code> 패키지에서 <code>log.Fatal()</code>은 로그를 출력함과 동시에 프로그램을 종료한다. 대부분의 leveled logging 패키지도 비슷하게 동작한다.
 그럴 거면 그냥 <code>log.Fatal()</code>을 쓰면 되지, 굳이 leveled logging 방식을 사용할 필요가 있나?</p>
-
 <p><code>error</code> 레벨에 대해서도 생각해보자. <code>error</code> 레벨로 로그를 남길 때는 에러값이 발생했을 때 에러를 처리하기 전 <code>error</code> 레벨로 로그를 남긴다. 하지만, 에러를 처리했다면 이제 그건 더이상 에러가 아니다. 그건 그냥 단순한 <code>info</code>일 뿐이다. 흠&hellip; <code>error</code>와 <code>info</code>가 같아져 버렸네.</p>
-
 <p>로그는 그냥 information을 출력하는 것. 단지 그것뿐이다.
 최소한의 기능으로 로그 패키지를 만든다면, Go에서 기본으로 제공되는 <code>log</code> 패키지와 같은 모습이지 않을까?</p>
-
 <p>하지만 실제로는 기본 <code>log</code> 패키지 대신, 많은 level-based-logging 패키지가 쓰이고 있다. (나도 마찬가지 ㅋ)</p>
-
 <h2 id="logrus">logrus</h2>
-
 <p>난 <a href="https://github.com/sirupsen/logrus">logrus</a>를 사용한다.
 써보면 제일 편하다.
 logrus로 오기까지도 꽤 긴 여정이 있었다.</p>
-
 <p>사실 가장 먼저 사용했던 로그도 logrus였다.
 하지만 <a href="https://github.com/uber-go/zap">zap</a>의 <a href="https://github.com/uber-go/zap#performance">성능 자랑질(?)</a>에 넘어가서 한동안 zap을 사용했었다.
 성능은 좋을지 몰라도, 사용하긴 좀 불편했다.
@@ -330,26 +301,20 @@ struct 값 전체를 로그로 남기고 싶은데, 각 필드를 일일이 저�
 물론 성능을 생각하면 저렇게 하는게 맞지만, 꼭 서비스 운영 상황이 아니더라도,
 개발중에 가볍게 로그를 남겨볼 수도 있고, 운영서비스에도 임시로 로그를 넣었다 빼는 경우도 많다.
 그럴땐 그냥 값을 통째로 남기는게 편하지, 저렇게 일일이 필드와 타입을 적는 것은 너무 귀찮은 일이다. (게다가 built-in 타입만 사용할 수 있다.)</p>
-
 <p>logrus는 지정한 Formatter(JsonFormatter, TextFormatter, Custom Formater)를 사용해 어떤 값이든 로그를 남겨준다.
 TextFormatter를 사용하면 <code>fmt.Print</code> 처럼 기본 출력 포맷으로 로그를 남겨준다.
-게다가 <small>로그 모양도 예쁘고<em>(로그가 예뻐야 개발 생산성이 좋아진다?)</em></small> 로그 액션마다 Hook을 넣을수도 있다.
+게다가 <!-- raw HTML omitted -->로그 모양도 예쁘고*(로그가 예뻐야 개발 생산성이 좋아진다?)*<!-- raw HTML omitted --> 로그 액션마다 Hook을 넣을수도 있다.
 이미 누군가가 <a href="https://github.com/sirupsen/logrus#hooks">괜찮은 Hook들</a>을 많이 만들어 놓았다.</p>
-
 <p>우리는 카프카를 거쳐 Hadoop으로 모든 로그를 전송하고,
 그리고 필요한 경우 <a href="https://prestodb.io/">presto</a>를 이용해 Haddop에 있는 로그를 조회한다.
 이렇게 로그에 추가 액션을 넣고 싶을때 logrus의 Hook 기능을 사용하면 편리하다.</p>
-
 <p><a href="https://github.com/go-kit/kit/tree/master/log">go-kit log</a>도 편하긴 한데, go-kit log 역시 built-in 타입만 사용할 수 있다는 점이 불편했다.
 하지만
 logrus의 많은 기능을 활용할 것이 아니라면, 그리고 성능에 많이 신경을 써야 하는 서비스라면 <a href="https://github.com/uber-go/zap">zap</a>과 같은 가벼운 logger를 사용하는 것이 나을 수도 있겠다.</p>
-
 <h2 id="활용-1">활용</h2>
-
 <p>실제 운영 상황에서 여러 request가 동시에 쏟아지는 경우, 로그에 timestamp만 남기면 하나의 request가 어떤 과정으로 처리되는지 추적하기가 어렵다.
 각 요청마다 request_id를 할당하고 그것을 함께 로그로 남기면 여러 request에 대한 로그가 뒤섞여 있어도, 하나의 request가 처리되면서 남기는 로그를 추적할 수 있다.
 그래서 각 request마다 고유 request_id가 부여된 log 객체를 만들어 context로 전달했다.</p>
-
 <p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 	<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
 
@@ -398,25 +363,27 @@ echo app에 <code>middleware.RequestID()</code> 미들웨어를 추가하면 각
 	<span style="color:#e6db74">&#34;attempt&#34;</span>: <span style="color:#ae81ff">3</span>,
 	<span style="color:#e6db74">&#34;backoff&#34;</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
 }).<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;Failed to fetch URL.&#34;</span>)</code></pre></div></p>
-
 <p>이렇게 로그를 남기면, <code>url</code>, <code>attempt</code>, <code>backoff</code> 값과 함께 미들웨어에서 추가한 <code>request_id</code>도 함께 출력이 된다.</p>
-
-<hr />
-
-<p><strong><em>이번 포스트에서 다룬 주제인 데이터베이스와 로깅은 구현 방법이 정말 다양한 것 같습니다.
+<hr>
+<p><em><strong>이번 포스트에서 다룬 주제인 데이터베이스와 로깅은 구현 방법이 정말 다양한 것 같습니다.
 더 좋은 방안에 대해 함께 논의해보면 좋겠습니다.
-주저하지 말고 의견 주세요 ^^</em></strong></p>
+주저하지 말고 의견 주세요 ^^</strong></em></p>
 
 		</div>
-		
+		<footer class="post__footer">
+			
 <div class="post__tags tags clearfix">
-	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16"><path d="M16 9.5c0 .373-.24.74-.5 1l-5 5c-.275.26-.634.5-1 .5-.373 0-.74-.24-1-.5L1 8a2.853 2.853 0 0 1-.7-1C.113 6.55 0 5.973 0 5.6V1.4C0 1.034.134.669.401.401.67.134 1.034 0 1.4 0h4.2c.373 0 .95.113 1.4.3.45.187.732.432 1 .7l7.5 7.502c.26.274.5.632.5.998zM3.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
 	<ul class="tags__list">
-		<li class="tags__item"><a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a></li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a>
+		</li>
 	</ul>
 </div>
+		</footer>
 	</article>
-	
+</main>
+
 <div class="authorbox clearfix">
 	<figure class="authorbox__avatar">
 		<img alt="장재휴 avatar" src="/images/jaehue.JPG" class="avatar" height="90" width="90">
@@ -428,16 +395,23 @@ echo app에 <code>middleware.RequestID()</code> 미들웨어를 추가하면 각
 		Why Not Change the World?
 	</div>
 </div>
-	
-<nav class="post-nav row clearfix">
-	<div class="post-nav__item post-nav__item--prev col-1-2">
-		<a class="post-nav__link" href="/post/go-my-way-1-webframework/" rel="prev"><span class="post-nav__caption">«&thinsp;Previous</span><p class="post-nav__post-title">Go My Way #1 - 웹 프레임워크</p></a>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/post/go-my-way-1-webframework/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Go My Way #1 - 웹 프레임워크</p>
+		</a>
 	</div>
-	<div class="post-nav__item post-nav__item--next col-1-2">
-		<a class="post-nav__link" href="/post/go-my-way-3-tracing/" rel="next"><span class="post-nav__caption">Next&thinsp;»</span><p class="post-nav__post-title">Go My Way #3 - 트레이싱</p></a>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/post/go-my-way-3-tracing/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">Go My Way #3 - 트레이싱</p>
+		</a>
 	</div>
 </nav>
-	
+
+
 <section class="comments">
 	<div id="disqus_thread"></div>
 <script type="application/javascript">
@@ -461,75 +435,20 @@ echo app에 <code>middleware.RequestID()</code> 미들웨어를 추가하면 각
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </section>
 
-</main>
 
-<aside class="sidebar">
-	
-<div class="widget-search widget">
-	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<label>
-			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
-		</label>
-		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
-	</form>
-</div>
-	
-<div class="widget-recent widget">
-	<h4 class="widget__title">Recent Posts</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/post/2020.04.04.devculture/">일하지 않는 사람은 가라</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2020.04.08.techset/">적당히 갖춰나간 운영 환경</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2020.03.26/">투표합시다</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2019.12.27.agile_life/">있는 모습 그대로</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2019.12.14.%EA%B8%B8%EA%B2%8C%EB%8B%AC%EB%A6%AC%EA%B8%B0/">길게 달리기</a></li>
-		</ul>
-	</div>
-</div>
-	
-<div class="widget-categories widget">
-	<h4 class="widget__title">Categories</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/categories/"></a></li>
-			<li class="widget__item"><a class="widget__link" href="/categories/it">IT</a></li>
-			<li class="widget__item"><a class="widget__link" href="/categories/%eb%ac%b5%ec%83%81">묵상</a></li>
-			<li class="widget__item"><a class="widget__link" href="/categories/%ec%8b%a0%ec%95%99">신앙</a></li>
-		</ul>
-	</div>
-</div>
-	
-	
-<div class="widget-taglist widget">
-	<h4 class="widget__title">Tags</h4>
-	<div class="widget__content">
-		<a class="widget-taglist__link widget__link btn" href="/tags/" title=""> (3)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/4%ec%b0%a8-%ec%82%b0%ec%97%85%ed%98%81%eb%aa%85" title="4차 산업혁명">4차 산업혁명 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven" title="Eventdriven">Eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang (7)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes" title="Kubernetes">Kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice" title="Microservice">Microservice (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%eb%ac%b5%ec%83%81" title="묵상">묵상 (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%8b%a0%eb%aa%85%ea%b8%b0" title="신명기">신명기 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%95%84%ec%9b%83%eb%a6%ac%ec%b9%98" title="아웃리치">아웃리치 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%97%ac%ed%96%89" title="여행">여행 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%a4%91%ea%b5%adit" title="중국it">중국it (2)</a>
-	</div>
-</div>
-</aside>
-	</div>
-		<footer class="footer">
-			<div class="container container-inner">
-				<div class="footer__copyright">&copy; 2020 Jaehue&#39;s. <span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span></div>
 			</div>
-		</footer>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 장재휴.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
 	</div>
-
-<script>
-	var navigation = responsiveNav(".menu", {
-		navClass: "menu--collapse",
-	});
-</script>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 </body>
 </html>

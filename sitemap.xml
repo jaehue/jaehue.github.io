@@ -1,10 +1,65 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jaehue.github.io/categories/</loc>
+    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/categories/it/</loc>
+    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/</loc>
+    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/msa/</loc>
+    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/post/</loc>
+    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/</loc>
+    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/%EA%B4%80%EB%A6%AC%EC%9E%90/</loc>
+    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/</loc>
+    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaehue.github.io/post/2020.04.04.devculture/</loc>
     <lastmod>2020-04-04T13:46:52+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/golang/</loc>
+    <lastmod>2020-04-04T13:46:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/kubernetes/</loc>
+    <lastmod>2020-04-04T13:46:40+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/microservice/</loc>
+    <lastmod>2020-04-04T13:46:40+08:00</lastmod>
   </url>
   
   <url>
@@ -13,8 +68,18 @@
   </url>
   
   <url>
+    <loc>https://jaehue.github.io/tags/%EC%A4%91%EA%B5%ADit/</loc>
+    <lastmod>2020-04-04T13:46:40+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaehue.github.io/post/2020.03.26/</loc>
     <lastmod>2020-03-26T23:13:24+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/%EB%AC%B5%EC%83%81/</loc>
+    <lastmod>2019-12-27T23:53:01+08:00</lastmod>
   </url>
   
   <url>
@@ -33,13 +98,33 @@
   </url>
   
   <url>
+    <loc>https://jaehue.github.io/categories/%EB%AC%B5%EC%83%81/</loc>
+    <lastmod>2019-07-06T21:47:17+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaehue.github.io/post/manado-diary/</loc>
+    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/%EC%95%84%EC%9B%83%EB%A6%AC%EC%B9%98/</loc>
+    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/%EC%97%AC%ED%96%89/</loc>
     <lastmod>2019-02-16T09:39:34+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://jaehue.github.io/post/manado-outreach/</loc>
     <lastmod>2019-02-16T09:39:30+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/</loc>
+    <lastmod>2018-12-20T22:51:16+08:00</lastmod>
   </url>
   
   <url>
@@ -50,6 +135,16 @@
   <url>
     <loc>https://jaehue.github.io/post/how-to-use-golang-context/</loc>
     <lastmod>2018-06-19T00:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/%EC%8B%A0%EB%AA%85%EA%B8%B0/</loc>
+    <lastmod>2018-05-11T09:52:28+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/categories/%EC%8B%A0%EC%95%99/</loc>
+    <lastmod>2018-05-11T09:52:28+08:00</lastmod>
   </url>
   
   <url>
@@ -65,6 +160,11 @@
   <url>
     <loc>https://jaehue.github.io/post/uganda-diary/</loc>
     <lastmod>2018-02-15T09:42:36+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/tags/eventdriven/</loc>
+    <lastmod>2017-11-17T00:00:00+08:00</lastmod>
   </url>
   
   <url>
@@ -110,124 +210,6 @@
   <url>
     <loc>https://jaehue.github.io/post/20140331/</loc>
     <lastmod>2014-03-31T23:13:56+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/</loc>
-    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/categories/</loc>
-    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/post/2019.10.01.roots/</loc>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/</loc>
-    <lastmod>2018-12-20T22:51:16+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/categories/</loc>
-    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/eventdriven/</loc>
-    <lastmod>2017-11-17T00:00:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/golang/</loc>
-    <lastmod>2020-04-04T13:46:40+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/categories/it/</loc>
-    <lastmod>2020-04-04T13:46:40+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/</loc>
-    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/kubernetes/</loc>
-    <lastmod>2020-04-04T13:46:40+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/microservice/</loc>
-    <lastmod>2020-04-04T13:46:40+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/post/</loc>
-    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/</loc>
-    <lastmod>2020-04-04T13:46:52+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/%EB%AC%B5%EC%83%81/</loc>
-    <lastmod>2019-12-27T23:53:01+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/categories/%EB%AC%B5%EC%83%81/</loc>
-    <lastmod>2019-07-06T21:47:17+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/%EC%8B%A0%EB%AA%85%EA%B8%B0/</loc>
-    <lastmod>2018-05-11T09:52:28+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/categories/%EC%8B%A0%EC%95%99/</loc>
-    <lastmod>2018-05-11T09:52:28+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/%EC%95%84%EC%9B%83%EB%A6%AC%EC%B9%98/</loc>
-    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/%EC%97%AC%ED%96%89/</loc>
-    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/tags/%EC%A4%91%EA%B5%ADit/</loc>
-    <lastmod>2020-04-04T13:46:40+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>

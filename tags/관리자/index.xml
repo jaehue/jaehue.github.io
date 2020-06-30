@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>관리자 on Jaehue&#39;s</title>
+    <link>https://jaehue.github.io/tags/%EA%B4%80%EB%A6%AC%EC%9E%90/</link>
+    <description>Recent content in 관리자 on Jaehue&#39;s</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-kr</language>
+    <lastBuildDate>Sat, 04 Apr 2020 13:46:52 +0800</lastBuildDate>
+    
+	<atom:link href="https://jaehue.github.io/tags/%EA%B4%80%EB%A6%AC%EC%9E%90/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>일하지 않는 사람은 가라</title>
+      <link>https://jaehue.github.io/post/2020.04.04.devculture/</link>
+      <pubDate>Sat, 04 Apr 2020 13:46:52 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/post/2020.04.04.devculture/</guid>
+      <description>2020-04-29 팝잇(popit)에 기고한 글 ⤴️ 이 글은 적당히 갖춰나간 운영 환경의 후속 글이다. 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.
+MSAMicro Service Architecture이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다. 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다. 익스트림 프로그래밍Extreme Programming, 이하 XP이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSAMicro Service Architecture는 일하는 방식과 떼어서 얘기할 수 없기 때문이다. 아주 많은 작은 서비스들에게 역할과 책임을 부여하고, 그 서비스들이 상호 작용하며 만들어낸 서로 공존하는 상태.</description>
+    </item>
+    
+  </channel>
+</rss>

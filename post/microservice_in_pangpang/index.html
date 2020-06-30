@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html lang="ko-kr">
+<html class="no-js" lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Microservice in PangPang</title>
+	<title>Microservice in PangPang - Jaehue&#39;s</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-	<meta name="generator" content="Hugo 0.50" />
-	<meta property="og:title" content="Microservice in PangPang" />
+		<meta property="og:title" content="Microservice in PangPang" />
 <meta property="og:description" content="사내 세미나 전 생각 정리를 위한 글
- 회고 올해 4월부터 micro-service를 지향하면서 일을 해 왔다. 사실 별로 커 보이지도 않는 기능들을 다양한 서비스로 나누고, 여러 팀에서 나누어 개발을 해 왔다. 기능적으로 본다면, 샵링크(중국 5000여개 매장의 판매 업무를 총괄하는 시스템)와는 비교도 되지 않을 정도로 작고, 그룹웨어보다도 훨씬 작은 싸이즈이다. 그 큰 시스템도 하나의 서비스로 잘 돌아가고 있는데 POS를 통해 위챗 쿠폰을 사용할 수 있게 하자는 단순한 요구를 위해 OO개의 팀에서 OO개의 서비스를 만들었다." />
+ 회고 올해 4월부터 micro-service를 지향하면서 일을 해 왔다. 사실 별로 커 보이지도 않는 기능들을 다양한 서비스로 나누고, 여러 팀에서 나누어 개발을 해 왔다. 기능적으로 본다면, 샵링크*(중국 5000여개 매장의 판매 업무를 총괄하는 시스템)*와는 비교도 되지 않을 정도로 작고, 그룹웨어보다도 훨씬 작은 싸이즈이다. 그 큰 시스템도 하나의 서비스로 잘 돌아가고 있는데 POS를 통해 위챗 쿠폰을 사용할 수 있게 하자는 단순한 요구를 위해 OO개의 팀에서 OO개의 서비스를 만들었다." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/microservice_in_pangpang/" /><meta property="article:published_time" content="2016-09-21T22:04:23&#43;08:00"/>
-<meta property="article:modified_time" content="2016-09-21T22:04:23&#43;08:00"/>
+<meta property="og:url" content="https://jaehue.github.io/post/microservice_in_pangpang/" />
+<meta property="article:published_time" content="2016-09-21T22:04:23+08:00" />
+<meta property="article:modified_time" content="2016-09-21T22:04:23+08:00" />
 
-	
+		<meta itemprop="name" content="Microservice in PangPang">
+<meta itemprop="description" content="사내 세미나 전 생각 정리를 위한 글
+ 회고 올해 4월부터 micro-service를 지향하면서 일을 해 왔다. 사실 별로 커 보이지도 않는 기능들을 다양한 서비스로 나누고, 여러 팀에서 나누어 개발을 해 왔다. 기능적으로 본다면, 샵링크*(중국 5000여개 매장의 판매 업무를 총괄하는 시스템)*와는 비교도 되지 않을 정도로 작고, 그룹웨어보다도 훨씬 작은 싸이즈이다. 그 큰 시스템도 하나의 서비스로 잘 돌아가고 있는데 POS를 통해 위챗 쿠폰을 사용할 수 있게 하자는 단순한 요구를 위해 OO개의 팀에서 OO개의 서비스를 만들었다.">
+<meta itemprop="datePublished" content="2016-09-21T22:04:23&#43;08:00" />
+<meta itemprop="dateModified" content="2016-09-21T22:04:23&#43;08:00" />
+<meta itemprop="wordCount" content="1330">
+
+
+
+<meta itemprop="keywords" content="microservice," />
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 	<link rel="stylesheet" href="/css/style.css">
-	<script type="text/javascript" src="/js/scripts.js"></script>
-	<link rel="shortcut icon" href="/favicon.ico">
 	
+	<link rel="shortcut icon" href="/favicon.ico">
+		
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -34,172 +44,132 @@ if (!doNotTrack) {
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-<body class="body body-right-sidebar">
-	<div class="container container-outer">
+<body class="body">
+	<div class="container container--outer">
 		<header class="header">
-			<div class="container container-inner">
-				<div class="logo" role="banner">
-					<a class="logo__link" href="/" title="Jaehue&#39;s" rel="home">
-						<div class="logo__title">Jaehue&#39;s</div>
-						<div class="logo__tagline">생각들</div>
-					</a>
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Jaehue&#39;s" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Jaehue&#39;s</div>
+					<div class="logo__tagline">생각들</div>
 				</div>
-			</div>
-			<div class="divider"></div>
-		</header>
-		<div class="wrapper clearfix">
-
-<main class="main content">
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">Microservice in PangPang</h1><div class="post__meta meta">
-<svg class="icon icon-time" width="16" height="14" viewBox="0 0 16 16"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
-<time class="post__meta-date meta-date" datetime="2016-09-21T22:04:23">September 21, 2016</time>
-<span class="post__meta-categories meta-categories">
-	<svg class="icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
-	<span class="meta-categories__list"><a class="meta-categories__link" href="/categories/it" rel="category">IT</a></span>
-</span></div>
-		</header>
-		<div class="post__content clearfix">
-			
-
-<blockquote>
+			<h1 class="post__title">Microservice in PangPang</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2016-09-21T22:04:23&#43;08:00">2016-09-21</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
+	</span>
+</div></div>
+		</header><div class="content post__content clearfix">
+			<blockquote>
 <p><em>사내 세미나 전 생각 정리를 위한 글</em></p>
 </blockquote>
-
 <h2 id="회고">회고</h2>
-
 <p>올해 4월부터 micro-service를 지향하면서 일을 해 왔다.
 사실 별로 커 보이지도 않는 기능들을 다양한 서비스로 나누고, 여러 팀에서 나누어 개발을 해 왔다.
-기능적으로 본다면, 샵링크<small><em>(중국 5000여개 매장의 판매 업무를 총괄하는 시스템)</em></small>와는 비교도 되지 않을 정도로 작고, 그룹웨어보다도 훨씬 작은 싸이즈이다.
+기능적으로 본다면, 샵링크<!-- raw HTML omitted -->*(중국 5000여개 매장의 판매 업무를 총괄하는 시스템)*<!-- raw HTML omitted -->와는 비교도 되지 않을 정도로 작고, 그룹웨어보다도 훨씬 작은 싸이즈이다.
 그 큰 시스템도 하나의 서비스로 잘 돌아가고 있는데
 <code>POS를 통해 위챗 쿠폰을 사용할 수 있게 하자</code>는 단순한 요구를 위해 OO개의 팀에서 OO개의 서비스를 만들었다.</p>
-
 <p>그것을 클라우드 환경에 올렸고, 그 과정에서 새로 접한 기술들도 많았다.
 진행 방식도, 지금까지 해 왔던 것처럼 먼저 전체 일정을 세우고, 분석-설계-개발-테스트-오픈으로 이어지는 방식이 아니라
 매주마다 할일을 정하고 그것을 확인하는 방식으로 진행해왔다.</p>
-
 <p>이것이 마이크로서비스인가?</p>
-
 <p>사실은 특별히 다른 것은 없다.
 여전히 VisualStudio를 열어놓고 C#으로 코딩을 한다.</p>
-
 <p>지금과 다른 기술적인 차이/아키텍처적인 차이들이 분명히 있다.
 하지만 그런 것들을 가지고 microserivce라 하는 것은 무리가 있다.
 왜냐하면 microservice와 대비되는 개념인 monolithic 시스템에서도 그런 기술을 많이 채택한다.
 하나의 거대한 서비스가 클라우드 환경에 배포되고, MongoDB와 같은 NoSql을 메인 데이터베이스로 사용하는 경우도 많다.
 그리고 필요에 따라 Queue나 Cache같은 것들을 활용하기도 한다.</p>
-
 <p>그러면 우리가 하고자 microservice는 도대체 무엇을 하자는 것인가?</p>
-
 <h2 id="what-is-microservice">What is Microservice?</h2>
-
 <p><a href="http://martinfowler.com/articles/microservices.html">microservice에 대해 Martin Fowler가 내린 정의</a>를 보자.</p>
-
 <blockquote>
 <p>developing a single application as a suite of <strong>small</strong> services
 작은 서비스의 결합을 통해 하나의 응용프로그램을 개발하는 방법
 &ndash; Martin Fowler</p>
 </blockquote>
-
 <p>사실 이것이 핵심이다.
 이것을 어떻게 실현하느냐에 대한 다양한 방안들이 존재할 뿐이다.</p>
-
 <p><em>Stream-oriented, Event sourcing, Domain Driven Design(Bounded Context), Contract-First(API-First) Design, Decomposed database, Restful Service, Event-Driven Architecture, Messaging, Platform, Queue, RabbitMQ, Kafka, Azure Queue, Ali Message Service, NoSQL, MongoDB, Redis, Azure Table Storage, Aliyun Table Store, Cloud Design Pattern, Reactive Programming, Polyglot Programming, Architecting, Docker, API Gateway, Service Discovery, Blue/Green Deployment, Circuit Breaker, CI(Continous Integration), Mornintoring</em></p>
-
 <p>microservice를 실현하는 방법들은 매우 다양해서 혼란이 시작될 가능성이 있다.
 그래서 때로는 microservice의 핵심은 간과한 채, 이것을 구현하는 세련되고 화려한 방법들만 코드안에 어색하게 구겨넣는 실수를 범하기도 한다.
 나도 microservice에 대한 큰 고민 없이 기술적으로 세련되고 멋있어보이는 다양한 것들에 기웃거려보기도 했다.
 기술 자체에 대한 학습은 재미 있었지만, <code>그래서 그것이 microservice인가?</code>에 대한 질문에는 여전히 대답하기 어려웠다.</p>
-
 <p>microservice가 작은 서비스의 결함을 통해 하나의 응용 프로그램을 개발하는 방식이라는 핵심에 근거해, 개발자 입장에서 가장 직관적으로 microservice를 해석한 말은 이런 것들이었다.</p>
-
 <blockquote>
 <p>A single programmer can design, implement, deploy, and maintain.
 &ndash; Fred George</p>
 </blockquote>
-
-<p><br /></p>
-
+<p><!-- raw HTML omitted --></p>
 <blockquote>
 <p>Software that fits in your head.
 &ndash; Dan North</p>
 </blockquote>
-
-<p><br /></p>
-
+<p><!-- raw HTML omitted --></p>
 <blockquote>
 <p>A single logical database per service.
 &ndash; Chris Richardson</p>
 </blockquote>
-
-<p><br /></p>
-
+<p><!-- raw HTML omitted --></p>
 <blockquote>
 <p>Built &amp; deployed independently.
 &ndash; 12Factor.net</p>
 </blockquote>
-
 <p>지금까지 PangPang을 해 오면서 학습한 것 한가지는, microservice는 단순히 <code>&quot;어떤 기술이냐?&quot;</code>의 문제는 아니라는 것이다.</p>
-
 <h2 id="우리의-현주소">우리의 현주소</h2>
-
 <p>샵링크의 문제점을 많이 얘기한다.
 내 기억으로, 중국 샵링크는 이랜드에서 가장 성공적인 프로젝트 중의 하나로 기억된다.
 그렇게 성공적이었던 프로젝트가 왜 지금 우리 인식속에 문제가 많은 시스템으로 자리잡혀 있을까?</p>
-
 <p>웨이븐 포스도 성공적인 프로젝트 중 하나였다.
 웨이븐 포스 오픈 당시, 중국에서 스파오, 믹쏘 매장을 오픈할때마다 웨이븐포스가 엄청난 역할을 해 내고 있다는 것을 많이 얘기 했었었다.
 하지만, 시간이 갈수록 웨이븐포스는 점점 샵링크를 닮아가고 있었다.</p>
-
 <p>5월에 PangPang이라는 이름으로 새로운 포스를 제공하고 위챗을 통해 쿠폰기능을 사용할 수 있도록 했다.
-하지만 여기서도 <small>[1]</small>누락되는 데이터가 있고, <small>[2]</small>테스트 버전이 배포되기도 하고, <small>[3]</small>외부 인터페이스 때문에 장애가 발생하기도 한다.
-<small>[4]</small>고객이 로그인이 안되서 불만을 얘기하고, <small>[5]</small>발급된 쿠폰을 사용하지 못하는 경우도 있었다.
+하지만 여기서도 <!-- raw HTML omitted -->[1]<!-- raw HTML omitted -->누락되는 데이터가 있고, <!-- raw HTML omitted -->[2]<!-- raw HTML omitted -->테스트 버전이 배포되기도 하고, <!-- raw HTML omitted -->[3]<!-- raw HTML omitted -->외부 인터페이스 때문에 장애가 발생하기도 한다.
+<!-- raw HTML omitted -->[4]<!-- raw HTML omitted -->고객이 로그인이 안되서 불만을 얘기하고, <!-- raw HTML omitted -->[5]<!-- raw HTML omitted -->발급된 쿠폰을 사용하지 못하는 경우도 있었다.
 물론 서비스에 문제가 발생하는 것은 자연스러운 일이다. 한번에 완벽한 것을 만드는 것은 불가능하기 때문에 지속적으로 서비스의 완성도를 높여가야 한다.
 하지만 최근 이러한 문제들을 겪으면서 우리가 했던 대답은 <code>&quot;고객이 이런저런 요구를 많이해서 프로그램이 복잡해졌어요ㅠㅠ&quot;</code>였다.</p>
-
 <p>microservice를 하겠다고 야심차게 시작했던 PangPang 역시도 샵링크, 웨이븐을 점점 닮아가는 것을 보게 된다.
 microservice라는 이름으로 포장된 다양한 기술들을 적용했지만, 지금의 모습은 이전과 크게 다르지 않은 듯 하다.</p>
-
 <p>지금까지 PangPang을 해 오면서 학습한것 한가지는, microservice를 한다는 것은 단순히 기술을 적용 하고 안하고의 문제는 아니었다.</p>
-
 <p><em><strong>Multi Responsibility</strong></em></p>
-
-<p><img src="/images/20160921/swiss-pocket-knife-multi.jpg" style="width: 250px;"/></p>
-
+<!-- raw HTML omitted -->
 <p>여러 기능을 한번에 만드는 것이 당장에는 쉽다.
 그리고 우리는 항상 이런 그림을 상상한다. 뭐든지 다 잘 되는 서비스.
 새로운 기능을 추가해야 할 때, 이 기능이 의미하는 바가 무었인지? 그래서 어떤 서비스에 어울리는지 고민하지 않고 그냥 지금 열려있는 VisualStudio에서 class하나 추가하고 거기에 코드를 작성하면 일단 동작은 한다.
 기존에 있었던 다른 기능을 함께 사용해야 하면, 옆에 보이는 클래스의 메쏘드를 호출하면 된다.
 잘 동작한다. 그리고 고객은 일단은 받아들인다. 그리고 덮어둔다.</p>
-
-<p><img src="/images/20160921/breadboard_complex.jpg" style="width: 300px;"/></p>
-
+<!-- raw HTML omitted -->
 <p>하지만 정작 실제의 모습은 이렇게 되어 있지 않았었나?
 작은 기능 하나를 수정하고 싶은데, 어딜 손대야 할지 모르겠다.
 이때 할 수 있는 최선의 대답은 이것이다. &ldquo;안됩니다&rdquo;</p>
-
 <p>우리는 이러한 방식에 너무 익숙해져 있다.
 많은 기능들을 한번에 개발하는 것에 익숙하고
 다양한 고객들의 행태에 대해 고민하고 반영하는 것은 여전히 어색하다.</p>
-
 <p>microservice / multi tenancy의 모습으로 처음 시작했던 PangPang을 지금 돌아보면, 단순함을 유지해야 하는 각각의 서비스는 복잡해져 있었고(Multi Responsibility), 다양한 고객의 행태를 수용하기에는 우리는 너무 하나의 고객에게만 익숙해져 있었다(Single Tenancy).</p>
-
 <h2 id="그래서">그래서?</h2>
-
 <p>사고의 전환이 없이는 microservice는 여전히 모호한 얘기일 뿐이다.
 문제를 해결해가는 방식을 바꾸지 않으면, 우리가 다양한 시도는 하겠지만 영원히 도달할 수 없는 지점일 수 있다.
 다양한 기술들을 경험할 수 있을진 몰라도, 우리의 삶은 샵링크를 만들때와 크게 달라져 있지 않을수도 있다.</p>
-
 <p><em><strong>Single Responsibility</strong></em></p>
-
-<p><img src="/images/20160921/swiss-pocket-knife.jpg" style="width: 250px;"/></p>
-
+<!-- raw HTML omitted -->
 <p>이 관점을 유지해야 한다.
 복잡한 기능이 한꺼번에 다 들어가 있는 것이 아니라 용도에 맞는 기능 한 가지만을 충실히 수행하는 서비스.</p>
-
 <p><em><strong>어떻게 하면 서비스는 한가지 일만 하도록 할 수 있을까?</strong></em></p>
-
 <p>새로운 기능을 추가해야 할 때, 이 기능이 어떤 기능인지 두번, 세번, 네번, 다섯번까지 곱씹으면서 질문해야 한다.
 고객은 왜 이 기능을 요구했을까? 어떤 어려움 때문이었을까?
 우리가 이미 제공했던 기능들이 있는데, 그것은 왜 불편해 했을까?
@@ -207,7 +177,6 @@ microservice라는 이름으로 포장된 다양한 기술들을 적용했지만
 고객이 원하는 이것을 그대로 해 주는게 맞을까? 이 기능으로 인해 고객이 나중에 더 큰 불편함을 겪지는 않을까?
 그리고 이 기능은 어느 서비스에 어울리는 기능일까?
 이 서비스에 구현하는게 맞을까?</p>
-
 <p>얼마전 PangPang에 사용자에 따라 기능에 제한을 두기 위해 권한을 적용해 보았다.
 이것을 하면서 우리가 샵링크 방식에 얼마나 익숙해져 있는지를 알게 되었다.
 샵링크는 조직 구성과 사용자의 직책이 권한과 그대로 연결되어 있다.
@@ -215,7 +184,6 @@ microservice라는 이름으로 포장된 다양한 기술들을 적용했지만
 고객 입장에서 새롭게 조직을 구성하거나 새로운 직책을 만드는 일은 자연스러운 일이다.
 고객은 시장의 변화에 맞게 자연스럽게 일을 했을 뿐인데, 그것이 우리에게는 시스템 전체를 수정해야 할 큰 일이 될 수도 있다.
 그리고 그것은 고객의 비즈니스에 커다란 걸림돌이 되어 버린다.</p>
-
 <p>조직 구성이나 직책은 회사마다 다르다.
 사용자의 계정과 권한을 관리하는 서비스가 조직 구성이나 사용자 직책에 묶여 있다면,
 그 서비스는 계정과 권한을 관리하는 기능 뿐만 아니라, 조직관리, 사용자 직책관리등의 일까지 하고 있는 것이다.
@@ -223,78 +191,61 @@ microservice라는 이름으로 포장된 다양한 기술들을 적용했지만
 그래서 조직구성/직책과 별개로 Role을 정의하고 Role과 사용자를 연결시켰다.
 그리고 Role별로 기능에 제한을 두도록 했다.
 물론 한 사람이 여러개의 Role을 가질 수 있다.</p>
-
-<p><img src="/images/20160921/role-user-permission.svg" alt="user-role-permission" /></p>
-
+<p><img src="/images/20160921/role-user-permission.svg" alt="user-role-permission"></p>
 <p>이렇게 Role 기반으로 기능에 제한을 두도록 하면 조직 구성이 어떠하든, 사용자의 직책이 어떠하든 자유롭게 서비스의 동작을 제어할 수 있다.
 회사마다 자신들의 정책에 맞게 Role을 구성하면 된다.</p>
-
 <p>어찌보면 자연스러운 생각인데, 샵링크 방식만을 경험했던 우리들에게는 아주 생소한 이야기였다.</p>
-
 <p>최근 티니위니를 매각하면서 우리에게 할당된 큰 과제가 하나 있다.
 바로 티니위니 데이터를 분리해내는 것이다.
 이것이 우리에게 아주 큰 과제로 다가온 이유는, 우리의 시스템은 single-tenant 시스템이기 때문이다.</p>
-
 <p>우리에는 단 하나의 고객만 있다고 생각하고 시스템을 만들어 왔었다.
 근데, 다 같은 고객이라 생각했던 티니위니가 이제 다른 고객이 되어 버렸다.
 즉, 티니위니 사람들은 티니위니 정보에만 접근해야 하고, 티니위니가 아닌 사람들은 티니위니 정보에 절대로 접근해서는 안된다.
 하나의 서비스 내에 이런 속성들이 생긴 것이다.</p>
-
 <p>multitenant 관점으로 본다면, 여러 고객의 정보가 하나의 database에 들어 있을 수 있지만, 다른 고객의 정보는 절대 노출되어선 안된다.
 multi tenant 서비스에서는 이러한 것은 아무 문제가 아니다.</p>
-
 <p>어떻게 하면 기능과 정보와 정책을 분리해서 다양한 고객이 사용할 수 있게 할 것인가?</p>
-
 <p>더 나아가 tenant별로 데이터까지 완벽하게 분리되어야 한다고 생각해보자.
 서비스를 어떻게 구성해야 이것이 가능할까?</p>
-
 <h2 id="todo">TODO</h2>
-
 <p>처음 우리가 궁금했던 질문들은 대부분 기술적인 것들이었다.
 물론 그러한 궁금증도 아주 중요하고, 그것을 학습하고 소화해내는 것도 아주 중요하다.
 그러한 요소들이 제대로 된 microservice를 실현하는데 아주 큰 도움을 줄 것이다.
 하지만 microservice가 무엇인지, multi tenancy가 무엇인지에 대한 고민없이 접근한다면
 그것은 단순히 나의 기술적인 배경을 넓혀 줄 뿐이지 그것 자체로 우리의 일하는 방식이 바뀌지는 않을 것이다.</p>
-
 <p>다시 말하지만 microservice는 단순히 다양한 기술을 조합하는 것이 아니다.
 지금 내가 맡고 있는 그 서비스의 집적도를 계속해서 높여나가고, 계속해서 그 한가지의 일에 끈질기게 매달리는 팀이, 제대로 된 microservice를 하는 팀이 될 것이다.</p>
-
-<p><img src="/images/20160921/breadboard_complex.jpg" style="width: 400px;"/></p>
-
+<!-- raw HTML omitted -->
 <p>지금 내가 운영하고 있는 서비스가 위와 같은 모습일지도 모른다.
 하지만 조금씩, 끈질기게, 서비스의 집적도를 높여가기 위해 노력한다면 이렇게 점점 서비스가 정돈되어지지 않을까?</p>
-
-<p><img src="/images/20160921/iguana-breadboard.jpg" style="width: 250px;"/>
-<img src="/images/20160921/board.jpg" style="width: 250px;"/></p>
-
+<!-- raw HTML omitted -->
 <p>그리고 언젠가는 우리의 서비스도 이렇게 정교한 모습으로 다듬어지지 않을까?</p>
-
-<p><img src="/images/20160921/circuit.jpg" style="width: 400px;"/></p>
-
+<!-- raw HTML omitted -->
 <p>마지막으로 microservice를 아주 잘 표현하고 있는 영상 하나를 소개한다.</p>
-
-<iframe width="854" height="480" src="https://www.youtube.com/embed/Us-TVg40ExM" frameborder="0" allowfullscreen></iframe>
-
+<!-- raw HTML omitted -->
 <p>전세계에 있는 길거리 뮤지션들의 소리로 하나의 음악을 만들고 있다.</p>
-
 <p>이게 바로 microservice architecture라고 생각한다.
 각 뮤지션들은, 자신의 소리을 충실하게 표현하고 있다.
 그리고 그것을 누군가는 하나로 만들어간다.
 이 모든것이 하나로 어우러져 우리 귀에 멋진 음악으로 들린다.</p>
-
 <p>microservice를 하는 우리들의 머리속에 이런 이미지가 자리잡혔으면 좋겠다.
 그리고, 우리도 우리 고객에게 이런것을 줄 수 있으면 좋겠다.</p>
 
 		</div>
-		
+		<footer class="post__footer">
+			
 <div class="post__tags tags clearfix">
-	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16"><path d="M16 9.5c0 .373-.24.74-.5 1l-5 5c-.275.26-.634.5-1 .5-.373 0-.74-.24-1-.5L1 8a2.853 2.853 0 0 1-.7-1C.113 6.55 0 5.973 0 5.6V1.4C0 1.034.134.669.401.401.67.134 1.034 0 1.4 0h4.2c.373 0 .95.113 1.4.3.45.187.732.432 1 .7l7.5 7.502c.26.274.5.632.5.998zM3.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
 	<ul class="tags__list">
-		<li class="tags__item"><a class="tags__link btn" href="/tags/microservice/" rel="tag">microservice</a></li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/microservice/" rel="tag">microservice</a>
+		</li>
 	</ul>
 </div>
+		</footer>
 	</article>
-	
+</main>
+
 <div class="authorbox clearfix">
 	<figure class="authorbox__avatar">
 		<img alt="장재휴 avatar" src="/images/jaehue.JPG" class="avatar" height="90" width="90">
@@ -306,16 +257,23 @@ multi tenant 서비스에서는 이러한 것은 아무 문제가 아니다.</p>
 		Why Not Change the World?
 	</div>
 </div>
-	
-<nav class="post-nav row clearfix">
-	<div class="post-nav__item post-nav__item--prev col-1-2">
-		<a class="post-nav__link" href="/post/20160327/" rel="prev"><span class="post-nav__caption">«&thinsp;Previous</span><p class="post-nav__post-title">책 발간을 앞두고</p></a>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/post/20160327/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">책 발간을 앞두고</p>
+		</a>
 	</div>
-	<div class="post-nav__item post-nav__item--next col-1-2">
-		<a class="post-nav__link" href="/post/go-my-way-1-webframework/" rel="next"><span class="post-nav__caption">Next&thinsp;»</span><p class="post-nav__post-title">Go My Way #1 - 웹 프레임워크</p></a>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/post/go-my-way-1-webframework/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">Go My Way #1 - 웹 프레임워크</p>
+		</a>
 	</div>
 </nav>
-	
+
+
 <section class="comments">
 	<div id="disqus_thread"></div>
 <script type="application/javascript">
@@ -339,75 +297,20 @@ multi tenant 서비스에서는 이러한 것은 아무 문제가 아니다.</p>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </section>
 
-</main>
 
-<aside class="sidebar">
-	
-<div class="widget-search widget">
-	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<label>
-			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
-		</label>
-		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
-	</form>
-</div>
-	
-<div class="widget-recent widget">
-	<h4 class="widget__title">Recent Posts</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/post/2020.04.04.devculture/">일하지 않는 사람은 가라</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2020.04.08.techset/">적당히 갖춰나간 운영 환경</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2020.03.26/">투표합시다</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2019.12.27.agile_life/">있는 모습 그대로</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2019.12.14.%EA%B8%B8%EA%B2%8C%EB%8B%AC%EB%A6%AC%EA%B8%B0/">길게 달리기</a></li>
-		</ul>
-	</div>
-</div>
-	
-<div class="widget-categories widget">
-	<h4 class="widget__title">Categories</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/categories/"></a></li>
-			<li class="widget__item"><a class="widget__link" href="/categories/it">IT</a></li>
-			<li class="widget__item"><a class="widget__link" href="/categories/%eb%ac%b5%ec%83%81">묵상</a></li>
-			<li class="widget__item"><a class="widget__link" href="/categories/%ec%8b%a0%ec%95%99">신앙</a></li>
-		</ul>
-	</div>
-</div>
-	
-	
-<div class="widget-taglist widget">
-	<h4 class="widget__title">Tags</h4>
-	<div class="widget__content">
-		<a class="widget-taglist__link widget__link btn" href="/tags/" title=""> (3)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/4%ec%b0%a8-%ec%82%b0%ec%97%85%ed%98%81%eb%aa%85" title="4차 산업혁명">4차 산업혁명 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven" title="Eventdriven">Eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang (7)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes" title="Kubernetes">Kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice" title="Microservice">Microservice (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%eb%ac%b5%ec%83%81" title="묵상">묵상 (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%8b%a0%eb%aa%85%ea%b8%b0" title="신명기">신명기 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%95%84%ec%9b%83%eb%a6%ac%ec%b9%98" title="아웃리치">아웃리치 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%97%ac%ed%96%89" title="여행">여행 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%a4%91%ea%b5%adit" title="중국it">중국it (2)</a>
-	</div>
-</div>
-</aside>
-	</div>
-		<footer class="footer">
-			<div class="container container-inner">
-				<div class="footer__copyright">&copy; 2020 Jaehue&#39;s. <span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span></div>
 			</div>
-		</footer>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 장재휴.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
 	</div>
-
-<script>
-	var navigation = responsiveNav(".menu", {
-		navClass: "menu--collapse",
-	});
-</script>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 </body>
 </html>

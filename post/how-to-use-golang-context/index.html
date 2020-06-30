@@ -1,26 +1,35 @@
 <!DOCTYPE html>
-<html lang="ko-kr">
+<html class="no-js" lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Go언어에서 Context 사용하기</title>
+	<title>Go언어에서 Context 사용하기 - Jaehue&#39;s</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="Go언어에서 Context 사용하기; golang">
-	<meta name="generator" content="Hugo 0.50" />
-	<meta property="og:title" content="Go언어에서 Context 사용하기" />
+		<meta property="og:title" content="Go언어에서 Context 사용하기" />
 <meta property="og:description" content="Go언어에서 Context 사용하기; golang" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/how-to-use-golang-context/" /><meta property="article:published_time" content="2018-06-19T00:00:00&#43;09:00"/>
-<meta property="article:modified_time" content="2018-06-19T00:00:00&#43;09:00"/>
+<meta property="og:url" content="https://jaehue.github.io/post/how-to-use-golang-context/" />
+<meta property="article:published_time" content="2018-06-19T00:00:00+09:00" />
+<meta property="article:modified_time" content="2018-06-19T00:00:00+09:00" />
 
-	
+		<meta itemprop="name" content="Go언어에서 Context 사용하기">
+<meta itemprop="description" content="Go언어에서 Context 사용하기; golang">
+<meta itemprop="datePublished" content="2018-06-19T00:00:00&#43;09:00" />
+<meta itemprop="dateModified" content="2018-06-19T00:00:00&#43;09:00" />
+<meta itemprop="wordCount" content="1560">
+
+
+
+<meta itemprop="keywords" content="golang," />
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
 	<link rel="stylesheet" href="/css/style.css">
-	<script type="text/javascript" src="/js/scripts.js"></script>
-	<link rel="shortcut icon" href="/favicon.ico">
 	
+	<link rel="shortcut icon" href="/favicon.ico">
+		
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -33,113 +42,86 @@ if (!doNotTrack) {
 <script async src='https://www.google-analytics.com/analytics.js'></script>
 
 </head>
-<body class="body body-right-sidebar">
-	<div class="container container-outer">
+<body class="body">
+	<div class="container container--outer">
 		<header class="header">
-			<div class="container container-inner">
-				<div class="logo" role="banner">
-					<a class="logo__link" href="/" title="Jaehue&#39;s" rel="home">
-						<div class="logo__title">Jaehue&#39;s</div>
-						<div class="logo__tagline">생각들</div>
-					</a>
+	<div class="container header__container">
+		
+	<div class="logo">
+		<a class="logo__link" href="/" title="Jaehue&#39;s" rel="home">
+			<div class="logo__item logo__text">
+					<div class="logo__title">Jaehue&#39;s</div>
+					<div class="logo__tagline">생각들</div>
 				</div>
-			</div>
-			<div class="divider"></div>
-		</header>
-		<div class="wrapper clearfix">
-
-<main class="main content">
+		</a>
+	</div>
+		<div class="divider"></div>
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">Go언어에서 Context 사용하기</h1><div class="post__meta meta">
-<svg class="icon icon-time" width="16" height="14" viewBox="0 0 16 16"><path d="m8-.0000003c-4.4 0-8 3.6-8 8 0 4.4000003 3.6 8.0000003 8 8.0000003 4.4 0 8-3.6 8-8.0000003 0-4.4-3.6-8-8-8zm0 14.4000003c-3.52 0-6.4-2.88-6.4-6.4000003 0-3.52 2.88-6.4 6.4-6.4 3.52 0 6.4 2.88 6.4 6.4 0 3.5200003-2.88 6.4000003-6.4 6.4000003zm.4-10.4000003h-1.2v4.8l4.16 2.5600003.64-1.04-3.6-2.1600003z"/></svg>
-<time class="post__meta-date meta-date" datetime="2018-06-19T00:00:00">June 19, 2018</time>
-<span class="post__meta-categories meta-categories">
-	<svg class="icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg>
-	<span class="meta-categories__list"><a class="meta-categories__link" href="/categories/it" rel="category">IT</a></span>
-</span></div>
-		</header>
-		<div class="post__content clearfix">
-			
-
-<p>Go에는 다른 대중적인 언어와 다른 개념들이 좀 있다.</p>
-
+			<h1 class="post__title">Go언어에서 Context 사용하기</h1>
+			<div class="post__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-06-19T00:00:00&#43;09:00">2018-06-19</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
+	</span>
+</div></div>
+		</header><div class="content post__content clearfix">
+			<p>Go에는 다른 대중적인 언어와 다른 개념들이 좀 있다.</p>
 <ol>
-<li>클래스를 과감히 빼버렸고 <sub>(그래서 상속이 없다)</sub></li>
-<li>Exception이란 것도 없다 <sub>(예외 상황 자체를 허용하지 않겠다는 의지인가? 멋있어 보일진 몰라도 솔직히 불편하다. ㅠㅠ 궁시렁 궁시렁&hellip;)</sub></li>
+<li>클래스를 과감히 빼버렸고 <!-- raw HTML omitted -->(그래서 상속이 없다)<!-- raw HTML omitted --></li>
+<li>Exception이란 것도 없다 <!-- raw HTML omitted -->(예외 상황 자체를 허용하지 않겠다는 의지인가? 멋있어 보일진 몰라도 솔직히 불편하다. ㅠㅠ 궁시렁 궁시렁&hellip;)<!-- raw HTML omitted --></li>
 <li>고루틴과 채널을 이용한 병행처리 모델도 친숙한 개념은 아니다</li>
 </ol>
-
 <p>여기에 한 가지 더 보태자면, Context란 녀석이다.</p>
-
 <p>처음 얘기한 세 가지는 Go 언어를 사용해서 뭔가를 만들려면 반드시 알아야 할 개념이기 때문에 Go 언어를 처음 접하는 대부분의 사람들은 시간을 할애해서 이 부분에 대해 공부를 한다.
 하지만 컨텍스트는 사용하지 않아도 로직을 구현하는 데는 별문제가 없다는 생각에 개념을 충분히 익히지 않은 채 건너뛰는 경우도 있는 것 같다.</p>
-
 <p>게다가 Go의 초기 버전에는 <code>context</code> 패키지가 없었다.
 처음에는 외부 패키지(<code>golang.org/x/net/context</code>)로 존재하다가 Go 1.7 버전(<a href="https://blog.golang.org/go1.7">2016년 8월에 릴리즈 됨</a>)부터 기본 라이브러리에 탑재되었다.
 <code>golang.org/x/net/context</code> 패키지의 사용법은 이미 오래전부터 여러 컨퍼런스나 블로그에 소개는 되어 왔지만,
 Go 1.7 이전 버전을 기준으로 작성된 책에서는 <code>context</code>의 사용법을 다루지 않는 경우가 많았다.
 필자가 2016년 3월에 출간한 책인 <a href="https://thebook.io/006806/">Go 언어 웹 프로그래밍 철저 입문</a> 책에서도 <code>context</code> 패키지를 다루지 않았었다.</p>
-
 <p>그래서 이번 글에서는 컨텍스트의 사용법을 소개한다.</p>
-
 <h2 id="컨텍스트란">컨텍스트란?</h2>
-
 <p>소프트웨어 공학에서 컨텍스트란 용어는 참 다양하게 사용된다.</p>
-
 <ul>
 <li>context switching</li>
 <li>bounded context</li>
 <li>context menu</li>
 <li>etc.</li>
 </ul>
-
-<p>전혀 다른 의미 같기도 하고, 또 어떻게 보면 비슷한 뭔가가 있는 것 같기도 하고&hellip;<br />
-네이버 사전에서 찾아보면 <u><strong>맥락</strong></u>이라고 풀이되어 있다.</p>
-
-<p><img src="/images/golang-context/dic.png" style="width: 500px;"/></p>
-
-<!-- ![golang-context-dic](/images/golang-context/dic.png) -->
-
-<p>사전적 뜻을 그대로 가져와 보면, <u><strong>맥락을 유지하는 통로</strong></u> 정도로 표현할 수 있고, Go에서의 실제 쓰임새를 봐도 이 의미와 크게 다르지 않다.</p>
-
+<p>전혀 다른 의미 같기도 하고, 또 어떻게 보면 비슷한 뭔가가 있는 것 같기도 하고&hellip;<br>
+네이버 사전에서 찾아보면 <!-- raw HTML omitted --><strong>맥락</strong><!-- raw HTML omitted -->이라고 풀이되어 있다.</p>
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<p>사전적 뜻을 그대로 가져와 보면, <!-- raw HTML omitted --><strong>맥락을 유지하는 통로</strong><!-- raw HTML omitted --> 정도로 표현할 수 있고, Go에서의 실제 쓰임새를 봐도 이 의미와 크게 다르지 않다.</p>
 <h2 id="go에서의-컨텍스트">Go에서의 컨텍스트</h2>
-
 <p>맥락(=컨텍스트)을 유지하기 위해 Go는 <code>context.Context</code> 타입을 제공한다.</p>
-
 <p>컨텍스트를 생성하는 방법은 여러가지가 있는데 기본은 <code>context.Background</code> 함수를 사용하여 생성하는 것이다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Background</span>() <span style="color:#a6e22e">Context</span></code></pre></div>
-
 <p>한번 생성된 컨텍스트는 변경할 수 없다.
 그래서 컨텍스트에 값을 추가하고 싶을 때는 <code>context.WithValue</code> 함수로 새로운 컨텍스트를 만들어 주어야 한다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#a6e22e">Context</span></code></pre></div>
-
 <p>컨텍스트의 값을 가져올때는 컨텍스트의 <code>Value</code> 메서드를 사용한다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Context</span> <span style="color:#66d9ef">interface</span> {
 	<span style="color:#a6e22e">Value</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">interface</span>{}
 }</code></pre></div>
-
 <p><code>context.WithCancel</code> 함수로 생성한 컨텍스트에는 취소 신호를 보낼 수 있다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
-
 <p>일정 시간이 되면 자동으로 컨텍스트에 취소 신호가 전달되도록 하려면 <code>context.WithDeadline</code> 함수나 <code>context.WithTimeout</code> 함수를 사용하여 컨텍스트를 생성하면 된다.</p>
-
 <p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithDeadline</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">d</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">timeout</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div></p>
-
 <p>각각의 함수&amp;메서드가 어떻게 동작하는지는 예제와 함께 설명을 하겠다.</p>
-
 <h2 id="컨텍스트-내부의-값-사용">컨텍스트 내부의 값 사용</h2>
-
 <p>컨텍스트를 사용하는 일반적인 패턴은 현재 맥락 안에서 유지해야 할 값을 컨텍스트에 담아서 전달하고, 필요한 곳에서 컨텍스트의 값을 꺼내 사용하는 것이다.</p>
-
 <p>아래 예제에서는 <code>context.Background</code> 함수로 컨텍스트를 생성한 후, <code>context.WithValue</code> 함수로 기존 컨텍스트에 값을 추가하여 새로운 컨텍스트를 생성하였다.
 그리고 다른 함수 호출시 이 컨텍스트(<code>ctx</code>)를 파라미터로 전달하였다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// 컨텍스트 생성
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">ctx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>()
 
@@ -149,9 +131,7 @@ Go 1.7 이전 버전을 기준으로 작성된 책에서는 <code>context</code>
 
 <span style="color:#75715e">// 함수 호출시 컨텍스트를 파라미터로 전달
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">myFunc</span>(<span style="color:#a6e22e">ctx</span>)</code></pre></div>
-
-<p><code>myFunc</code> 함수에서는 파라미터로 전달받은 <code>ctx</code>에서 키<sub><em>key</em></sub>가 <code>&quot;current_user&quot;</code>인 값을 꺼내서 사용하였다.</p>
-
+<p><code>myFunc</code> 함수에서는 파라미터로 전달받은 <code>ctx</code>에서 키<!-- raw HTML omitted --><em>key</em><!-- raw HTML omitted -->가 <code>&quot;current_user&quot;</code>인 값을 꺼내서 사용하였다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">myFunc</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">currentUser</span> <span style="color:#a6e22e">User</span>
 
@@ -171,51 +151,38 @@ Go 1.7 이전 버전을 기준으로 작성된 책에서는 <code>context</code>
 </span><span style="color:#75715e"></span>
 	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
 }</code></pre></div>
-
-<p>컨텍스트의 값을 꺼내 사용할때 주의해야 할 점이 있다.<br />
+<p>컨텍스트의 값을 꺼내 사용할때 주의해야 할 점이 있다.<br>
 컨텍스트의 <code>Value</code> 메서드의 리턴값은 <code>interface{}</code> 타입이고, 컨텍스트에 값이 존재하지 않는 경우 <code>nil</code>이 리턴된다.
 그래서 컨텍스트에 해당 값이 존재하는지(<code>v != nil</code>), 그리고 그 값이 원하는 타입이 맞는지 type assertion을 통해 확인(<code>u, ok := v.(User)</code>)을 해야 한다.</p>
-
 <h2 id="cancelation">Cancelation</h2>
-
 <p>Go에서는 동시에 처리해야 하는 작업을 고루틴으로 실행한다.
 고루틴을 사용할 때 주의해야 할 점은 내가 실행한 고루틴이 일정 시간 안에 반드시 종료될 것이란 것을 보장해야 한다는 것이다.
 Go 커뮤니티에 막대한 영향력을 행사하고 있는 Dave Cheney도 <a href="https://dave.cheney.net/2016/12/22/never-start-a-goroutine-without-knowing-how-it-will-stop">자신의 블로그</a>에서 <strong><code>Never start a goroutine without knowing how it will stop</code></strong>이라고 강조했다.
 즉, 고루틴이 언제 종료될지 모른 채로 고루틴을 실행시키지 말라는 것이다.
 컨텍스트의 cancelation 기능을 사용하면 고루틴의 생명주기를 쉽게 제어할 수 있다.</p>
-
 <p><code>context.WithCancel</code> 함수로 컨텍스트를 생성하면 두 개의 값이 리턴이 된다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
-
 <ul>
 <li>첫 번째 리턴값 <code>ctx</code>는 새로 생성된 컨텍스트이고,</li>
 <li>두 번째 리턴값 <code>cancel</code>은 컨텍스트에 종료 신호를 보낼 수 있는 함수이다.</li>
 </ul>
-
 <p>컨텍스트를 사용하여 고루틴의 생명주기를 제어하기 위해 알아야 하는 두 가지 중요한 메서드가 있다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Context</span> <span style="color:#66d9ef">interface</span> {
 	<span style="color:#a6e22e">Done</span>() <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}
 	<span style="color:#a6e22e">Err</span>() <span style="color:#66d9ef">error</span>
 }	</code></pre></div>
-
 <p>컨텍스트의 <code>Done()</code> 메서드는 종료 신호를 전달받을 수 있는 채널을 반환한다.
 즉, <code>cancel</code> 함수를 실행하여 컨텍스트에 종료 신호를 보내면 그 상황을 컨텍스트의 <code>Done()</code> 메서드를 통해 알 수 있는 것이다. <code>Err()</code> 메서드는 컨텍스트가 강제 종료 되었을 때의 상황을 리턴한다.</p>
-
 <p>예제를 통해 확인해보자.</p>
-
 <p>아래에 오랜 시간 동안 처리되어야 하는 함수가 있다.
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longFunc</span>() <span style="color:#66d9ef">string</span> {
 	<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">After</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>) <span style="color:#75715e">// long running job
 </span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Success&#34;</span>
 }</code></pre></div></p>
-
 <p>아래 <code>longFuncWithCtx</code> 함수에서는 고루틴으로 <code>longFunc</code> 함수를 실행시켰다.
 이때 <code>select</code> 구문을 사용하여 <code>longFunc</code> 함수의 결과와 컨텍스트 <code>Done()</code> 채널의 신호를 기다린다.
 <code>longFunc</code> 함수가 정상적으로 처리가 완료 되면 처리 결과를 리턴하고
 <code>longFunc</code> 함수가 끝나기 전 컨텍스트로부터 <code>Done()</code> 신호가 전달되면 에러를 리턴한다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
 	<span style="color:#a6e22e">done</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>)
 
@@ -230,11 +197,9 @@ Go 커뮤니티에 막대한 영향력을 행사하고 있는 Dave Cheney도 <a 
 		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Fail&#34;</span>, <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Err</span>()
 	}
 }</code></pre></div>
-
 <p>아래는 위 함수(<code>longFuncWithCtx</code>)를 구동하는 코드이다.
 <code>context.WithCancel</code> 함수로 컨텍스트를 생성했고
 고루틴을 종료해야 할 상황이 되면 <code>cancel</code> 함수를 실행하여 컨텍스트에 취소 신호를 전달한다. 이와 같은 방식으로 고루틴이 안정적으로 종료되도록 하였다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>())
 
 <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
@@ -243,14 +208,12 @@ Go 커뮤니티에 막대한 영향력을 행사하고 있는 Dave Cheney도 <a 
 }()
 
 <span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span>)</code></pre></div>
-
 <p>고루틴의 생명주기를 제어하기 어려운 경우는 동시에 여러개의 고루틴을 실행하는 경우이다.
 실행되는 고루틴의 로직은 같다 하더라도 실제 런타임의 상황에 따라 각각의 고루틴은 다르게 동작할 수도 있다.
 예를 들면 특정 고루틴은 시스템 자원 할당을 기다리다가 무한정 대기 상태에 빠질 수도 있고 무한루프에서 빠져나오지 못하는 경우가 있을 수도 있다.
 dead lock이나 race condition 같은 치명적인 상태에 빠질 수도 있다.
-<font color=grey><small><em>(물론 이런 상황이 발생하지 않도록 코드를 잘 짜야 하겠지만, 그럼에도 불구하고 방어적인 프로그래밍(Defensive programming)은 중요하다. 고전으로 불리는 코드 컴플리트(Code Complete) 책에서도 한 장을 할애해서 방어적인 프로그래밍의 중요성을 강조하고 있다)</em></small></font>
+<!-- raw HTML omitted --><!-- raw HTML omitted -->*(물론 이런 상황이 발생하지 않도록 코드를 잘 짜야 하겠지만, 그럼에도 불구하고 방어적인 프로그래밍(Defensive programming)은 중요하다. 고전으로 불리는 코드 컴플리트(Code Complete) 책에서도 한 장을 할애해서 방어적인 프로그래밍의 중요성을 강조하고 있다)*<!-- raw HTML omitted --><!-- raw HTML omitted -->
 이런 상황에 빠지더라도 특정 시점이 되면 고루틴이 종료되도록 고루틴의 생명주기를 제어할 수 있어야 한다.</p>
-
 <p>여러 고루틴이 컨텍스트를 공유하도록 하면, 하나의 컨텍스트로 여러 고루틴의 생명주기를 한꺼번에 제어할 수 있다.
 아래 코드에서 <code>cancel</code> 함수로 컨텍스트(<code>ctx</code>)에 취소 신호를 보내면, <code>ctx</code>를 사용하는 모든 고루틴에 동일하게 취소 신호가 전달된다. 여러 고루틴에 일일이 취소 신호를 전달하지 않아도 된다.
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>())
@@ -274,33 +237,23 @@ dead lock이나 race condition 같은 치명적인 상태에 빠질 수도 있�
 	}()
 }
 <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()</code></pre></div></p>
-
-<h2 id="timeout-deadline">Timeout &amp; Deadline</h2>
-
+<h2 id="timeout--deadline">Timeout &amp; Deadline</h2>
 <p>이번에 소개할 방식은 일정 시간이 되면 컨텍스트에 자동으로 취소 신호가 전달되도록 하는 방식이다.
 Cancelation과 전체적인 동작 방식은 비슷하다.</p>
-
 <p><code>context.WithDeadline</code> 함수는 두 번째 파라미터로 <code>time.Time</code> 값을 받는데, 이 시간이 되면 컨텍스트에 취소 신호가 전달된다</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithDeadline</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">d</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
-
 <p><code>context.WithTimeout</code> 함수도 동작 방식은 같다.
 한 가지 차이점은 두번째 파라미터로 <code>time.Duration</code> 값을 받는다는 것이다.
 두 번째 파라미터로 전달한 duration이 지나면 컨텍스트에 취소 신호가 전달된다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">timeout</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
-
 <p>컨텍스트의 <code>Deadline</code> 메서드를 사용하면 컨텍스트로 취소 신호가 전달될 때까지 남은 시간을 확인할 수 있다.
 작업을 시작하기 전 남은 시간을 먼저 확인을 해서, 충분한 시간이 있을 때만 작업을 수행하도록 할 수 있다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Context</span> <span style="color:#66d9ef">interface</span> {
 	<span style="color:#a6e22e">Deadline</span>() (<span style="color:#a6e22e">deadline</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>, <span style="color:#a6e22e">ok</span> <span style="color:#66d9ef">bool</span>)
 }</code></pre></div>
-
 <p>필자는 <code>context.WithTimeout</code> 함수를 많이 사용한다.
 주로 네트워크 병목이 생기는 작업을 고루틴으로 실행하는 경우가 많은데, 간혹 네트워크 문제로 timeout이 발생하는 경우가 있다.
 이런 경우 고루틴 안으로 <code>context.WithTimeout</code> 함수로 생성한 컨텍스트를 전달하여 일정한 시간이 지나면 고루틴을 자동으로 종료하도록 해서 고루틴이 무한정 길어지는 것을 막을 수 있다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">maxDuration</span>)
 
 <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
@@ -311,17 +264,12 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 <span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
 <span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span>)
 <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;duration:%v result:%s\n&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">start</span>), <span style="color:#a6e22e">result</span>)</code></pre></div>
-
-<h2 id="컨텍스트의-활용-예-http-request">컨텍스트의 활용 예: <code>http.Request</code></h2>
-
+<h2 id="컨텍스트의-활용-예-httprequest">컨텍스트의 활용 예: <code>http.Request</code></h2>
 <p>Go의 기본 라이브러리에서 컨텍스트가 어떻게 사용되고 있는지 살펴보자.</p>
-
 <p><code>http.Request</code>는 컨텍스트 활용의 아주 좋은 예다.
 웹 어플리케이션에서 사용자의 요청이 들어왔을 때, 요청한 작업을 수행한 후에 클라이언트로 response를 전달할 때까지를 하나의 맥락이라 볼 수 있다.
 이 맥락 안에서 유지되어야 할 값들이 있다면 그것을 컨텍스트에 담아두고 필요한 곳에서 사용하면 된다.</p>
-
 <p><code>http.Request</code> 타입은 아래와 같이 정의되어 있다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">http</span>
 
 <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Request</span> <span style="color:#66d9ef">struct</span> {
@@ -333,23 +281,17 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 
 	<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>
 }</code></pre></div>
-
 <p>맨 마지막 필드로 <code>ctx context.Context</code>가 정의되어 있다.
 이 컨텍스트에 웹 요청이 완료될 때까지 유지해야 하는 값을 보관한다.</p>
-
 <p>웹 서버에서 요청이 들어오면 <code>http.Request</code> 값을 만들어 핸들러 함수로 전달하는데 이때 컨텍스트를 생성한다.
 <code>http.Request</code>의 <code>Context</code> 함수를 사용하면 이 컨텍스트를 가져올 수 있다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">http</span>
 
 <span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Request</span>) <span style="color:#a6e22e">Context</span>() <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span></code></pre></div>
-
 <p>이 컨텍스트에 하나의 웹 요청이 처리되는 동안 유지해야 할 값을 담아놓고 필요한 곳에서 사용하면 된다.
 주로 미들웨어에서 요청 상태를 확인해서 <code>http.Request</code>의 컨텍스트에 필요한 값을 담아서 다음 핸들러로 전달한다.</p>
-
 <p>아래는 웹 요청을 처리하는 핸들러 함수이다.
 <code>http.Request</code>의 컨텍스트로 부터 <code>&quot;current_user&quot;</code> 값을 가져와서 사용한다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">handler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
 	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">currentUser</span> <span style="color:#a6e22e">User</span>
 
@@ -371,9 +313,7 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 
 	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Hi I am %s&#34;</span>, <span style="color:#a6e22e">currentUser</span>.<span style="color:#a6e22e">Name</span>)
 }</code></pre></div>
-
 <p>아래는 미들웨어 함수이다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">authMiddleware</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandlerFunc</span> {
 	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
 		<span style="color:#75715e">// 1. 사용자의 현재 세션 정보를 기반으로 currentUser 생성
@@ -393,51 +333,41 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 </span><span style="color:#75715e"></span>		<span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">nextRequest</span>)
 	}
 }</code></pre></div>
-
 <ol>
 <li>사용자의 현재 세션 정보를 기반으로 <code>currentUser</code>를 생성하여</li>
 <li><code>http.Request</code>의 컨텍스트에 <code>currentUser</code>를 담아 새로운 컨텍스트를 생성하였다.</li>
 <li>그리고 새로 생성한 컨텍스트 할당한 새로운 <code>http.Request</code>를 생성하여</li>
 <li>다음 핸들러를 호출하게 하였다.</li>
 </ol>
-
 <p>메인 함수에서 웹서버를 구동하였다.
 이때 핸들러에 <code>authMiddleware</code>를 적용하였다.</p>
-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">authMiddleware</span>(<span style="color:#a6e22e">handler</span>))
 	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>, <span style="color:#66d9ef">nil</span>))
 }</code></pre></div>
-
-<hr />
-
+<hr>
 <p>이 글에서 소개된 예제는 github에서 확인할 수 있다.</p>
-
 <p><a href="https://github.com/jaehue/golang-ctx-example.git">https://github.com/jaehue/golang-ctx-example.git</a></p>
-
-<!-- ## 사족
-
-이 글의 서두에서도 말했지만 Go에는 다른 대중적인 언어와 다른 개념들이 좀 있어서 *Go스럽게(?)* 코드를 작성하는 것이 어려울 수 있다.
-그래서 이전에 사용했던 언어의 방식을 그대로 Go로 가지고 와서 작성하는 경우도 많이 봐 왔다.
-이런 코드를 보면 문법은 분명 Go 언어인데 로직의 전개 방식은 굉장히 어색했다.
-그리고 그런 코드는 실제 런타임에서도 문제를 일으키게 된다.
-그러다 보면 "Go 언어는 왜이래?"라는 불만을 남기기도 하고 자연스레 Go 언어와 멀어진다.
-문제를 해결하는 Go언어의 방식이 있는데, 그 방식에 충분히 젖어들기 전에 나만의 방법대로 코드를 작성해가면 불편함을 많이 느끼게 된다.
-
-Go 언어를 처음 사용할때는 Go에서 가이드하는 방식을 최대한 그대로 따라해보는 것을 권장한다.
-Go 언어에 많이 익숙해져서 언어의 기능을 충분히 잘 활용할 수 있는 수준이 되면 그때의 상황에 맞게 효율적으로 나만의 방식대로 코드를 작성
- -->
+<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<blockquote>
+</blockquote>
 
 		</div>
-		
+		<footer class="post__footer">
+			
 <div class="post__tags tags clearfix">
-	<svg class="icon icon-tag" width="16" height="16" viewBox="0 0 16 16"><path d="M16 9.5c0 .373-.24.74-.5 1l-5 5c-.275.26-.634.5-1 .5-.373 0-.74-.24-1-.5L1 8a2.853 2.853 0 0 1-.7-1C.113 6.55 0 5.973 0 5.6V1.4C0 1.034.134.669.401.401.67.134 1.034 0 1.4 0h4.2c.373 0 .95.113 1.4.3.45.187.732.432 1 .7l7.5 7.502c.26.274.5.632.5.998zM3.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M32 19c0 1-1 2-1 2L21 31s-1 1-2 1-2-1-2-1L2 16c-1-1-1.4-2-1.4-2S0 12.5 0 11V3C0 1.5.8.8.8.8S1.5 0 3 0h8c1.5 0 3 .6 3 .6S15 1 16 2l15 15s1 1 1 2zM7 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/></svg>
 	<ul class="tags__list">
-		<li class="tags__item"><a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a></li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/golang/" rel="tag">golang</a>
+		</li>
 	</ul>
 </div>
+		</footer>
 	</article>
-	
+</main>
+
 <div class="authorbox clearfix">
 	<figure class="authorbox__avatar">
 		<img alt="장재휴 avatar" src="/images/jaehue.JPG" class="avatar" height="90" width="90">
@@ -449,16 +379,23 @@ Go 언어에 많이 익숙해져서 언어의 기능을 충분히 잘 활용할 
 		Why Not Change the World?
 	</div>
 </div>
-	
-<nav class="post-nav row clearfix">
-	<div class="post-nav__item post-nav__item--prev col-1-2">
-		<a class="post-nav__link" href="/post/camp_of_god/" rel="prev"><span class="post-nav__caption">«&thinsp;Previous</span><p class="post-nav__post-title">하나님의 군대</p></a>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/post/camp_of_god/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">하나님의 군대</p>
+		</a>
 	</div>
-	<div class="post-nav__item post-nav__item--next col-1-2">
-		<a class="post-nav__link" href="/post/everyday-transformation/" rel="next"><span class="post-nav__caption">Next&thinsp;»</span><p class="post-nav__post-title">매일 변화하기</p></a>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/post/everyday-transformation/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">매일 변화하기</p>
+		</a>
 	</div>
 </nav>
-	
+
+
 <section class="comments">
 	<div id="disqus_thread"></div>
 <script type="application/javascript">
@@ -482,75 +419,20 @@ Go 언어에 많이 익숙해져서 언어의 기능을 충분히 잘 활용할 
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 </section>
 
-</main>
 
-<aside class="sidebar">
-	
-<div class="widget-search widget">
-	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<label>
-			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q">
-		</label>
-		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
-	</form>
-</div>
-	
-<div class="widget-recent widget">
-	<h4 class="widget__title">Recent Posts</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/post/2020.04.04.devculture/">일하지 않는 사람은 가라</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2020.04.08.techset/">적당히 갖춰나간 운영 환경</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2020.03.26/">투표합시다</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2019.12.27.agile_life/">있는 모습 그대로</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2019.12.14.%EA%B8%B8%EA%B2%8C%EB%8B%AC%EB%A6%AC%EA%B8%B0/">길게 달리기</a></li>
-		</ul>
-	</div>
-</div>
-	
-<div class="widget-categories widget">
-	<h4 class="widget__title">Categories</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/categories/"></a></li>
-			<li class="widget__item"><a class="widget__link" href="/categories/it">IT</a></li>
-			<li class="widget__item"><a class="widget__link" href="/categories/%eb%ac%b5%ec%83%81">묵상</a></li>
-			<li class="widget__item"><a class="widget__link" href="/categories/%ec%8b%a0%ec%95%99">신앙</a></li>
-		</ul>
-	</div>
-</div>
-	
-	
-<div class="widget-taglist widget">
-	<h4 class="widget__title">Tags</h4>
-	<div class="widget__content">
-		<a class="widget-taglist__link widget__link btn" href="/tags/" title=""> (3)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/4%ec%b0%a8-%ec%82%b0%ec%97%85%ed%98%81%eb%aa%85" title="4차 산업혁명">4차 산업혁명 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven" title="Eventdriven">Eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang" title="Golang">Golang (7)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes" title="Kubernetes">Kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice" title="Microservice">Microservice (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%eb%ac%b5%ec%83%81" title="묵상">묵상 (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%8b%a0%eb%aa%85%ea%b8%b0" title="신명기">신명기 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%95%84%ec%9b%83%eb%a6%ac%ec%b9%98" title="아웃리치">아웃리치 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%97%ac%ed%96%89" title="여행">여행 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ec%a4%91%ea%b5%adit" title="중국it">중국it (2)</a>
-	</div>
-</div>
-</aside>
-	</div>
-		<footer class="footer">
-			<div class="container container-inner">
-				<div class="footer__copyright">&copy; 2020 Jaehue&#39;s. <span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span></div>
 			</div>
-		</footer>
+			
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy; 2020 장재휴.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
 	</div>
-
-<script>
-	var navigation = responsiveNav(".menu", {
-		navClass: "menu--collapse",
-	});
-</script>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
 </body>
 </html>
