@@ -8,19 +8,23 @@
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 		<meta property="og:title" content="일하지 않는 사람은 가라" />
-<meta property="og:description" content="2020-04-29 팝잇(popit)에 기고한 글 ⤴️ 이 글은 적당히 갖춰나간 운영 환경의 후속 글이다. 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.
-MSAMicro Service Architecture이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다. 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다. 익스트림 프로그래밍Extreme Programming, 이하 XP이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSAMicro Service Architecture는 일하는 방식과 떼어서 얘기할 수 없기 때문이다. 아주 많은 작은 서비스들에게 역할과 책임을 부여하고, 그 서비스들이 상호 작용하며 만들어낸 서로 공존하는 상태." />
+<meta property="og:description" content="2020-04-29 팝잇(popit)에 기고한 글 ⤴️
+ 이 글은 적당히 갖춰나간 운영 환경의 후속 글이다. 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.
+MSAMicro Service Architecture
+이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다. 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다. 익스트림 프로그래밍Extreme Programming, 이하 XP이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSAMicro Service Architecture는 일하는 방식과 떼어서 얘기할 수 없기 때문이다." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://jaehue.github.io/post/2020.04.04.devculture/" />
 <meta property="article:published_time" content="2020-04-04T13:46:52+08:00" />
 <meta property="article:modified_time" content="2020-04-04T13:46:52+08:00" />
 
 		<meta itemprop="name" content="일하지 않는 사람은 가라">
-<meta itemprop="description" content="2020-04-29 팝잇(popit)에 기고한 글 ⤴️ 이 글은 적당히 갖춰나간 운영 환경의 후속 글이다. 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.
-MSAMicro Service Architecture이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다. 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다. 익스트림 프로그래밍Extreme Programming, 이하 XP이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSAMicro Service Architecture는 일하는 방식과 떼어서 얘기할 수 없기 때문이다. 아주 많은 작은 서비스들에게 역할과 책임을 부여하고, 그 서비스들이 상호 작용하며 만들어낸 서로 공존하는 상태.">
+<meta itemprop="description" content="2020-04-29 팝잇(popit)에 기고한 글 ⤴️
+ 이 글은 적당히 갖춰나간 운영 환경의 후속 글이다. 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.
+MSAMicro Service Architecture
+이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다. 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다. 익스트림 프로그래밍Extreme Programming, 이하 XP이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSAMicro Service Architecture는 일하는 방식과 떼어서 얘기할 수 없기 때문이다.">
 <meta itemprop="datePublished" content="2020-04-04T13:46:52&#43;08:00" />
 <meta itemprop="dateModified" content="2020-04-04T13:46:52&#43;08:00" />
-<meta itemprop="wordCount" content="1713">
+<meta itemprop="wordCount" content="1715">
 
 
 
@@ -76,15 +80,15 @@ if (!doNotTrack) {
 </div></div>
 		</header><div class="content post__content clearfix">
 			<blockquote>
-<p><!-- raw HTML omitted --><em>2020-04-29
-팝잇(popit)에 기고한 글</em> <a href="https://www.popit.kr/%ec%9d%bc%ed%95%98%ec%a7%80-%ec%95%8a%eb%8a%94-%ec%82%ac%eb%9e%8c%ec%9d%80-%ea%b0%80%eb%9d%bc/">⤴️</a><!-- raw HTML omitted --></p>
+<p><font color=grey><em>2020-04-29
+팝잇(popit)에 기고한 글</em> <a href="https://www.popit.kr/%ec%9d%bc%ed%95%98%ec%a7%80-%ec%95%8a%eb%8a%94-%ec%82%ac%eb%9e%8c%ec%9d%80-%ea%b0%80%eb%9d%bc/">⤴️</a></font></p>
 </blockquote>
 <p>이 글은 <a href="/post/2020.04.08.techset/">적당히 갖춰나간 운영 환경</a>의 후속 글이다.
 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.</p>
-<p>MSA<!-- raw HTML omitted -->Micro Service Architecture<!-- raw HTML omitted --><br>
+<p>MSA<sub>Micro Service Architecture</sub><br>
 이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다.
 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다.
-익스트림 프로그래밍<!-- raw HTML omitted -->Extreme Programming, 이하 XP<!-- raw HTML omitted -->이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSA<!-- raw HTML omitted -->Micro Service Architecture<!-- raw HTML omitted -->는 일하는 방식과 떼어서 얘기할 수 없기 때문이다.
+익스트림 프로그래밍<sub>Extreme Programming, 이하 XP</sub>이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSA<sub>Micro Service Architecture</sub>는 일하는 방식과 떼어서 얘기할 수 없기 때문이다.
 아주 많은 작은 서비스들에게 역할과 책임을 부여하고, 그 서비스들이 상호 작용하며 만들어낸 서로 공존하는 상태. 그것이 바로 MSA 아니던가?
 마이크로 서비스를 만드는 사람들이 이렇게 일을 하고 있지 않으면, 그건 거추장스러운 기술 셋으로 덧씌워진 또 다른 형태의 <em>어렵기만 한</em> 따분한 개발 규칙일 뿐이다.</p>
 <p>우리는 소통 도구로 <a href="https://dooray.com/">두레이(Dooray)</a>를 사용한다.
@@ -114,7 +118,7 @@ if (!doNotTrack) {
 그들을 &ldquo;관리&quot;라는 쓸데없는 업무에서 해방시키고, 다시 코드를 짜는 원래의 자리로 돌려보냈다.
 그 과정을 소개한다.</p>
 <h2 id="소규모-개발팀장의-문제점">&lsquo;소규모 개발팀장&rsquo;의 문제점</h2>
-<p>이들의 주 업무는 <!-- raw HTML omitted -->업무 배분, 설계, 소통, 일정 관리, 팀원 관리, 정서(?) 관리<!-- raw HTML omitted --> 등이다.
+<p>이들의 주 업무는 <u>업무 배분, 설계, 소통, 일정 관리, 팀원 관리, 정서(?) 관리</u> 등이다.
 MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으로 팀의 경계는 엄격하게 유지되어 있었다.
 여전히 팀장이 팀의 일감을 정하고 팀원들에게 배분하는 형태. 다른 팀과 소통할 일이 있으면 팀장이 주도적으로 소통을 하고 팀원들에게 전달해주는 방식이었다.</p>
 <p>이 방식의 문제점은,</p>
@@ -137,7 +141,7 @@ MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으�
 그래서 우리 개발팀에서는 각 서비스 개발자가 직접 소통을 시작했다.</p>
 <h2 id="그래도-개발-리더는-필요하다">그래도 개발 리더는 필요하다</h2>
 <p>여전히 개발자들 사이에서 리더는 필요하다.
-그 리더는 기존처럼 <strong>의사소통 담당자가 아니라, <!-- raw HTML omitted -->여전히 개발자<!-- raw HTML omitted -->여야 한다</strong>. 개발자로서 리더십을 발휘해야 한다.
+그 리더는 기존처럼 <strong>의사소통 담당자가 아니라, <font color="blue">여전히 개발자</font>여야 한다</strong>. 개발자로서 리더십을 발휘해야 한다.
 (다른 모듈과의 연결 측면에서) 복잡도가 높은 모듈이 존재하는데, 선임개발자는 그러한 모듈을 맡아서 주위 연관된 모듈 사이에서 리더십을 발휘해야 한다.
 여러 모듈이 상호작용 하는 그 중심에서</p>
 <ul>
@@ -216,7 +220,7 @@ MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으�
 머릿속의 기억은 시간이 가면 흐릿해지거나 왜곡되지만(각자 자신에게 인상적이었던 것을 더 잘 기억하므로)
 두레이의 소통 기록을 보면 과거의 상태가 머릿속에 복원되어, 그 시점에서 다음 스텝을 이어갈 수 있다.</p>
 <h1 id="코드-리뷰">코드 리뷰</h1>
-<p>실제 개발을 해 보면 어떤 방식<!-- raw HTML omitted -->(web-api? grpc?)<!-- raw HTML omitted -->으로 communication을 하느냐보다 더 중요한 게 있다.
+<p>실제 개발을 해 보면 어떤 방식<sub>(web-api? grpc?)</sub>으로 communication을 하느냐보다 더 중요한 게 있다.
 &lsquo;적절한 상황에 적절한 API를 사용하는가?&lsquo;이다.
 물론, 중요한 스펙을 정할 때는 관련자들이 함께 모여 논의를 하며 정한다.
 하지만, 어떤 결정 사항이든 &ldquo;확정&quot;이란 건 없다.
@@ -266,8 +270,51 @@ MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으�
 하지만 적어도 MSA를 지향하고 있다면, 그것을 만들어내는 개발자 한 사람 한 사람도 MSA처럼 움직여야 할 것이다.</p>
 <p>서두에서도 말했듯이, 작은 많은 서비스들에게 작은 역할과 책임을 부여하고, 그 서비스들이 상호 작용하며 만들어낸 서로 공존하는 상태. 그것이 바로 MSA다.
 우리도 그렇게 일해야 한다.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<!-- 
+## admin을 통한 운영 효율 높이기
+
+3년전부터 김형준님이 계속 하던 얘기다. 2019년에 하반기에 들어서서야 실제적인 필요성이 인식되고 각종 운영도구를 갖추기 시작했다.
+기존에는 한통의 DB에서 모든것이 처리되기 때문에, 자유자재로 필요한 쿼리를 짜서 실행하는 것이 가장 필요한 능력이었다.
+근데, 지금 DB가 수십개다. 데이터가 어디에 흝어져있는지 모른다.
+DB를 안다고 해도, 개발자들의 취향에 묻어나는 개성있는 여러 테이블들에 join을 걸어서 조회한다는 것은 여간 쉬운일이 아니다. 그러다 내가 보고싶은 데이터가 mongodb에 있다면, mysql, mssql에 걸쳐서 봐야 한다면, hadoop에 쌓여있는 데이타와 legacy도 같이 봐야 한다면??
+
+초기에는 presto를 사용했다.
+presto는 다양한 datasource를 연결시킬 있는 DB엔진으로, mongodb, mysql, mssql, hadoop 등 다양한 datasource를 연결시킬 수 있다.
+presto 쿼리를 zeppline에서 실행시켜 원하는 데이터를 확인하는 방식이었다.
+이 방식은 지금도 여전히 사용하고 있지만, 필요한 정보가 어디에 흝어져있는지 알고 상당한 수준의 쿼리실력을 갖추고 있지 않으면 데이터를 확인할 수 없다.
+
+자꾸 운영 DB에 직접 접근해서 작업하려는 습관을 어떻게 바꿔야할지 쉽지 않았는데
+물론, "이렇게 해!!"라고 강제로 정책을 정해버릴 수 있지만,
+반감을 가진 정책은 성공적으로 정착되기 어렵다.
+MSA 구조로 쪼개놓은 게 개발자들 스스로 운영도구의 필요성을 느끼게 했다.
+
+운영도구를 통해 판매 상황을 시뮬레이션 해 볼 수 있고, 각종 인터페이스 상황도 확이할 수 있게 했다.
+특히 레거시와 데이터를 맞추는 작업은 각 회사마다 오랜시간 흘러오면서 쌓여온 각종 정책과 운영 방침이 녹아있기 때문에, 한땀한땀 맞춰가야 한다. 모든 코드가 다 사연이 있는 코드라 섣불리 리팩토링과 추상화를 시도하기도 어렵다. 그냥 레거시의 상태대로 똑같이 맞춰주는 것이 가장 좋은 방법이라 생각한다.
+하지만, 개발자들 마음이 어디 그렇나?
+레거시의 상식적이지 않은 로직을 나의 깨끗한 코드에 넣을 순 없지... 라는 생각으로 무리한 추상화/일반화를 시도하고 그러게 프로젝트를 늪으로 빠지게 된다.
+차라리 여러 단계를 두는 것이다.
+끝까지 애착을 가지고 지키고 싶은 모듈, 레거시의 테이블 구조를 흡수하기 위해 나의 데이터를 가공하는 모듈, 레거시의 테이블 구조를 흡수한 모듈, 온갖 if..else 문으로 도배된 실제 데이터를 맞추는 모듈.
+이렇게 4단계로 흘러가도록 했다.
+데이터가 흘러가는 각 단계의 상황을 화면에 나타나도록 했다.
+레거시의 전문가가 찝어내는 예외상황, 현장에서 발견된 문제점,, 이러한 것이 나타날때마다 if문을 추가하고 그 상황을 드러내었다.
+아주 빠른속도로 안정화 되었고, 이젠 누구나 화면에서 처리할 수 있다.
+
+
+## whole team
+Dooray가 있어서 가능
+- 기존의 팀 해체. one team으로 재구성. 팀장을 빼고 일하는 사람과 직접 소통한다
+https://pangpang.dooray.com/project/posts/2499129365821400761
+- micro 소통
+    + 나 혼자 전체를 다 보자. 연결은 내가 다 한다
+    + 코드 리뷰
+- 빠른 의사결정
+- 한번에 확정하지 않고 지속하기
+## admin을 통한 운영 효율 높이기
+사실 3년전부터 김형준 이사님이 얘기하던 것. 3년이 지나서야 시도.
+## 영역별로 마일스톤을 대충 찍어놓고, 각 시점에 도달했을때 진단/계획 수정
+- 영역별로 다르다. 어떤 모듈은 첨부터 바로 고객 테스트
+- 어떤 모듈을 1주일 단위의 짧은 스프린트로 점진적 설계
+- 시작도 못함 -->
 
 		</div>
 		<footer class="post__footer">

@@ -18,7 +18,7 @@
 <meta itemprop="description" content="Go언어에서 Context 사용하기; golang">
 <meta itemprop="datePublished" content="2018-06-19T00:00:00&#43;09:00" />
 <meta itemprop="dateModified" content="2018-06-19T00:00:00&#43;09:00" />
-<meta itemprop="wordCount" content="1560">
+<meta itemprop="wordCount" content="1562">
 
 
 
@@ -75,8 +75,8 @@ if (!doNotTrack) {
 		</header><div class="content post__content clearfix">
 			<p>Go에는 다른 대중적인 언어와 다른 개념들이 좀 있다.</p>
 <ol>
-<li>클래스를 과감히 빼버렸고 <!-- raw HTML omitted -->(그래서 상속이 없다)<!-- raw HTML omitted --></li>
-<li>Exception이란 것도 없다 <!-- raw HTML omitted -->(예외 상황 자체를 허용하지 않겠다는 의지인가? 멋있어 보일진 몰라도 솔직히 불편하다. ㅠㅠ 궁시렁 궁시렁&hellip;)<!-- raw HTML omitted --></li>
+<li>클래스를 과감히 빼버렸고 <sub>(그래서 상속이 없다)</sub></li>
+<li>Exception이란 것도 없다 <sub>(예외 상황 자체를 허용하지 않겠다는 의지인가? 멋있어 보일진 몰라도 솔직히 불편하다. ㅠㅠ 궁시렁 궁시렁&hellip;)</sub></li>
 <li>고루틴과 채널을 이용한 병행처리 모델도 친숙한 개념은 아니다</li>
 </ol>
 <p>여기에 한 가지 더 보태자면, Context란 녀석이다.</p>
@@ -97,10 +97,10 @@ Go 1.7 이전 버전을 기준으로 작성된 책에서는 <code>context</code>
 <li>etc.</li>
 </ul>
 <p>전혀 다른 의미 같기도 하고, 또 어떻게 보면 비슷한 뭔가가 있는 것 같기도 하고&hellip;<br>
-네이버 사전에서 찾아보면 <!-- raw HTML omitted --><strong>맥락</strong><!-- raw HTML omitted -->이라고 풀이되어 있다.</p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<p>사전적 뜻을 그대로 가져와 보면, <!-- raw HTML omitted --><strong>맥락을 유지하는 통로</strong><!-- raw HTML omitted --> 정도로 표현할 수 있고, Go에서의 실제 쓰임새를 봐도 이 의미와 크게 다르지 않다.</p>
+네이버 사전에서 찾아보면 <u><strong>맥락</strong></u>이라고 풀이되어 있다.</p>
+<img src="/images/golang-context/dic.png" style="width: 500px;"/>
+<!-- ![golang-context-dic](/images/golang-context/dic.png) -->
+<p>사전적 뜻을 그대로 가져와 보면, <u><strong>맥락을 유지하는 통로</strong></u> 정도로 표현할 수 있고, Go에서의 실제 쓰임새를 봐도 이 의미와 크게 다르지 않다.</p>
 <h2 id="go에서의-컨텍스트">Go에서의 컨텍스트</h2>
 <p>맥락(=컨텍스트)을 유지하기 위해 Go는 <code>context.Context</code> 타입을 제공한다.</p>
 <p>컨텍스트를 생성하는 방법은 여러가지가 있는데 기본은 <code>context.Background</code> 함수를 사용하여 생성하는 것이다.</p>
@@ -131,7 +131,7 @@ Go 1.7 이전 버전을 기준으로 작성된 책에서는 <code>context</code>
 
 <span style="color:#75715e">// 함수 호출시 컨텍스트를 파라미터로 전달
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">myFunc</span>(<span style="color:#a6e22e">ctx</span>)</code></pre></div>
-<p><code>myFunc</code> 함수에서는 파라미터로 전달받은 <code>ctx</code>에서 키<!-- raw HTML omitted --><em>key</em><!-- raw HTML omitted -->가 <code>&quot;current_user&quot;</code>인 값을 꺼내서 사용하였다.</p>
+<p><code>myFunc</code> 함수에서는 파라미터로 전달받은 <code>ctx</code>에서 키<sub><em>key</em></sub>가 <code>&quot;current_user&quot;</code>인 값을 꺼내서 사용하였다.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">myFunc</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
 	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">currentUser</span> <span style="color:#a6e22e">User</span>
 
@@ -212,7 +212,7 @@ Go 커뮤니티에 막대한 영향력을 행사하고 있는 Dave Cheney도 <a 
 실행되는 고루틴의 로직은 같다 하더라도 실제 런타임의 상황에 따라 각각의 고루틴은 다르게 동작할 수도 있다.
 예를 들면 특정 고루틴은 시스템 자원 할당을 기다리다가 무한정 대기 상태에 빠질 수도 있고 무한루프에서 빠져나오지 못하는 경우가 있을 수도 있다.
 dead lock이나 race condition 같은 치명적인 상태에 빠질 수도 있다.
-<!-- raw HTML omitted --><!-- raw HTML omitted -->*(물론 이런 상황이 발생하지 않도록 코드를 잘 짜야 하겠지만, 그럼에도 불구하고 방어적인 프로그래밍(Defensive programming)은 중요하다. 고전으로 불리는 코드 컴플리트(Code Complete) 책에서도 한 장을 할애해서 방어적인 프로그래밍의 중요성을 강조하고 있다)*<!-- raw HTML omitted --><!-- raw HTML omitted -->
+<font color=grey><small>*(물론 이런 상황이 발생하지 않도록 코드를 잘 짜야 하겠지만, 그럼에도 불구하고 방어적인 프로그래밍(Defensive programming)은 중요하다. 고전으로 불리는 코드 컴플리트(Code Complete) 책에서도 한 장을 할애해서 방어적인 프로그래밍의 중요성을 강조하고 있다)*</small></font>
 이런 상황에 빠지더라도 특정 시점이 되면 고루틴이 종료되도록 고루틴의 생명주기를 제어할 수 있어야 한다.</p>
 <p>여러 고루틴이 컨텍스트를 공유하도록 하면, 하나의 컨텍스트로 여러 고루틴의 생명주기를 한꺼번에 제어할 수 있다.
 아래 코드에서 <code>cancel</code> 함수로 컨텍스트(<code>ctx</code>)에 취소 신호를 보내면, <code>ctx</code>를 사용하는 모든 고루틴에 동일하게 취소 신호가 전달된다. 여러 고루틴에 일일이 취소 신호를 전달하지 않아도 된다.
@@ -348,9 +348,18 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 <hr>
 <p>이 글에서 소개된 예제는 github에서 확인할 수 있다.</p>
 <p><a href="https://github.com/jaehue/golang-ctx-example.git">https://github.com/jaehue/golang-ctx-example.git</a></p>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
-<blockquote>
+<!-- ## 사족
+
+이 글의 서두에서도 말했지만 Go에는 다른 대중적인 언어와 다른 개념들이 좀 있어서 *Go스럽게(?)* 코드를 작성하는 것이 어려울 수 있다.
+그래서 이전에 사용했던 언어의 방식을 그대로 Go로 가지고 와서 작성하는 경우도 많이 봐 왔다.
+이런 코드를 보면 문법은 분명 Go 언어인데 로직의 전개 방식은 굉장히 어색했다.
+그리고 그런 코드는 실제 런타임에서도 문제를 일으키게 된다.
+그러다 보면 "Go 언어는 왜이래?"라는 불만을 남기기도 하고 자연스레 Go 언어와 멀어진다.
+문제를 해결하는 Go언어의 방식이 있는데, 그 방식에 충분히 젖어들기 전에 나만의 방법대로 코드를 작성해가면 불편함을 많이 느끼게 된다.
+
+Go 언어를 처음 사용할때는 Go에서 가이드하는 방식을 최대한 그대로 따라해보는 것을 권장한다.
+Go 언어에 많이 익숙해져서 언어의 기능을 충분히 잘 활용할 수 있는 수준이 되면 그때의 상황에 맞게 효율적으로 나만의 방식대로 코드를 작성
+ --><blockquote>
 </blockquote>
 
 		</div>

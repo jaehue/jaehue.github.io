@@ -91,7 +91,7 @@ if (!doNotTrack) {
 처리 과정 중에 비즈니스적으로 주요 행위가 일어나면 이벤트가 발생하고, consumer service가 그 이벤트를 받아서 여러 액션을 처리한다.</p>
 <p><img src="/images/tracing/microservice.png" alt="microservice"></p>
 <blockquote>
-<p><!-- raw HTML omitted -->EventBroker: 이벤트를 publish하고 subscription 하는 일련의 과정을 처리해주는 서비스. 내부적으로는 kafka를 사용해서 이벤트를 전달한다.  기본적인 이벤트 전달 기능 외에 consume service간 balance 조정, 로깅, offset 관리 등의 일을 처리한다.<!-- raw HTML omitted --></p>
+<p><small>EventBroker: 이벤트를 publish하고 subscription 하는 일련의 과정을 처리해주는 서비스. 내부적으로는 kafka를 사용해서 이벤트를 전달한다.  기본적인 이벤트 전달 기능 외에 consume service간 balance 조정, 로깅, offset 관리 등의 일을 처리한다.</small></p>
 </blockquote>
 <p>마이크로 서비스 환경으로 1년 정도 운영을 해보니 기존의 모노리틱(monolitic) 방식과는 또 다른 어려움이 있었다.</p>
 <h2 id="무엇이-문제인가">무엇이 문제인가?</h2>
@@ -229,7 +229,7 @@ Request의 처리 완료 상황뿐만 아니라, 처리 과정 중에도 로그�
 	<span style="color:#75715e">/* ... */</span>
 }</code></pre></div></p>
 <blockquote>
-<p><!-- raw HTML omitted --><code>LogContext</code>의 전체 소스코드는 <a href="https://github.com/pangpanglabs/goutils/blob/master/behaviorlog/behaviorlog.go">behaviorlog.go</a>를 참고해주세요<!-- raw HTML omitted --></p>
+<p><small><code>LogContext</code>의 전체 소스코드는 <a href="https://github.com/pangpanglabs/goutils/blob/master/behaviorlog/behaviorlog.go">behaviorlog.go</a>를 참고해주세요</small></p>
 </blockquote>
 <p><code>context.Context</code>는 하나의 Request 처리가 완료될 때 까지 스콥(scope)이 유지되므로, 같은 요청을 처리하는 동안 <code>LogContext</code>를 통해 남기는 로그는 같은 <code>RequestID</code>, <code>ActionID</code>를 가진다.
 즉, 모든 로그는 <code>RequestID</code>, <code>ActionID</code>를 가지게 되고, 모든 로그는 어떤 맥락에서 처리가 되었는지 확인이 가능하다.</p>
@@ -307,7 +307,11 @@ Request의 처리 완료 상황뿐만 아니라, 처리 과정 중에도 로그�
 <p><img src="/images/tracing/trace_hdfs.png" alt="trace-hdfs"></p>
 <p>트레이스 로그를 활용하여 다영한 시각화 도구를 만들 수 있다.
 아래는 시각화 도구의 예로, 사용자의 요청이 어떤 과정을 통해 처리되고 있는지를 실시간으로 보여주고 있다.</p>
-<!-- raw HTML omitted -->
+<div class="row post-image-bg">
+    <video width="99%" height="540" autoplay loop muted>
+        <source type="video/mp4" src="/images/tracing/eventflow.mp4"></source>
+    </video>
+</div>
 
 		</div>
 		<footer class="post__footer">

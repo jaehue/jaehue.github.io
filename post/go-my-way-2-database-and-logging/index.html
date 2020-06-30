@@ -22,7 +22,7 @@
 데이터베이스 다른 언어에서 주로 사용하던 ORM(루비의 active record, 닷넷의 entityframework, 자바의 JPA, 등)을 생각한다면 Go의 DB 관련 패키지들은 대부분 2% 20% 이상 부족하다.">
 <meta itemprop="datePublished" content="2017-06-14T00:00:00&#43;08:00" />
 <meta itemprop="dateModified" content="2017-06-14T00:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="1741">
+<meta itemprop="wordCount" content="1744">
 
 
 
@@ -89,8 +89,8 @@ if (!doNotTrack) {
 <h1 id="데이터베이스">데이터베이스</h1>
 <p>다른 언어에서 주로 사용하던 ORM(루비의 active record, 닷넷의 entityframework, 자바의 JPA, 등)을 생각한다면 Go의 DB 관련 패키지들은 대부분 <del>2%</del> 20% 이상 부족하다.
 대신 Go 진영에서는 ORM에 대해 회의적인 이야기가 종종 나온다.
-&ldquo;<em>Go의 ORM 툴 중에서 어떤 게 좋은가?</em>&rdquo; 라는 질문<!-- raw HTML omitted -->(<a href="https://www.reddit.com/r/golang/comments/3ajqa6/golang_which_orm_is_better/">Golang which ORM is better</a>)<!-- raw HTML omitted -->에, 그냥 가벼운 query mapper 정도의 기능으로 충분하다는 의견이 대부분이고,
-자신은 네이티브 쿼리를 직접 사용하는 것을 선호한다는 의견을 피력한 글<!-- raw HTML omitted -->(<a href="https://medium.com/bumpers/our-go-is-fine-but-our-sql-is-great-b4857950a243">Our Go is fine but our SQL is great</a>)<!-- raw HTML omitted -->도 있다.</p>
+&ldquo;<em>Go의 ORM 툴 중에서 어떤 게 좋은가?</em>&rdquo; 라는 질문<small>(<a href="https://www.reddit.com/r/golang/comments/3ajqa6/golang_which_orm_is_better/">Golang which ORM is better</a>)</small>에, 그냥 가벼운 query mapper 정도의 기능으로 충분하다는 의견이 대부분이고,
+자신은 네이티브 쿼리를 직접 사용하는 것을 선호한다는 의견을 피력한 글<small>(<a href="https://medium.com/bumpers/our-go-is-fine-but-our-sql-is-great-b4857950a243">Our Go is fine but our SQL is great</a>)</small>도 있다.</p>
 <p>Go 진영의 전반적인 분위기로는 Active Record나 Hibernate와 같은 똑똑한 ORM은 등장하지 않을 것으로 보인다.</p>
 <p>나도 이전에는 DB 접근 시에는 당연히 ORM을 사용해야 한다는 생각을 하고 있었고, 또 네이티브 쿼리를 쓰는 것보다 ORM에서 제공하는 추상화된 DSL을 사용하는 것이 더 똑똑한 방법이라는 근거 없는 생각이 자리 잡고 있었다.
 왜 그렇게 생각했었을까?
@@ -99,7 +99,7 @@ if (!doNotTrack) {
 모델을 잘 정의하고 모델 기반으로 전체 프로그램이 동작하도록 한다면 DB 처리 방식은 그렇게 중요하지 않을 수 있다. 네이티브 쿼리를 쓰든, ORM을 쓰든, 적당히 썩어 쓰든, 그 안에서 최적의 방식을 찾아가는게 맞다고 본다.
 Go를 계속해서 사용하다 보니 이론보다는 실용성 관점으로 문제에 접근하게 되었고(그것이 바로 Go의 철학)
 ORM에 대한 Go 진영의 이런 의견에 어느 정도 동의가 되었다.
-<!-- raw HTML omitted -->(동의 안 하면 어쩔..? 직접 만들 능력은 안 되고, 나를 적응시켜야지 ㅋ)<!-- raw HTML omitted --></p>
+<small>(동의 안 하면 어쩔..? 직접 만들 능력은 안 되고, 나를 적응시켜야지 ㅋ)</small></p>
 <p>허접스러운 Go의 ORM 도구에 대한 변명은 이 정도로 하고,</p>
 <h2 id="xorm">xorm</h2>
 <p>그래서 내가 선택한 것은 <a href="http://xorm.io/">xorm</a>이다.
@@ -127,7 +127,7 @@ DB에서 데이터를 읽을때도 마찬가지, JSON 문자열을 <code>map[str
 <p>우리 회사의 비즈니스는 유동적이라서 모델의 형태를 확정하기 어려운 경우가 많다.
 그런 유동적인 데이터는 필드의 타입을 확정하지 않고 그냥 JSON으로 변환하여 하나의 필드에 저장한다.
 xorm을 쓰기 이 전에는,
-위에서 예로 든 <code>Images</code>를 저장하기 위해 JSON 문자열 저장용 필드인 <code>ImagesRaw</code> 필드를 <code>string</code> 타입으로 만들고 DB에는 <code>ImagesRaw</code> 필드만 저장한다. <code>Product</code>에 대해 CRU<!-- raw HTML omitted -->(Create/Read/Update)<!-- raw HTML omitted --> 작업을 할때마다 JSON 변환 작업을 해 주어야 한다.
+위에서 예로 든 <code>Images</code>를 저장하기 위해 JSON 문자열 저장용 필드인 <code>ImagesRaw</code> 필드를 <code>string</code> 타입으로 만들고 DB에는 <code>ImagesRaw</code> 필드만 저장한다. <code>Product</code>에 대해 CRU<small>(Create/Read/Update)</small> 작업을 할때마다 JSON 변환 작업을 해 주어야 한다.
 여간 귀찮은 일이 아니었다.
 xorm에는 이 기능이 내장되어 있어서 아주 편리하다.</p>
 <h2 id="다른-db-도구와의-비교">다른 DB 도구와의 비교</h2>
@@ -152,7 +152,7 @@ gorp에 비해 sqlx가 좀 더 활동이 활발하고 사용하는데도 많은 
 단순히 쿼리 결과를 struct에 받아오고 싶다면 sqlx를 추천한다.</p>
 <h2 id="gormhttpsgithubcomjinzhugorm"><a href="https://github.com/jinzhu/gorm">gorm</a></h2>
 <p>struct를 기반으로 CRUD 기능을 제공한다. (기본적인 ORM 기능)
-모델 간 Associations<!-- raw HTML omitted -->*(belongs-to, has-one, has-many, many-to-many, polymorphism)*<!-- raw HTML omitted -->를 정의할 수 있다.
+모델 간 Associations<small>*(belongs-to, has-one, has-many, many-to-many, polymorphism)*</small>를 정의할 수 있다.
 하지만 실제 사용해보면 불편한 부분이 많다. 연관된 모델을 알아서(?) 가져오지 않는다.
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
         <span style="color:#a6e22e">ID</span>       <span style="color:#66d9ef">int64</span>
@@ -303,7 +303,7 @@ struct 값 전체를 로그로 남기고 싶은데, 각 필드를 일일이 저�
 그럴땐 그냥 값을 통째로 남기는게 편하지, 저렇게 일일이 필드와 타입을 적는 것은 너무 귀찮은 일이다. (게다가 built-in 타입만 사용할 수 있다.)</p>
 <p>logrus는 지정한 Formatter(JsonFormatter, TextFormatter, Custom Formater)를 사용해 어떤 값이든 로그를 남겨준다.
 TextFormatter를 사용하면 <code>fmt.Print</code> 처럼 기본 출력 포맷으로 로그를 남겨준다.
-게다가 <!-- raw HTML omitted -->로그 모양도 예쁘고*(로그가 예뻐야 개발 생산성이 좋아진다?)*<!-- raw HTML omitted --> 로그 액션마다 Hook을 넣을수도 있다.
+게다가 <small>로그 모양도 예쁘고*(로그가 예뻐야 개발 생산성이 좋아진다?)*</small> 로그 액션마다 Hook을 넣을수도 있다.
 이미 누군가가 <a href="https://github.com/sirupsen/logrus#hooks">괜찮은 Hook들</a>을 많이 만들어 놓았다.</p>
 <p>우리는 카프카를 거쳐 Hadoop으로 모든 로그를 전송하고,
 그리고 필요한 경우 <a href="https://prestodb.io/">presto</a>를 이용해 Haddop에 있는 로그를 조회한다.
