@@ -6,10 +6,26 @@
     <description>Recent content in 묵상 on Jaehue&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 17 May 2021 23:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 19 May 2021 13:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://jaehue.github.io/categories/%EB%AC%B5%EC%83%81/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>자연스러움</title>
+      <link>https://jaehue.github.io/post/2021.05.19/</link>
+      <pubDate>Wed, 19 May 2021 13:00:00 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/post/2021.05.19/</guid>
+      <description>코드를 작성하는 것은 정말 재미있는 일이다.
+아주 작은 기능을 담당하는 작은 조각 하나를 만든다.
+그런 조각을 2~3개 더 만들어 그것들끼리 연결을 지어놓는다.
+이렇게 해 놓으면 꽤 많은 기능을 처리해낸다.
+작은 조각 하나하나는 아주 단순한 몇 가지 기능만 할 뿐인데, 그런 것들이 2~3개만 모여도 꽤 다양한 기능을 해낸다.
+2~3개의 조각이 모인 그것을 또 여러 개 만들어본다.
+그리고 그것들이 상호 작용하게 한다.
+서로 연결을 지어주는 것만으로, 훨씬 더 많은 기능을 담당하게 되었다.</description>
+    </item>
     
     <item>
       <title>익스트림 라이프</title>
