@@ -6,10 +6,46 @@
     <description>Recent content in Tags on Jaehue&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Tue, 30 Nov 2021 16:59:37 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 08 Dec 2021 08:20:19 +0800</lastBuildDate>
     
 	<atom:link href="https://jaehue.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>개발문화</title>
+      <link>https://jaehue.github.io/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/</link>
+      <pubDate>Wed, 08 Dec 2021 08:20:19 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>관리자</title>
+      <link>https://jaehue.github.io/tags/%EA%B4%80%EB%A6%AC%EC%9E%90/</link>
+      <pubDate>Wed, 08 Dec 2021 08:20:19 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/tags/%EA%B4%80%EB%A6%AC%EC%9E%90/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>애자일</title>
+      <link>https://jaehue.github.io/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/</link>
+      <pubDate>Wed, 08 Dec 2021 08:20:19 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>중국</title>
+      <link>https://jaehue.github.io/tags/%EC%A4%91%EA%B5%AD/</link>
+      <pubDate>Wed, 08 Dec 2021 08:20:19 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/tags/%EC%A4%91%EA%B5%AD/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>공부</title>
@@ -17,15 +53,6 @@
       <pubDate>Tue, 30 Nov 2021 16:59:37 +0800</pubDate>
       
       <guid>https://jaehue.github.io/tags/%EA%B3%B5%EB%B6%80/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>애자일</title>
-      <link>https://jaehue.github.io/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/</link>
-      <pubDate>Sun, 01 Aug 2021 00:55:33 +0800</pubDate>
-      
-      <guid>https://jaehue.github.io/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/</guid>
       <description></description>
     </item>
     
@@ -44,24 +71,6 @@
       <pubDate>Fri, 30 Jul 2021 15:51:58 +0800</pubDate>
       
       <guid>https://jaehue.github.io/tags/%EC%B1%85/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>개발문화</title>
-      <link>https://jaehue.github.io/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/</link>
-      <pubDate>Fri, 23 Jul 2021 22:27:22 +0800</pubDate>
-      
-      <guid>https://jaehue.github.io/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>중국</title>
-      <link>https://jaehue.github.io/tags/%EC%A4%91%EA%B5%AD/</link>
-      <pubDate>Fri, 23 Jul 2021 22:27:22 +0800</pubDate>
-      
-      <guid>https://jaehue.github.io/tags/%EC%A4%91%EA%B5%AD/</guid>
       <description></description>
     </item>
     
@@ -89,15 +98,6 @@
       <pubDate>Sat, 04 Apr 2020 13:46:52 +0800</pubDate>
       
       <guid>https://jaehue.github.io/tags/msa/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>관리자</title>
-      <link>https://jaehue.github.io/tags/%EA%B4%80%EB%A6%AC%EC%9E%90/</link>
-      <pubDate>Sat, 04 Apr 2020 13:46:52 +0800</pubDate>
-      
-      <guid>https://jaehue.github.io/tags/%EA%B4%80%EB%A6%AC%EC%9E%90/</guid>
       <description></description>
     </item>
     
