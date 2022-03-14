@@ -3,22 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://jaehue.github.io/</loc>
+    <lastmod>2022-03-14T16:38:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/post/</loc>
+    <lastmod>2022-03-14T16:38:03+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://jaehue.github.io/post/2022.03.14/</loc>
+    <lastmod>2022-03-14T16:38:03+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://jaehue.github.io/categories/</loc>
     <lastmod>2022-03-05T14:31:50+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://jaehue.github.io/categories/it/</loc>
-    <lastmod>2022-03-05T14:31:50+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/</loc>
-    <lastmod>2022-03-05T14:31:50+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://jaehue.github.io/post/</loc>
     <lastmod>2022-03-05T14:31:50+08:00</lastmod>
   </url>
   
