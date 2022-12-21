@@ -11,7 +11,7 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jaehue.github.io/post/" />
-<meta property="og:updated_time" content="2022-11-11T11:54:39+08:00" />
+<meta property="og:updated_time" content="2022-12-10T23:36:11+09:00" />
 
 		<meta itemprop="name" content="Posts">
 <meta itemprop="description" content="">
@@ -62,61 +62,246 @@ if (!doNotTrack) {
 	</header><article class="list__item post">
 	<header class="list__header">
 		<h3 class="list__title post__title ">
-			<a href="/post/resilent-go-service/" rel="bookmark">
-			Go언어로 안전한 서비스 만들기
+			<a href="/post/2019.12.27.agile_life/" rel="bookmark">
+			있는 모습 그대로
 			</a>
 		</h3>
 		<div class="list__meta meta"><div class="meta__item-author meta__item">
 	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
 </div>
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2015-08-15T00:00:00&#43;09:00">2015-08-15</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-12-27T23:53:01&#43;08:00">2019-12-27</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/" rel="category">Categories</a>
 	</span>
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		http://blog.remotty.com에 게시한 글을 Go 언어에 대해 발행한 글을 수집하는 차원에서 이곳으로 옮겨왔다.
- 서비스를 만들때 비정상적으로 서비스가 종료되지 않고 안전하게 실행되도록 하는 것은 아주 중요하다(Resilency). 이번 포스트에서는 Resilency를 유지하면서 서비스를 작성하는 여러가지 방법에 대해서 소개하겠다. 오늘 소개하는 글은 지난 7월에 덴버에서 열린 GopherCon 2015에서 Blake Caldwell라는 사람이 발표한 내용을 기반으로 몇가지 설명을 곁들여서 작성한 것이다. (https://sourcegraph.com/blog/live/gophercon2015/123664481750)
-사실 어떤 사람들에게는 쉬운 내용일 수 있다. 당연한 얘기를 하는 것일수도 있고&hellip; 하지만 기본을 탄탄히 하자는 의미에서, 그리고 지난 7월 덴버에서 열린 GopherCon 2015에서도 발표되었던 내용이니 한번 읽어보면 좋을 것 같다.
+		내일 송년모임에 있을 선물교환식을 위해 MUJI에 가서 노트와 펜을 골랐다. 아내가 딱 좋아할 만한 스타일이었다. 그래서 똑같은 세트로 3벌을 샀다. 하나는 원래의 목적대로 선물교환식 용. 그리고 나머지는 아내와 나를 위한 선물.
+노트에 뭔가를 쓰고 싶어서 첫 페이지를 열었는데, 선뜻 첫 글자가 써지지 않았다. 머릿속에 맴도는 말은 많았지만, 이 예쁜 노트에 이 예쁜 펜으로 아무 글자나 쓰고 싶지 않았다. 뭔가를 쓰기 위해 노트와 펜을 샀는데, 막상 쓰려니 망설여지는 이 아이러니한 상황. 이유는 간단했다.
 	</div>
 	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/post/resilent-go-service/">Read more…</a>
+		<a class="list__footer-readmore btn" href="/post/2019.12.27.agile_life/">Read more…</a>
 	</div>
 </article><article class="list__item post">
 	<header class="list__header">
 		<h3 class="list__title post__title ">
-			<a href="/post/20140331/" rel="bookmark">
-			8년간의 이랜드 생활을 마무리하며
+			<a href="/post/2019.12.14.%EA%B8%B8%EA%B2%8C%EB%8B%AC%EB%A6%AC%EA%B8%B0/" rel="bookmark">
+			길게 달리기
 			</a>
 		</h3>
 		<div class="list__meta meta"><div class="meta__item-author meta__item">
 	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
 </div>
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2014-03-31T23:13:56&#43;09:00">2014-03-31</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%EB%AC%B5%EC%83%81/" rel="category">묵상</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-12-14T22:49:58&#43;08:00">2019-12-14</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/" rel="category">Categories</a>
 	</span>
 </div></div>
 	</header>
 	<div class="content list__excerpt post__content clearfix">
-		2006.06.26 ~ 2014.03.31
-지난 8년동안 서울 가산동을 매일같이 왔다 갔다 했다.
-지금까지 살면서 어느 한 곳에 이렇게 오래 머물렀던 적이 있었던가?
-대학교 갓 졸업하고, 외워서 하는 자기소개조차 버벅거리며 제대로 못했었는데
-어느새 8년차 직장인이 되어있었고
-이제는 벤처 세계로 한번 뛰어들어 보려고 한다.
-지난 목요일엔 부서원들이 송별회를 해 주었다.
-그들이 전하는 말 속에 진심이 느껴졌고 준비한 선물에 기분이 참 좋았다.
-일단은 선물 자체가 너무 마음에 들었고ㅎㅎ, 고민하며 준비했던 것이 느껴져 참 고마웠다.
+		지금 사는 곳으로 이사와 보니 우리 집 건물 바로 옆에 수영장이 있어서(100 보도 안됨) 연회원권을 끊었다. 이렇게 수영장을 끊어서 다닌 것은 수영을 처음 배우던 대학교 때 이후 처음이다. 일주일에 2번 가는 것을 목표로, 꾸역꾸역 수영장에 가고 있다.
+처음 몇 주는 25m 레인을 2바퀴씩 돌았다. 2바퀴 돌고 쉬고, 2바퀴 돌고 쉬고. 그것도 힘들더라. 그러다 어느 날 6바퀴를 돌았고, 그 다음번엔 20바퀴를 돌았다! 스스로 놀랍게 여기는 것은, 지금보다 체력이 월등히 좋았던 20대 때도 4~5바퀴 이상 돌지 못했다.
 	</div>
 	<div class="list__footer clearfix">
-		<a class="list__footer-readmore btn" href="/post/20140331/">Read more…</a>
+		<a class="list__footer-readmore btn" href="/post/2019.12.14.%EA%B8%B8%EA%B2%8C%EB%8B%AC%EB%A6%AC%EA%B8%B0/">Read more…</a>
+	</div>
+</article><article class="list__item post">
+	<header class="list__header">
+		<h3 class="list__title post__title ">
+			<a href="/post/dream/" rel="bookmark">
+			꿈
+			</a>
+		</h3>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-07-06T21:47:17&#43;08:00">2019-07-06</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%EB%AC%B5%EC%83%81/" rel="category">묵상</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		어릴 때 난 꿈이 없었다. 어른들이 &lsquo;꿈, 장래 희망&rsquo; 이런 것들을 물어볼 때 나만 뭔가 뒤떨어진 것 같은 느낌이었다. 다른 친구들처럼 &lsquo;축구선수&rsquo;, &lsquo;농부&rsquo;, &lsquo;선생님&rsquo;, &lsquo;의사&rsquo; 이런 대답을 바로 해버리고 싶었는데, 난 그런 게 없었다. &ldquo;아직 없어요&quot;라고 부끄럽게 말하기도 하고, 그때그때 &lsquo;과학자&rsquo;, &lsquo;의사&rsquo; 이런 것을 만들어내서 말하기도 했다. 어른들이 그런 곤란한 질문을 할 때면 대충 얼버무리거나, 아니면 잠시 &lsquo;루저loser 패배자'가 되어야 했다.
+고2 때 문과/이과를 나눠야 했다. 난 국어/영어보다는 수학/과학이 재밌었고 점수도 그쪽이 높았다.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/post/dream/">Read more…</a>
+	</div>
+</article><article class="list__item post">
+	<header class="list__header">
+		<h3 class="list__title post__title ">
+			<a href="/post/manado-diary/" rel="bookmark">
+			마나도에서의 생각들
+			</a>
+		</h3>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-02-16T09:39:34&#43;08:00">2019-02-16</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%EB%AC%B5%EC%83%81/" rel="category">묵상</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		마음의 준비 2019.02.03 인천공항에서 환승 대기 중
+어제 저녁부터 머리가 아팠다. 체했나 보다.
+한솔이가 나를 보더니 얼굴이 완전 노랗단다. 너무 신경을 많이 쓴 게 아니냔다.
+아니라고 했지만, 한솔이는 몸이 다 안다고 말했다.
+맞는 말이다. 아니라고 생각했지만 신경을 많이 썼었나 보다. 2019년이 시작되면서 아웃리치와 고등부 총무 일이 많이 부담이 됐었나보다. 신경써봤자 내가 할 수 있는 것은 아무것도 없었다. 그냥 아플 뿐이다. 아무리 애를 써도 바뀌는 것은 없고, 오히려 할 수 있는 것 이상의 것을 하려다 번아웃되고, 체하고, 얼굴은 노랗게 변해버린 채 아픈 머리를 잡고 누워버린다.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/post/manado-diary/">Read more…</a>
+	</div>
+</article><article class="list__item post">
+	<header class="list__header">
+		<h3 class="list__title post__title ">
+			<a href="/post/manado-outreach/" rel="bookmark">
+			마나도 아웃리치
+			</a>
+		</h3>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2019-02-16T09:39:30&#43;08:00">2019-02-16</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%EB%AC%B5%EC%83%81/" rel="category">묵상</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		지난 2019년 2월 3일부터 2월 10일까지 마나도 아웃리치팀 23명(김덕영, 김보섭, 김영식, 김찬미, 김혜인, 김효진, 류호선, 문준상, 박세미, 박윤이, 백지원, 이미영, 이수원, 이은규, 이일, 이채은, 이한솔, 장재휴, 전민규, 정비상, 최희서, 하지윤, 한승용)은 예정된 사역을 무사히 마치고 돌아왔다. 지난 일주일간의 사역을 돌아본다.
+마나도 in 인도네시아 인도네시아는 17,000여 개의 섬으로 이루어진 나라다. 그중 12,000여 개는 무인도이고 사람이 사는 섬은 5,000여 개이다. 우리 간 곳은 인도네시아 중앙에 있는 큰 섬, 술라웨시섬 북쪽 끝에 있는 마나도(Manado)라는 도시였다.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/post/manado-outreach/">Read more…</a>
+	</div>
+</article><article class="list__item post">
+	<header class="list__header">
+		<h3 class="list__title post__title ">
+			<a href="/post/everyday-transformation/" rel="bookmark">
+			매일 변화하기
+			</a>
+		</h3>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-12-20T22:51:16&#43;08:00">2018-12-20</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%EB%AC%B5%EC%83%81/" rel="category">묵상</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		최근 들어 4차 산업혁명이라는 말이 또다시 자주 들린다.
+개인적으로는 별로 좋아하지 않는 말이다. 그 말도 안 되는 혁명에 진입(?)하려면 마음 단단히 먹고 알 수 없는 세계로 뛰어들어야 하는 것처럼 들리기도 한다. 최근 여러 사람의 입에 오르내리고 있는 &ldquo;4차 산업혁명&quot;이라는 말을 십수 년째 매일 코드를 짜오고 있는 개발자의 입장으로 재해석해보면,
+ IT가 산업의 전반적인 영역으로 확대된 것 늘 있었던 변화의 속도가 아주 빨라진 것  이 두 가지인 것 같다.
+즉, 지금까지의 방식을 버리고 단번에 새로운 영역으로 진입함으로써 끝나는 것이 아니라 지금까지 방식의 연장선에서 계속해서 변화를 고민하는 삶의 자세를 갖는 것이 시작이어야 한다.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/post/everyday-transformation/">Read more…</a>
+	</div>
+</article><article class="list__item post">
+	<header class="list__header">
+		<h3 class="list__title post__title ">
+			<a href="/post/how-to-use-golang-context/" rel="bookmark">
+			Go언어에서 Context 사용하기
+			</a>
+		</h3>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-06-19T00:00:00&#43;09:00">2018-06-19</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		Go에는 다른 대중적인 언어와 다른 개념들이 좀 있다.
+ 클래스를 과감히 빼버렸고 (그래서 상속이 없다) Exception이란 것도 없다 (예외 상황 자체를 허용하지 않겠다는 의지인가? 멋있어 보일진 몰라도 솔직히 불편하다. ㅠㅠ 궁시렁 궁시렁&hellip;) 고루틴과 채널을 이용한 병행처리 모델도 친숙한 개념은 아니다  여기에 한 가지 더 보태자면, Context란 녀석이다.
+처음 얘기한 세 가지는 Go 언어를 사용해서 뭔가를 만들려면 반드시 알아야 할 개념이기 때문에 Go 언어를 처음 접하는 대부분의 사람들은 시간을 할애해서 이 부분에 대해 공부를 한다.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/post/how-to-use-golang-context/">Read more…</a>
+	</div>
+</article><article class="list__item post">
+	<header class="list__header">
+		<h3 class="list__title post__title ">
+			<a href="/post/camp_of_god/" rel="bookmark">
+			하나님의 군대
+			</a>
+		</h3>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-05-11T09:52:28&#43;08:00">2018-05-11</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%EC%8B%A0%EC%95%99/" rel="category">신앙</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		&hellip; 너희가 너희보다 강대한 나라들을 차지할 것인즉
+신명기 11:23
+ 하나님은 이스라엘 민족에게 &quot;너희보다 강한 나라들을 너희가 차지할 것이다&quot;라고 하셨다.
+ 이 세상은 너무 커 보이는데 그에 비해 나는 참 작은 것 같다. 이 세상에는 뛰어난 사람들이 참 많은 것 같다.
+하지만 우리는 이미 그들이 그들의 방식대로 일궈놓은 세상 속에서 하나님의 나라를 세워나가야 한다.
+나 같은 사람이 할 수 있을까? 나를 보면, 난 너무 작아 보이는데&hellip;
+하지만 하나님은 어떻게든 하신다.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/post/camp_of_god/">Read more…</a>
+	</div>
+</article><article class="list__item post">
+	<header class="list__header">
+		<h3 class="list__title post__title ">
+			<a href="/post/uganda-outreach/" rel="bookmark">
+			🇺🇬 우간다 아웃리치
+			</a>
+		</h3>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-02-17T10:00:00&#43;08:00">2018-02-17</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%EB%AC%B5%EC%83%81/" rel="category">묵상</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		지난 2018년 1월 23일부터 2월 3일까지 우간다 아웃리치팀 20명(김시언, 김영식, 김하민, 류호선, 문성희, 박규태, 박하진, 이수원, 이희성, 장재휴, 정비상, 정상희, 정세인, 최유경, 최유진, 최진영, 최희서, 최희재, 하지윤, 한산하)은 예정된 사역을 무사히 마치고 돌아왔다. 지난 11박 12일간의 사역을 돌아본다.
+우간다는 어떤 나라인가? 한반도의 1.1배 위 지도에서 빨갛게 표시된 나라가 우간다이다. 면적은 한반도의 1.1배라고 한다. 적도에 걸쳐있기 때문에 걸어서 남반구와 북반구를 왔다 갔다 할 수 있다.
+아프리카의 중심 지도상으로는 아프리카 대륙의 약간 아래쪽에 위치한 것 같지만, 아프리카 대륙 위쪽에 위치한 사하라 사막은 사람이 왕래할 수 없는 곳이기 때문에 아프리카 문화권은 사하라 사막 위쪽과 아래쪽으로 나눠진다.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/post/uganda-outreach/">Read more…</a>
+	</div>
+</article><article class="list__item post">
+	<header class="list__header">
+		<h3 class="list__title post__title ">
+			<a href="/post/uganda-diary/" rel="bookmark">
+			우간다에서의 생각들
+			</a>
+		</h3>
+		<div class="list__meta meta"><div class="meta__item-author meta__item">
+	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
+</div>
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-02-15T09:42:36&#43;08:00">2018-02-15</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/%EB%AC%B5%EC%83%81/" rel="category">묵상</a>
+	</span>
+</div></div>
+	</header>
+	<div class="content list__excerpt post__content clearfix">
+		8년 만에 다시 아프리카로 간다.
+이번 여행은 어떨까?
+이미 30대 후반이 되어 이미 가정을 이룬 가장의 위치에서, 20명의 아웃리치 팀원들과 함께 떠나는 선교 여행이다.
+이번 여행은 순종하는 여행이 되고 싶다. 내가 하고 싶은 경험을 하는 여행이 아니라 하나님이 경험하길 원하시는 것을 경험하고 오는 여행이 되길 바란다. 하나님께 순종하는 여행이 되고 싶다. 매 순간순간, 내가 어떻게 움직이길 원하시는지 하나님께 묻고, 하나님 주신 마음에 그대로 순종하기 원한다.
+첫번째 미션 2018.01.23
+9시에 교회에 도착했다.
+	</div>
+	<div class="list__footer clearfix">
+		<a class="list__footer-readmore btn" href="/post/uganda-diary/">Read more…</a>
 	</div>
 </article>
 </main>
 
 <div class="pagination">
 	<a class="pagination__item pagination__item--prev btn" href="/post/page/7/">«</a>
-	<span class="pagination__item pagination__item--current">8/8</span>
+	<span class="pagination__item pagination__item--current">8/9</span>
+	<a class="pagination__item pagination__item--next btn" href="/post/page/9/">»</a>
 </div>
 
 			</div>
@@ -134,11 +319,11 @@ if (!doNotTrack) {
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/2022.12.10/">잘 헤어지기</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/2022.11.27/">오랜만에 책 리뷰 - 《한강》</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/2022.11.26/">또다시, &#39;여행을 일상처럼, 일상을 여행처럼&#39;</a></li>
+			<li class="widget__item"><a class="widget__link" href="/post/2022.11.21/">추수감사절</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2022.11.11/">&#39;선택과 집중&#39;하지 않기</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2022.10.17/">위험한 것을 안전하게 하기</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2022.10.13/">두번째 배움</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2022.09.27/">발표 컴플렉스</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2022.09.02/">좋은 소식, 나쁜 소식</a></li>
 		</ul>
 	</div>
 </div>
