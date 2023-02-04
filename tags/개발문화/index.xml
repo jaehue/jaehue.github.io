@@ -59,5 +59,17 @@
 나와 함께 일하는 몇몇 친구들에게 git으로 협업하는 방법을 설명해주고, 이번 주부터 gitlab의 Merge Request 기능을 써서 코드 리뷰를 하기로 했다. 이슈를 등록하고, 브런치를 만들고, 코드 작성 후 자신의 repo에 푸쉬하고, Merge Request를 만들고, 디스커션을 하고, 머지를 하는 과정을 보여주며 설명해주었다.</description>
     </item>
     
+    <item>
+      <title>일하지 않는 사람은 가라</title>
+      <link>https://jaehue.github.io/post/2020.04.04.devculture/</link>
+      <pubDate>Sat, 04 Apr 2020 13:46:52 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/post/2020.04.04.devculture/</guid>
+      <description>2020-04-29 팝잇(popit)에 기고한 글 ⤴️
+ 이 글은 적당히 갖춰나간 운영 환경의 후속 글이다. 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.
+MSAMicro Service Architecture
+이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다. 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다. 익스트림 프로그래밍Extreme Programming, 이하 XP이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSAMicro Service Architecture는 일하는 방식과 떼어서 얘기할 수 없기 때문이다.</description>
+    </item>
+    
   </channel>
 </rss>
