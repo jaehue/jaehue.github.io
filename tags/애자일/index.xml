@@ -6,10 +6,37 @@
     <description>Recent content in 애자일 on Jaehue&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
-    <lastBuildDate>Mon, 17 Oct 2022 12:11:19 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 27 Jan 2023 14:46:54 +0900</lastBuildDate>
     
 	<atom:link href="https://jaehue.github.io/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>전략이 먹히지 않는 이유</title>
+      <link>https://jaehue.github.io/post/2023.01.27/</link>
+      <pubDate>Fri, 27 Jan 2023 14:46:54 +0900</pubDate>
+      
+      <guid>https://jaehue.github.io/post/2023.01.27/</guid>
+      <description>전략을 세우는 기준은 현재다.
+지금 시점에서 과거를 돌아보고 미래를 예상해본다. 그리고 예상되는 미래를 준비한다.
+다양한 미래가 예상되면 플랜A, 플랜B를 준비한다. 예상되는 미래가 2개 이상일때는? 플랜C, 플랜D, 플랜E,,,를 준비해야겠지.
+전략이 먹히지 않는 첫번째 이유는, 앞으로 펼쳐질 미래의 다양함은 우리의 플랜을 넘어선다. 미래는 예측할 수 없다. 그래서 대비할수도 없다. 반응할 뿐이다.
+하지만 미래는 한번에 짠ㅡ 하고 나타나지 않는다. 지진이 일어나기 전에도 전조현상이 있듯, 미래도 전조현상이 있다. 동물들이 그 전조현상을 알아채고 바로 반응하듯, 우리도 동물처럼 전조현상을 예의주시하고 있어야 하고 거기에 기민하게 반응해야 한다.</description>
+    </item>
+    
+    <item>
+      <title>실패로부터 배운 한주</title>
+      <link>https://jaehue.github.io/post/2023.01.21/</link>
+      <pubDate>Sat, 21 Jan 2023 14:43:48 +0900</pubDate>
+      
+      <guid>https://jaehue.github.io/post/2023.01.21/</guid>
+      <description>여러 일로 허덕이는 한주였다.
+사실, 난 월요일날 이걸 인지했었다.
+지난 주간회의때, 이번주 해야할 일이 잘 나오지 않았다.
+아ㅡ 일주일의 일도 명확하게 정의할 수 없을만큼 불투명한 상태구나.
+일단 수요일까지 할일만 정하고 수요일 오후에 다시 얘기해보자고 했었다.(그것도 사실 모호하긴 했었음)
+일주일을 예측 못하는 주간이라니.. 이번주는 통제 안되는 일이 빵빵 터질꺼라고 예상을 했었어야 했다. 그리고 난 매일마다 통제 안되는 상황을 예의주시하고 있었어야 했다. 근데 나도 그냥 별 신경 안쓰고 내 할일만 열심히 하며 보냈다.</description>
+    </item>
     
     <item>
       <title>위험한 것을 안전하게 하기</title>
@@ -21,6 +48,23 @@
 그러다, 2020년 XP 책을 다시 읽고 눈이 번쩍 떠졌다. 내 삶의 지침서로 받아들이고 진짜 이렇게 살아보려고 했다.
 그때부터 내 삶의 주기를 일주일로 두고, 일주일 마다 변화를 만들어보려고 했었다.
 처음으로 기타 연습을 시작했고, 아프리카 여행 추억팔이 용으로만 가지고 있던 젬베를 들고 교회 찬양팀에 들어가 다른 세션들이랑 맞춰보기 시작했다.</description>
+    </item>
+    
+    <item>
+      <title>삶의 리듬: 일주일 &amp; 2년 &amp; 10년</title>
+      <link>https://jaehue.github.io/post/2022.10.01/</link>
+      <pubDate>Sat, 01 Oct 2022 23:17:23 +0900</pubDate>
+      
+      <guid>https://jaehue.github.io/post/2022.10.01/</guid>
+      <description>일주일 리듬 이건 이전에도 여러 번 이야기했다.
+일주일 주기로 살아가기. 일주일 전과 달라지기.
+일주일은 변화를 만들어 내기에 적당한 시간이다.
+삶의 모든 영역에서 이러는 건 아님 ㅋ
+(어떻게 그래? 집중하고 있는 몇몇 부분에서만 ㅋ)
+2년의 리듬 이것도 언젠가 글에서 얘기한 적이 있다.
+새로운 것을 시작할 때 필요한 시간. 2년.
+이건 자기 분야에서 꽤 능력을 인정받는 사람들과 이야기를 나누다 발견한 거다.
+학교 다닐 때 기계적으로 했던 거 다 빼고, 회사에서 억지로 했던 거 다 빼고.</description>
     </item>
     
     <item>
@@ -44,6 +88,22 @@
       <description>오랜만에 사무실 이야기다.
 반년 전, 팀에서 코드 리뷰를 하자고 했을 때 동료들은 불편한 기색을 내비쳤다. 하지만 그들은 나의 제안을 따르는 것 말고는 별다른 방법이 없었다.
 내가 코드 리뷰를 시작하기 전 먼저 했던 일은 gitlab runner를 사용해 배포 파이프라인을 구성해 놓는 일이었다. merge request를 만들고, 코드 리뷰를 거치고, 최종적으로 merge가 되어야 배포가 되도록 했다. 그리고 난 개발의 결과를 스테이징 환경에 배포된 것으로만 확인한다고 했다. 개인 PC에서 돌아가는 건 인정하지 않았다 ㅋ</description>
+    </item>
+    
+    <item>
+      <title>글, 생각</title>
+      <link>https://jaehue.github.io/post/2022.01.23/</link>
+      <pubDate>Sun, 23 Jan 2022 01:00:00 +0800</pubDate>
+      
+      <guid>https://jaehue.github.io/post/2022.01.23/</guid>
+      <description>노트를 열고 손에 펜을 잡는 그 순간, 내 생각도 열린다.
+어떤 생각이 떠올라서, 그 생각을 쓰기 위해 노트를 펴는 것이 아니라
+노트를 열 때, 그때 생각도 열리기 시작한다.
+그 누구에게도 보여줄 필요가 없는, 그래서 포장할 필요가 없는,
+멋있어 보이는 뭔가를 쥐어짜기 위해 힘을 줄 필요도 없고,
+미사여구를 붙일 필요도 없고, 부끄러워 빼버릴 필요도 없다.
+그렇게 온몸에 힘을 빼고 나면, 그제야 나도 인지하지 못하고 있던 진짜 내 생각이 나오기 시작한다.
+흰 종이에 한글자 한글자 써 내려가지는 딱 그 속도만큼만 생각도 흘러나온다.</description>
     </item>
     
     <item>
