@@ -3,7 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>애자일 - Jaehue&#39;s</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
@@ -11,29 +10,33 @@
 <meta property="og:description" content="" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jaehue.github.io/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/" />
-<meta property="og:updated_time" content="2023-01-27T14:46:54+09:00" />
+
 
 		<meta itemprop="name" content="애자일">
 <meta itemprop="description" content="">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="alternate" type="application/rss+xml" href="/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/index.xml" title="Jaehue's">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
 	<link rel="stylesheet" href="/css/style.css">
 	
+	<link rel="alternate" type="application/rss+xml" href="/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/index.xml" title="Jaehue's">
+
 	<link rel="shortcut icon" href="/favicon.ico">
 		
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-91404316-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 </head>
 <body class="body">
 	<div class="container container--outer">
@@ -60,12 +63,13 @@ if (!doNotTrack) {
 	<header class="main__header">
 		<h1 class="main__title">애자일</h1>
 	</header><article class="list__item post">
+	
 	<header class="list__header">
-		<h3 class="list__title post__title ">
+		<h2 class="list__title post__title">
 			<a href="/post/2020.04.04.devculture/" rel="bookmark">
 			일하지 않는 사람은 가라
 			</a>
-		</h3>
+		</h2>
 		<div class="list__meta meta"><div class="meta__item-author meta__item">
 	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
 </div>
@@ -76,9 +80,9 @@ if (!doNotTrack) {
 	</header>
 	<div class="content list__excerpt post__content clearfix">
 		2020-04-29 팝잇(popit)에 기고한 글 ⤴️
- 이 글은 적당히 갖춰나간 운영 환경의 후속 글이다. 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.
+이 글은 적당히 갖춰나간 운영 환경의 후속 글이다. 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.
 MSAMicro Service Architecture
-이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다. 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다. 익스트림 프로그래밍Extreme Programming, 이하 XP이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSAMicro Service Architecture는 일하는 방식과 떼어서 얘기할 수 없기 때문이다.
+이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다. 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다. 익스트림 프로그래밍Extreme Programming, 이하 XP이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSAMicro Service Architecture는 일하는 방식과 떼어서 얘기할 수 없기 때문이다. 아주 많은 작은 서비스들에게 역할과 책임을 부여하고, 그 서비스들이 상호 작용하며 만들어낸 서로 공존하는 상태.
 	</div>
 	<div class="list__footer clearfix">
 		<a class="list__footer-readmore btn" href="/post/2020.04.04.devculture/">Read more…</a>
@@ -95,22 +99,20 @@ MSAMicro Service Architecture
 			
 <aside class="sidebar sidebar--left"><div class="widget-search widget">
 	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<label>
-			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q" aria-label="SEARCH...">
-		</label>
+		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
 		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
+		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/">
 	</form>
 </div>
 <div class="widget-recent widget">
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/2024.03.04/">작은 마음</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.02.01/">불안한 세상을 가르치자</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.24/">내 삶을 오케스트레이션 하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.22/">AI와 함께 살아가기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.20/">신순자 평전</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2023.12.31/">굿바이 2023</a></li>
 		</ul>
 	</div>
 </div>
@@ -119,14 +121,11 @@ MSAMicro Service Architecture
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/it/">IT</a>
-			</li>
+				<a class="widget__link" href="/categories/it/">IT</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a>
-			</li>
+				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a>
-			</li>
+				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a></li>
 		</ul>
 	</div>
 </div>
@@ -135,11 +134,11 @@ MSAMicro Service Architecture
 	<div class="widget__content">
 		<a class="widget-taglist__link widget__link btn" href="/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/" title="4차 산업혁명">4차 산업혁명 (4)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/chatgpt/" title="ChatGPT">ChatGPT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="eventdriven">eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang (7)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="Eventdriven">Eventdriven (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="Golang">Golang (7)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/it/" title="IT">IT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="kubernetes">kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="microservice">microservice (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="Kubernetes">Kubernetes (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="Microservice">Microservice (2)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/msa/" title="MSA">MSA (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%80%EC%B9%98%EA%B4%80/" title="가치관">가치관 (38)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" title="개발문화">개발문화 (7)</a>

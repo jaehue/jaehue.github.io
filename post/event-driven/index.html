@@ -3,7 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>내 멋대로 구현한 이벤트 드리븐 - Jaehue&#39;s</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
@@ -12,39 +11,40 @@
 쐉쓰이의 분위기는 동료가 쓴 글인 개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)에 생생하게 나타나 있다. 실제 당일날 MongoDB 인덱스 문제, 디스크 부족으로 인한 kafka 서버 장애, 등 몇몇 문제가 발생하기도 했지만, 고객에게는 문제없이 서비스가 제공되었고1, 쐉쓰이(双十一)는 무사히 지나갔다.
 이번 글에서는 쐉쓰이(双十一)를 버틸 수 있었던 요소 중 하나였던 Event driven 방식을 소개하려고 한다." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/event-driven/" />
+<meta property="og:url" content="https://jaehue.github.io/post/event-driven/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2017-11-17T00:00:00+08:00" />
 <meta property="article:modified_time" content="2017-11-17T00:00:00+08:00" />
+
 
 		<meta itemprop="name" content="내 멋대로 구현한 이벤트 드리븐">
 <meta itemprop="description" content="중국 이커머스 최대 행사인 쐉쓰이(双十一)때 11월11일 0시가 되자마자 매출이 급상승함과 동시에 이벤트가 미친듯이 순식간에 몰려드는 것을 보고, 일 년 전 밤을 지새우며 O2O 시스템을 Event driven 방식으로 바꾸느라 고생했던 순간이 떠올랐다.
 쐉쓰이의 분위기는 동료가 쓴 글인 개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)에 생생하게 나타나 있다. 실제 당일날 MongoDB 인덱스 문제, 디스크 부족으로 인한 kafka 서버 장애, 등 몇몇 문제가 발생하기도 했지만, 고객에게는 문제없이 서비스가 제공되었고1, 쐉쓰이(双十一)는 무사히 지나갔다.
-이번 글에서는 쐉쓰이(双十一)를 버틸 수 있었던 요소 중 하나였던 Event driven 방식을 소개하려고 한다.">
-<meta itemprop="datePublished" content="2017-11-17T00:00:00&#43;08:00" />
-<meta itemprop="dateModified" content="2017-11-17T00:00:00&#43;08:00" />
-<meta itemprop="wordCount" content="1990">
-
-
-
+이번 글에서는 쐉쓰이(双十一)를 버틸 수 있었던 요소 중 하나였던 Event driven 방식을 소개하려고 한다."><meta itemprop="datePublished" content="2017-11-17T00:00:00+08:00" />
+<meta itemprop="dateModified" content="2017-11-17T00:00:00+08:00" />
+<meta itemprop="wordCount" content="1681">
 <meta itemprop="keywords" content="eventdriven,golang,중국IT," />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
 	<link rel="stylesheet" href="/css/style.css">
 	
+
 	<link rel="shortcut icon" href="/favicon.ico">
 		
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-91404316-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 </head>
 <body class="body">
 	<div class="container container--outer">
@@ -78,7 +78,8 @@ if (!doNotTrack) {
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-11-17T00:00:00&#43;08:00">2017-11-17</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
 	</span>
 </div></div>
-		</header><div class="content post__content clearfix">
+		</header>
+		<div class="content post__content clearfix">
 			<p>중국 이커머스 최대 행사인 쐉쓰이(双十一)때 11월11일 0시가 되자마자 매출이 급상승함과 동시에 이벤트가 <del>미친듯이</del> 순식간에 몰려드는 것을 보고,
 일 년 전 밤을 지새우며 O2O 시스템을 Event driven 방식으로 바꾸느라 고생했던 순간이 떠올랐다.</p>
 <p>쐉쓰이의 분위기는 동료가 쓴 글인 <a href="http://www.popit.kr/%EA%B0%9C%EB%B0%9C%EC%9E%90%EA%B0%80-%EB%B0%94%EB%9D%BC%EB%B3%B8-%EC%A4%91%EA%B5%AD-%EC%87%BC%ED%95%91-%EC%B6%95%EC%A0%9C-%EA%B4%91%EA%B5%B0%EC%A0%9C/">개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)</a>에 생생하게 나타나 있다.
@@ -94,8 +95,8 @@ if (!doNotTrack) {
 우리는 지금까지 단 한 번도 고객에게 실제의 재고 데이터를 보여주지 못했다.</p>
 <p>그런데도 고객은 계속해서 재고를 맞추게 해 달라고 요구하고 있었다.
 우리는 그것을 다르게 풀고 싶었다.
-사실 그들이 원하는 것은 <em>&lsquo;그래서 재고가 몇 개야?'</em> 에 대한 단답형 대답이 아니라
-<em>&lsquo;재고가 왜 이렇게 되었어?'</em> 에 대해 그 근거를 찾고 싶은 것이었다.
+사실 그들이 원하는 것은 <em>&lsquo;그래서 재고가 몇 개야?&rsquo;</em> 에 대한 단답형 대답이 아니라
+<em>&lsquo;재고가 왜 이렇게 되었어?&rsquo;</em> 에 대해 그 근거를 찾고 싶은 것이었다.
 그것은 단순히 시스템을 오류 없이 정교하게 만드는 것만으로는 불가능했다.
 재고의 변화 이력이 남아있고 그것이 추적 가능해야 했다.</p>
 <p><em>&hellip; 그래서 Event Driven?</em></p>
@@ -108,7 +109,7 @@ if (!doNotTrack) {
 일 년 전체 매출의 절반이 이날 하루에 일어난다.
 그래서 중국에서 온라인 커머스 사업을 하는 회사에 11/11은 가장 중요한 날이다.
 중국에서 IT 회사를 평가하는 기준은 아주 심플하다.
-<em>&ldquo;너희 11월 11일 잘 넘겼어?&quot;</em> 이 질문에 자신 있게 대답할 수 있으면 괜찮은 회사인 거고, 그게 아니면 허접스러운 회사다.
+<em>&ldquo;너희 11월 11일 잘 넘겼어?&rdquo;</em> 이 질문에 자신 있게 대답할 수 있으면 괜찮은 회사인 거고, 그게 아니면 허접스러운 회사다.
 11/11을 문제없이 잘 보냈느냐로 그 회사의 수준이 매겨지는 것이다.
 그날 하루 폭주하는 주문량을 처리해내는 것이 중국에 있는 온라인 커머스 기업의 가장 큰 과제이다.</p>
 <p>지금까지는 모든 업무가 하나의 큰 MSSQL 서버에서 수백 라인의 프로시져에 의해 one transaction으로 처리되고 있었다.
@@ -118,10 +119,10 @@ if (!doNotTrack) {
 작은 프로모션 행사 하나에도 가슴 졸이며 DB 서버의 CPU와 메모리 그래프를 보고 있고, 그러다 (예상과 같이) 시스템은 곧 다운되어 버린다.</p>
 <p><em><strong>어떻게든 되게 하자!</strong></em></p>
 <p>이것이 중국의 여러 서비스를 사용하면서 배운 중국의 방식이었다.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>
-중국의 모바일 서비스에서 다른 그 어떤 것보다 우선시 되는 것이 있다면, **&ldquo;고객이 한번 실행했던 기능은 반드시 처리되어야 한다&rdquo;*<em>는 것이다.
+중국의 모바일 서비스에서 다른 그 어떤 것보다 우선시 되는 것이 있다면, **&ldquo;고객이 한번 실행했던 기능은 반드시 처리되어야 한다&rdquo;**는 것이다.
 그것을 위해선 다른 것들<small>(예쁜 UI, 깨알 같은 디테일, 등)</small>은 좀 감수해도 허용이 되더라.
-분명 위챗을 통해 온라인 송금을 했는데 10분이 지나도 상대방에게 전달이 안 되는 경우도 있고<small></em>(언젠가는 된다)<em></small>,
-모바일을 통해 가입했는데 며칠이 지나도 승인이 떨어지지 않는다<small></em>(언젠가는 된다)*</small>.
+분명 위챗을 통해 온라인 송금을 했는데 10분이 지나도 상대방에게 전달이 안 되는 경우도 있고<small><em>(언젠가는 된다)</em></small>,
+모바일을 통해 가입했는데 며칠이 지나도 승인이 떨어지지 않는다<small><em>(언젠가는 된다)</em></small>.
 지금 당장은 아니더라도, 언젠가 반드시 된다는 보장만 해주면 문제없다.</p>
 <p>이러한 생각을 우리 O2O 시스템에도 적용하기로 했다.
 지금 당장 단번에 완벽하게 처리하는 것이 불가능하다면 차근차근 한 단계식 처리되도록 해서 언젠가는 되게 하자.</p>
@@ -177,7 +178,7 @@ Event Driven에서 제안하는 다양한 방식을 직접 구현해보았다.
 그 이유는,</p>
 <ol>
 <li>produce/consume 코드 작성은 어렵다.<br>
-<em>&lsquo;이게 뭐가 어려워?'</em> 라고 생각하는 사람이 많을 텐데, 이때만 하더라도 우리 개발팀의 수준은 <del>아주 낮았다</del> 그리 높지 않았다.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>
+<em>&lsquo;이게 뭐가 어려워?&rsquo;</em> 라고 생각하는 사람이 많을 텐데, 이때만 하더라도 우리 개발팀의 수준은 <del>아주 낮았다</del> 그리 높지 않았다.<sup id="fnref:5"><a href="#fn:5" class="footnote-ref" role="doc-noteref">5</a></sup>
 게다가 그때 당시엔 큐 도구로 어떤 것이 적합한지 확신이 서지 않았었다.
 RabitMQ, Kafka, NSQ, NATS등 여러 큐를 사용하며 비교해 보았지만<sup id="fnref:6"><a href="#fn:6" class="footnote-ref" role="doc-noteref">6</a></sup> 여전히 확신이 서지 않았다.
 여차하면 다른 큐로 교체할 수 있어야 하는데 그러면 모든 produce, consume 코드를 수정해야 했다.
@@ -263,12 +264,10 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 기업의 세계가 마치 커다란 도박판처럼 느껴졌다.
 같이 상생할 방법도 얼마든지 있을 텐데.
 서로의 밥그릇을 빼앗아오려는 노력을 해외 시장으로 돌릴 수 있으면 참 좋을 텐데.
-옆자리에 앉은 사람과의 경쟁만을 요구받았던 지난 학창시절을 생각해볼 때, 어쩌면 당연한 결과일지도 모른다는 생각에 씁쓸했다. --><blockquote>
-</blockquote>
-<section class="footnotes" role="doc-endnotes">
+옆자리에 앉은 사람과의 경쟁만을 요구받았던 지난 학창시절을 생각해볼 때, 어쩌면 당연한 결과일지도 모른다는 생각에 씁쓸했다. --><div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
+<li id="fn:1">
 <p>아래 그래프는 이벤트의 produce/consume 처리 개수를 분 단위로 보여주고 있다. 
 <img >
 
@@ -276,31 +275,32 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
     <img src="/images/eventdriven/pubsub.png" width="700" />
 
 </img>
- consume 서비스의 문제로 이벤트 처리가 늦어지고 있지만, 결국 모든 이벤트를 문제없이 처리하고 있음을 볼 수 있다. (위와 같이 실제 상황을 정확하게 확인할 수 있었던 것은 <a href="https://jaehue.github.io/post/go-my-way-3-tracing/">지난 글</a>에서 소개한 트레이싱의 효과가 컸다.) <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+
+ consume 서비스의 문제로 이벤트 처리가 늦어지고 있지만, 결국 모든 이벤트를 문제없이 처리하고 있음을 볼 수 있다. (위와 같이 실제 상황을 정확하게 확인할 수 있었던 것은 <a href="https://jaehue.github.io/post/go-my-way-3-tracing/">지난 글</a>에서 소개한 트레이싱의 효과가 컸다.)&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
-<p>중국의 모바일 서비스에 대해서는 <a href="http://www.popit.kr/%EC%A4%91%EA%B5%AD-%EB%AA%A8%EB%B0%94%EC%9D%BC-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%97%90-%EB%B9%A0%EC%A7%80%EB%8B%A4/">중국 모바일 서비스에 빠지다</a>에 잘 소개되어 있다. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:2">
+<p>중국의 모바일 서비스에 대해서는 <a href="http://www.popit.kr/%EC%A4%91%EA%B5%AD-%EB%AA%A8%EB%B0%94%EC%9D%BC-%EC%84%9C%EB%B9%84%EC%8A%A4%EC%97%90-%EB%B9%A0%EC%A7%80%EB%8B%A4/">중국 모바일 서비스에 빠지다</a>에 잘 소개되어 있다.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:3" role="doc-endnote">
-<p>이것은 함께 일하는 <a href="https://www.facebook.com/profile.php?id=100017950085523">안영회</a>님을 흉내낸 방식이다. 코딩하다가 문제가 잘 안 풀릴 때면 위키피디아를 펴놓고 잘 읽히지도 않는 영어를 쳐다보곤 한다. <a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:3">
+<p>이것은 함께 일하는 <a href="https://www.facebook.com/profile.php?id=100017950085523">안영회</a>님을 흉내낸 방식이다. 코딩하다가 문제가 잘 안 풀릴 때면 위키피디아를 펴놓고 잘 읽히지도 않는 영어를 쳐다보곤 한다.&#160;<a href="#fnref:3" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:4" role="doc-endnote">
-<p>Event Driven과 단순히 큐를 사용하는 것과의 차이점은? Event Driven은 시스템이 이벤트의 흐름에 의해 동작하도록 하는 <strong>설계방식</strong>이라면 큐를 사용한 pub/sub 방식은 Event Driven을 구현할 때 사용되는 한 가지 도구일 뿐이다. Event Driven이 아니더라도 큐의 쓰임새는 아주 다양하고, 큐를 사용하지 않고 전통적인 RDB로도 Event Driven을 구현할 수도 있다. (물론 이벤트를 전달할 때 큐를 사용하는 것이 효율적일 수 있지만, 절대적으로 좋은 아키텍처/나쁜 아키텍처는 없다고 생각한다. 서비스마다 처한 환경은 다 다르고, 각자 자신의 서비스가 처한 상황에 맞게 가장 합리적인 기술 구조를 선택하는 것이 좋은 아키텍처라 생각한다.) <a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:4">
+<p>Event Driven과 단순히 큐를 사용하는 것과의 차이점은? Event Driven은 시스템이 이벤트의 흐름에 의해 동작하도록 하는 <strong>설계방식</strong>이라면 큐를 사용한 pub/sub 방식은 Event Driven을 구현할 때 사용되는 한 가지 도구일 뿐이다. Event Driven이 아니더라도 큐의 쓰임새는 아주 다양하고, 큐를 사용하지 않고 전통적인 RDB로도 Event Driven을 구현할 수도 있다. (물론 이벤트를 전달할 때 큐를 사용하는 것이 효율적일 수 있지만, 절대적으로 좋은 아키텍처/나쁜 아키텍처는 없다고 생각한다. 서비스마다 처한 환경은 다 다르고, 각자 자신의 서비스가 처한 상황에 맞게 가장 합리적인 기술 구조를 선택하는 것이 좋은 아키텍처라 생각한다.)&#160;<a href="#fnref:4" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:5" role="doc-endnote">
-<p>우리 개발팀의 수준에 대해서는 동료가 작성한 글인 <a href="http://www.popit.kr/micro-service-docker%EB%A1%9C-%ED%95%A0-%EC%88%98-%EB%B0%96%EC%97%90-%EC%97%86%EC%97%88%EB%8D%98-%EC%82%AC%EC%97%B0/">Micro Service, Docker로 할 수 밖에 없었던 사연</a>을 참고하길 바란다. <a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:5">
+<p>우리 개발팀의 수준에 대해서는 동료가 작성한 글인 <a href="http://www.popit.kr/micro-service-docker%EB%A1%9C-%ED%95%A0-%EC%88%98-%EB%B0%96%EC%97%90-%EC%97%86%EC%97%88%EB%8D%98-%EC%82%AC%EC%97%B0/">Micro Service, Docker로 할 수 밖에 없었던 사연</a>을 참고하길 바란다.&#160;<a href="#fnref:5" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:6" role="doc-endnote">
-<p><a href="https://github.com/jaehue/anyq">https://github.com/jaehue/anyq</a> 를 보면 여러 큐를 사용하려고 시도했던 흔적을 볼 수 있다. <a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:6">
+<p><a href="https://github.com/jaehue/anyq">https://github.com/jaehue/anyq</a> 를 보면 여러 큐를 사용하려고 시도했던 흔적을 볼 수 있다.&#160;<a href="#fnref:6" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:7" role="doc-endnote">
-<p>개발 당시 최종 버전이었던 v0.10.1.0는 at-most-once/at-least-once 두 가지 형태로만 사용할 수 있었다. v0.11.0.0 이후 버전부터는 exactly once를 보장해준다 <a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:7">
+<p>개발 당시 최종 버전이었던 v0.10.1.0는 at-most-once/at-least-once 두 가지 형태로만 사용할 수 있었다. v0.11.0.0 이후 버전부터는 exactly once를 보장해준다&#160;<a href="#fnref:7" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:8" role="doc-endnote">
-<p>사실 우리 서비스도 이정도 수준의 복원력은 갖추고 있지 않다. 하지만, 필요하다면 kafka에 저장된 이벤트를 기반으로 데이터를 복원하는 것은 어렵지않게 구현할 수 있다. 데이터 복원을 위해 이벤트를 보존하려면 kafka의 log retention(디스크에 메시지를 얼마나 오랫동안 유지할지에 대한 설정)을 적절하게 셋팅해주어야 한다. <a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:8">
+<p>사실 우리 서비스도 이정도 수준의 복원력은 갖추고 있지 않다. 하지만, 필요하다면 kafka에 저장된 이벤트를 기반으로 데이터를 복원하는 것은 어렵지않게 구현할 수 있다. 데이터 복원을 위해 이벤트를 보존하려면 kafka의 log retention(디스크에 메시지를 얼마나 오랫동안 유지할지에 대한 설정)을 적절하게 셋팅해주어야 한다.&#160;<a href="#fnref:8" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 		</div>
 		<footer class="post__footer">
@@ -350,11 +350,10 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 	</div>
 </nav>
 
-
 <section class="comments">
 	<div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
+<script>
+    window.disqus_config = function () {
     
     
     
@@ -378,22 +377,20 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 			</div>
 			<aside class="sidebar"><div class="widget-search widget">
 	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<label>
-			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q" aria-label="SEARCH...">
-		</label>
+		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
 		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
+		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/">
 	</form>
 </div>
 <div class="widget-recent widget">
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/2024.03.04/">작은 마음</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.02.01/">불안한 세상을 가르치자</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.24/">내 삶을 오케스트레이션 하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.22/">AI와 함께 살아가기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.20/">신순자 평전</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2023.12.31/">굿바이 2023</a></li>
 		</ul>
 	</div>
 </div>
@@ -402,14 +399,11 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/it/">IT</a>
-			</li>
+				<a class="widget__link" href="/categories/it/">IT</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a>
-			</li>
+				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a>
-			</li>
+				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a></li>
 		</ul>
 	</div>
 </div>
@@ -418,11 +412,11 @@ A,B 두 개의 서비스가 같은 event를 받아서 처리하는데, A 서비�
 	<div class="widget__content">
 		<a class="widget-taglist__link widget__link btn" href="/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/" title="4차 산업혁명">4차 산업혁명 (4)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/chatgpt/" title="ChatGPT">ChatGPT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="eventdriven">eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang (7)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="Eventdriven">Eventdriven (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="Golang">Golang (7)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/it/" title="IT">IT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="kubernetes">kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="microservice">microservice (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="Kubernetes">Kubernetes (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="Microservice">Microservice (2)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/msa/" title="MSA">MSA (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%80%EC%B9%98%EA%B4%80/" title="가치관">가치관 (38)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" title="개발문화">개발문화 (7)</a>

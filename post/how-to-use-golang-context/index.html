@@ -3,44 +3,44 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Go언어에서 Context 사용하기 - Jaehue&#39;s</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="Go언어에서 Context 사용하기; golang">
 		<meta property="og:title" content="Go언어에서 Context 사용하기" />
 <meta property="og:description" content="Go언어에서 Context 사용하기; golang" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/how-to-use-golang-context/" />
+<meta property="og:url" content="https://jaehue.github.io/post/how-to-use-golang-context/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-06-19T00:00:00+09:00" />
 <meta property="article:modified_time" content="2018-06-19T00:00:00+09:00" />
 
+
 		<meta itemprop="name" content="Go언어에서 Context 사용하기">
-<meta itemprop="description" content="Go언어에서 Context 사용하기; golang">
-<meta itemprop="datePublished" content="2018-06-19T00:00:00&#43;09:00" />
-<meta itemprop="dateModified" content="2018-06-19T00:00:00&#43;09:00" />
+<meta itemprop="description" content="Go언어에서 Context 사용하기; golang"><meta itemprop="datePublished" content="2018-06-19T00:00:00+09:00" />
+<meta itemprop="dateModified" content="2018-06-19T00:00:00+09:00" />
 <meta itemprop="wordCount" content="1562">
-
-
-
 <meta itemprop="keywords" content="golang," />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
 	<link rel="stylesheet" href="/css/style.css">
 	
+
 	<link rel="shortcut icon" href="/favicon.ico">
 		
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-91404316-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 </head>
 <body class="body">
 	<div class="container container--outer">
@@ -74,7 +74,8 @@ if (!doNotTrack) {
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2018-06-19T00:00:00&#43;09:00">2018-06-19</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
 	</span>
 </div></div>
-		</header><div class="content post__content clearfix">
+		</header>
+		<div class="content post__content clearfix">
 			<p>Go에는 다른 대중적인 언어와 다른 개념들이 좀 있다.</p>
 <ol>
 <li>클래스를 과감히 빼버렸고 <sub>(그래서 상속이 없다)</sub></li>
@@ -106,235 +107,236 @@ Go 1.7 이전 버전을 기준으로 작성된 책에서는 <code>context</code>
 <h2 id="go에서의-컨텍스트">Go에서의 컨텍스트</h2>
 <p>맥락(=컨텍스트)을 유지하기 위해 Go는 <code>context.Context</code> 타입을 제공한다.</p>
 <p>컨텍스트를 생성하는 방법은 여러가지가 있는데 기본은 <code>context.Background</code> 함수를 사용하여 생성하는 것이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Background</span>() <span style="color:#a6e22e">Context</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Background</span>() <span style="color:#a6e22e">Context</span></span></span></code></pre></div>
 <p>한번 생성된 컨텍스트는 변경할 수 없다.
 그래서 컨텍스트에 값을 추가하고 싶을 때는 <code>context.WithValue</code> 함수로 새로운 컨텍스트를 만들어 주어야 한다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#a6e22e">Context</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">val</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#a6e22e">Context</span></span></span></code></pre></div>
 <p>컨텍스트의 값을 가져올때는 컨텍스트의 <code>Value</code> 메서드를 사용한다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Context</span> <span style="color:#66d9ef">interface</span> {
-	<span style="color:#a6e22e">Value</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">interface</span>{}
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Context</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Value</span>(<span style="color:#a6e22e">key</span> <span style="color:#66d9ef">interface</span>{}) <span style="color:#66d9ef">interface</span>{}
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p><code>context.WithCancel</code> 함수로 생성한 컨텍스트에는 취소 신호를 보낼 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#a6e22e">CancelFunc</span>)</span></span></code></pre></div>
 <p>일정 시간이 되면 자동으로 컨텍스트에 취소 신호가 전달되도록 하려면 <code>context.WithDeadline</code> 함수나 <code>context.WithTimeout</code> 함수를 사용하여 컨텍스트를 생성하면 된다.</p>
-<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithDeadline</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">d</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">timeout</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div></p>
+<p><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithDeadline</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">d</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">timeout</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</span></span></code></pre></div></p>
 <p>각각의 함수&amp;메서드가 어떻게 동작하는지는 예제와 함께 설명을 하겠다.</p>
 <h2 id="컨텍스트-내부의-값-사용">컨텍스트 내부의 값 사용</h2>
 <p>컨텍스트를 사용하는 일반적인 패턴은 현재 맥락 안에서 유지해야 할 값을 컨텍스트에 담아서 전달하고, 필요한 곳에서 컨텍스트의 값을 꺼내 사용하는 것이다.</p>
 <p>아래 예제에서는 <code>context.Background</code> 함수로 컨텍스트를 생성한 후, <code>context.WithValue</code> 함수로 기존 컨텍스트에 값을 추가하여 새로운 컨텍스트를 생성하였다.
 그리고 다른 함수 호출시 이 컨텍스트(<code>ctx</code>)를 파라미터로 전달하였다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// 컨텍스트 생성
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">ctx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>()
-
-<span style="color:#75715e">// 컨텍스트에 값 추가
-</span><span style="color:#75715e">// context.WithValue 함수를 사용하여 새로운 컨텍스트를 생성함
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">ctx</span> = <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;current_user&#34;</span>, <span style="color:#a6e22e">currentUser</span>)
-
-<span style="color:#75715e">// 함수 호출시 컨텍스트를 파라미터로 전달
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">myFunc</span>(<span style="color:#a6e22e">ctx</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 컨텍스트 생성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">ctx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 컨텍스트에 값 추가
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// context.WithValue 함수를 사용하여 새로운 컨텍스트를 생성함
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">ctx</span> = <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#e6db74">&#34;current_user&#34;</span>, <span style="color:#a6e22e">currentUser</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 함수 호출시 컨텍스트를 파라미터로 전달
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">myFunc</span>(<span style="color:#a6e22e">ctx</span>)</span></span></code></pre></div>
 <p><code>myFunc</code> 함수에서는 파라미터로 전달받은 <code>ctx</code>에서 키<sub><em>key</em></sub>가 <code>&quot;current_user&quot;</code>인 값을 꺼내서 사용하였다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">myFunc</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">currentUser</span> <span style="color:#a6e22e">User</span>
-
-	<span style="color:#75715e">// 컨텍스트에서 값을 가져옴
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Value</span>(<span style="color:#e6db74">&#34;current_user&#34;</span>); <span style="color:#a6e22e">v</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-		<span style="color:#75715e">// 타입 확인(type assertion)
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">u</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.(<span style="color:#a6e22e">User</span>)
-		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;Not authorized&#34;</span>)
-		}
-		<span style="color:#a6e22e">currentUser</span> = <span style="color:#a6e22e">u</span>
-	} <span style="color:#66d9ef">else</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;Not authorized&#34;</span>)
-	}
-
-	<span style="color:#75715e">// currentUser를 사용하여 로직 처리
-</span><span style="color:#75715e"></span>
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">myFunc</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">currentUser</span> <span style="color:#a6e22e">User</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 컨텍스트에서 값을 가져옴
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Value</span>(<span style="color:#e6db74">&#34;current_user&#34;</span>); <span style="color:#a6e22e">v</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 타입 확인(type assertion)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">u</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.(<span style="color:#a6e22e">User</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;Not authorized&#34;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">currentUser</span> = <span style="color:#a6e22e">u</span>
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;Not authorized&#34;</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// currentUser를 사용하여 로직 처리
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>컨텍스트의 값을 꺼내 사용할때 주의해야 할 점이 있다.<br>
 컨텍스트의 <code>Value</code> 메서드의 리턴값은 <code>interface{}</code> 타입이고, 컨텍스트에 값이 존재하지 않는 경우 <code>nil</code>이 리턴된다.
 그래서 컨텍스트에 해당 값이 존재하는지(<code>v != nil</code>), 그리고 그 값이 원하는 타입이 맞는지 type assertion을 통해 확인(<code>u, ok := v.(User)</code>)을 해야 한다.</p>
 <h2 id="cancelation">Cancelation</h2>
 <p>Go에서는 동시에 처리해야 하는 작업을 고루틴으로 실행한다.
 고루틴을 사용할 때 주의해야 할 점은 내가 실행한 고루틴이 일정 시간 안에 반드시 종료될 것이란 것을 보장해야 한다는 것이다.
-Go 커뮤니티에 막대한 영향력을 행사하고 있는 Dave Cheney도 <a href="https://dave.cheney.net/2016/12/22/never-start-a-goroutine-without-knowing-how-it-will-stop">자신의 블로그</a>에서 <strong><code>Never start a goroutine without knowing how it will stop</code></strong>이라고 강조했다.
+Go 커뮤니티에 막대한 영향력을 행사하고 있는 Dave Cheney도 <a href="https://dave.cheney.net/2016/12/22/never-start-a-goroutine-without-knowing-how-it-will-stop">자신의 블로그</a>에서 **<code>Never start a goroutine without knowing how it will stop</code>**이라고 강조했다.
 즉, 고루틴이 언제 종료될지 모른 채로 고루틴을 실행시키지 말라는 것이다.
 컨텍스트의 cancelation 기능을 사용하면 고루틴의 생명주기를 쉽게 제어할 수 있다.</p>
 <p><code>context.WithCancel</code> 함수로 컨텍스트를 생성하면 두 개의 값이 리턴이 된다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#a6e22e">CancelFunc</span>)</span></span></code></pre></div>
 <ul>
 <li>첫 번째 리턴값 <code>ctx</code>는 새로 생성된 컨텍스트이고,</li>
 <li>두 번째 리턴값 <code>cancel</code>은 컨텍스트에 종료 신호를 보낼 수 있는 함수이다.</li>
 </ul>
 <p>컨텍스트를 사용하여 고루틴의 생명주기를 제어하기 위해 알아야 하는 두 가지 중요한 메서드가 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Context</span> <span style="color:#66d9ef">interface</span> {
-	<span style="color:#a6e22e">Done</span>() <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}
-	<span style="color:#a6e22e">Err</span>() <span style="color:#66d9ef">error</span>
-}	</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Context</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Done</span>() <span style="color:#f92672">&lt;-</span><span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">struct</span>{}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Err</span>() <span style="color:#66d9ef">error</span>
+</span></span><span style="display:flex;"><span>}	
+</span></span></code></pre></div>
 <p>컨텍스트의 <code>Done()</code> 메서드는 종료 신호를 전달받을 수 있는 채널을 반환한다.
 즉, <code>cancel</code> 함수를 실행하여 컨텍스트에 종료 신호를 보내면 그 상황을 컨텍스트의 <code>Done()</code> 메서드를 통해 알 수 있는 것이다. <code>Err()</code> 메서드는 컨텍스트가 강제 종료 되었을 때의 상황을 리턴한다.</p>
 <p>예제를 통해 확인해보자.</p>
 <p>아래에 오랜 시간 동안 처리되어야 하는 함수가 있다.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longFunc</span>() <span style="color:#66d9ef">string</span> {
-	<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">After</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>) <span style="color:#75715e">// long running job
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Success&#34;</span>
-}</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longFunc</span>() <span style="color:#66d9ef">string</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">After</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">3</span>) <span style="color:#75715e">// long running job
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Success&#34;</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></p>
 <p>아래 <code>longFuncWithCtx</code> 함수에서는 고루틴으로 <code>longFunc</code> 함수를 실행시켰다.
 이때 <code>select</code> 구문을 사용하여 <code>longFunc</code> 함수의 결과와 컨텍스트 <code>Done()</code> 채널의 신호를 기다린다.
 <code>longFunc</code> 함수가 정상적으로 처리가 완료 되면 처리 결과를 리턴하고
 <code>longFunc</code> 함수가 끝나기 전 컨텍스트로부터 <code>Done()</code> 신호가 전달되면 에러를 리턴한다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
-	<span style="color:#a6e22e">done</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>)
-
-	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-		<span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">longFunc</span>()
-	}()
-
-	<span style="color:#66d9ef">select</span> {
-	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">done</span>:
-		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>, <span style="color:#66d9ef">nil</span>
-	<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
-		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Fail&#34;</span>, <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Err</span>()
-	}
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#66d9ef">string</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">done</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">string</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">done</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">longFunc</span>()
+</span></span><span style="display:flex;"><span>	}()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">done</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">case</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Done</span>():
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;Fail&#34;</span>, <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Err</span>()
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>아래는 위 함수(<code>longFuncWithCtx</code>)를 구동하는 코드이다.
 <code>context.WithCancel</code> 함수로 컨텍스트를 생성했고
 고루틴을 종료해야 할 상황이 되면 <code>cancel</code> 함수를 실행하여 컨텍스트에 취소 신호를 전달한다. 이와 같은 방식으로 고루틴이 안정적으로 종료되도록 하였다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>())
-
-<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-	<span style="color:#75715e">// 고루틴을 종료해야 할 상황이 되면 cancel 함수 실행
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cancel</span>()
-}()
-
-<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 고루틴을 종료해야 할 상황이 되면 cancel 함수 실행
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cancel</span>()
+</span></span><span style="display:flex;"><span>}()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span>)</span></span></code></pre></div>
 <p>고루틴의 생명주기를 제어하기 어려운 경우는 동시에 여러개의 고루틴을 실행하는 경우이다.
 실행되는 고루틴의 로직은 같다 하더라도 실제 런타임의 상황에 따라 각각의 고루틴은 다르게 동작할 수도 있다.
 예를 들면 특정 고루틴은 시스템 자원 할당을 기다리다가 무한정 대기 상태에 빠질 수도 있고 무한루프에서 빠져나오지 못하는 경우가 있을 수도 있다.
 dead lock이나 race condition 같은 치명적인 상태에 빠질 수도 있다.
-<font color=grey><small>*(물론 이런 상황이 발생하지 않도록 코드를 잘 짜야 하겠지만, 그럼에도 불구하고 방어적인 프로그래밍(Defensive programming)은 중요하다. 고전으로 불리는 코드 컴플리트(Code Complete) 책에서도 한 장을 할애해서 방어적인 프로그래밍의 중요성을 강조하고 있다)*</small></font>
+<font color=grey><small><em>(물론 이런 상황이 발생하지 않도록 코드를 잘 짜야 하겠지만, 그럼에도 불구하고 방어적인 프로그래밍(Defensive programming)은 중요하다. 고전으로 불리는 코드 컴플리트(Code Complete) 책에서도 한 장을 할애해서 방어적인 프로그래밍의 중요성을 강조하고 있다)</em></small></font>
 이런 상황에 빠지더라도 특정 시점이 되면 고루틴이 종료되도록 고루틴의 생명주기를 제어할 수 있어야 한다.</p>
 <p>여러 고루틴이 컨텍스트를 공유하도록 하면, 하나의 컨텍스트로 여러 고루틴의 생명주기를 한꺼번에 제어할 수 있다.
 아래 코드에서 <code>cancel</code> 함수로 컨텍스트(<code>ctx</code>)에 취소 신호를 보내면, <code>ctx</code>를 사용하는 모든 고루틴에 동일하게 취소 신호가 전달된다. 여러 고루틴에 일일이 취소 신호를 전달하지 않아도 된다.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>())
-
-<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-	<span style="color:#75715e">// 고루틴을 종료해야 할 상황이 되면 cancel 함수 실행
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cancel</span>()
-}()
-
-<span style="color:#75715e">// jobCount 만큼 여러개의 고루틴을 만들어 longFuncWithCtx 수행
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
-<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">jobCount</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
-
-	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-		<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
-		<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span>)		
-		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-			<span style="color:#75715e">//
-</span><span style="color:#75715e"></span>		}
-	}()
-}
-<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithCancel</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 고루틴을 종료해야 할 상황이 되면 cancel 함수 실행
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cancel</span>()
+</span></span><span style="display:flex;"><span>}()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// jobCount 만큼 여러개의 고루틴을 만들어 longFuncWithCtx 수행
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">jobCount</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span>)		
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		}
+</span></span><span style="display:flex;"><span>	}()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()</span></span></code></pre></div></p>
 <h2 id="timeout--deadline">Timeout &amp; Deadline</h2>
 <p>이번에 소개할 방식은 일정 시간이 되면 컨텍스트에 자동으로 취소 신호가 전달되도록 하는 방식이다.
 Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 <p><code>context.WithDeadline</code> 함수는 두 번째 파라미터로 <code>time.Time</code> 값을 받는데, 이 시간이 되면 컨텍스트에 취소 신호가 전달된다</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithDeadline</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">d</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithDeadline</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">d</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</span></span></code></pre></div>
 <p><code>context.WithTimeout</code> 함수도 동작 방식은 같다.
 한 가지 차이점은 두번째 파라미터로 <code>time.Duration</code> 값을 받는다는 것이다.
 두 번째 파라미터로 전달한 duration이 지나면 컨텍스트에 취소 신호가 전달된다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">timeout</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">parent</span> <span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">timeout</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Duration</span>) (<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">CancelFunc</span>)</span></span></code></pre></div>
 <p>컨텍스트의 <code>Deadline</code> 메서드를 사용하면 컨텍스트로 취소 신호가 전달될 때까지 남은 시간을 확인할 수 있다.
 작업을 시작하기 전 남은 시간을 먼저 확인을 해서, 충분한 시간이 있을 때만 작업을 수행하도록 할 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Context</span> <span style="color:#66d9ef">interface</span> {
-	<span style="color:#a6e22e">Deadline</span>() (<span style="color:#a6e22e">deadline</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>, <span style="color:#a6e22e">ok</span> <span style="color:#66d9ef">bool</span>)
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Context</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Deadline</span>() (<span style="color:#a6e22e">deadline</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>, <span style="color:#a6e22e">ok</span> <span style="color:#66d9ef">bool</span>)
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>필자는 <code>context.WithTimeout</code> 함수를 많이 사용한다.
 주로 네트워크 병목이 생기는 작업을 고루틴으로 실행하는 경우가 많은데, 간혹 네트워크 문제로 timeout이 발생하는 경우가 있다.
 이런 경우 고루틴 안으로 <code>context.WithTimeout</code> 함수로 생성한 컨텍스트를 전달하여 일정한 시간이 지나면 고루틴을 자동으로 종료하도록 해서 고루틴이 무한정 길어지는 것을 막을 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">maxDuration</span>)
-
-<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-	<span style="color:#75715e">// 고루틴을 종료해야 할 상황이 되면 cancel 함수 실행
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cancel</span>()
-}()
-
-<span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
-<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span>)
-<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;duration:%v result:%s\n&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">start</span>), <span style="color:#a6e22e">result</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">cancel</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithTimeout</span>(<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Background</span>(), <span style="color:#a6e22e">maxDuration</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 고루틴을 종료해야 할 상황이 되면 cancel 함수 실행
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">cancel</span>()
+</span></span><span style="display:flex;"><span>}()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">longFuncWithCtx</span>(<span style="color:#a6e22e">ctx</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;duration:%v result:%s\n&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">start</span>), <span style="color:#a6e22e">result</span>)</span></span></code></pre></div>
 <h2 id="컨텍스트의-활용-예-httprequest">컨텍스트의 활용 예: <code>http.Request</code></h2>
 <p>Go의 기본 라이브러리에서 컨텍스트가 어떻게 사용되고 있는지 살펴보자.</p>
 <p><code>http.Request</code>는 컨텍스트 활용의 아주 좋은 예다.
 웹 어플리케이션에서 사용자의 요청이 들어왔을 때, 요청한 작업을 수행한 후에 클라이언트로 response를 전달할 때까지를 하나의 맥락이라 볼 수 있다.
 이 맥락 안에서 유지되어야 할 값들이 있다면 그것을 컨텍스트에 담아두고 필요한 곳에서 사용하면 된다.</p>
 <p><code>http.Request</code> 타입은 아래와 같이 정의되어 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">http</span>
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Request</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Method</span> <span style="color:#66d9ef">string</span>	
-	<span style="color:#a6e22e">Header</span> <span style="color:#a6e22e">Header</span>
-	<span style="color:#a6e22e">Body</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">ReadCloser</span>		
-
-	<span style="color:#75715e">/* ... */</span>
-
-	<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">http</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Request</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Method</span> <span style="color:#66d9ef">string</span>	
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Header</span> <span style="color:#a6e22e">Header</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Body</span> <span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">ReadCloser</span>		
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">/* ... */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>맨 마지막 필드로 <code>ctx context.Context</code>가 정의되어 있다.
 이 컨텍스트에 웹 요청이 완료될 때까지 유지해야 하는 값을 보관한다.</p>
 <p>웹 서버에서 요청이 들어오면 <code>http.Request</code> 값을 만들어 핸들러 함수로 전달하는데 이때 컨텍스트를 생성한다.
 <code>http.Request</code>의 <code>Context</code> 함수를 사용하면 이 컨텍스트를 가져올 수 있다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">http</span>
-
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Request</span>) <span style="color:#a6e22e">Context</span>() <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">http</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Request</span>) <span style="color:#a6e22e">Context</span>() <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span></span></span></code></pre></div>
 <p>이 컨텍스트에 하나의 웹 요청이 처리되는 동안 유지해야 할 값을 담아놓고 필요한 곳에서 사용하면 된다.
 주로 미들웨어에서 요청 상태를 확인해서 <code>http.Request</code>의 컨텍스트에 필요한 값을 담아서 다음 핸들러로 전달한다.</p>
 <p>아래는 웹 요청을 처리하는 핸들러 함수이다.
 <code>http.Request</code>의 컨텍스트로 부터 <code>&quot;current_user&quot;</code> 값을 가져와서 사용한다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">handler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">currentUser</span> <span style="color:#a6e22e">User</span>
-
-	<span style="color:#75715e">// 컨텍스트에서 값을 가져옴
-</span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Context</span>().<span style="color:#a6e22e">Value</span>(<span style="color:#e6db74">&#34;current_user&#34;</span>); <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-		<span style="color:#75715e">// &#34;current_user&#34;가 존재하지 않으면 401 에러 리턴
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Not Authorized&#34;</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusUnauthorized</span>)
-		<span style="color:#66d9ef">return</span>
-	} <span style="color:#66d9ef">else</span> {
-		<span style="color:#a6e22e">u</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.(<span style="color:#a6e22e">User</span>)
-		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-			<span style="color:#75715e">// 타입이 User가 아니면 401 에러 리턴
-</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Not Authorized&#34;</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusUnauthorized</span>)
-			<span style="color:#66d9ef">return</span>
-		}
-
-		<span style="color:#a6e22e">currentUser</span> = <span style="color:#a6e22e">u</span>
-	}
-
-	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Hi I am %s&#34;</span>, <span style="color:#a6e22e">currentUser</span>.<span style="color:#a6e22e">Name</span>)
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">handler</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">currentUser</span> <span style="color:#a6e22e">User</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 컨텍스트에서 값을 가져옴
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Context</span>().<span style="color:#a6e22e">Value</span>(<span style="color:#e6db74">&#34;current_user&#34;</span>); <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// &#34;current_user&#34;가 존재하지 않으면 401 에러 리턴
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Not Authorized&#34;</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusUnauthorized</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">u</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.(<span style="color:#a6e22e">User</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 타입이 User가 아니면 401 에러 리턴
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Not Authorized&#34;</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusUnauthorized</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">currentUser</span> = <span style="color:#a6e22e">u</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Fprintf</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Hi I am %s&#34;</span>, <span style="color:#a6e22e">currentUser</span>.<span style="color:#a6e22e">Name</span>)
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>아래는 미들웨어 함수이다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">authMiddleware</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandlerFunc</span> {
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
-		<span style="color:#75715e">// 1. 사용자의 현재 세션 정보를 기반으로 currentUser 생성
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">currentUser</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">getCurrentUser</span>(<span style="color:#a6e22e">r</span>)
-		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-			<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Not Authorized&#34;</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusUnauthorized</span>)
-			<span style="color:#66d9ef">return</span>
-		}
-
-		<span style="color:#75715e">// 2. 기본 컨텍스트에 current_user를 담아 새로운 컨텍스트 생성
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">ctx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Context</span>(), <span style="color:#e6db74">&#34;current_user&#34;</span>, <span style="color:#a6e22e">currentUser</span>)
-
-		<span style="color:#75715e">// 3. 새로 생성한 컨텍스트 할당한 새로운 `http.Request` 생성
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">nextRequest</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">WithContext</span>(<span style="color:#a6e22e">ctx</span>)
-
-		<span style="color:#75715e">// 4. 다음 핸들러 호출
-</span><span style="color:#75715e"></span>		<span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">nextRequest</span>)
-	}
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">authMiddleware</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandlerFunc</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">w</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ResponseWriter</span>, <span style="color:#a6e22e">r</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Request</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 1. 사용자의 현재 세션 정보를 기반으로 currentUser 생성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">currentUser</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">getCurrentUser</span>(<span style="color:#a6e22e">r</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">w</span>, <span style="color:#e6db74">&#34;Not Authorized&#34;</span>, <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">StatusUnauthorized</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 2. 기본 컨텍스트에 current_user를 담아 새로운 컨텍스트 생성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">ctx</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">Context</span>(), <span style="color:#e6db74">&#34;current_user&#34;</span>, <span style="color:#a6e22e">currentUser</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 3. 새로 생성한 컨텍스트 할당한 새로운 `http.Request` 생성
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">nextRequest</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">r</span>.<span style="color:#a6e22e">WithContext</span>(<span style="color:#a6e22e">ctx</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 4. 다음 핸들러 호출
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">w</span>, <span style="color:#a6e22e">nextRequest</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <ol>
 <li>사용자의 현재 세션 정보를 기반으로 <code>currentUser</code>를 생성하여</li>
 <li><code>http.Request</code>의 컨텍스트에 <code>currentUser</code>를 담아 새로운 컨텍스트를 생성하였다.</li>
@@ -343,10 +345,10 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 </ol>
 <p>메인 함수에서 웹서버를 구동하였다.
 이때 핸들러에 <code>authMiddleware</code>를 적용하였다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">authMiddleware</span>(<span style="color:#a6e22e">handler</span>))
-	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>, <span style="color:#66d9ef">nil</span>))
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">HandleFunc</span>(<span style="color:#e6db74">&#34;/&#34;</span>, <span style="color:#a6e22e">authMiddleware</span>(<span style="color:#a6e22e">handler</span>))
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">ListenAndServe</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>, <span style="color:#66d9ef">nil</span>))
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <hr>
 <p>이 글에서 소개된 예제는 github에서 확인할 수 있다.</p>
 <p><a href="https://github.com/jaehue/golang-ctx-example.git">https://github.com/jaehue/golang-ctx-example.git</a></p>
@@ -361,9 +363,7 @@ Cancelation과 전체적인 동작 방식은 비슷하다.</p>
 
 Go 언어를 처음 사용할때는 Go에서 가이드하는 방식을 최대한 그대로 따라해보는 것을 권장한다.
 Go 언어에 많이 익숙해져서 언어의 기능을 충분히 잘 활용할 수 있는 수준이 되면 그때의 상황에 맞게 효율적으로 나만의 방식대로 코드를 작성
- --><blockquote>
-</blockquote>
-
+ -->
 		</div>
 		<footer class="post__footer">
 			
@@ -406,11 +406,10 @@ Go 언어에 많이 익숙해져서 언어의 기능을 충분히 잘 활용할 
 	</div>
 </nav>
 
-
 <section class="comments">
 	<div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
+<script>
+    window.disqus_config = function () {
     
     
     
@@ -434,22 +433,20 @@ Go 언어에 많이 익숙해져서 언어의 기능을 충분히 잘 활용할 
 			</div>
 			<aside class="sidebar"><div class="widget-search widget">
 	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<label>
-			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q" aria-label="SEARCH...">
-		</label>
+		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
 		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
+		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/">
 	</form>
 </div>
 <div class="widget-recent widget">
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/2024.03.04/">작은 마음</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.02.01/">불안한 세상을 가르치자</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.24/">내 삶을 오케스트레이션 하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.22/">AI와 함께 살아가기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.20/">신순자 평전</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2023.12.31/">굿바이 2023</a></li>
 		</ul>
 	</div>
 </div>
@@ -458,14 +455,11 @@ Go 언어에 많이 익숙해져서 언어의 기능을 충분히 잘 활용할 
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/it/">IT</a>
-			</li>
+				<a class="widget__link" href="/categories/it/">IT</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a>
-			</li>
+				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a>
-			</li>
+				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a></li>
 		</ul>
 	</div>
 </div>
@@ -474,11 +468,11 @@ Go 언어에 많이 익숙해져서 언어의 기능을 충분히 잘 활용할 
 	<div class="widget__content">
 		<a class="widget-taglist__link widget__link btn" href="/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/" title="4차 산업혁명">4차 산업혁명 (4)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/chatgpt/" title="ChatGPT">ChatGPT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="eventdriven">eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang (7)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="Eventdriven">Eventdriven (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="Golang">Golang (7)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/it/" title="IT">IT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="kubernetes">kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="microservice">microservice (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="Kubernetes">Kubernetes (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="Microservice">Microservice (2)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/msa/" title="MSA">MSA (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%80%EC%B9%98%EA%B4%80/" title="가치관">가치관 (38)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" title="개발문화">개발문화 (7)</a>

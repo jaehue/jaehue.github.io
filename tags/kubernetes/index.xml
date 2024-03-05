@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>kubernetes on Jaehue&#39;s</title>
+    <title>Kubernetes on Jaehue&#39;s</title>
     <link>https://jaehue.github.io/tags/kubernetes/</link>
-    <description>Recent content in kubernetes on Jaehue&#39;s</description>
+    <description>Recent content in Kubernetes on Jaehue&#39;s</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <lastBuildDate>Sat, 04 Apr 2020 13:46:40 +0800</lastBuildDate>
-    
-	<atom:link href="https://jaehue.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <atom:link href="https://jaehue.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>적당히 갖춰나간 운영 환경</title>
       <link>https://jaehue.github.io/post/2020.04.08.techset/</link>
       <pubDate>Sat, 04 Apr 2020 13:46:40 +0800</pubDate>
-      
       <guid>https://jaehue.github.io/post/2020.04.08.techset/</guid>
-      <description>2020-04-15 팝잇(popit)에 기고한 글 ⤴️
- 2016년, 중국 패션 리테일 영역의 클라우드 서비스 회사가 되겠다는 야심 찬 희망을 품고 아기 발걸음1을 시작했고, 2020년 현재 아래와 같은 구성을 갖추었다. 처음부터 이런 구성을 그려놓고 차근차근 갖춰 나간 것은 아니었다. 2016년 봄, 알리(Ali) 클라우드에 3대의 리눅스 서버를 구매해서 1대에 대충 스테이징 환경과 각종 관리 툴을 세팅하고 2대 서버에 운영을 위한 최소한의 구성만 갖춘 채 첫 번째 기능을 출시했다. 매번 필요할 때마다 점진적으로 아키텍처를 개선해 나갔고, 4년이 지난 지금 꽤 그럴싸한(?</description>
+      <description>2020-04-15 팝잇(popit)에 기고한 글 ⤴️&#xA;2016년, 중국 패션 리테일 영역의 클라우드 서비스 회사가 되겠다는 야심 찬 희망을 품고 아기 발걸음1을 시작했고, 2020년 현재 아래와 같은 구성을 갖추었다. 처음부터 이런 구성을 그려놓고 차근차근 갖춰 나간 것은 아니었다. 2016년 봄, 알리(Ali) 클라우드에 3대의 리눅스 서버를 구매해서 1대에 대충 스테이징 환경과 각종 관리 툴을 세팅하고 2대 서버에 운영을 위한 최소한의 구성만 갖춘 채 첫 번째 기능을 출시했다. 매번 필요할 때마다 점진적으로 아키텍처를 개선해 나갔고, 4년이 지난 지금 꽤 그럴싸한(?</description>
     </item>
-    
   </channel>
 </rss>

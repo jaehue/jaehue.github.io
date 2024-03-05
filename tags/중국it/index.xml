@@ -7,30 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ko-kr</language>
     <lastBuildDate>Sat, 04 Apr 2020 13:46:40 +0800</lastBuildDate>
-    
-	<atom:link href="https://jaehue.github.io/tags/%EC%A4%91%EA%B5%ADit/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <atom:link href="https://jaehue.github.io/tags/%EC%A4%91%EA%B5%ADit/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>적당히 갖춰나간 운영 환경</title>
       <link>https://jaehue.github.io/post/2020.04.08.techset/</link>
       <pubDate>Sat, 04 Apr 2020 13:46:40 +0800</pubDate>
-      
       <guid>https://jaehue.github.io/post/2020.04.08.techset/</guid>
-      <description>2020-04-15 팝잇(popit)에 기고한 글 ⤴️
- 2016년, 중국 패션 리테일 영역의 클라우드 서비스 회사가 되겠다는 야심 찬 희망을 품고 아기 발걸음1을 시작했고, 2020년 현재 아래와 같은 구성을 갖추었다. 처음부터 이런 구성을 그려놓고 차근차근 갖춰 나간 것은 아니었다. 2016년 봄, 알리(Ali) 클라우드에 3대의 리눅스 서버를 구매해서 1대에 대충 스테이징 환경과 각종 관리 툴을 세팅하고 2대 서버에 운영을 위한 최소한의 구성만 갖춘 채 첫 번째 기능을 출시했다. 매번 필요할 때마다 점진적으로 아키텍처를 개선해 나갔고, 4년이 지난 지금 꽤 그럴싸한(?</description>
+      <description>2020-04-15 팝잇(popit)에 기고한 글 ⤴️&#xA;2016년, 중국 패션 리테일 영역의 클라우드 서비스 회사가 되겠다는 야심 찬 희망을 품고 아기 발걸음1을 시작했고, 2020년 현재 아래와 같은 구성을 갖추었다. 처음부터 이런 구성을 그려놓고 차근차근 갖춰 나간 것은 아니었다. 2016년 봄, 알리(Ali) 클라우드에 3대의 리눅스 서버를 구매해서 1대에 대충 스테이징 환경과 각종 관리 툴을 세팅하고 2대 서버에 운영을 위한 최소한의 구성만 갖춘 채 첫 번째 기능을 출시했다. 매번 필요할 때마다 점진적으로 아키텍처를 개선해 나갔고, 4년이 지난 지금 꽤 그럴싸한(?</description>
     </item>
-    
     <item>
       <title>내 멋대로 구현한 이벤트 드리븐</title>
       <link>https://jaehue.github.io/post/event-driven/</link>
       <pubDate>Fri, 17 Nov 2017 00:00:00 +0800</pubDate>
-      
       <guid>https://jaehue.github.io/post/event-driven/</guid>
-      <description>중국 이커머스 최대 행사인 쐉쓰이(双十一)때 11월11일 0시가 되자마자 매출이 급상승함과 동시에 이벤트가 미친듯이 순식간에 몰려드는 것을 보고, 일 년 전 밤을 지새우며 O2O 시스템을 Event driven 방식으로 바꾸느라 고생했던 순간이 떠올랐다.
-쐉쓰이의 분위기는 동료가 쓴 글인 개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)에 생생하게 나타나 있다. 실제 당일날 MongoDB 인덱스 문제, 디스크 부족으로 인한 kafka 서버 장애, 등 몇몇 문제가 발생하기도 했지만, 고객에게는 문제없이 서비스가 제공되었고1, 쐉쓰이(双十一)는 무사히 지나갔다.
-이번 글에서는 쐉쓰이(双十一)를 버틸 수 있었던 요소 중 하나였던 Event driven 방식을 소개하려고 한다.</description>
+      <description>중국 이커머스 최대 행사인 쐉쓰이(双十一)때 11월11일 0시가 되자마자 매출이 급상승함과 동시에 이벤트가 미친듯이 순식간에 몰려드는 것을 보고, 일 년 전 밤을 지새우며 O2O 시스템을 Event driven 방식으로 바꾸느라 고생했던 순간이 떠올랐다.&#xA;쐉쓰이의 분위기는 동료가 쓴 글인 개발자가 바라본 중국 쇼핑 축제 쐉쓰이(광군제)에 생생하게 나타나 있다. 실제 당일날 MongoDB 인덱스 문제, 디스크 부족으로 인한 kafka 서버 장애, 등 몇몇 문제가 발생하기도 했지만, 고객에게는 문제없이 서비스가 제공되었고1, 쐉쓰이(双十一)는 무사히 지나갔다.&#xA;이번 글에서는 쐉쓰이(双十一)를 버틸 수 있었던 요소 중 하나였던 Event driven 방식을 소개하려고 한다.</description>
     </item>
-    
   </channel>
 </rss>

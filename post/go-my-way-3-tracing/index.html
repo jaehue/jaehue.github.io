@@ -3,48 +3,48 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Go My Way #3 - 트레이싱 - Jaehue&#39;s</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 		<meta property="og:title" content="Go My Way #3 - 트레이싱" />
 <meta property="og:description" content="Go My Way는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다. 이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.
- Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - 트레이싱 번외 - gomobile  이번 글에서는 트레이싱에 대해 소개하겠다.
-이 글을 작성하는 지금 현재 우리 회사는 클라우드 상에 50여 개의 마이크로 서비스가 서로 얽혀서 동작하고 있다." />
+Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - 트레이싱 번외 - gomobile 이번 글에서는 트레이싱에 대해 소개하겠다.
+이 글을 작성하는 지금 현재 우리 회사는 클라우드 상에 50여 개의 마이크로 서비스가 서로 얽혀서 동작하고 있다. 사용자의 한 번의 클릭이 실제로는 여러 마이크로 서비스들을 거치고 거쳐서 최종 결과를 고객에게 보여준다." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/go-my-way-3-tracing/" />
+<meta property="og:url" content="https://jaehue.github.io/post/go-my-way-3-tracing/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2017-10-30T00:00:00+08:00" />
 <meta property="article:modified_time" content="2017-10-30T00:00:00+08:00" />
 
+
 		<meta itemprop="name" content="Go My Way #3 - 트레이싱">
 <meta itemprop="description" content="Go My Way는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다. 이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.
- Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - 트레이싱 번외 - gomobile  이번 글에서는 트레이싱에 대해 소개하겠다.
-이 글을 작성하는 지금 현재 우리 회사는 클라우드 상에 50여 개의 마이크로 서비스가 서로 얽혀서 동작하고 있다.">
-<meta itemprop="datePublished" content="2017-10-30T00:00:00&#43;08:00" />
-<meta itemprop="dateModified" content="2017-10-30T00:00:00&#43;08:00" />
+Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - 트레이싱 번외 - gomobile 이번 글에서는 트레이싱에 대해 소개하겠다.
+이 글을 작성하는 지금 현재 우리 회사는 클라우드 상에 50여 개의 마이크로 서비스가 서로 얽혀서 동작하고 있다. 사용자의 한 번의 클릭이 실제로는 여러 마이크로 서비스들을 거치고 거쳐서 최종 결과를 고객에게 보여준다."><meta itemprop="datePublished" content="2017-10-30T00:00:00+08:00" />
+<meta itemprop="dateModified" content="2017-10-30T00:00:00+08:00" />
 <meta itemprop="wordCount" content="1323">
-
-
-
 <meta itemprop="keywords" content="golang," />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
 	<link rel="stylesheet" href="/css/style.css">
 	
+
 	<link rel="shortcut icon" href="/favicon.ico">
 		
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-91404316-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 </head>
 <body class="body">
 	<div class="container container--outer">
@@ -78,7 +78,8 @@ if (!doNotTrack) {
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-10-30T00:00:00&#43;08:00">2017-10-30</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
 	</span>
 </div></div>
-		</header><div class="content post__content clearfix">
+		</header>
+		<div class="content post__content clearfix">
 			<p><strong>Go My Way</strong>는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다.
 이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.</p>
 <ul>
@@ -167,45 +168,45 @@ nginx에서 남기는 access log는 단순히 사용자의 접속 정보를 보�
 </ol>
 <p>위 기능을 처리하는 코드는 다음과 같다.
 코드는 <a href="/post/go-my-way-1-webframework/">[#1 - 웹 프레임워크]</a>에서 설명한 echo 프레임워크를 기준으로 작성했다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
-	<span style="color:#75715e">/* ... */</span>
-	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">BehaviorMiddleware</span>)
-
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
-	}
-
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BehaviorMiddleware</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
-		<span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>()
-
-		<span style="color:#a6e22e">requestId</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;X-Request-ID&#34;</span>)
-		<span style="color:#a6e22e">actionId</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">random</span>.<span style="color:#a6e22e">String</span>(<span style="color:#ae81ff">32</span>)
-		<span style="color:#a6e22e">parentActionId</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;X-Action-ID&#34;</span>)
-
-		<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">begin</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) {
-			<span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">WithFields</span>(<span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">Fields</span>{
-				<span style="color:#e6db74">&#34;request_id&#34;</span>:       <span style="color:#a6e22e">requestId</span>,
-				<span style="color:#e6db74">&#34;action_id&#34;</span>:        <span style="color:#a6e22e">actionId</span>,
-				<span style="color:#e6db74">&#34;parent_action_id&#34;</span>: <span style="color:#a6e22e">parentActionId</span>,
-				<span style="color:#e6db74">&#34;timestamp&#34;</span>:        <span style="color:#a6e22e">begin</span>.<span style="color:#a6e22e">UnixNano</span>(),
-				<span style="color:#e6db74">&#34;latency&#34;</span>:          <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">begin</span>).<span style="color:#a6e22e">Nanoseconds</span>(),
-				<span style="color:#e6db74">&#34;error&#34;</span>:            <span style="color:#a6e22e">err</span>,
-				<span style="color:#75715e">/* ... */</span>
-			}).<span style="color:#a6e22e">Info</span>()
-		}(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>())
-
-		<span style="color:#75715e">/* ... */</span>
-
-		<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>)
-
-		<span style="color:#75715e">/* ... */</span>
-		<span style="color:#66d9ef">return</span>
-	}
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">/* ... */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">BehaviorMiddleware</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Start</span>(<span style="color:#e6db74">&#34;:8080&#34;</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BehaviorMiddleware</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">requestId</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;X-Request-ID&#34;</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">actionId</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">random</span>.<span style="color:#a6e22e">String</span>(<span style="color:#ae81ff">32</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">parentActionId</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#e6db74">&#34;X-Action-ID&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">begin</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">WithFields</span>(<span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">Fields</span>{
+</span></span><span style="display:flex;"><span>				<span style="color:#e6db74">&#34;request_id&#34;</span>:       <span style="color:#a6e22e">requestId</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#e6db74">&#34;action_id&#34;</span>:        <span style="color:#a6e22e">actionId</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#e6db74">&#34;parent_action_id&#34;</span>: <span style="color:#a6e22e">parentActionId</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#e6db74">&#34;timestamp&#34;</span>:        <span style="color:#a6e22e">begin</span>.<span style="color:#a6e22e">UnixNano</span>(),
+</span></span><span style="display:flex;"><span>				<span style="color:#e6db74">&#34;latency&#34;</span>:          <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Since</span>(<span style="color:#a6e22e">begin</span>).<span style="color:#a6e22e">Nanoseconds</span>(),
+</span></span><span style="display:flex;"><span>				<span style="color:#e6db74">&#34;error&#34;</span>:            <span style="color:#a6e22e">err</span>,
+</span></span><span style="display:flex;"><span>				<span style="color:#75715e">/* ... */</span>
+</span></span><span style="display:flex;"><span>			}).<span style="color:#a6e22e">Info</span>()
+</span></span><span style="display:flex;"><span>		}(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/* ... */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">/* ... */</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>하지만 우리가 풀어야 할 과제는 이것뿐만이 아니다.
 Request의 처리 완료 상황뿐만 아니라, 처리 과정 중에도 로그를 남겨야 하는 경우가 있다.
 이 로그에도 <code>RequestID</code>, <code>ActionID</code>, <code>ParentActionID</code>가 있어야 전후의 맥락을 파악할 수 있다.
@@ -215,64 +216,64 @@ Request의 처리 완료 상황뿐만 아니라, 처리 과정 중에도 로그�
 <h3 id="logcontext"><code>LogContext</code></h3>
 <p>Request가 처리되는 동안 <code>context.Context</code>에는 로그 내용을 담고 있는 <code>LogContext</code>가 보관되어 있다.
 추가로 로그를 남기고 싶을 때 <code>context.Context</code>에 있는 <code>LogContext</code>를 사용해서 로그를 남긴다.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LogContext</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">ParentActionID</span> <span style="color:#66d9ef">string</span>    <span style="color:#e6db74">`json:&#34;parent_action_id&#34;`</span>
-	<span style="color:#a6e22e">ActionID</span>       <span style="color:#66d9ef">string</span>    <span style="color:#e6db74">`json:&#34;action_id&#34;`</span>
-	<span style="color:#a6e22e">RequestID</span>      <span style="color:#66d9ef">string</span>    <span style="color:#e6db74">`json:&#34;request_id&#34;`</span>
-	<span style="color:#a6e22e">Timestamp</span>      <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span> <span style="color:#e6db74">`json:&#34;timestamp&#34;`</span>
-	<span style="color:#a6e22e">Service</span>        <span style="color:#66d9ef">string</span>    <span style="color:#e6db74">`json:&#34;service&#34;`</span>
-
-	<span style="color:#a6e22e">Params</span>     <span style="color:#66d9ef">interface</span>{}            <span style="color:#e6db74">`json:&#34;params,omitempty&#34;`</span>
-	<span style="color:#a6e22e">Controller</span> <span style="color:#66d9ef">string</span>                 <span style="color:#e6db74">`json:&#34;controller,omitempty&#34;`</span>
-	<span style="color:#a6e22e">Action</span>     <span style="color:#66d9ef">string</span>                 <span style="color:#e6db74">`json:&#34;action,omitempty&#34;`</span>
-	<span style="color:#a6e22e">BizAttr</span>    <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{} <span style="color:#e6db74">`json:&#34;bizAttr,omitempty&#34;`</span>
-	<span style="color:#a6e22e">Err</span>        <span style="color:#66d9ef">error</span>                  <span style="color:#e6db74">`json:&#34;error,omitempty&#34;`</span>
-
-	<span style="color:#75715e">/* ... */</span>
-}</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">LogContext</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ParentActionID</span> <span style="color:#66d9ef">string</span>    <span style="color:#e6db74">`json:&#34;parent_action_id&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ActionID</span>       <span style="color:#66d9ef">string</span>    <span style="color:#e6db74">`json:&#34;action_id&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">RequestID</span>      <span style="color:#66d9ef">string</span>    <span style="color:#e6db74">`json:&#34;request_id&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Timestamp</span>      <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Time</span> <span style="color:#e6db74">`json:&#34;timestamp&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Service</span>        <span style="color:#66d9ef">string</span>    <span style="color:#e6db74">`json:&#34;service&#34;`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Params</span>     <span style="color:#66d9ef">interface</span>{}            <span style="color:#e6db74">`json:&#34;params,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Controller</span> <span style="color:#66d9ef">string</span>                 <span style="color:#e6db74">`json:&#34;controller,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Action</span>     <span style="color:#66d9ef">string</span>                 <span style="color:#e6db74">`json:&#34;action,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">BizAttr</span>    <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">interface</span>{} <span style="color:#e6db74">`json:&#34;bizAttr,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Err</span>        <span style="color:#66d9ef">error</span>                  <span style="color:#e6db74">`json:&#34;error,omitempty&#34;`</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">/* ... */</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></p>
 <blockquote>
 <p><small><code>LogContext</code>의 전체 소스코드는 <a href="https://github.com/pangpanglabs/goutils/blob/master/behaviorlog/behaviorlog.go">behaviorlog.go</a>를 참고해주세요</small></p>
 </blockquote>
 <p><code>context.Context</code>는 하나의 Request 처리가 완료될 때 까지 스콥(scope)이 유지되므로, 같은 요청을 처리하는 동안 <code>LogContext</code>를 통해 남기는 로그는 같은 <code>RequestID</code>, <code>ActionID</code>를 가진다.
 즉, 모든 로그는 <code>RequestID</code>, <code>ActionID</code>를 가지게 되고, 모든 로그는 어떤 맥락에서 처리가 되었는지 확인이 가능하다.</p>
 <p>로그를 남기는 코드는 아래와 같다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">BehaviorLogger</span>(<span style="color:#a6e22e">ctx</span>).
-	<span style="color:#a6e22e">WithBizAttr</span>(<span style="color:#e6db74">&#34;userID&#34;</span>, <span style="color:#a6e22e">currentUser</span>.<span style="color:#a6e22e">ID</span>).
-	<span style="color:#a6e22e">Log</span>(<span style="color:#e6db74">&#34;SearchDiscount&#34;</span>)</code></pre></div>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BehaviorLogger</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">LogContext</span> {
-	<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Value</span>(<span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">LogContextName</span>)
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">logger</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">LogContext</span>); <span style="color:#a6e22e">ok</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">Clone</span>()
-	}
-	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">NewNopContext</span>()
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">BehaviorLogger</span>(<span style="color:#a6e22e">ctx</span>).
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">WithBizAttr</span>(<span style="color:#e6db74">&#34;userID&#34;</span>, <span style="color:#a6e22e">currentUser</span>.<span style="color:#a6e22e">ID</span>).
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Log</span>(<span style="color:#e6db74">&#34;SearchDiscount&#34;</span>)</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BehaviorLogger</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">LogContext</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Value</span>(<span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">LogContextName</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">logger</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">v</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">LogContext</span>); <span style="color:#a6e22e">ok</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">Clone</span>()
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">NewNopContext</span>()
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>미들웨어에서는 <code>LogContext</code>를 사용하여 로그를 남기도록 아래와 같이 수정하였다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BehaviorMiddleware</span>(<span style="color:#a6e22e">serviceName</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">MiddlewareFunc</span> {
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
-			<span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>()
-			<span style="color:#a6e22e">behaviorLogger</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">serviceName</span>, <span style="color:#a6e22e">req</span>)
-
-			<span style="color:#75715e">// behaviorLogger를 context.Context에 담음
-</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetRequest</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">WithContext</span>(
-				<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Context</span>(),
-					<span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">LogContextName</span>, <span style="color:#a6e22e">behaviorLogger</span>,
-				)))
-
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-				<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">err</span>)
-				<span style="color:#a6e22e">behaviorLogger</span>.<span style="color:#a6e22e">Err</span> = <span style="color:#a6e22e">err</span>
-			}
-
-			<span style="color:#75715e">/***
-</span><span style="color:#75715e">			 처리 결과를 LogContext에 담는 로직
-</span><span style="color:#75715e">			**/</span>
-
-			<span style="color:#a6e22e">behaviorLogger</span>.<span style="color:#a6e22e">Write</span>()
-			<span style="color:#66d9ef">return</span>
-		}
-	}
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">BehaviorMiddleware</span>(<span style="color:#a6e22e">serviceName</span> <span style="color:#66d9ef">string</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">MiddlewareFunc</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">behaviorLogger</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">serviceName</span>, <span style="color:#a6e22e">req</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// behaviorLogger를 context.Context에 담음
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetRequest</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">WithContext</span>(
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Context</span>(),
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">LogContextName</span>, <span style="color:#a6e22e">behaviorLogger</span>,
+</span></span><span style="display:flex;"><span>				)))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Error</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">behaviorLogger</span>.<span style="color:#a6e22e">Err</span> = <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">/***
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			 처리 결과를 LogContext에 담는 로직
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">			**/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">behaviorLogger</span>.<span style="color:#a6e22e">Write</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>Behavior log와 관련된 전체 소스코드는 아래 링크에서 확인할 수 있다.</p>
 <ul>
 <li><a href="https://github.com/pangpanglabs/goutils/blob/master/echomiddleware/behavior_logger.go">github.com/pangpanglabs/echomiddleware</a></li>
@@ -283,26 +284,26 @@ Request의 처리 완료 상황뿐만 아니라, 처리 과정 중에도 로그�
 어렵진 않지만 이것 또한 꽤나 번거로운 작업이다.
 편의를 위해 <a href="https://github.com/pangpanglabs/goutils/tree/master/httpreq">github.com/pangpanglabs/goutils/httpreq</a> 패키지를 만들었다.
 다른 마이크로 서비스를 호출할때는 <a href="https://github.com/pangpanglabs/goutils/tree/master/httpreq">httpreq</a> 패키지를 사용하면 편리하다.</p>
-<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">ApiResult</span>
-<span style="color:#a6e22e">statusCode</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httpreq</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPost</span>, <span style="color:#e6db74">&#34;TARGET_URL&#34;</span>, <span style="color:#a6e22e">param</span>).
-	<span style="color:#a6e22e">WithRequestID</span>(<span style="color:#e6db74">&#34;requestID-1&#34;</span>).
-	<span style="color:#a6e22e">WithActionID</span>(<span style="color:#e6db74">&#34;actionID-1&#34;</span>).
-	<span style="color:#a6e22e">Call</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>)</code></pre></div>
+<p><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">ApiResult</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">statusCode</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httpreq</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPost</span>, <span style="color:#e6db74">&#34;TARGET_URL&#34;</span>, <span style="color:#a6e22e">param</span>).
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">WithRequestID</span>(<span style="color:#e6db74">&#34;requestID-1&#34;</span>).
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">WithActionID</span>(<span style="color:#e6db74">&#34;actionID-1&#34;</span>).
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Call</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>)</span></span></code></pre></div>
 또는
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">ApiResult</span>
-<span style="color:#a6e22e">statusCode</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httpreq</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPost</span>, <span style="color:#e6db74">&#34;TARGET_URL&#34;</span>, <span style="color:#a6e22e">param</span>).
-	<span style="color:#a6e22e">WithBehaviorLogContext</span>(<span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">FromCtx</span>(<span style="color:#a6e22e">ctx</span>)).
-	<span style="color:#a6e22e">Call</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>)</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">ApiResult</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">statusCode</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">httpreq</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodPost</span>, <span style="color:#e6db74">&#34;TARGET_URL&#34;</span>, <span style="color:#a6e22e">param</span>).
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">WithBehaviorLogContext</span>(<span style="color:#a6e22e">behaviorlog</span>.<span style="color:#a6e22e">FromCtx</span>(<span style="color:#a6e22e">ctx</span>)).
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Call</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>)</span></span></code></pre></div></p>
 <h3 id="외부-api-호출하기">외부 API 호출하기</h3>
 <p>호출하는 대상 서비스도 같은 방식으로 Behavior log를 남기도록 구성되어 있다면 트레이스 정보가 끊어지지 않고 하나의 흐름으로 이어질 것이다.
 하지만 대상 서비스에서 Behavior log를 남기기 어려운 경우도 있다.
 택배사 API를 사용한다던가 레거시 시스템과 인터페이스 하는 경우가 대표적인 예다.
 이런 경우는 트레이스 로그의 흐름이 끊어지고 만다.</p>
 <p>이렇게 우리의 관리 영역이 아닌 외부 API를 호출하는 경우는 외부 API의 처리 액션에 대한 Behavior log를 호출하는 쪽에서 남기기로 했다.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">BehaviorLogger</span>(<span style="color:#a6e22e">ctx</span>).
-	<span style="color:#a6e22e">WithBizAttr</span>(<span style="color:#e6db74">&#34;companyCode&#34;</span>, <span style="color:#e6db74">&#34;MY_COMPANY_CODE&#34;</span>).
-	<span style="color:#a6e22e">WithCallURLInfo</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>, <span style="color:#e6db74">&#34;TARGET_URL&#34;</span>, <span style="color:#a6e22e">param</span>, <span style="color:#ae81ff">200</span>).
-	<span style="color:#a6e22e">Log</span>(<span style="color:#e6db74">&#34;GetShippingStatus&#34;</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">BehaviorLogger</span>(<span style="color:#a6e22e">ctx</span>).
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">WithBizAttr</span>(<span style="color:#e6db74">&#34;companyCode&#34;</span>, <span style="color:#e6db74">&#34;MY_COMPANY_CODE&#34;</span>).
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">WithCallURLInfo</span>(<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">MethodGet</span>, <span style="color:#e6db74">&#34;TARGET_URL&#34;</span>, <span style="color:#a6e22e">param</span>, <span style="color:#ae81ff">200</span>).
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Log</span>(<span style="color:#e6db74">&#34;GetShippingStatus&#34;</span>)</span></span></code></pre></div>
 <h2 id="안전한-로그-저장소">안전한 로그 저장소</h2>
 <p>모든 트레이스 로그는 kafka를 거쳐 HDFS에 저장된다.
 서로 다른 여러 데이터베이스에 쿼리를 실행할 수 있는 SQL Engine인 <a href="https://prestodb.io/">Presto</a>를 통해 필요한 데이터를 추출한다.</p>
@@ -357,11 +358,10 @@ Request의 처리 완료 상황뿐만 아니라, 처리 과정 중에도 로그�
 	</div>
 </nav>
 
-
 <section class="comments">
 	<div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
+<script>
+    window.disqus_config = function () {
     
     
     
@@ -385,22 +385,20 @@ Request의 처리 완료 상황뿐만 아니라, 처리 과정 중에도 로그�
 			</div>
 			<aside class="sidebar"><div class="widget-search widget">
 	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<label>
-			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q" aria-label="SEARCH...">
-		</label>
+		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
 		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
+		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/">
 	</form>
 </div>
 <div class="widget-recent widget">
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/2024.03.04/">작은 마음</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.02.01/">불안한 세상을 가르치자</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.24/">내 삶을 오케스트레이션 하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.22/">AI와 함께 살아가기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.20/">신순자 평전</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2023.12.31/">굿바이 2023</a></li>
 		</ul>
 	</div>
 </div>
@@ -409,14 +407,11 @@ Request의 처리 완료 상황뿐만 아니라, 처리 과정 중에도 로그�
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/it/">IT</a>
-			</li>
+				<a class="widget__link" href="/categories/it/">IT</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a>
-			</li>
+				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a>
-			</li>
+				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a></li>
 		</ul>
 	</div>
 </div>
@@ -425,11 +420,11 @@ Request의 처리 완료 상황뿐만 아니라, 처리 과정 중에도 로그�
 	<div class="widget__content">
 		<a class="widget-taglist__link widget__link btn" href="/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/" title="4차 산업혁명">4차 산업혁명 (4)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/chatgpt/" title="ChatGPT">ChatGPT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="eventdriven">eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang (7)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="Eventdriven">Eventdriven (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="Golang">Golang (7)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/it/" title="IT">IT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="kubernetes">kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="microservice">microservice (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="Kubernetes">Kubernetes (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="Microservice">Microservice (2)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/msa/" title="MSA">MSA (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%80%EC%B9%98%EA%B4%80/" title="가치관">가치관 (38)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" title="개발문화">개발문화 (7)</a>

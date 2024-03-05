@@ -3,7 +3,6 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Go My Way #1 - 웹 프레임워크 - Jaehue&#39;s</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
@@ -11,38 +10,39 @@
 <meta property="og:description" content="루비의 Ruby on Rails, 자바의 Spring, 파이썬의 Django, 노드의 Express. 대부분의 인기 있는 언어는 메인 프레임워크가 있다. 그래서 고민 없이 그 언어에 맞는 메인 프레임워크를 사용한다. 하지만 Go는 이런 게 없다. Go는 많은 기능을 하나의 프레임워크에 담아놓는 방식보다, 상황에 맞게 필요한 패키지를 조합한 마이크로 프레임워크를 만들어 사용하는 것을 권장한다. 익숙해지면 이것이 편하지만, Go를 처음 접하는 사람들에게 어떤 패키지를 사용해야 할지 선택하는 것은 여간 어려운 일이 아니다.
 Go 언어를 접한 지 3년이 되었고, 지난 1년 동안은 아주 적극적으로 Go 언어를 사용했다." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/go-my-way-1-webframework/" />
+<meta property="og:url" content="https://jaehue.github.io/post/go-my-way-1-webframework/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2017-06-12T00:00:00+08:00" />
 <meta property="article:modified_time" content="2017-06-12T00:00:00+08:00" />
 
+
 		<meta itemprop="name" content="Go My Way #1 - 웹 프레임워크">
 <meta itemprop="description" content="루비의 Ruby on Rails, 자바의 Spring, 파이썬의 Django, 노드의 Express. 대부분의 인기 있는 언어는 메인 프레임워크가 있다. 그래서 고민 없이 그 언어에 맞는 메인 프레임워크를 사용한다. 하지만 Go는 이런 게 없다. Go는 많은 기능을 하나의 프레임워크에 담아놓는 방식보다, 상황에 맞게 필요한 패키지를 조합한 마이크로 프레임워크를 만들어 사용하는 것을 권장한다. 익숙해지면 이것이 편하지만, Go를 처음 접하는 사람들에게 어떤 패키지를 사용해야 할지 선택하는 것은 여간 어려운 일이 아니다.
-Go 언어를 접한 지 3년이 되었고, 지난 1년 동안은 아주 적극적으로 Go 언어를 사용했다.">
-<meta itemprop="datePublished" content="2017-06-12T00:00:00&#43;08:00" />
-<meta itemprop="dateModified" content="2017-06-12T00:00:00&#43;08:00" />
+Go 언어를 접한 지 3년이 되었고, 지난 1년 동안은 아주 적극적으로 Go 언어를 사용했다."><meta itemprop="datePublished" content="2017-06-12T00:00:00+08:00" />
+<meta itemprop="dateModified" content="2017-06-12T00:00:00+08:00" />
 <meta itemprop="wordCount" content="1598">
-
-
-
 <meta itemprop="keywords" content="golang," />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
 	<link rel="stylesheet" href="/css/style.css">
 	
+
 	<link rel="shortcut icon" href="/favicon.ico">
 		
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-91404316-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 </head>
 <body class="body">
 	<div class="container container--outer">
@@ -76,7 +76,8 @@ if (!doNotTrack) {
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-06-12T00:00:00&#43;08:00">2017-06-12</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
 	</span>
 </div></div>
-		</header><div class="content post__content clearfix">
+		</header>
+		<div class="content post__content clearfix">
 			<p>루비의 Ruby on Rails, 자바의 Spring, 파이썬의 Django, 노드의 Express.
 대부분의 인기 있는 언어는 메인 프레임워크가 있다.
 그래서 고민 없이 그 언어에 맞는 메인 프레임워크를 사용한다.
@@ -164,7 +165,7 @@ Go 패키지 중에 좋은 성능을 강조하는 패키지들이 있는데, 난
 <p>그래서 다른 언어에서 사용하던 방식으로 구성해보기도 하고, github에 있는 유명한 Go 프로젝트들을 흉내 내 보기도 했었다.
 그러던 중 괜찮은 포스트를 보게 되었는데, 바로 <a href="https://www.goinggo.net/2017/02/package-oriented-design.html">Package Oriented Design</a>이었다.
 다른 Go 프로젝트에서 많이 봐오던 방식이여서, 왠지 Go스럽다라는 생각에 아래와 같이 구성해 보았다.</p>
-<pre><code>$ tree
+<pre tabindex="0"><code>$ tree
 .
 ├── account/
 │   ├── model.go
@@ -196,7 +197,7 @@ controller 디렉토리와 model 디렉토리를 나누는 전통적인 MVC 프�
 웹 어플리케이션에서는 이러한 구조가 불편하게 느껴졌다.
 여러 서비스에서 사용하는 라이브러리 패키지가 아니라면, 이렇게 구성을 하지 않기로 했다.
 결국 웹 어플리케이션에서는 controller/model 형태의 익숙한 구성을 채택했다.</p>
-<pre><code>$ tree
+<pre tabindex="0"><code>$ tree
 .
 ├── controllers/
 ├── filters/
@@ -312,11 +313,10 @@ circuit breaker, metrics, tracing와 같은 기능도 아직은 우리 서비스
 	</div>
 </nav>
 
-
 <section class="comments">
 	<div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
+<script>
+    window.disqus_config = function () {
     
     
     
@@ -340,22 +340,20 @@ circuit breaker, metrics, tracing와 같은 기능도 아직은 우리 서비스
 			</div>
 			<aside class="sidebar"><div class="widget-search widget">
 	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<label>
-			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q" aria-label="SEARCH...">
-		</label>
+		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
 		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
+		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/">
 	</form>
 </div>
 <div class="widget-recent widget">
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/2024.03.04/">작은 마음</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.02.01/">불안한 세상을 가르치자</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.24/">내 삶을 오케스트레이션 하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.22/">AI와 함께 살아가기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.20/">신순자 평전</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2023.12.31/">굿바이 2023</a></li>
 		</ul>
 	</div>
 </div>
@@ -364,14 +362,11 @@ circuit breaker, metrics, tracing와 같은 기능도 아직은 우리 서비스
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/it/">IT</a>
-			</li>
+				<a class="widget__link" href="/categories/it/">IT</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a>
-			</li>
+				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a>
-			</li>
+				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a></li>
 		</ul>
 	</div>
 </div>
@@ -380,11 +375,11 @@ circuit breaker, metrics, tracing와 같은 기능도 아직은 우리 서비스
 	<div class="widget__content">
 		<a class="widget-taglist__link widget__link btn" href="/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/" title="4차 산업혁명">4차 산업혁명 (4)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/chatgpt/" title="ChatGPT">ChatGPT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="eventdriven">eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang (7)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="Eventdriven">Eventdriven (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="Golang">Golang (7)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/it/" title="IT">IT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="kubernetes">kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="microservice">microservice (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="Kubernetes">Kubernetes (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="Microservice">Microservice (2)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/msa/" title="MSA">MSA (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%80%EC%B9%98%EA%B4%80/" title="가치관">가치관 (38)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" title="개발문화">개발문화 (7)</a>

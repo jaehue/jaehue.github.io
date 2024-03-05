@@ -3,48 +3,48 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Go My Way #2 - 데이터베이스, 로깅 - Jaehue&#39;s</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 		<meta property="og:title" content="Go My Way #2 - 데이터베이스, 로깅" />
 <meta property="og:description" content="Go My Way는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다. 이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.
- Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - Configuration, Tracing, etc. 번외 - gomobile  이번 글에서는 데이터베이스와 로깅에 대해 소개하겠다.
+Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - Configuration, Tracing, etc. 번외 - gomobile 이번 글에서는 데이터베이스와 로깅에 대해 소개하겠다.
 데이터베이스 다른 언어에서 주로 사용하던 ORM(루비의 active record, 닷넷의 entityframework, 자바의 JPA, 등)을 생각한다면 Go의 DB 관련 패키지들은 대부분 2% 20% 이상 부족하다." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/go-my-way-2-database-and-logging/" />
+<meta property="og:url" content="https://jaehue.github.io/post/go-my-way-2-database-and-logging/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2017-06-14T00:00:00+08:00" />
 <meta property="article:modified_time" content="2017-06-14T00:00:00+08:00" />
 
+
 		<meta itemprop="name" content="Go My Way #2 - 데이터베이스, 로깅">
 <meta itemprop="description" content="Go My Way는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다. 이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.
- Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - Configuration, Tracing, etc. 번외 - gomobile  이번 글에서는 데이터베이스와 로깅에 대해 소개하겠다.
-데이터베이스 다른 언어에서 주로 사용하던 ORM(루비의 active record, 닷넷의 entityframework, 자바의 JPA, 등)을 생각한다면 Go의 DB 관련 패키지들은 대부분 2% 20% 이상 부족하다.">
-<meta itemprop="datePublished" content="2017-06-14T00:00:00&#43;08:00" />
-<meta itemprop="dateModified" content="2017-06-14T00:00:00&#43;08:00" />
+Go My Way #1 - 웹 프레임워크 Go My Way #2 - 데이터베이스, 로깅 Go My Way #3 - Configuration, Tracing, etc. 번외 - gomobile 이번 글에서는 데이터베이스와 로깅에 대해 소개하겠다.
+데이터베이스 다른 언어에서 주로 사용하던 ORM(루비의 active record, 닷넷의 entityframework, 자바의 JPA, 등)을 생각한다면 Go의 DB 관련 패키지들은 대부분 2% 20% 이상 부족하다."><meta itemprop="datePublished" content="2017-06-14T00:00:00+08:00" />
+<meta itemprop="dateModified" content="2017-06-14T00:00:00+08:00" />
 <meta itemprop="wordCount" content="1744">
-
-
-
 <meta itemprop="keywords" content="golang," />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
 	<link rel="stylesheet" href="/css/style.css">
 	
+
 	<link rel="shortcut icon" href="/favicon.ico">
 		
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-91404316-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 </head>
 <body class="body">
 	<div class="container container--outer">
@@ -78,7 +78,8 @@ if (!doNotTrack) {
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2017-06-14T00:00:00&#43;08:00">2017-06-14</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
 	</span>
 </div></div>
-		</header><div class="content post__content clearfix">
+		</header>
+		<div class="content post__content clearfix">
 			<p><strong>Go My Way</strong>는 Go 언어로 웹 어플리케이션을 작성할 때 선호하는 나만의 방식을 3편에 걸쳐서 소개하는 글이다.
 이전 글은 읽지 않았다면 아래 링크를 참조하기 바란다.</p>
 <ul>
@@ -109,23 +110,23 @@ ORM에 대한 Go 진영의 이런 의견에 어느 정도 동의가 되었다.
 xorm의 한가지 기능이 마음에 들어 xorm으로 갈아탔다.
 xorm은 필드의 타입이 built-in 타입이 아니라면(slice, map, custom type) JSON 문자열로 변환해준다.</p>
 <p>예를들면,
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Product</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">Id</span>     <span style="color:#66d9ef">int64</span>
-	<span style="color:#a6e22e">Images</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">Image</span>
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Image</span> <span style="color:#66d9ef">struct</span> {
-	<span style="color:#a6e22e">URL</span>    <span style="color:#66d9ef">string</span>
-	<span style="color:#a6e22e">Width</span>  <span style="color:#66d9ef">int32</span>
-	<span style="color:#a6e22e">Height</span> <span style="color:#66d9ef">int32</span>
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Product</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Id</span>     <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Images</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">Image</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Image</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">URL</span>    <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Width</span>  <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Height</span> <span style="color:#66d9ef">int32</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 위와 같이 <code>Product</code>에 Images 필드의 타입을 <code>map[string]Image</code>로 정의하면, xorm은 DB 테이블에 <code>images</code> 필드를 <code>text</code> 타입으로 만들고, <code>map[string]Image</code>를 JSON 문자열로 저장한다.
 DB에서 데이터를 읽을때도 마찬가지, JSON 문자열을 <code>map[string]Image</code> 타입으로 변환해준다.
 당연히, 실제 DB 필드와의 매핑 룰을 재정의 할 수도 있다. 아래의 <a href="https://github.com/go-xorm/core/blob/master/converstion.go#L5"><code>Conversion</code> interface</a>에 정의된 메쏘드를 구현하면 된다.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#75715e">// https://github.com/go-xorm/core/blob/master/converstion.go#L5
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Conversion</span> <span style="color:#66d9ef">interface</span> {
-    <span style="color:#a6e22e">FromDB</span>([]<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">error</span>
-    <span style="color:#a6e22e">ToDB</span>() ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>)
-}</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// https://github.com/go-xorm/core/blob/master/converstion.go#L5
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Conversion</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">FromDB</span>([]<span style="color:#66d9ef">byte</span>) <span style="color:#66d9ef">error</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ToDB</span>() ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>)
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div></p>
 <p>우리 회사의 비즈니스는 유동적이라서 모델의 형태를 확정하기 어려운 경우가 많다.
 그런 유동적인 데이터는 필드의 타입을 확정하지 않고 그냥 JSON으로 변환하여 하나의 필드에 저장한다.
 xorm을 쓰기 이 전에는,
@@ -154,18 +155,18 @@ gorp에 비해 sqlx가 좀 더 활동이 활발하고 사용하는데도 많은 
 단순히 쿼리 결과를 struct에 받아오고 싶다면 sqlx를 추천한다.</p>
 <h2 id="gormhttpsgithubcomjinzhugorm"><a href="https://github.com/jinzhu/gorm">gorm</a></h2>
 <p>struct를 기반으로 CRUD 기능을 제공한다. (기본적인 ORM 기능)
-모델 간 Associations<small>*(belongs-to, has-one, has-many, many-to-many, polymorphism)*</small>를 정의할 수 있다.
+모델 간 Associations<small><em>(belongs-to, has-one, has-many, many-to-many, polymorphism)</em></small>를 정의할 수 있다.
 하지만 실제 사용해보면 불편한 부분이 많다. 연관된 모델을 알아서(?) 가져오지 않는다.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
-        <span style="color:#a6e22e">ID</span>       <span style="color:#66d9ef">int64</span>
-        <span style="color:#a6e22e">Emails</span>   []<span style="color:#a6e22e">Email</span>
-}
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Email</span> <span style="color:#66d9ef">struct</span> {
-        <span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
-        <span style="color:#a6e22e">UserID</span>  <span style="color:#66d9ef">int64</span>
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">User</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ID</span>       <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Emails</span>   []<span style="color:#a6e22e">Email</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Email</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ID</span>      <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">UserID</span>  <span style="color:#66d9ef">int64</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 위와 같이 has-many 관계로 모델을 정의했을때, <code>User</code>의 <code>Emails</code>를 가져오려면, 아래와 같이 추가 코드를 작성해야 한다.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Model</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>).<span style="color:#a6e22e">Related</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">emails</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Model</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">user</span>).<span style="color:#a6e22e">Related</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">emails</span>)</span></span></code></pre></div>
 직접 써보면, gorm이 제공하는 Associations 기능이 큰 도움이 안된다.</p>
 <p>like 수는 gorm이 제일 많다.</p>
 <h2 id="xormhttpxormio"><a href="http://xorm.io/">xorm</a></h2>
@@ -177,18 +178,20 @@ built-in 타입이 아닌 필드는 JSON으로 변환해 준다.</p>
 <h2 id="squirrelhttpsgithubcommastermindssquirrel"><a href="https://github.com/Masterminds/squirrel">squirrel</a></h2>
 <p>가벼운 query builder. Go 코드로 쿼리를 생성한다.
 이런 느낌이다.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sql</span>, <span style="color:#a6e22e">args</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sq</span>.
-        <span style="color:#a6e22e">Select</span>(<span style="color:#e6db74">&#34;*&#34;</span>).
-        <span style="color:#a6e22e">From</span>(<span style="color:#e6db74">&#34;users&#34;</span>).
-        <span style="color:#a6e22e">Join</span>(<span style="color:#e6db74">&#34;emails USING (email_id)&#34;</span>).
-        <span style="color:#a6e22e">Where</span>(<span style="color:#a6e22e">sq</span>.<span style="color:#a6e22e">Eq</span>{<span style="color:#e6db74">&#34;deleted_at&#34;</span>: <span style="color:#66d9ef">nil</span>}).
-        <span style="color:#a6e22e">ToSql</span>()
-<span style="color:#f92672">//</span> <span style="color:#a6e22e">SELECT</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">FROM</span> <span style="color:#a6e22e">users</span> <span style="color:#a6e22e">JOIN</span> <span style="color:#a6e22e">emails</span> <span style="color:#a6e22e">USING</span> (<span style="color:#a6e22e">email_id</span>) <span style="color:#a6e22e">WHERE</span> <span style="color:#a6e22e">deleted_at</span> <span style="color:#a6e22e">IS</span> <span style="color:#a6e22e">NULL</span></code></pre></div>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">sql</span>, <span style="color:#a6e22e">args</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sq</span>.
-        <span style="color:#a6e22e">Insert</span>(<span style="color:#e6db74">&#34;users&#34;</span>).<span style="color:#a6e22e">Columns</span>(<span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;age&#34;</span>).
-        <span style="color:#a6e22e">Values</span>(<span style="color:#e6db74">&#34;moe&#34;</span>, <span style="color:#ae81ff">13</span>).<span style="color:#a6e22e">Values</span>(<span style="color:#e6db74">&#34;larry&#34;</span>, <span style="color:#a6e22e">sq</span>.<span style="color:#a6e22e">Expr</span>(<span style="color:#e6db74">&#34;? + 5&#34;</span>, <span style="color:#ae81ff">12</span>)).
-        <span style="color:#a6e22e">ToSql</span>()
-<span style="color:#f92672">//</span> <span style="color:#a6e22e">INSERT</span> <span style="color:#a6e22e">INTO</span> <span style="color:#a6e22e">users</span> (<span style="color:#a6e22e">name</span>,<span style="color:#a6e22e">age</span>) <span style="color:#a6e22e">VALUES</span> (<span style="color:#960050;background-color:#1e0010">?</span>,<span style="color:#960050;background-color:#1e0010">?</span>),(<span style="color:#960050;background-color:#1e0010">?</span>,<span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">sql</span>, <span style="color:#a6e22e">args</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sq</span>.
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Select</span>(<span style="color:#e6db74">&#34;*&#34;</span>).
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">From</span>(<span style="color:#e6db74">&#34;users&#34;</span>).
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Join</span>(<span style="color:#e6db74">&#34;emails USING (email_id)&#34;</span>).
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Where</span>(<span style="color:#a6e22e">sq</span>.<span style="color:#a6e22e">Eq</span>{<span style="color:#e6db74">&#34;deleted_at&#34;</span>: <span style="color:#66d9ef">nil</span>}).
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ToSql</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// SELECT * FROM users JOIN emails USING (email_id) WHERE deleted_at IS NULL
+</span></span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">sql</span>, <span style="color:#a6e22e">args</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sq</span>.
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Insert</span>(<span style="color:#e6db74">&#34;users&#34;</span>).<span style="color:#a6e22e">Columns</span>(<span style="color:#e6db74">&#34;name&#34;</span>, <span style="color:#e6db74">&#34;age&#34;</span>).
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Values</span>(<span style="color:#e6db74">&#34;moe&#34;</span>, <span style="color:#ae81ff">13</span>).<span style="color:#a6e22e">Values</span>(<span style="color:#e6db74">&#34;larry&#34;</span>, <span style="color:#a6e22e">sq</span>.<span style="color:#a6e22e">Expr</span>(<span style="color:#e6db74">&#34;? + 5&#34;</span>, <span style="color:#ae81ff">12</span>)).
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ToSql</span>()
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// INSERT INTO users (name,age) VALUES (?,?),(?,? + 5)
+</span></span></span></code></pre></div>
 하지만 이렇게 만들어진 쿼리를 실행하려면, <code>database/sql</code> 패키지를 직접 사용해서 쿼리를 실행하고 결과를 받아와야 한다.
 squirrel과 sqlx를 함께 쓰는 것도 좋은 방법이다.(굳이 그렇게 쓸 거면 차라리 딴 거를&hellip;)</p>
 <h2 id="활용">활용</h2>
@@ -199,78 +202,78 @@ squirrel과 sqlx를 함께 쓰는 것도 좋은 방법이다.(굳이 그렇게 �
 미들웨어를 통해 request마다 DB 세션을 만들어 request 내부의 <code>context</code>로 전달한다.
 이렇게 하는 이유는 트랜잭션 관리 때문이다.
 핸들러에서 트랜잭션 처리를 매번 해 주는 불편함을 없애기 위해, 트랜잭션 처리 코드를 미들웨어로 옮겼다.</p>
-<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">main</span>(){
-        <span style="color:#75715e">/* ... */</span>
-	<span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">NewEngine</span>(<span style="color:#a6e22e">driver</span>, <span style="color:#a6e22e">connection</span>)
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-		panic(<span style="color:#a6e22e">err</span>)
-	}
-	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Close</span>()
-
-        <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
-        <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">dbContext</span>(<span style="color:#a6e22e">db</span>))
-        <span style="color:#75715e">/* ... */</span>
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">dbContext</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">MiddlewareFunc</span> {
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
-			<span style="color:#a6e22e">session</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">NewSession</span>()
-			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Close</span>()
-
-			<span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>()
-			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetRequest</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">WithContext</span>(
-				<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(
-					<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Context</span>(),
-					<span style="color:#e6db74">&#34;DB&#34;</span>,
-					<span style="color:#a6e22e">session</span>,
-				),
-			))
-
-			<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Method</span> {
-			<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;PUT&#34;</span>, <span style="color:#e6db74">&#34;DELETE&#34;</span>:
-				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Begin</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#ae81ff">500</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
-				}
-				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-					<span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Rollback</span>()
-					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#ae81ff">500</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
-				}
-				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Response</span>().<span style="color:#a6e22e">Status</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">500</span> {
-					<span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Rollback</span>()
-					<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-				}
-				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Commit</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#ae81ff">500</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
-				}
-			<span style="color:#66d9ef">default</span>:
-				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#ae81ff">500</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
-				}
-			}
-
-			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
-		}
-	}
-}</code></pre></div>
+<p><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* ... */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">db</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">NewEngine</span>(<span style="color:#a6e22e">driver</span>, <span style="color:#a6e22e">connection</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		panic(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">dbContext</span>(<span style="color:#a6e22e">db</span>))
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* ... */</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">dbContext</span>(<span style="color:#a6e22e">db</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Engine</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">MiddlewareFunc</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">session</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">NewSession</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Close</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetRequest</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">WithContext</span>(
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Context</span>(),
+</span></span><span style="display:flex;"><span>					<span style="color:#e6db74">&#34;DB&#34;</span>,
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">session</span>,
+</span></span><span style="display:flex;"><span>				),
+</span></span><span style="display:flex;"><span>			))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">switch</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Method</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;POST&#34;</span>, <span style="color:#e6db74">&#34;PUT&#34;</span>, <span style="color:#e6db74">&#34;DELETE&#34;</span>:
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Begin</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#ae81ff">500</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Rollback</span>()
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#ae81ff">500</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Response</span>().<span style="color:#a6e22e">Status</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">500</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Rollback</span>()
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">Commit</span>(); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#ae81ff">500</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>					<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">NewHTTPError</span>(<span style="color:#ae81ff">500</span>, <span style="color:#a6e22e">err</span>.<span style="color:#a6e22e">Error</span>())
+</span></span><span style="display:flex;"><span>				}
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 database connection의 스코프는 global 이지만, 트랜잭션 처리를 위해 request마다 세션을 만드는 경우 database session의 스코프는 request 단위가 된다.
 이런 경우는 request scoped 단위로 관리되는 Context에 보관하는 것이 바르다고 생각한다.
 DB에 접근할때는 Context에서 DB 세션을 가져와서 사용한다.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">Model</span>) <span style="color:#a6e22e">GetById</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">Model</span>, <span style="color:#66d9ef">error</span>) {
-	<span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Value</span>(<span style="color:#e6db74">&#34;DB&#34;</span>).(<span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Session</span>)
-	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Model</span>
-	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">ID</span>(<span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Get</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
-	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">has</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">nil</span>
-	}
-	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>, <span style="color:#66d9ef">nil</span>
-}
-<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">d</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Model</span>) <span style="color:#a6e22e">Update</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
-	<span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Value</span>(<span style="color:#e6db74">&#34;DB&#34;</span>).(<span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Session</span>)
-	<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">ID</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Id</span>).<span style="color:#a6e22e">Update</span>(<span style="color:#a6e22e">d</span>)
-	<span style="color:#66d9ef">return</span>
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">Model</span>) <span style="color:#a6e22e">GetById</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">id</span> <span style="color:#66d9ef">int64</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">Model</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Value</span>(<span style="color:#e6db74">&#34;DB&#34;</span>).(<span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Session</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">v</span> <span style="color:#a6e22e">Model</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">has</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">ID</span>(<span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">Get</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>); <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">err</span>
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">has</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">v</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">d</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Model</span>) <span style="color:#a6e22e">Update</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>) (<span style="color:#a6e22e">err</span> <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">db</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Value</span>(<span style="color:#e6db74">&#34;DB&#34;</span>).(<span style="color:#f92672">*</span><span style="color:#a6e22e">xorm</span>.<span style="color:#a6e22e">Session</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">db</span>.<span style="color:#a6e22e">ID</span>(<span style="color:#a6e22e">d</span>.<span style="color:#a6e22e">Id</span>).<span style="color:#a6e22e">Update</span>(<span style="color:#a6e22e">d</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 하지만 트랜잭션을 관리할 필요가 없고, 경계가 명확한 모듈 내에서라면 DB 객체를 전역으로 만들어 쓰는 방식도 나쁘지 않다고 본다.</p>
 <p>이 방식은 <a href="/post/go-my-way-1/">1편</a>에서 소개한 <a href="https://github.com/pangpanglabs/echosample">echosample</a> 프로젝트에도 적용되어 있다.</p>
 <h1 id="logging">Logging</h1>
@@ -293,11 +296,11 @@ logrus로 오기까지도 꽤 긴 여정이 있었다.</p>
 하지만 <a href="https://github.com/uber-go/zap">zap</a>의 <a href="https://github.com/uber-go/zap#performance">성능 자랑질(?)</a>에 넘어가서 한동안 zap을 사용했었다.
 성능은 좋을지 몰라도, 사용하긴 좀 불편했다.
 zap은 로그 값을 넘길때 반드시 타입을 명시적으로 지정해 주어야 한다.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;Failed to fetch URL.&#34;</span>,
-	<span style="color:#a6e22e">zap</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;url&#34;</span>, <span style="color:#a6e22e">url</span>),
-	<span style="color:#a6e22e">zap</span>.<span style="color:#a6e22e">Int</span>(<span style="color:#e6db74">&#34;attempt&#34;</span>, <span style="color:#ae81ff">3</span>),
-	<span style="color:#a6e22e">zap</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#e6db74">&#34;backoff&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>),
-)</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;Failed to fetch URL.&#34;</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">zap</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;url&#34;</span>, <span style="color:#a6e22e">url</span>),
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">zap</span>.<span style="color:#a6e22e">Int</span>(<span style="color:#e6db74">&#34;attempt&#34;</span>, <span style="color:#ae81ff">3</span>),
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">zap</span>.<span style="color:#a6e22e">Duration</span>(<span style="color:#e6db74">&#34;backoff&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>),
+</span></span><span style="display:flex;"><span>)</span></span></code></pre></div>
 저게 여간 귀찮은 일이 아니다.
 struct 값 전체를 로그로 남기고 싶은데, 각 필드를 일일이 저렇게 타입별로 넣어주어야 한다.
 물론 성능을 생각하면 저렇게 하는게 맞지만, 꼭 서비스 운영 상황이 아니더라도,
@@ -317,54 +320,54 @@ logrus의 많은 기능을 활용할 것이 아니라면, 그리고 성능에 �
 <p>실제 운영 상황에서 여러 request가 동시에 쏟아지는 경우, 로그에 timestamp만 남기면 하나의 request가 어떤 과정으로 처리되는지 추적하기가 어렵다.
 각 요청마다 request_id를 할당하고 그것을 함께 로그로 남기면 여러 request에 대한 로그가 뒤섞여 있어도, 하나의 request가 처리되면서 남기는 로그를 추적할 수 있다.
 그래서 각 request마다 고유 request_id가 부여된 log 객체를 만들어 context로 전달했다.</p>
-<p><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-	<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
-
-	<span style="color:#75715e">// 각 request마다 고유의 ID를 부여
-</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">RequestID</span>())
-	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">Logger</span>())
-
-        <span style="color:#75715e">/* ... */</span>
-
-}
-
-<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Logger</span>() <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">MiddlewareFunc</span> {
-	<span style="color:#a6e22e">logger</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">New</span>()
-        <span style="color:#75715e">/* ... logger 초기화 */</span>
-	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
-		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
-			<span style="color:#a6e22e">logEntry</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">NewEntry</span>(<span style="color:#a6e22e">logger</span>)
-
-			<span style="color:#75715e">// request_id를 가져와 logEntry에 셋팅
-</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">id</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>().<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HeaderXRequestID</span>)
-			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
-				<span style="color:#a6e22e">id</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Response</span>().<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HeaderXRequestID</span>)
-			}
-                        <span style="color:#a6e22e">logEntry</span> = <span style="color:#a6e22e">logEntry</span>.<span style="color:#a6e22e">WithField</span>(<span style="color:#e6db74">&#34;request_id&#34;</span>, <span style="color:#a6e22e">id</span>)
-
-			<span style="color:#75715e">// logEntry를 Context에 저장
-</span><span style="color:#75715e"></span>			<span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>()
-			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetRequest</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">WithContext</span>(
-				<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(
-					<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Context</span>(),
-					<span style="color:#e6db74">&#34;LOG&#34;</span>,
-					<span style="color:#a6e22e">logEntry</span>,
-				),
-			))
-
-			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>)
-		}
-	}
-}</code></pre></div>
+<p><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 각 request마다 고유의 ID를 부여
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">middleware</span>.<span style="color:#a6e22e">RequestID</span>())
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">Logger</span>())
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* ... */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">Logger</span>() <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">MiddlewareFunc</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">logger</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">New</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/* ... logger 초기화 */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">next</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span>) <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HandlerFunc</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">c</span> <span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">Context</span>) <span style="color:#66d9ef">error</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">logEntry</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">NewEntry</span>(<span style="color:#a6e22e">logger</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// request_id를 가져와 logEntry에 셋팅
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">id</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>().<span style="color:#a6e22e">Header</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HeaderXRequestID</span>)
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;&#34;</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">id</span> = <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Response</span>().<span style="color:#a6e22e">Header</span>().<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">echo</span>.<span style="color:#a6e22e">HeaderXRequestID</span>)
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>                        <span style="color:#a6e22e">logEntry</span> = <span style="color:#a6e22e">logEntry</span>.<span style="color:#a6e22e">WithField</span>(<span style="color:#e6db74">&#34;request_id&#34;</span>, <span style="color:#a6e22e">id</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// logEntry를 Context에 저장
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">req</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">Request</span>()
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SetRequest</span>(<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">WithContext</span>(
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">WithValue</span>(
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">Context</span>(),
+</span></span><span style="display:flex;"><span>					<span style="color:#e6db74">&#34;LOG&#34;</span>,
+</span></span><span style="display:flex;"><span>					<span style="color:#a6e22e">logEntry</span>,
+</span></span><span style="display:flex;"><span>				),
+</span></span><span style="display:flex;"><span>			))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">c</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 echo app에 <code>middleware.RequestID()</code> 미들웨어를 추가하면 각 request마다 고유의 ID를 부여한다.
 이렇게 생성된 <code>request_id</code>를 <code>logEntry</code>에 추가한 상태로 Context 보관한다.
 로그를 사용할때는 Context에서 로그 객체를 가져와서 사용한다.
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">logger</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Value</span>(<span style="color:#e6db74">&#34;LOG&#34;</span>).(<span style="color:#f92672">*</span><span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">Entry</span>)
-<span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">WithFields</span>(<span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">Fields</span>{
-	<span style="color:#e6db74">&#34;url&#34;</span>:     <span style="color:#a6e22e">url</span>,
-	<span style="color:#e6db74">&#34;attempt&#34;</span>: <span style="color:#ae81ff">3</span>,
-	<span style="color:#e6db74">&#34;backoff&#34;</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
-}).<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;Failed to fetch URL.&#34;</span>)</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">logger</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">Value</span>(<span style="color:#e6db74">&#34;LOG&#34;</span>).(<span style="color:#f92672">*</span><span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">Entry</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">logger</span>.<span style="color:#a6e22e">WithFields</span>(<span style="color:#a6e22e">logrus</span>.<span style="color:#a6e22e">Fields</span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;url&#34;</span>:     <span style="color:#a6e22e">url</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;attempt&#34;</span>: <span style="color:#ae81ff">3</span>,
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;backoff&#34;</span>: <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span>,
+</span></span><span style="display:flex;"><span>}).<span style="color:#a6e22e">Info</span>(<span style="color:#e6db74">&#34;Failed to fetch URL.&#34;</span>)</span></span></code></pre></div></p>
 <p>이렇게 로그를 남기면, <code>url</code>, <code>attempt</code>, <code>backoff</code> 값과 함께 미들웨어에서 추가한 <code>request_id</code>도 함께 출력이 된다.</p>
 <hr>
 <p><em><strong>이번 포스트에서 다룬 주제인 데이터베이스와 로깅은 구현 방법이 정말 다양한 것 같습니다.
@@ -413,11 +416,10 @@ echo app에 <code>middleware.RequestID()</code> 미들웨어를 추가하면 각
 	</div>
 </nav>
 
-
 <section class="comments">
 	<div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
+<script>
+    window.disqus_config = function () {
     
     
     
@@ -441,22 +443,20 @@ echo app에 <code>middleware.RequestID()</code> 미들웨어를 추가하면 각
 			</div>
 			<aside class="sidebar"><div class="widget-search widget">
 	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<label>
-			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q" aria-label="SEARCH...">
-		</label>
+		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
 		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
+		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/">
 	</form>
 </div>
 <div class="widget-recent widget">
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/2024.03.04/">작은 마음</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.02.01/">불안한 세상을 가르치자</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.24/">내 삶을 오케스트레이션 하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.22/">AI와 함께 살아가기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.20/">신순자 평전</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2023.12.31/">굿바이 2023</a></li>
 		</ul>
 	</div>
 </div>
@@ -465,14 +465,11 @@ echo app에 <code>middleware.RequestID()</code> 미들웨어를 추가하면 각
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/it/">IT</a>
-			</li>
+				<a class="widget__link" href="/categories/it/">IT</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a>
-			</li>
+				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a>
-			</li>
+				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a></li>
 		</ul>
 	</div>
 </div>
@@ -481,11 +478,11 @@ echo app에 <code>middleware.RequestID()</code> 미들웨어를 추가하면 각
 	<div class="widget__content">
 		<a class="widget-taglist__link widget__link btn" href="/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/" title="4차 산업혁명">4차 산업혁명 (4)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/chatgpt/" title="ChatGPT">ChatGPT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="eventdriven">eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang (7)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="Eventdriven">Eventdriven (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="Golang">Golang (7)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/it/" title="IT">IT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="kubernetes">kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="microservice">microservice (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="Kubernetes">Kubernetes (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="Microservice">Microservice (2)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/msa/" title="MSA">MSA (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%80%EC%B9%98%EA%B4%80/" title="가치관">가치관 (38)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" title="개발문화">개발문화 (7)</a>

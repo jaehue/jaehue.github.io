@@ -3,48 +3,48 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Go언어로 안전한 서비스 만들기 - Jaehue&#39;s</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
 		<meta property="og:title" content="Go언어로 안전한 서비스 만들기" />
 <meta property="og:description" content="http://blog.remotty.com에 게시한 글을 Go 언어에 대해 발행한 글을 수집하는 차원에서 이곳으로 옮겨왔다.
- 서비스를 만들때 비정상적으로 서비스가 종료되지 않고 안전하게 실행되도록 하는 것은 아주 중요하다(Resilency). 이번 포스트에서는 Resilency를 유지하면서 서비스를 작성하는 여러가지 방법에 대해서 소개하겠다. 오늘 소개하는 글은 지난 7월에 덴버에서 열린 GopherCon 2015에서 Blake Caldwell라는 사람이 발표한 내용을 기반으로 몇가지 설명을 곁들여서 작성한 것이다. (https://sourcegraph.com/blog/live/gophercon2015/123664481750)
+서비스를 만들때 비정상적으로 서비스가 종료되지 않고 안전하게 실행되도록 하는 것은 아주 중요하다(Resilency). 이번 포스트에서는 Resilency를 유지하면서 서비스를 작성하는 여러가지 방법에 대해서 소개하겠다. 오늘 소개하는 글은 지난 7월에 덴버에서 열린 GopherCon 2015에서 Blake Caldwell라는 사람이 발표한 내용을 기반으로 몇가지 설명을 곁들여서 작성한 것이다. (https://sourcegraph.com/blog/live/gophercon2015/123664481750)
 사실 어떤 사람들에게는 쉬운 내용일 수 있다. 당연한 얘기를 하는 것일수도 있고&hellip; 하지만 기본을 탄탄히 하자는 의미에서, 그리고 지난 7월 덴버에서 열린 GopherCon 2015에서도 발표되었던 내용이니 한번 읽어보면 좋을 것 같다." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/resilent-go-service/" />
+<meta property="og:url" content="https://jaehue.github.io/post/resilent-go-service/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2015-08-15T00:00:00+09:00" />
 <meta property="article:modified_time" content="2015-08-15T00:00:00+09:00" />
 
+
 		<meta itemprop="name" content="Go언어로 안전한 서비스 만들기">
 <meta itemprop="description" content="http://blog.remotty.com에 게시한 글을 Go 언어에 대해 발행한 글을 수집하는 차원에서 이곳으로 옮겨왔다.
- 서비스를 만들때 비정상적으로 서비스가 종료되지 않고 안전하게 실행되도록 하는 것은 아주 중요하다(Resilency). 이번 포스트에서는 Resilency를 유지하면서 서비스를 작성하는 여러가지 방법에 대해서 소개하겠다. 오늘 소개하는 글은 지난 7월에 덴버에서 열린 GopherCon 2015에서 Blake Caldwell라는 사람이 발표한 내용을 기반으로 몇가지 설명을 곁들여서 작성한 것이다. (https://sourcegraph.com/blog/live/gophercon2015/123664481750)
-사실 어떤 사람들에게는 쉬운 내용일 수 있다. 당연한 얘기를 하는 것일수도 있고&hellip; 하지만 기본을 탄탄히 하자는 의미에서, 그리고 지난 7월 덴버에서 열린 GopherCon 2015에서도 발표되었던 내용이니 한번 읽어보면 좋을 것 같다.">
-<meta itemprop="datePublished" content="2015-08-15T00:00:00&#43;09:00" />
-<meta itemprop="dateModified" content="2015-08-15T00:00:00&#43;09:00" />
+서비스를 만들때 비정상적으로 서비스가 종료되지 않고 안전하게 실행되도록 하는 것은 아주 중요하다(Resilency). 이번 포스트에서는 Resilency를 유지하면서 서비스를 작성하는 여러가지 방법에 대해서 소개하겠다. 오늘 소개하는 글은 지난 7월에 덴버에서 열린 GopherCon 2015에서 Blake Caldwell라는 사람이 발표한 내용을 기반으로 몇가지 설명을 곁들여서 작성한 것이다. (https://sourcegraph.com/blog/live/gophercon2015/123664481750)
+사실 어떤 사람들에게는 쉬운 내용일 수 있다. 당연한 얘기를 하는 것일수도 있고&hellip; 하지만 기본을 탄탄히 하자는 의미에서, 그리고 지난 7월 덴버에서 열린 GopherCon 2015에서도 발표되었던 내용이니 한번 읽어보면 좋을 것 같다."><meta itemprop="datePublished" content="2015-08-15T00:00:00+09:00" />
+<meta itemprop="dateModified" content="2015-08-15T00:00:00+09:00" />
 <meta itemprop="wordCount" content="3139">
-
-
-
 <meta itemprop="keywords" content="golang," />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
 	<link rel="dns-prefetch" href="//fonts.gstatic.com">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
 	<link rel="stylesheet" href="/css/style.css">
 	
+
 	<link rel="shortcut icon" href="/favicon.ico">
 		
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-91404316-1', 'auto');
 	
 	ga('send', 'pageview');
 }
 </script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
 </head>
 <body class="body">
 	<div class="container container--outer">
@@ -78,7 +78,8 @@ if (!doNotTrack) {
 	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2015-08-15T00:00:00&#43;09:00">2015-08-15</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
 	</span>
 </div></div>
-		</header><div class="content post__content clearfix">
+		</header>
+		<div class="content post__content clearfix">
 			<blockquote>
 <p><a href="http://blog.remotty.com/blog/2015/08/15/golangeuro-anjeonhan-seobiseu-mandeulgi/">http://blog.remotty.com</a>에 게시한 글을 Go 언어에 대해 발행한 글을 수집하는 차원에서 이곳으로 옮겨왔다.</p>
 </blockquote>
@@ -93,7 +94,7 @@ if (!doNotTrack) {
 <h3 id="11-error-handling--clean-up">1.1. Error Handling &amp; Clean-up</h3>
 <p>에러 처리와 클린업은 Go 프로그램 작성의 기본이라 할 수 있다.
 아래 코드를 보자.</p>
-<pre><code>resourceA, err := OpenResourceA()
+<pre tabindex="0"><code>resourceA, err := OpenResourceA()
 if err != nil {
         return nil, err
 }
@@ -115,7 +116,7 @@ defer resourceA.Close()
 그래서 이 간단한 코드는, 사실 굉장히 주의해야 할 코드이다.</p>
 <hr>
 <p>하나의 솔루션으로 아래와 같은 방법이 있을 수 있다.</p>
-<pre><code>// can return nil, and that's not an error!
+<pre tabindex="0"><code>// can return nil, and that&#39;s not an error!
 resourceA, err := OpenResourceA()
 if err != nil {
         return nil, err
@@ -132,7 +133,7 @@ defer func(){
 <hr>
 <p>다른 방법은,
 <code>defer</code> 구문으로 사용되는 메쏘드를 nil-safe하게 만드는 것이다.</p>
-<pre><code>// Don't forget: resource might be nil!
+<pre tabindex="0"><code>// Don&#39;t forget: resource might be nil!
 func (resource *Resource) Close() {
         if resource != nil {
                 // ... clean up
@@ -141,7 +142,7 @@ func (resource *Resource) Close() {
 </code></pre><p>어떤 리소스를 close 하는 메쏘드에서 해당 리소스가 <code>nil</code>이라 해도 안전하게 close하도록 메쏘드를 작성해놓으면
 그것을 사용하는 쪽에서는 그냥 믿고 쓸 수 있을 것이다.</p>
 <p>다시 처음의 코드와 같아 졌다.</p>
-<pre><code>// can return nil, and that's not an error!
+<pre tabindex="0"><code>// can return nil, and that&#39;s not an error!
 resourceA, err := OpenResourceA()
 if err != nil {
         return nil, err
@@ -200,9 +201,9 @@ close된 채널로 값을 받으려고 하면 즉시 zero value가 리턴된다.
 <p>Go에서는 실행중에 에러가 발생하면(예: 배열의 범위를 넘어서는 인덱스로 접근, type assertion 실패 등), Go 런타임은 panic 을 발생시킨다.</p>
 <hr>
 <p>아래는 panic을 발생시키는 간단한 예제 코드이다.</p>
-<pre><code>package main
+<pre tabindex="0"><code>package main
 
-import &quot;fmt&quot;
+import &#34;fmt&#34;
 
 func main() {
 	fmt.Println(divide(1, 0))
@@ -227,8 +228,8 @@ func divide(a, b int) int {
 <p><code>recover()</code>는 반드시 <code>defer</code> 안에서 사용해야 한다.
 <code>defer</code> 구문 안에서 <code>recover()</code>를 호출하면 panic 내부의 상황을 <code>error</code> 값으로 복원할 수 있다.
 <code>recover()</code>로 <em>panic</em> 을 복원한 후에는 panicking 상황은 종료되고 함수의 리턴값에 대한 zero-value가 리턴된다.</p>
-<pre><code>func main() {
-	fmt.Println(&quot;result: &quot;, divide(1, 0))
+<pre tabindex="0"><code>func main() {
+	fmt.Println(&#34;result: &#34;, divide(1, 0))
 }
 
 func divide(a, b int) int {
@@ -243,18 +244,18 @@ func divide(a, b int) int {
 <hr>
 <p>아래 <code>protect()</code> 함수는 파라미터로 받은 함수 <code>g</code>를 호출한다.
 만약 <code>g</code>에서 panic이 발생하면 panic으로부터 error 정보를 가져와 화면에 출력한다.</p>
-<pre><code>func protect(g func()) {
+<pre tabindex="0"><code>func protect(g func()) {
 	defer func() {
-		log.Println(&quot;done&quot;)
+		log.Println(&#34;done&#34;)
 
 		if err := recover(); err != nil {
-			log.Printf(&quot;run time panic: %v&quot;, err)
+			log.Printf(&#34;run time panic: %v&#34;, err)
 		}
 	}()
-	log.Println(&quot;start&quot;)
+	log.Println(&#34;start&#34;)
 	g()
 }
-</code></pre><pre><code>func main() {
+</code></pre><pre tabindex="0"><code>func main() {
 	protect(func() {
 		fmt.Println(divide(4, 0))
 	})
@@ -264,36 +265,36 @@ func divide(a, b int) int {
 	return a / b
 }
 </code></pre><p>결과</p>
-<pre><code>start
+<pre tabindex="0"><code>start
 done
 run time panic: runtime error: integer divide by zero
 </code></pre><p>위와 같이 <code>protect()</code> 함수에 코드블럭을 클로저로 만들어 넘기면 예상치 못한 panic에 의해 프로그램이 비정상적으로 종료되는 것을 막을 수 있다.</p>
 <p>아래는 panic, defer, recover를 사용한 예제다.</p>
-<pre><code>
+<pre tabindex="0"><code>
 package main
 
-import &quot;fmt&quot;
+import &#34;fmt&#34;
 
 func badCall() {
-	panic(&quot;bad end&quot;)
+	panic(&#34;bad end&#34;)
 }
 
 func test() {
 	defer func() {
 		if e := recover(); e != nil {
-			fmt.Printf(&quot;Panicking %s\r\n&quot;, e)
+			fmt.Printf(&#34;Panicking %s\r\n&#34;, e)
 		}
 	}()
 	badCall()
-	fmt.Printf(&quot;After bad call\r\n&quot;)
+	fmt.Printf(&#34;After bad call\r\n&#34;)
 }
 
 func main() {
-	fmt.Printf(&quot;Calling test\r\n&quot;)
+	fmt.Printf(&#34;Calling test\r\n&#34;)
 	test()
-	fmt.Printf(&quot;Test completed\r\n&quot;)
+	fmt.Printf(&#34;Test completed\r\n&#34;)
 }
-</code></pre><pre><code>Calling test
+</code></pre><pre tabindex="0"><code>Calling test
 Panicking bad end
 Test completed
 </code></pre><p>Java나 .Net의 try~catch~finally 블럭과 유사한 효과를 준다.</p>
@@ -325,14 +326,14 @@ read, write 고루틴을 포함해서 전체 stack trace 정보를 보여주면�
 <hr>
 <p>아래는 race condition이 발생할 수 있는 코드이다.
 아래 코드는 두개의 고루틴이 <code>m</code> 맵의 첫번째 위치에 동시에 접근할 위험이 있다.</p>
-<pre><code>func main() {
+<pre tabindex="0"><code>func main() {
 	c := make(chan bool)
 	m := make(map[string]string)
 	go func() {
-		m[&quot;1&quot;] = &quot;a&quot; // First conflicting access.
+		m[&#34;1&#34;] = &#34;a&#34; // First conflicting access.
 		c &lt;- true
 	}()
-	m[&quot;2&quot;] = &quot;b&quot; // Second conflicting access.
+	m[&#34;2&#34;] = &#34;b&#34; // Second conflicting access.
 	&lt;-c
 	for k, v := range m {
 		fmt.Println(k, v)
@@ -340,7 +341,7 @@ read, write 고루틴을 포함해서 전체 stack trace 정보를 보여주면�
 }
 </code></pre><h4 id="race-detector-output">Race Detector Output</h4>
 <p>아래는 Race detector의 아웃풋이다.</p>
-<pre><code>$ go run -race race.go
+<pre tabindex="0"><code>$ go run -race race.go
 ==================
 WARNING: DATA RACE
 Write by goroutine 5:
@@ -367,7 +368,7 @@ exit status 66
 이 두 코드는 hashmap.go에서 crash를 일으키게 된다.</p>
 <h4 id="enable-race-detection">Enable Race Detection</h4>
 <p>테스트 수행, Go 코드 실행, build, install 명령을 수행할 때 <code>-race</code> 옵션을 주면 Race detector가 동작한다.</p>
-<pre><code>$ go test -race mypkg    // to test the package
+<pre tabindex="0"><code>$ go test -race mypkg    // to test the package
 $ go run -race mysrc.go  // to run the source file
 $ go build -race mycmd   // to build the command
 $ go install -race mypkg // to install the package
@@ -474,13 +475,13 @@ Go는 <code>database/sql</code>를 통해 데이터베이스 관련 작업에 �
 드라이버 패키지는 코드상에서 호출해서 사용하지 않지만, 패키지가 로드될때 호출되는 <code>init()</code> 함수에서 드라이버를 사용하기 위한 작업들을 해 주기 때문에 blank identifier로 ailiasing을 하여 임포트 한다.</p>
 <p><code>net/http/pprof</code> 패키지도 이와같이 blank identifier로 ailiasing을 하여 임포트 한 다음
 웹서버를 구동시키면 url로 접근해서 확인할 수 있다.</p>
-<pre><code>import (
-	_ &quot;net/http/pprof&quot;
-	&quot;net/http&quot;
+<pre tabindex="0"><code>import (
+	_ &#34;net/http/pprof&#34;
+	&#34;net/http&#34;
 )
 
 func main() {
-	http.ListenAndServe(&quot;:8080&quot;, nil)
+	http.ListenAndServe(&#34;:8080&#34;, nil)
 	// ...
 }
 </code></pre><p><a href="http://simplechat.jang.io/debug/pprof">http://simplechat.jang.io/debug/pprof</a></p>
@@ -505,10 +506,10 @@ func main() {
 <p><code>pprof</code>는 커맨드라인에서도 사용할 수 있다.</p>
 <h5 id="what-are-your-goroutines-doing">What Are Your GoRoutines Doing?</h5>
 <p>가장 활발하게 일을 하고 있는 상위 10개의 goroutine들이다.</p>
-<pre><code>$ go tool pprof ./simple-chat http://simplechat.jang.io/debug/pprof/goroutine
+<pre tabindex="0"><code>$ go tool pprof ./simple-chat http://simplechat.jang.io/debug/pprof/goroutine
 Fetching profile from http://simplechat.jang.io/debug/pprof/goroutine
 Saved profile in /Users/jaehuejang/pprof/pprof.simple-chat.simplechat.jang.io.goroutine.002.pb.gz
-Entering interactive mode (type &quot;help&quot; for commands)
+Entering interactive mode (type &#34;help&#34; for commands)
 (pprof) top 10
 9 of 9 total (  100%)
 Showing top 10 nodes out of 34 (cum &gt;= 1)
@@ -530,10 +531,10 @@ Showing top 10 nodes out of 34 (cum &gt;= 1)
 <p><img src="https://raw.githubusercontent.com/jaehue/go-talk/master/gophercon-korea-2015/goroutine-svg.png" alt="pprof goroutine web"></p>
 <h5 id="whos-allocating-heap-memory">Who&rsquo;s Allocating Heap Memory?</h5>
 <p>heap 메모리의 상태도 확인 가능하다.</p>
-<pre><code>$ go tool pprof ./simple-chat http://simplechat.jang.io/debug/pprof/heap
+<pre tabindex="0"><code>$ go tool pprof ./simple-chat http://simplechat.jang.io/debug/pprof/heap
 Fetching profile from http://simplechat.jang.io/debug/pprof/heap
 Saved profile in /Users/jaehuejang/pprof/pprof.simple-chat.simplechat.jang.io.inuse_objects.inuse_space.001.pb.gz
-Entering interactive mode (type &quot;help&quot; for commands)
+Entering interactive mode (type &#34;help&#34; for commands)
 (pprof) top 5
 2461.40kB of 2461.40kB total (  100%)
 Dropped 7 nodes (cum &lt;= 12.31kB)
@@ -556,15 +557,15 @@ Global한 서비스를 운영하고 있는 경우는 필요할때가 있다.</p>
 <p><a href="http://simplechat.jang.io/info">http://simplechat.jang.io/info</a></p>
 <h4 id="managing-service-version">Managing Service Version</h4>
 <p>버전 관리의 팁이 있다.</p>
-<pre><code>Version: &quot;1.0.275-b244a2b9b8-20150202.163449&quot;
-</code></pre><pre><code>&lt;major&gt;.&lt;minor&gt;.&lt;commit#&gt;-&lt;Git SHA&gt;-&lt;date&gt;.&lt;time&gt;
+<pre tabindex="0"><code>Version: &#34;1.0.275-b244a2b9b8-20150202.163449&#34;
+</code></pre><pre tabindex="0"><code>&lt;major&gt;.&lt;minor&gt;.&lt;commit#&gt;-&lt;Git SHA&gt;-&lt;date&gt;.&lt;time&gt;
 </code></pre><p>이렇게 버저닝을 하면 편하다.</p>
 <p>빌드할때 <code>-ldflags</code> 옵션으로 글로벌 변수의 특정 값을 할당할 수 있는데,
 아래와 같이 global variable을 만들어 version을 저장하도록 하고</p>
-<pre><code>var ServiceVersion string
+<pre tabindex="0"><code>var ServiceVersion string
 </code></pre><p>빌드 할 때마다 <code>ServiceVersion</code>에 빌드 버전이 기록되도록 하면, 빌드시마다 고유의 빌드 버전을 지정할 수 있다.</p>
-<pre><code>$ go build -ldflags \
-&gt;       &quot;-X main.ServiceVersion 1.0.231.fd80bea-20150814.160801&quot;
+<pre tabindex="0"><code>$ go build -ldflags \
+&gt;       &#34;-X main.ServiceVersion 1.0.231.fd80bea-20150814.160801&#34;
 </code></pre><h3 id="24-keep-good-logs">2.4. Keep Good Logs!</h3>
 <p>사실 정말 필요한 정보는 log만 잘 남겨 놓아도 나중에 유용하게 사용할 수 있다.
 하지만 때론 로그가 너무 많아서 보기가 참 힘들어질때가 있다.
@@ -591,13 +592,13 @@ log에 의미있는 prefix를 사용해라.
 <p>더 나아가 지금 누가 접속해있는지가 궁금할 때도 있다.</p>
 <h4 id="connections-endpoint">/connections Endpoint</h4>
 <p><code>/connections</code> 액션으로 현재 접속한 유저 정보를 확인하는 기능을 만들어 놓으면 유용하다.</p>
-<pre><code>{
+<pre tabindex="0"><code>{
   CurrentUserCount: 1,
   CurrentlyAuthenticatedUsers: [
     {
-      Addr: &quot;10.157.118.9:46493&quot;,
-      Name: &quot;장재휴&quot;,
-      SessionDuration: &quot;3m4s&quot;
+      Addr: &#34;10.157.118.9:46493&#34;,
+      Name: &#34;장재휴&#34;,
+      SessionDuration: &#34;3m4s&#34;
     }
   ]
 }
@@ -650,11 +651,10 @@ log에 의미있는 prefix를 사용해라.
 	</div>
 </nav>
 
-
 <section class="comments">
 	<div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
+<script>
+    window.disqus_config = function () {
     
     
     
@@ -678,22 +678,20 @@ log에 의미있는 prefix를 사용해라.
 			</div>
 			<aside class="sidebar"><div class="widget-search widget">
 	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<label>
-			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q" aria-label="SEARCH...">
-		</label>
+		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
 		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/" />
+		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/">
 	</form>
 </div>
 <div class="widget-recent widget">
 	<h4 class="widget__title">Recent Posts</h4>
 	<div class="widget__content">
 		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/post/2024.03.04/">작은 마음</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.02.01/">불안한 세상을 가르치자</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.24/">내 삶을 오케스트레이션 하기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.22/">AI와 함께 살아가기</a></li>
 			<li class="widget__item"><a class="widget__link" href="/post/2024.01.20/">신순자 평전</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2023.12.31/">굿바이 2023</a></li>
 		</ul>
 	</div>
 </div>
@@ -702,14 +700,11 @@ log에 의미있는 prefix를 사용해라.
 	<div class="widget__content">
 		<ul class="widget__list">
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/it/">IT</a>
-			</li>
+				<a class="widget__link" href="/categories/it/">IT</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a>
-			</li>
+				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a></li>
 			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a>
-			</li>
+				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a></li>
 		</ul>
 	</div>
 </div>
@@ -718,11 +713,11 @@ log에 의미있는 prefix를 사용해라.
 	<div class="widget__content">
 		<a class="widget-taglist__link widget__link btn" href="/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/" title="4차 산업혁명">4차 산업혁명 (4)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/chatgpt/" title="ChatGPT">ChatGPT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="eventdriven">eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="golang">golang (7)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="Eventdriven">Eventdriven (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="Golang">Golang (7)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/it/" title="IT">IT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="kubernetes">kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="microservice">microservice (2)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="Kubernetes">Kubernetes (1)</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="Microservice">Microservice (2)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/msa/" title="MSA">MSA (1)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%80%EC%B9%98%EA%B4%80/" title="가치관">가치관 (38)</a>
 		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" title="개발문화">개발문화 (7)</a>
