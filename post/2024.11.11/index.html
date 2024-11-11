@@ -3,29 +3,27 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>리팩토링을 위한 시간 - Jaehue&#39;s</title>
+	<title>내가 바라는 삶 - Jaehue&#39;s</title>
 	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
 	<meta name="description" content="">
-		<meta property="og:title" content="리팩토링을 위한 시간" />
-<meta property="og:description" content="급하게 막 하는 코딩 vs. 여유를 갖고 천천히, 테스트 코드도 짜가며 하는 코딩
-상황에 떠밀려 첫 번째 방법대로 해버릴 때가 많다.
-‘이 상황에선 어쩔 수 없어. 이게 최선이야. 빠른 시간안에 어떻게든 동작하게 만드는 게 중요해’ 라며 합리화를 한다.
-하지만, 두 번째 방법대로 해보면, 그 방법이 더 빠를 때가 있다.
-테스트 코드를 넣기가 까다로워, [신청-결제-확정-정산]까지 이어지는 흐름을 계속 직접 테스트를 했었다. 어휴~ 여기에 변수가 너무 많아서 그 다양한 케이스를 하나하나 다 실행해보며 테스트를 했었다." />
+		<meta property="og:title" content="내가 바라는 삶" />
+<meta property="og:description" content="이제야 마음이 평온해졌다. 그래, 이게 내가 원하던 삶이잖아.
+하이데어를 정리하며 하이데어는 2016년부터 대학교 선배와 얘기해 오던 서비스다. 북경에서 폭풍 같은 시간을 보낼 때, 어차피 이렇게 살 거면 하고 싶은 거 하자는 생각이 들었다. 선배에게 전화했다.
+&ldquo;이제 그만 얘기하고, 시작하자.&rdquo;
+다른 건 다 해도 창업은 못 할거라 생각했는데, 그때 난 더 잃을 것도 없었다. 그렇게 내 회사를 시작했다. 밤마다, 주말마다 몸을 갈아 넣어서 만들었다. 중국 생활을 접고 한국으로 들어와 제대로 팀을 꾸렸다." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/2023.05.14/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-05-14T00:36:00+09:00" />
-<meta property="article:modified_time" content="2023-05-14T00:36:00+09:00" />
+<meta property="og:url" content="https://jaehue.github.io/post/2024.11.11/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-11-11T17:59:06+09:00" />
+<meta property="article:modified_time" content="2024-11-11T17:59:06+09:00" />
 
 
-		<meta itemprop="name" content="리팩토링을 위한 시간">
-<meta itemprop="description" content="급하게 막 하는 코딩 vs. 여유를 갖고 천천히, 테스트 코드도 짜가며 하는 코딩
-상황에 떠밀려 첫 번째 방법대로 해버릴 때가 많다.
-‘이 상황에선 어쩔 수 없어. 이게 최선이야. 빠른 시간안에 어떻게든 동작하게 만드는 게 중요해’ 라며 합리화를 한다.
-하지만, 두 번째 방법대로 해보면, 그 방법이 더 빠를 때가 있다.
-테스트 코드를 넣기가 까다로워, [신청-결제-확정-정산]까지 이어지는 흐름을 계속 직접 테스트를 했었다. 어휴~ 여기에 변수가 너무 많아서 그 다양한 케이스를 하나하나 다 실행해보며 테스트를 했었다."><meta itemprop="datePublished" content="2023-05-14T00:36:00+09:00" />
-<meta itemprop="dateModified" content="2023-05-14T00:36:00+09:00" />
-<meta itemprop="wordCount" content="254">
+		<meta itemprop="name" content="내가 바라는 삶">
+<meta itemprop="description" content="이제야 마음이 평온해졌다. 그래, 이게 내가 원하던 삶이잖아.
+하이데어를 정리하며 하이데어는 2016년부터 대학교 선배와 얘기해 오던 서비스다. 북경에서 폭풍 같은 시간을 보낼 때, 어차피 이렇게 살 거면 하고 싶은 거 하자는 생각이 들었다. 선배에게 전화했다.
+&ldquo;이제 그만 얘기하고, 시작하자.&rdquo;
+다른 건 다 해도 창업은 못 할거라 생각했는데, 그때 난 더 잃을 것도 없었다. 그렇게 내 회사를 시작했다. 밤마다, 주말마다 몸을 갈아 넣어서 만들었다. 중국 생활을 접고 한국으로 들어와 제대로 팀을 꾸렸다."><meta itemprop="datePublished" content="2024-11-11T17:59:06+09:00" />
+<meta itemprop="dateModified" content="2024-11-11T17:59:06+09:00" />
+<meta itemprop="wordCount" content="812">
 <meta itemprop="keywords" content="," />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link rel="dns-prefetch" href="//fonts.googleapis.com">
@@ -74,31 +72,44 @@ if (!doNotTrack) {
 <main class="main" role="main">
 	<article class="post">
 		<header class="post__header">
-			<h1 class="post__title">리팩토링을 위한 시간</h1>
+			<h1 class="post__title">내가 바라는 삶</h1>
 			<div class="post__meta meta"><div class="meta__item-author meta__item">
 	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 12 16"><path d="M6 1c2.2 0 3.5 2 3.5 4.5C9.5 7 8.9 8.2 8 9c2.9.8 4 2.5 4 5v1H0v-1c0-2.5 1.1-4.2 4-5-.9-.8-1.5-2-1.5-3.5C2.5 3 3.8 1 6 1z"/></svg><span class="meta__text">장재휴</span>
 </div>
 <div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2023-05-14T00:36:00&#43;09:00">2023-05-14</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/" rel="category">Categories</a>
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg><time class="meta__text" datetime="2024-11-11T17:59:06&#43;09:00">2024-11-11</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2l1 2h8v11h-16v-13z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/" rel="category">Categories</a>
 	</span>
 </div></div>
 		</header>
 		<div class="content post__content clearfix">
-			<p>급하게 막 하는 코딩 vs. 여유를 갖고 천천히, 테스트 코드도 짜가며 하는 코딩</p>
-<p>상황에 떠밀려 첫 번째 방법대로 해버릴 때가 많다.<br>
-‘이 상황에선 어쩔 수 없어. 이게 최선이야. 빠른 시간안에 어떻게든 동작하게 만드는 게 중요해’ 라며 합리화를 한다.</p>
-<p>하지만, 두 번째 방법대로 해보면, 그 방법이 더 빠를 때가 있다.</p>
-<p>테스트 코드를 넣기가 까다로워, [신청-결제-확정-정산]까지 이어지는 흐름을 계속 직접 테스트를 했었다. 어휴~ 여기에 변수가 너무 많아서 그 다양한 케이스를 하나하나 다 실행해보며 테스트를 했었다. 테스트 코드를 만들고 싶었지만, 코드를 거지같이 짜놔서 테스트 코드를 넣기도 애매했다. 그리고 매번 일은 예상보다 빨리 들이닥친다. 계속 쫓기면서 하는 코딩. 테스트 코드를 짤 시간이 없어&hellip;</p>
-<p>오늘 좀 여유가 생겨, 자동화된 테스트를 돌릴 수 있도록 코드를 리팩토링 하고, 기능을 추가해 나갔다.<br>
-추가할 기능을 정의하고, 테스트 코드를 작성하고, 로직을 채워넣고, red-green-refactor 해 나가는 이 리듬. 이 안정감. 아ㅡ 왜 진작 이렇게 안 했지?</p>
-<p>상황은 늘 급박하게 돌아간다. 세상은 나를 기다려주지 않는다. 하지만 이 숨 막히는 상황에서도 여유를 만들어내야 한다. 그래야 쳇바퀴처럼 쫓기는 삶에서 빠져나올 수 있다. 빨리 급하게 한다고 좋은 게 아니다.</p>
-<p>어떻게 여유를 만들 수 있을까? 어떻게 이 바쁨을 멈춰 세울 수 있을까?<br>
-지금까지 찾은 방법 중 하나는, 효율보다 사람에 더 관심을 두는 것이다.</p>
-<p>‘사람이 제일 중요해’ ⇒ 2019년부터 선택의 기준 중 하나로 세우고 지키려고 노력해오고 있다.<br>
-이번 주말에도 이 원칙에 따라 움직였고, 어찌어찌 여유를 만들 수 있었다. 그리고 그 여유로운 마음을 이어가서 그동안 거지같이 짜 오던 코드도 깔끔하게 리팩토링 했다.</p>
-<p>리팩토링 해가며 코드를 작성하는 것. 시간 낭비 같지만, 진짜로 해보면 시간 낭비가 아니라는 것을 알게 된다.<br>
-내 삶에도 리팩토링이 필요하다. 사치인 것 같지만, 진짜로 해보면 그게 아니라는 것을 알게 된다.</p>
-<img src="/images/20230514/1.jpg" style="width: 320px;"/>
+			<p>이제야 마음이 평온해졌다. 그래, 이게 내가 원하던 삶이잖아.</p>
+<h4 id="하이데어를-정리하며">하이데어를 정리하며</h4>
+<p>하이데어는 2016년부터 대학교 선배와 얘기해 오던 서비스다. 북경에서 폭풍 같은 시간을 보낼 때, 어차피 이렇게 살 거면 하고 싶은 거 하자는 생각이 들었다. 선배에게 전화했다.<br>
+&ldquo;이제 그만 얘기하고, 시작하자.&rdquo;<br>
+다른 건 다 해도 창업은 못 할거라 생각했는데, 그때 난 더 잃을 것도 없었다. 그렇게 내 회사를 시작했다. 밤마다, 주말마다 몸을 갈아 넣어서 만들었다. 중국 생활을 접고 한국으로 들어와 제대로 팀을 꾸렸다. 그렇게 우리 가족의 삶까지 걸었다.</p>
+<p>대학을 나오지 않아도 먹고 사는 데 지장이 없는 세상. 학교 울타리에 갇히지 않고 어디서든 공부할 수 있는 세상. 누구나 마음만 있으면 성장할 수 있는 세상을 만들고 싶었다. 첫 번째, 두 번째 실험을 했고 하이데어는 세 번째 실험이었다.</p>
+<p>그렇게 모든 걸 걸었는데, 올해 초 내 마음에 다른게 꿈틀거렸다.<br>
+&lsquo;대학을 나오지 않은 친구들과 이 살벌한 세상에서 살아남아 보자.&rsquo;<br>
+나를 따르는 동료가 생겼다. 중졸, 고졸 친구들이다. 이들을 데리고 비즈니스 판에 뛰어들어볼 테다. 네 번째 실험이다.</p>
+<p>내가 하이데어를 정리할 수 있을까? 하이데어는 나 그 자체인데. 오랫동안 끙끙거리며 이 문제를 놓고 기도원에 갔다 올까도 생각했었다. 두 달 전, 주일 예배 끝나고 1분 정도 짧게 기도하는 시간에 마음을 정리했다. 나를 망설이게 하는 게 설마 돈 때문인가? 하이데어가 잘 돼서 엑시트(exit)를 하게 되면 내 지분만큼 큰 몫을 차지할 수 있을 텐데. 혹시라도 생길지 모르는 그것에 대한 미련인가? 문제가 명확하면 해결책도 단순하다. 나를 움직이게 만들었던 하이데어가 내 발목을 잡고 있었다. 정리하자. 애매한 선택지를 하나님께 결정해 달라고 떠넘기기보다, 기준을 세우고 거기에 맞는 선택을 하는 건 내 몫이다. 기도는 그 결단을 이어갈 수 있는 힘을 달라고 도움을 구하는 것. 그렇게 하이데어를 정리했다.</p>
+<h4 id="이랜드를-정리하며">이랜드를 정리하며</h4>
+<p>작년 여름에 회사 돈이 바닥났다. 본격적으로 돈벌이에 뛰어들었다. 처음 해보는 영업 미팅, 화기애애한 분위기지만 살벌함이 느껴진다. 조급한 사람은 나다. 적당히 웃으며 얘기하다 인사하고 헤어지면 끝장이다. 어떻게든 다음 일감을 만들어내야 한다. 상대방으로부터 그 말을 끌어내기 위해 조심히 다음 말을 이어간다. 웃는 게 웃는 게 아니다. 그렇게 세 시간 정도 미팅하고 나왔는데, 다리에 힘이 쭉 빠진다. 힘겹게 계약을 따내고 선금이 들어오면 그걸로 직원들 월급을 내보냈다. 이렇게 따낸 일이 겨우 두 달짜리. 한달 한달을 이렇게 보냈다. 힘들었다. 내 상황을 아는 이전 회사 선배가 나를 불러줬고 그렇게 투잡 생활이 시작됐다. 매달 들어오는 월급은 달콤했다. 돈의 위력이란, 나를 아무것도 안 하고 싶게 만들었다. 그렇게 정착해 버릴까 봐 두려웠다. 오아시스에서 쉬는 건 일 년으로 끝내자. 이 회사엔 올해까지만 출근하기로 했다.</p>
+<p>&ldquo;지금 시점에 퇴사를? 너 제정신이야?&rdquo;<br>
+지금 바깥이 얼마나 차갑고 살벌한지는 굳이 얘기하지 않아도 안다. 그게 이유라면, 역시 해결책은 단순하다. 누구나 안정을 바라지만 그건 신기루 같은 거다. 잡히지 않는 안정을 잡으려고 허우적대지 말자.</p>
+<h4 id="진짜-살벌함">진짜 살벌함</h4>
+<p>회사 이름을 &lsquo;코드스텝&rsquo;으로 지었다. 코드를 짜며(실행하며) 한발 한발 나가자는 의미를 담았다. &lsquo;Taking small steps to solve big problems.&lsquo;이라는 모토로 야심 차게 시작했다. 근데 일이 생기지 않는다. 얼어붙은 경기가 피부에 와닿는다. 업계가 완전히 얼어붙었다. 몇십 억대 프로젝트는 몇천만 원 수준으로 축소되고 몇천만 원짜리는 몇백 수준이다. 몇 안 되는 프로젝트에 많은 기업들이 들러붙는다. 그 일이 나에게까지 올 리가 없지.</p>
+<p>지지난주는 많이 지치더라. 될 듯 말 듯. 제대로 집중해 보려고 다른 것들을 다 정리했는데, 일이 만들어지지 않는다. 찝찝하고 지저분하고 애매한 상태가 계속된다. 공들여 만들어가던 일이 다 어그러진다. 진행하던 프로젝트도 drop 되고 계약은 취소되고. 내 월급에 직원들 월급까지 주려면 매달 2천만 원씩은 벌어야 하는데, 그 돈을 어디서 벌지? 프로젝트가 취소돼 버려서 11월부터는 할 일이 없다. 깜깜하고 막막하다.</p>
+<p>생각처럼 일이 진행되었다면 그 기세를 몰아 나를 갈아 넣었겠지. 쌓아놓은 게 없으니 더 열심히 하려고 했겠지. 그렇게 내 힘으로 &lsquo;내 회사&rsquo;를 키우고 싶었겠지. 솔로몬 같은 지혜로운 사람도 삐까뻔쩍한 왕국을 세우고 무너졌다. 정말 나를 위한 건 그럴싸한 회사가 아니다. 매순간 하나님만 의지하며 살아갈 수밖에 없는 현실이 나를 위한 것이다.</p>
+<p>절박하고 막막하고 불안한 상황을 견디자. 이 상황 속에서도 여유를 가지자. 주변을 둘러보고 나에게 주어진 일상을 즐기자. 그저 할 수 있는 것을 하나씩 해 나가자. 난 어떻게 해야 하는지 이미 알고 있다. 조급한 마음에, 불안한 마음에, 걱정스러운 마음에 그게 안 될 뿐이다. 기도는 잠잠히 내면 깊숙한 곳을 들여다보는 거. 온갖 잡생각과 불순물을 제거하는 거. 그래서 저 깊이 숨어 있는 하나님이 주신 마음, 하나님을 닮은 내 모습을 키워가는 거. 너무 작아서 보이지 않는 그 보석을 나의 중심으로 가져와서 키워가는 거. 그렇게 맑은 정신으로 하나님께 가까이 다가가는 거다.<br>
+그렇게 다시 해보자!</p>
+<h4 id="다시-맑은-정신으로">다시 맑은 정신으로</h4>
+<p>2년 전, 북경을 떠나며 고등부 마지막 수련회 때 목사님께 나에게 한 시간만 달라고 했다. 사랑하는 아이들 앞에서 나의 다짐을 얘기했다. &lsquo;유목민으로 살아가기&rsquo;라는 제목으로 꿈을 얘기했다.<br>
+&ldquo;우리 불안하게 살자. 그 불안함이 우리를 자유롭게 해 줄 거야.&rdquo;<br>
+사람들이 기도 제목을 물을 때마다 불안한 상황에서 하나님을 바라보며 안정감을 느끼며 사는 거라고 말했다. 나를 소개하는 문구에도 &lsquo;도시 안에서 유목민으로 살기를 꿈꾼다&rsquo;라고 썼다. 생각해 보니 이게 내가 바라던 삶이었다. 기도의 응답이고 꿈을 이룬 거다.</p>
+<p>엊그제 청소년부 얘기를 하던 중에 혜진샘이 &ldquo;내년에 많이 바쁠 예정이죠?&ldquo;라고 물었다. 당연히 내년에 많이 바쁠거라 생각하고 있었는데. 그 질문에 선뜻 대답하지 못했다. 일년만에 끝장낼 것도 아니고 평생 이렇게 살 건데. 이게 내 삶이어야지. 일상이어야지. 아등바등한다고 할 수 있는게 아니잖아? 쓸데없이 바쁘지 말자.<br>
+&ldquo;필요한 역할이 있으면 할게요. 능숙하게 척척 해낼 자신은 없지만 없는 것보단 낫겠죠?&rdquo;</p>
+<p>사람들이 나에게 도전적이라고 한다. 이 나이에도 하고 싶은 걸 하냐고 의아해한다. 내가 하고 싶은 건 도전이 아니다. 유별난 꿈이 있는 것도 아니다. 그저 불안한 삶을 살고 싶을 뿐이다. 정체성을 잃고 정착해 버릴까 봐 두려울 뿐이다. 그냥 유목민으로 살아갈 뿐이다.</p>
+
 		</div>
 		<footer class="post__footer">
 			
@@ -128,15 +139,9 @@ if (!doNotTrack) {
 
 <nav class="pager flex">
 	<div class="pager__item pager__item--prev">
-		<a class="pager__link" href="/post/2023.05.07/" rel="prev">
+		<a class="pager__link" href="/post/2024.08.25/" rel="prev">
 			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">동네 놀이터에서 배우기 2탄 (feat.지안)</p>
-		</a>
-	</div>
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/post/2023.05.16/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">돈의 가치</p>
+			<p class="pager__title">코드스텝</p>
 		</a>
 	</div>
 </nav>
