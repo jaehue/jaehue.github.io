@@ -2,16 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://jaehue.github.io/categories/</loc>
+    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/</loc>
+    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/post/</loc>
+    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/tags/</loc>
+    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/post/2025.08.06/</loc>
+    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/categories/%EC%8B%A0%EC%95%99/</loc>
+    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/tags/%EC%95%84%EC%9B%83%EB%A6%AC%EC%B9%98/</loc>
+    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+  </url><url>
     <loc>https://jaehue.github.io/post/2025.07.24/</loc>
     <lastmod>2025-07-24T10:12:36+09:00</lastmod>
   </url><url>
-    <loc>https://jaehue.github.io/</loc>
-    <lastmod>2025-07-24T10:12:36+09:00</lastmod>
-  </url><url>
-    <loc>https://jaehue.github.io/post/</loc>
+    <loc>https://jaehue.github.io/tags/%EC%88%98%EB%A0%A8%ED%9A%8C/</loc>
     <lastmod>2025-07-24T10:12:36+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2025.05.18/</loc>
+    <lastmod>2025-05-18T00:39:31+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/tags/%EC%84%B1%EC%9E%A5/</loc>
     <lastmod>2025-05-18T00:39:31+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2025.02.09/</loc>
@@ -20,8 +41,17 @@
     <loc>https://jaehue.github.io/post/2025.01.24/</loc>
     <lastmod>2025-01-24T23:59:39+09:00</lastmod>
   </url><url>
+    <loc>https://jaehue.github.io/categories/%EB%AC%B5%EC%83%81/</loc>
+    <lastmod>2025-01-24T23:59:39+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/tags/%ED%96%89%EB%B3%B5/</loc>
+    <lastmod>2025-01-24T23:59:39+09:00</lastmod>
+  </url><url>
     <loc>https://jaehue.github.io/post/2024.12.31/</loc>
     <lastmod>2024-12-31T00:52:02+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/tags/%EA%BF%88/</loc>
+    <lastmod>2024-11-11T17:59:06+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2024.11.11/</loc>
     <lastmod>2024-11-11T17:59:06+09:00</lastmod>
@@ -46,6 +76,9 @@
   </url><url>
     <loc>https://jaehue.github.io/post/2024.04.20/</loc>
     <lastmod>2024-04-20T14:04:02+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/tags/%EA%B0%80%EC%B9%98%EA%B4%80/</loc>
+    <lastmod>2024-04-16T14:14:27+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2024.04.16/</loc>
     <lastmod>2024-04-16T14:14:27+09:00</lastmod>
@@ -107,6 +140,9 @@
     <loc>https://jaehue.github.io/post/2023.10.13/</loc>
     <lastmod>2023-10-13T20:35:25+09:00</lastmod>
   </url><url>
+    <loc>https://jaehue.github.io/tags/%EC%B1%85/</loc>
+    <lastmod>2023-10-13T20:35:25+09:00</lastmod>
+  </url><url>
     <loc>https://jaehue.github.io/post/2023.10.06/</loc>
     <lastmod>2023-10-06T20:35:21+09:00</lastmod>
   </url><url>
@@ -114,12 +150,6 @@
     <lastmod>2023-10-04T20:53:28+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2023.09.29/</loc>
-    <lastmod>2023-09-29T08:34:52+09:00</lastmod>
-  </url><url>
-    <loc>https://jaehue.github.io/tags/</loc>
-    <lastmod>2023-09-29T08:34:52+09:00</lastmod>
-  </url><url>
-    <loc>https://jaehue.github.io/tags/%EC%B1%85/</loc>
     <lastmod>2023-09-29T08:34:52+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2023.09.25/</loc>
@@ -156,12 +186,6 @@
     <lastmod>2023-07-03T23:47:32+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2023.06.19/</loc>
-    <lastmod>2023-06-19T10:30:22+09:00</lastmod>
-  </url><url>
-    <loc>https://jaehue.github.io/categories/</loc>
-    <lastmod>2023-06-19T10:30:22+09:00</lastmod>
-  </url><url>
-    <loc>https://jaehue.github.io/categories/%EB%AC%B5%EC%83%81/</loc>
     <lastmod>2023-06-19T10:30:22+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2023.06.17/</loc>
@@ -218,15 +242,6 @@
     <loc>https://jaehue.github.io/post/2023.02.12/</loc>
     <lastmod>2023-02-12T22:23:16+09:00</lastmod>
   </url><url>
-    <loc>https://jaehue.github.io/tags/%ED%96%89%EB%B3%B5/</loc>
-    <lastmod>2023-02-12T22:23:16+09:00</lastmod>
-  </url><url>
-    <loc>https://jaehue.github.io/tags/%EA%B0%80%EC%B9%98%EA%B4%80/</loc>
-    <lastmod>2023-02-05T15:06:16+09:00</lastmod>
-  </url><url>
-    <loc>https://jaehue.github.io/tags/%EA%BF%88/</loc>
-    <lastmod>2023-02-05T15:06:16+09:00</lastmod>
-  </url><url>
     <loc>https://jaehue.github.io/post/2023.02.05/</loc>
     <lastmod>2023-02-05T15:06:16+09:00</lastmod>
   </url><url>
@@ -271,9 +286,6 @@
   </url><url>
     <loc>https://jaehue.github.io/post/2022.11.26/</loc>
     <lastmod>2022-11-26T23:32:45+09:00</lastmod>
-  </url><url>
-    <loc>https://jaehue.github.io/categories/%EC%8B%A0%EC%95%99/</loc>
-    <lastmod>2022-11-21T23:31:47+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2022.11.21/</loc>
     <lastmod>2022-11-21T23:31:47+09:00</lastmod>
@@ -522,9 +534,6 @@
     <lastmod>2019-07-06T21:47:17+08:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/manado-diary/</loc>
-    <lastmod>2019-02-16T09:39:34+08:00</lastmod>
-  </url><url>
-    <loc>https://jaehue.github.io/tags/%EC%95%84%EC%9B%83%EB%A6%AC%EC%B9%98/</loc>
     <lastmod>2019-02-16T09:39:34+08:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/tags/%EC%97%AC%ED%96%89/</loc>
