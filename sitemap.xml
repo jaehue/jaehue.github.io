@@ -2,17 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://jaehue.github.io/post/2025.08.22/</loc>
+    <lastmod>2025-08-22T11:36:12+09:00</lastmod>
+  </url><url>
     <loc>https://jaehue.github.io/categories/</loc>
-    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+    <lastmod>2025-08-22T11:36:12+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/</loc>
-    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+    <lastmod>2025-08-22T11:36:12+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/</loc>
-    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+    <lastmod>2025-08-22T11:36:12+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/tags/</loc>
-    <lastmod>2025-08-06T11:41:35+09:00</lastmod>
+    <lastmod>2025-08-22T11:36:12+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/tags/%EA%BF%88/</loc>
+    <lastmod>2025-08-22T11:36:12+09:00</lastmod>
+  </url><url>
+    <loc>https://jaehue.github.io/categories/%EB%AC%B5%EC%83%81/</loc>
+    <lastmod>2025-08-22T11:36:12+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2025.08.06/</loc>
     <lastmod>2025-08-06T11:41:35+09:00</lastmod>
@@ -41,17 +50,11 @@
     <loc>https://jaehue.github.io/post/2025.01.24/</loc>
     <lastmod>2025-01-24T23:59:39+09:00</lastmod>
   </url><url>
-    <loc>https://jaehue.github.io/categories/%EB%AC%B5%EC%83%81/</loc>
-    <lastmod>2025-01-24T23:59:39+09:00</lastmod>
-  </url><url>
     <loc>https://jaehue.github.io/tags/%ED%96%89%EB%B3%B5/</loc>
     <lastmod>2025-01-24T23:59:39+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2024.12.31/</loc>
     <lastmod>2024-12-31T00:52:02+09:00</lastmod>
-  </url><url>
-    <loc>https://jaehue.github.io/tags/%EA%BF%88/</loc>
-    <lastmod>2024-11-11T17:59:06+09:00</lastmod>
   </url><url>
     <loc>https://jaehue.github.io/post/2024.11.11/</loc>
     <lastmod>2024-11-11T17:59:06+09:00</lastmod>
