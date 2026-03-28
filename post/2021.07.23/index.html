@@ -1,88 +1,9 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>시끌벅적한 사무실 만들기 - Jaehue&#39;s</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-		<meta property="og:title" content="시끌벅적한 사무실 만들기" />
-<meta property="og:description" content="아주 작은 변화, 시작 &lt;7월 1일&gt; 새로운 회사로 이직한 지 2달이 지났다.
-사무실 분위기는 꽤 시끌벅적한데. 개발자들은 입도 뻥끗 안 하고 심각한 얼굴로 모니터만 쳐다보고 있고, 고객과 소통하는 사람들의 전화 목소리만 우렁차다. 우렁찬 목소리에는 넘치는 자신감(?)과 회사 내에서의 위치(?)가 드러나는 것 같다. 개발자들은 식사할 때조차 입을 잘 열지 않는다.
-나와 함께 일하는 몇몇 친구들에게 git으로 협업하는 방법을 설명해주고, 이번 주부터 gitlab의 Merge Request 기능을 써서 코드 리뷰를 하기로 했다. 이슈를 등록하고, 브런치를 만들고, 코드 작성 후 자신의 repo에 푸쉬하고, Merge Request를 만들고, 디스커션을 하고, 머지를 하는 과정을 보여주며 설명해주었다." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/2021.07.23/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2021-07-23T22:27:22+08:00" />
-<meta property="article:modified_time" content="2021-07-23T22:27:22+08:00" />
-
-
-		<meta itemprop="name" content="시끌벅적한 사무실 만들기">
-<meta itemprop="description" content="아주 작은 변화, 시작 &lt;7월 1일&gt; 새로운 회사로 이직한 지 2달이 지났다.
-사무실 분위기는 꽤 시끌벅적한데. 개발자들은 입도 뻥끗 안 하고 심각한 얼굴로 모니터만 쳐다보고 있고, 고객과 소통하는 사람들의 전화 목소리만 우렁차다. 우렁찬 목소리에는 넘치는 자신감(?)과 회사 내에서의 위치(?)가 드러나는 것 같다. 개발자들은 식사할 때조차 입을 잘 열지 않는다.
-나와 함께 일하는 몇몇 친구들에게 git으로 협업하는 방법을 설명해주고, 이번 주부터 gitlab의 Merge Request 기능을 써서 코드 리뷰를 하기로 했다. 이슈를 등록하고, 브런치를 만들고, 코드 작성 후 자신의 repo에 푸쉬하고, Merge Request를 만들고, 디스커션을 하고, 머지를 하는 과정을 보여주며 설명해주었다."><meta itemprop="datePublished" content="2021-07-23T22:27:22+08:00" />
-<meta itemprop="dateModified" content="2021-07-23T22:27:22+08:00" />
-<meta itemprop="wordCount" content="1420">
-<meta itemprop="keywords" content="중국,애자일,개발문화," />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
-
-	<link rel="stylesheet" href="/css/style.css">
-	
-
-	<link rel="shortcut icon" href="/favicon.ico">
-		
-		
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-91404316-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-</head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="logo logo--mixed">
-		<a class="logo__link" href="/" title="Jaehue&#39;s" rel="home">
-			<div class="logo__item logo__imagebox">
-					<img class="logo__img" src="/images/jaehue.JPG">
-				</div><div class="logo__item logo__text">
-					<div class="logo__title">Jaehue&#39;s</div>
-					<div class="logo__tagline">생각들</div>
-				</div>
-		</a>
-	</div>
-		<div class="divider"></div>
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">시끌벅적한 사무실 만들기</h1>
-			<div class="post__meta meta"><div class="meta__item-author meta__item">
-	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1c2 0 3.5 2 3.5 4.5S10 9 10 9c3 1 4 2 4 6H2c0-4 1-5 4-6 0 0-1.5-1-1.5-3.5S6 1 8 1"/></svg><span class="meta__text">장재휴</span>
-</div>
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0a14 14 0 1 1 0 28 1 1 0 0 1 0-28m0 3a3 3 0 1 0 0 22 3 3 0 0 0 0-22m1 4h-2v8.4l6.8 4.4L22 18l-6-3.8z"/></svg><time class="meta__text" datetime="2021-07-23T22:27:22&#43;08:00">2021-07-23</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
-	</span>
-</div></div>
-		</header>
-		<div class="content post__content clearfix">
-			<h2 id="아주-작은-변화-시작">아주 작은 변화, 시작</h2>
-<p><small><font color='grey'>&lt;7월 1일&gt;</font></small> 새로운 회사로 이직한 지 2달이 지났다.</p>
+<!DOCTYPE html><html lang="ko"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"><title>시끌벅적한 사무실 만들기</title><link rel="stylesheet" href="/_astro/BaseLayout.CX9TvwsR.css">
+<style>.blog-content{font-size:1rem;line-height:1.8;color:#1a1a1a}.blog-content p{margin-top:0;margin-bottom:1.75em}.blog-content h1{font-size:1.875rem;font-weight:700;line-height:1.3;margin-top:2.5em;margin-bottom:.8em;letter-spacing:-.02em}.blog-content h2{font-size:1.5rem;font-weight:700;line-height:1.35;margin-top:2.5em;margin-bottom:.8em;padding-bottom:.4em;border-bottom:1px solid #e5e5e3;letter-spacing:-.02em}.blog-content h3{font-size:1.25rem;font-weight:700;line-height:1.4;margin-top:2em;margin-bottom:.6em;letter-spacing:-.01em}.blog-content h4{font-size:1.1rem;font-weight:600;margin-top:1.5em;margin-bottom:.5em}.blog-content blockquote{font-style:normal;border-left:3px solid #e5e5e3;padding-left:1.25em;margin:2em 0;color:#555}.blog-content blockquote p{margin-bottom:.75em}.blog-content img{border-radius:.375rem;margin:2em auto;max-width:100%;height:auto;display:block}.blog-content a{color:#2563eb;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#93c5fd}.blog-content a:hover{text-decoration-color:#2563eb}.blog-content hr{border:none;border-top:1px solid #e5e5e3;margin:3em 0}.blog-content code{font-family:var(--font-mono);font-size:.85em;background:#f4f4f2;padding:.2em .4em;border-radius:.25rem;font-weight:400}.blog-content pre{background:#f4f4f2;border:1px solid #e5e5e3;border-radius:.5rem;padding:1.25em 1.5em;overflow-x:auto;margin:2em 0}.blog-content pre code{background:none;padding:0;font-family:var(--font-mono);font-size:.85em;color:#1a1a1a;font-weight:400}.blog-content ul,.blog-content ol{margin:1.25em 0;padding-left:1.75em}.blog-content li{margin-bottom:.5em;line-height:1.85}.blog-content strong{font-weight:700}.blog-content table{width:100%;margin:2em 0;font-size:.9em}.blog-content th{font-weight:600;border-bottom:2px solid #e5e5e3;padding:.5em 1em;text-align:left}.blog-content td{border-bottom:1px solid #e5e5e3;padding:.5em 1em}
+</style></head> <body class="bg-(--color-bg) text-(--color-text) font-sans antialiased min-h-screen flex flex-col"> <div class="max-w-[640px] w-full mx-auto px-5 flex-1 flex flex-col"> <header class="py-10"> <nav class="flex items-center justify-between"> <a href="/" class="text-xl font-semibold tracking-tight hover:opacity-60 transition-opacity">
+장재휴
+</a> <div class="flex gap-5 text-sm text-(--color-text-muted)"> <a href="/post" class="hover:text-(--color-text) transition-colors text-(--color-text) font-medium"> 글 </a><a href="/essays" class="hover:text-(--color-text) transition-colors"> 에세이집 </a><a href="/tags" class="hover:text-(--color-text) transition-colors"> 태그 </a><a href="/about" class="hover:text-(--color-text) transition-colors"> 소개 </a> </div> </nav> </header> <main class="flex-1 pb-16">  <article class="mt-6"> <header class="mb-10 pb-8 border-b border-(--color-border)"> <h1 class="text-[2rem] font-bold leading-snug tracking-tight mb-3">시끌벅적한 사무실 만들기</h1> <div class="flex items-center gap-3 text-sm text-(--color-text-muted)"> <time>2021년 7월 23일</time>  <span class="text-(--color-border)">·</span>  <a href="/categories/IT" class="hover:text-(--color-text) transition-colors"> IT </a>  </div> </header> <div class="blog-content">  <h2 id="아주-작은-변화-시작">아주 작은 변화, 시작</h2>
+<p><small><font color="grey">&#x3C;7월 1일></font></small> 새로운 회사로 이직한 지 2달이 지났다.</p>
 <p>사무실 분위기는 꽤 시끌벅적한데.
 개발자들은 입도 뻥끗 안 하고 심각한 얼굴로 모니터만 쳐다보고 있고, 고객과 소통하는 사람들의 전화 목소리만 우렁차다.
 우렁찬 목소리에는 넘치는 자신감(?)과 회사 내에서의 위치(?)가 드러나는 것 같다.
@@ -106,22 +27,22 @@ if (!doNotTrack) {
 <p>처음 코드리뷰 문화를 만들기 위해,
 누군가가 의견을 내면, 그 의견이 엄청난 해악을 끼치는 것이 아니라면 대부분 지지해준다. 지금은 효율적인 코드를 짜는 것 보다, 수동적인 개발자의 입을 열어서 자기 생각을 말하도록 하는 게 중요하다고 판단해서. 코드는 어짜피 여러 번 다시 짜게 될 테니까 ㅎㅎ</p>
 </blockquote>
-<p>나와의 코드리뷰&amp;디스커션에서 자신감을 얻은 그 친구가, 회의 시간에 팀장의 생각과 다른 자신의 의견을 말하기 시작했다.</p>
+<p>나와의 코드리뷰&#x26;디스커션에서 자신감을 얻은 그 친구가, 회의 시간에 팀장의 생각과 다른 자신의 의견을 말하기 시작했다.</p>
 <p>구현 방식에 대해 팀장과 다른 생각을 갖고 있다는 것을 이미 코드 리뷰를 통해 확인했었고,
-난, 회의 시간에 그 친구에게 &ldquo;너의 생각은 어때?&ldquo;라고 슬쩍 물었을 뿐이다.
+난, 회의 시간에 그 친구에게 “너의 생각은 어때?”라고 슬쩍 물었을 뿐이다.
 그 친구는 화이트보드에 뭔가를 끄적이며 팀장의 의견에 조심스럽게 반박을 했고, 그 친구의 의견은 수용이 되었다.</p>
 <p>짜릿한 순간이었다!</p>
 <h2 id="그래서-제일-중요한-건-뭐">그래서, 제일 중요한 건 뭐?</h2>
 <p>매일 아침 가볍게 어제 한 일, 오늘 한일, 이슈를 공유한다.<br>
 그리고 금요일 오후가 되면, 이번 주 한 일을 돌아보고, 다음 주 할 일을 같이 정한다.<br>
 다음 주 할 일을 정할 때, 나의 기준은 딱 하나다</p>
-<p><font size=4><span style="color:#e11d21"><strong>지금 제일 중요한 것만 한다</strong></span></font></p>
-<p>팀장은 계속해서 &ldquo;이거 <strong>엄~청</strong> 중요해!&rdquo; 라고 말하며 이런저런 기능들을 얘기한다.<br>
-그러면 난 다시 물어본다. &ldquo;그래서 지금 이게 <span style="color:#e11d21"><strong>제일</strong></span> 중요해?&rdquo;<br>
-그러면 선뜻 대답을 못 한다. 또다시 &ldquo;이거도 <strong>엄~청</strong> 중요해!&rdquo; 고 말하며 다른 기능을 얘기한다.<br>
-그럼 난 또다시 물어본다. &ldquo;그래서 지금 이게 <span style="color:#e11d21"><strong>제일</strong></span> 중요해?&rdquo;<br>
+<p><font size="4"><span style="color:#e11d21"><strong>지금 제일 중요한 것만 한다</strong></span></font></p>
+<p>팀장은 계속해서 “이거 <strong>엄~청</strong> 중요해!” 라고 말하며 이런저런 기능들을 얘기한다.<br>
+그러면 난 다시 물어본다. “그래서 지금 이게 <span style="color:#e11d21"><strong>제일</strong></span> 중요해?”<br>
+그러면 선뜻 대답을 못 한다. 또다시 “이거도 <strong>엄~청</strong> 중요해!” 고 말하며 다른 기능을 얘기한다.<br>
+그럼 난 또다시 물어본다. “그래서 지금 이게 <span style="color:#e11d21"><strong>제일</strong></span> 중요해?”<br>
 그러면 다음 행동에 아무 도움이 안 되는 뻔한 얘기를 하곤 한다.<br>
-예를 들면, &ldquo;우리 삶에서 행복이 제일 중요해&rdquo; 수준의 얘기.<br>
+예를 들면, “우리 삶에서 행복이 제일 중요해” 수준의 얘기.<br>
 이런 대화가 지겹도록 반복된다.</p>
 <p>여기서 관찰한 것 한가지는.<br>
 다 중요해 보이는 많은 것 중에서, 제일 중요한 뭔가를 고르는 것을 불편해하더라.<br>
@@ -130,46 +51,46 @@ if (!doNotTrack) {
 <p>매주 이걸 반복하는데, 지난주 회의 때 의미 있는 변화가 나타났다.</p>
 <p>역시나 회의 시간에는 이런 대화가 이어졌다.  (편의상 그 팀장을 K로 표현)</p>
 <ul>
-<li>K: &ldquo;리눅스에서도 동작하게 하는 게 제일 중요해&rdquo;<br>
-나: &ldquo;그건 이미 해결됐어. 왜냐면 지금 버전도 리눅스에서 동작은 하거든. 프로젝트 끝내도 되겠네?&rdquo;</li>
-<li>K: &ldquo;마이그레이션을 준비하는 게 제일 중요해&rdquo;<br>
-나: &ldquo;그건 지금 못해. 매일매일 구조가 바뀌고 있는데, 지금 마이그레이션 도구를 만드는 게 가능해? 그건 지금 하나도 안 중요해. 한 달 뒤쯤엔 중요해질 수도 있겠네&rdquo;</li>
-<li>K: &ldquo;컨트롤 배치할 때 가로 정렬이 안 되서 불편해, 그걸 하자&rdquo;<br>
-나: &ldquo;그게 제일 중요해? 만약 3주 후쯤에 출시를 해야 한다면, 컨트롤 가로 정렬 기능만 잘 동작하도록 하면 될까?&rdquo;</li>
-<li>K: &ldquo;고객이 계속 이런이런 새로운 기능을 요구하고 있는데, 그게 중요해 보여&rdquo;<br>
-나: &ldquo;그럼 원래 동작하는 기능은 안 만들어도 돼? 그 새로운 기능만 붙여서 출시할까?&rdquo;</li>
+<li>K: “리눅스에서도 동작하게 하는 게 제일 중요해”<br>
+나: “그건 이미 해결됐어. 왜냐면 지금 버전도 리눅스에서 동작은 하거든. 프로젝트 끝내도 되겠네?”</li>
+<li>K: “마이그레이션을 준비하는 게 제일 중요해”<br>
+나: “그건 지금 못해. 매일매일 구조가 바뀌고 있는데, 지금 마이그레이션 도구를 만드는 게 가능해? 그건 지금 하나도 안 중요해. 한 달 뒤쯤엔 중요해질 수도 있겠네”</li>
+<li>K: “컨트롤 배치할 때 가로 정렬이 안 되서 불편해, 그걸 하자”<br>
+나: “그게 제일 중요해? 만약 3주 후쯤에 출시를 해야 한다면, 컨트롤 가로 정렬 기능만 잘 동작하도록 하면 될까?”</li>
+<li>K: “고객이 계속 이런이런 새로운 기능을 요구하고 있는데, 그게 중요해 보여”<br>
+나: “그럼 원래 동작하는 기능은 안 만들어도 돼? 그 새로운 기능만 붙여서 출시할까?”</li>
 </ul>
 <p>이런 대화를 지겨울 정도로 반복하다가, 드디어 의미 있는 얘길 꺼낸다</p>
-<p>&ldquo;지금 고객이 가장 많이 사용하는 화면이 있는데, 최소한 이 정도는 갖춰 놓아야 할 것 같아. 이걸 갖추고, 마이그레이션까지 해 봐야 고객과 다음 스텝에 대한 협의가 가능할 것 같아&rdquo;</p>
+<p>“지금 고객이 가장 많이 사용하는 화면이 있는데, 최소한 이 정도는 갖춰 놓아야 할 것 같아. 이걸 갖추고, 마이그레이션까지 해 봐야 고객과 다음 스텝에 대한 협의가 가능할 것 같아”</p>
 <p>이 말을 듣고, <span style="color:#e11d21"><strong>제일</strong></span> 중요한 것을 제대로 찾았다는 신호를 발견했다.<br>
 그 말을 하고 있는 K의 표정이 바뀌었다! 얼굴에 뭔지 모를 절박함(?)이 드러난다.</p>
-<p>지금까진 내가 다 해 주길 기대하고(난 그런 역할을 하지 않을 거라고 수도 없이 얘기를 했건만&hellip; ;;;), 아무런 생각 없이, 그냥 자기 하고 싶은 것만 머릿속에 잔뜩 넣고 있었는데.. 여기저기 관련 팀을 찾아다니며 고객이 가장 많이 사용하는 기능들을 알아보고 있다.</p>
+<p>지금까진 내가 다 해 주길 기대하고(난 그런 역할을 하지 않을 거라고 수도 없이 얘기를 했건만… ;;;), 아무런 생각 없이, 그냥 자기 하고 싶은 것만 머릿속에 잔뜩 넣고 있었는데.. 여기저기 관련 팀을 찾아다니며 고객이 가장 많이 사용하는 기능들을 알아보고 있다.</p>
 <p>우렁찬 목소리 크기로 자신의 존재감을 드러내는 방법보다, 훨씬 진지해졌다.</p>
 <p>참고로, 그는, 바로 며칠 전 까지만 해도,<br>
 이번 주에 하기로 했던 계획은 뒷전이고 이번 주 목표와 아무 상관이 없는 기능의 작은 버그를 붙잡고 씨름하고 있었다. 반드시 해야겠다고 스스로 결심한 것을 하지 말라고 한들 거기서 빠져나올 수 없다는 걸 알기에(스스로 거기서 나와야지!) 그냥 내버려 두었다. <sub>강압적으로</sub> 행동을 멈추게 할 수는 있겠지만, 생각이 바뀌게 하기 위해선 받아들일 시간이 필요하다. 기다려 주어야 한다. 단지 다 같이 결정한 이번 주의 목표를 상기 시켜 줄 뿐이다.<br>
-&ldquo;근데 OOOO는 어떻게 되고 있어?&rdquo;<br>
+”근데 OOOO는 어떻게 되고 있어?”<br>
 그래도 빠져나오지 못한다면 그냥 이번 주는 버리면 된다 ㅋㅋ</p>
 <p>일을 일주일 텀으로 진행하는 것은, 나를 너무 조급하게도, 너무 늘어지게도 하지 않고, 침착하면서도 적당한 긴장감을 유지할 수 있게 해 준다.
-당장 뭔가를 해야 할 것 같은 조급한 마음이 들어도, 이번 주 계획을 급수정 해야 할 것 같아도, 동료의 일하는 방식이 마음에 안 들어 당장 관두라고 하고 싶어질 때도, 스스로에게 &ldquo;다음 주까지만 기다려보자&quot;라고 말한다. 대부분 일주일이란 시간을 보내면서 자연스럽게 해결될 때가 많고, 최악의 상황이라 할지라도 그냥 그 일주일만 버리면 되니까.</p>
+당장 뭔가를 해야 할 것 같은 조급한 마음이 들어도, 이번 주 계획을 급수정 해야 할 것 같아도, 동료의 일하는 방식이 마음에 안 들어 당장 관두라고 하고 싶어질 때도, 스스로에게 “다음 주까지만 기다려보자”라고 말한다. 대부분 일주일이란 시간을 보내면서 자연스럽게 해결될 때가 많고, 최악의 상황이라 할지라도 그냥 그 일주일만 버리면 되니까.</p>
 <h2 id="금지어-복잡하다-어렵다-엄청-중요하다">금지어: 복잡하다, 어렵다, 엄청 중요하다</h2>
 <p>회의에 참여해보니 동료들이 자주 사용하는 말이 있더라.<br>
-&ldquo;복잡하다&rdquo;, &ldquo;어렵다&rdquo;, 중요하다&rdquo;<br>
+”복잡하다”, “어렵다”, 중요하다”<br>
 이런 표현은 나의 행동에 아무 도움을 주지 않는다. 오히려 방해가 될 뿐이다.<br>
 그래서 이 3가지 단어를 금지시켰다 ㅋㅋ</p>
 <ul>
 <li>
 <p>복잡하다<br>
-&ldquo;복잡하다&quot;는 표현은, 그 문제를 여전히 나와는 상관없는 것으로 방치해두고 싶어지도록 만든다.<br>
-<em>&lsquo;그 복잡한 것을 내가 어떻게 풀어낼 수 있지? 그건 원래 어려운 거야~&rsquo;</em><br>
+”복잡하다”는 표현은, 그 문제를 여전히 나와는 상관없는 것으로 방치해두고 싶어지도록 만든다.<br>
+<em>‘그 복잡한 것을 내가 어떻게 풀어낼 수 있지? 그건 원래 어려운 거야~‘</em><br>
 난, 복잡한 것은 없다고 말했다.<br>
 그건, 그냥 내가 잘 모르는 거다. 아직 정리가 안된 거다.<br>
-앞으로 복잡하다고 말하지 말고, &ldquo;아직 잘 모른다&rdquo;, &ldquo;아직 정리가 안 되었다&quot;라고 표현하라고 했다.<br>
+앞으로 복잡하다고 말하지 말고, “아직 잘 모른다”, “아직 정리가 안 되었다”라고 표현하라고 했다.<br>
 이렇게 표현하는 순간, 그것은 내가 풀어야 할 문제가 된다.</p>
 </li>
 <li>
 <p>어렵다<br>
-&ldquo;어렵다&quot;라는 표현도 마찬가지.<br>
-어떤 것을 &ldquo;어렵다&quot;라고 정의하면, 내가 할 수 없는 것으로 인식된다.<br>
+”어렵다”라는 표현도 마찬가지.<br>
+어떤 것을 “어렵다”라고 정의하면, 내가 할 수 없는 것으로 인식된다.<br>
 그냥 지금 할 수 있는 것을 하면 된다.<br>
 모든 어려운 문제들은 지금보다 좀 더 나은 모습으로 개선할 수 있다.<br>
 아기 발걸음(Baby Step)으로 한 걸음씩 나아가며, 어제보다 약간 나아지게 만들면 된다.<br>
@@ -179,10 +100,10 @@ if (!doNotTrack) {
 <p>원래 이 2가지가 금지어였는데, 지난 회의 때 하나를 더 추가했다.</p>
 <ul>
 <li>엄청 중요해<br>
-=&gt; 이 말도 금지어가 되었다.<br>
-중요하다는 말 앞에, &ldquo;엄청&quot;이라는 말을 빼고 &ldquo;제일&quot;이라는 수식어를 넣어보라고 했다.<br>
+=> 이 말도 금지어가 되었다.<br>
+중요하다는 말 앞에, “엄청”이라는 말을 빼고 “제일”이라는 수식어를 넣어보라고 했다.<br>
 그래도 거부감이 없으면 그건 진짜 중요한 거다.<br>
-&ldquo;제일&quot;이라는 수식어를 붙이기 꺼려진다면, 그건 지금 고려할 필요가 없는 것이다.</li>
+”제일”이라는 수식어를 붙이기 꺼려진다면, 그건 지금 고려할 필요가 없는 것이다.</li>
 </ul>
 <p>산더미같이 쌓여 있는 할 일 더미 속에서, 이렇게 다음 할 행동을 찾아간다.</p>
 <h2 id="야근-금지">야근 금지</h2>
@@ -208,11 +129,11 @@ if (!doNotTrack) {
 하지만 그들의 야근과 열심으로 커버가 안될 때가 반드시 생긴다. 그땐 정말 큰 일로 터진다.<br>
 차라리 야근을 안 했으면 작은 일로 터져서 쉽게 해결했을 텐데, 야근하면서 생기는 큰일은 이미 곪을 대로 곪은 일이고 해결책도 잘 안 보인다.</p>
 <h4 id="나의-제안">나의 제안</h4>
-<p>&ldquo;집에선 그냥 푹 쉬어라.<br>
+<p>“집에선 그냥 푹 쉬어라.<br>
 그래도 노트북을 열고 뭔가를 하고 싶다면, 공부를 해라.<br>
 뭘 공부해야 할지 모르겠으면 오늘 했던 걸 돌아보거나(회고), 요즘 하는 일에 대한 글을 써 보라.<br>
 그게 나 자신에게도, 회사에도 훨씬 큰 도움이 될 거다.<br>
-집에서는 푹 쉬는 게, 나에게도 회사에도 더 낫다.&rdquo;</p>
+집에서는 푹 쉬는 게, 나에게도 회사에도 더 낫다.”</p>
 <p>물론, 피치 못할 특수한 사정으로 야근을 해야 할 때가 있다.
 그때는 나도 동료들과 같이 밤새워가며 끝까지 문제를 해결한다. 난 또 그런 것을 즐기는 편이다.
 하지만, 이런 상황은 어디까지나 특수 상황이다.<br>
@@ -229,187 +150,10 @@ if (!doNotTrack) {
 나 혼자 외국인인 중국 로컬 회사에서, 중국어도 못하면서, 난, 어떻게 이 일을 하고 있는 걸까?
 
 나의 이 잡스러운(?) 능력에 대해, 다음 글을 쓰고 싶어진다! ㅎㅎ
-(다음 글 예고 ㅋㅋ) -->
-		</div>
-		<footer class="post__footer">
-			
-<div class="post__tags tags clearfix">
-	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
-	<ul class="tags__list">
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/%EC%A4%91%EA%B5%AD/" rel="tag">중국</a>
-		</li>
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/" rel="tag">애자일</a>
-		</li>
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" rel="tag">개발문화</a>
-		</li>
-	</ul>
-</div>
-		</footer>
-	</article>
-</main>
-
-<div class="authorbox clearfix">
-	<figure class="authorbox__avatar">
-		<img alt="장재휴 avatar" src="/images/jaehue.JPG" class="avatar" height="90" width="90">
-	</figure>
-	<div class="authorbox__header">
-		<span class="authorbox__name">About 장재휴</span>
-	</div>
-	<div class="authorbox__description">
-		Why Not Change the World?
-	</div>
-</div>
-
-<nav class="pager flex">
-	<div class="pager__item pager__item--prev">
-		<a class="pager__link" href="/post/2021.05.27/" rel="prev">
-			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">절대적으로 옳은 것?!</p>
-		</a>
-	</div>
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/post/2021.07.30/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">자유인 or 노예</p>
-		</a>
-	</div>
-</nav>
-
-<section class="comments">
-	<div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "jaehue" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</section>
-
-			</div>
-			<aside class="sidebar"><div class="widget-search widget">
-	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
-		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/">
-	</form>
-</div>
-<div class="widget-recent widget">
-	<h4 class="widget__title">Recent Posts</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/post/2026.03.23/">나를 소개합니다</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2026.03.21/">호의에 대하여</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2026.02.26/">[책리뷰]강영안의 공부한다는 것</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2026.02.08/">2026 겨울 수련회</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2026.01.24/">마흔네번째 생일</a></li>
-		</ul>
-	</div>
-</div>
-<div class="widget-categories widget">
-	<h4 class="widget__title">Categories</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item">
-				<a class="widget__link" href="/categories/it/">IT</a></li>
-			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a></li>
-			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a></li>
-		</ul>
-	</div>
-</div>
-<div class="widget-taglist widget">
-	<h4 class="widget__title">Tags</h4>
-	<div class="widget__content">
-		<a class="widget-taglist__link widget__link btn" href="/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/" title="4차 산업혁명">4차 산업혁명 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/chatgpt/" title="ChatGPT">ChatGPT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="Eventdriven">Eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="Golang">Golang (7)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/it/" title="IT">IT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="Kubernetes">Kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="Microservice">Microservice (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/msa/" title="MSA">MSA (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%80%EC%B9%98%EA%B4%80/" title="가치관">가치관 (47)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" title="개발문화">개발문화 (7)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B3%B5%EB%B6%80/" title="공부">공부 (14)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B4%80%EB%A6%AC%EC%9E%90/" title="관리자">관리자 (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B5%90%ED%9A%8C/" title="교회">교회 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%BF%88/" title="꿈">꿈 (5)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EB%8F%88/" title="돈">돈 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EB%AC%B5%EC%83%81/" title="묵상">묵상 (3)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%84%B1%EC%9E%A5/" title="성장">성장 (15)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%88%98%EB%A0%A8%ED%9A%8C/" title="수련회">수련회 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%8B%A0%EB%AA%85%EA%B8%B0/" title="신명기">신명기 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%95%84%EC%9B%83%EB%A6%AC%EC%B9%98/" title="아웃리치">아웃리치 (5)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/" title="애자일">애자일 (11)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%97%AC%ED%96%89/" title="여행">여행 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%9D%BC%ED%95%98%EB%8A%94%EB%B0%A9%EC%8B%9D/" title="일하는방식">일하는방식 (7)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%A4%91%EA%B5%AD/" title="중국">중국 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%A4%91%EA%B5%ADit/" title="중국IT">중국IT (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%B1%85/" title="책">책 (15)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ED%8F%89%EA%B0%80/" title="평가">평가 (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ED%96%89%EB%B3%B5/" title="행복">행복 (9)</a>
-	</div>
-</div>
-<div class="widget-social widget">
-	<h4 class="widget-social__title widget__title">Social</h4>
-	<div class="widget-social__content widget__content">
-		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="Facebook" rel="noopener noreferrer" href="https://facebook.com/bbugguj" target="_blank">
-				<svg class="widget-social__link-icon icon icon-facebook" width="24" height="24" viewBox="0 0 352 352"><path d="m0 32v288c0 17.5 14.5 32 32 32h288c17.5 0 32-14.5 32-32v-288c0-17.5-14.5-32-32-32h-288c-17.5 0-32 14.5-32 32zm320 0v288h-83v-108h41.5l6-48h-47.5v-31c0-14 3.5-23.5 23.5-23.5h26v-43.5c-4.4-.6-19.8-1.5-37.5-1.5-36.9 0-62 22.2-62 63.5v36h-42v48h42v108h-155v-288z"/></svg>
-				<span>Facebook</span>
-			</a>
-		</div>
-		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="Instagram" rel="noopener noreferrer" href="https://www.instagram.com/jaehue.jang" target="_blank">
-				<svg class="widget-social__link-icon icon icon-instagram" width="24" height="24" viewBox="0 0 256 256"><circle cx="193" cy="59" r="15"/><path fill-rule="evenodd" d="M101 0h54c41 0 58.4 3.9 74.5 17C256.2 37.5 256 74.8 256 97.7v60c0 26.7 0 60.4-26.5 81.4-16 13.4-33.5 16.9-74.5 16.9h-54c-41 0-57.5-3.5-74.5-16.9C1 218.9.5 186.3.1 160.5L0 155V97.7c0-23-.2-60.2 26.5-80.7C45 2 60 0 101 0zm4.9 23h44.3c45.8 0 58.3 3.5 70.3 17.5 11.8 13.2 12 30.1 12.5 62.9V156c.2 20.8.3 45.8-12.5 59.5-12 14-24.5 17.5-70.3 17.5h-44.3c-45.9 0-57.3-3.5-70.4-17.5-12.2-13-12.3-36.5-12.4-56.7v-55.6c.4-32.6.7-49.6 12.4-62.7C48 26.5 60 23 105.9 23zm19.6 144.5a42 42 0 1 0 0-84 42 42 0 0 0 0 84zm0 22.5a64.5 64.5 0 1 0 0-129 64.5 64.5 0 0 0 0 129z"/></svg>
-				<span>Instagram</span>
-			</a>
-		</div>
-		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/jaehue" target="_blank">
-				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
-				<span>GitHub</span>
-			</a>
-		</div>
-		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="Email" href="mailto:bbugguj@gmail.com">
-				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3h24v18H0zm2 16h20V7l-10 6L2 7zM22 5H2l10 6z"/></svg>
-				<span>bbugguj@gmail.com</span>
-			</a>
-		</div>
-
-		
-	</div>
-</div>
-</aside>
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		
-		<div class="footer__copyright">
-			&copy; 2026 장재휴.
-			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
-</body>
-</html>
+(다음 글 예고 ㅋㅋ) -->  </div> <div class="mt-16 pt-8 border-t border-(--color-border)"> <div class="flex flex-wrap gap-2"> <a href="/tags/%EC%A4%91%EA%B5%AD" class="text-[13px] px-2.5 py-1 bg-(--color-surface) rounded-full
+                     text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-border) transition-colors">
+#중국 </a><a href="/tags/%EC%95%A0%EC%9E%90%EC%9D%BC" class="text-[13px] px-2.5 py-1 bg-(--color-surface) rounded-full
+                     text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-border) transition-colors">
+#애자일 </a><a href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94" class="text-[13px] px-2.5 py-1 bg-(--color-surface) rounded-full
+                     text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-border) transition-colors">
+#개발문화 </a> </div> </div> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var a=(s,i,o)=>{let r=async()=>{await(await s())()},t=typeof i.value=="object"?i.value:void 0,c={rootMargin:t==null?void 0:t.rootMargin},n=new IntersectionObserver(e=>{for(let l of e)if(l.isIntersecting){n.disconnect(),r();break}},c);for(let e of o.children)n.observe(e)};(self.Astro||(self.Astro={})).visible=a;window.dispatchEvent(new Event("astro:visible"));})();</script><script>(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>Number.POSITIVE_INFINITY*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="1irgnS" prefix="r1" component-url="/_astro/Comments.Dn5yat7C.js" component-export="default" renderer-url="/_astro/client.DyczpTbx.js" props="{&quot;postSlug&quot;:[0,&quot;2021.07.23&quot;]}" ssr client="visible" opts="{&quot;name&quot;:&quot;Comments&quot;,&quot;value&quot;:true}" await-children><section style="margin-top:3rem;padding-top:2rem;border-top:1px solid #e5e5e3"><h2 style="font-size:1.25rem;font-weight:700;margin-bottom:1.5rem;color:#1a1a1a">댓글</h2><p style="color:#888;font-size:0.875rem">댓글을 불러오는 중...</p></section><!--astro:end--></astro-island> </article>  </main> <footer class="py-8 border-t border-(--color-border)"> <p class="text-sm text-(--color-text-muted)">© 2026 장재휴</p> </footer> </div> </body></html>

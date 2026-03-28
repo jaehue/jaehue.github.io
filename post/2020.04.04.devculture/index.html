@@ -1,90 +1,9 @@
-<!DOCTYPE html>
-<html class="no-js" lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>일하지 않는 사람은 가라 - Jaehue&#39;s</title>
-	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
-	<meta name="description" content="">
-		<meta property="og:title" content="일하지 않는 사람은 가라" />
-<meta property="og:description" content="2020-04-29 팝잇(popit)에 기고한 글 ⤴️
-이 글은 적당히 갖춰나간 운영 환경의 후속 글이다. 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.
-MSAMicro Service Architecture
-이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다. 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다. 익스트림 프로그래밍Extreme Programming, 이하 XP이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSAMicro Service Architecture는 일하는 방식과 떼어서 얘기할 수 없기 때문이다. 아주 많은 작은 서비스들에게 역할과 책임을 부여하고, 그 서비스들이 상호 작용하며 만들어낸 서로 공존하는 상태." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://jaehue.github.io/post/2020.04.04.devculture/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2020-04-04T13:46:52+08:00" />
-<meta property="article:modified_time" content="2020-04-04T13:46:52+08:00" />
-
-
-		<meta itemprop="name" content="일하지 않는 사람은 가라">
-<meta itemprop="description" content="2020-04-29 팝잇(popit)에 기고한 글 ⤴️
-이 글은 적당히 갖춰나간 운영 환경의 후속 글이다. 이전 글에서는 서비스의 외형적인 모습을 소개했다면, 이번 글에서는 그것을 가능하게 했던 내부의 문화를 소개한다.
-MSAMicro Service Architecture
-이 삽질을 3년이나 하고 나서야 뼛속까지 알게 되었다. 이건 기술의 문제가 아니었다. 문화였고 일하는 방식이었다. 익스트림 프로그래밍Extreme Programming, 이하 XP이 소개된 지는 이미 20년이 넘었지만, 계속해서 XP를 얘기하는 이유는 MSAMicro Service Architecture는 일하는 방식과 떼어서 얘기할 수 없기 때문이다. 아주 많은 작은 서비스들에게 역할과 책임을 부여하고, 그 서비스들이 상호 작용하며 만들어낸 서로 공존하는 상태."><meta itemprop="datePublished" content="2020-04-04T13:46:52+08:00" />
-<meta itemprop="dateModified" content="2020-04-04T13:46:52+08:00" />
-<meta itemprop="wordCount" content="1715">
-<meta itemprop="keywords" content="애자일,MSA,관리자,개발문화," />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link rel="dns-prefetch" href="//fonts.googleapis.com">
-	<link rel="dns-prefetch" href="//fonts.gstatic.com">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
-
-	<link rel="stylesheet" href="/css/style.css">
-	
-
-	<link rel="shortcut icon" href="/favicon.ico">
-		
-		
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-91404316-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-</head>
-<body class="body">
-	<div class="container container--outer">
-		<header class="header">
-	<div class="container header__container">
-		
-	<div class="logo logo--mixed">
-		<a class="logo__link" href="/" title="Jaehue&#39;s" rel="home">
-			<div class="logo__item logo__imagebox">
-					<img class="logo__img" src="/images/jaehue.JPG">
-				</div><div class="logo__item logo__text">
-					<div class="logo__title">Jaehue&#39;s</div>
-					<div class="logo__tagline">생각들</div>
-				</div>
-		</a>
-	</div>
-		<div class="divider"></div>
-	</div>
-</header>
-		<div class="wrapper flex">
-			<div class="primary">
-			
-<main class="main" role="main">
-	<article class="post">
-		<header class="post__header">
-			<h1 class="post__title">일하지 않는 사람은 가라</h1>
-			<div class="post__meta meta"><div class="meta__item-author meta__item">
-	<svg class="meta__icon icon icon-author" width="16" height="16" viewBox="0 0 16 16"><path d="M8 1c2 0 3.5 2 3.5 4.5S10 9 10 9c3 1 4 2 4 6H2c0-4 1-5 4-6 0 0-1.5-1-1.5-3.5S6 1 8 1"/></svg><span class="meta__text">장재휴</span>
-</div>
-<div class="meta__item-datetime meta__item">
-	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0a14 14 0 1 1 0 28 1 1 0 0 1 0-28m0 3a3 3 0 1 0 0 22 3 3 0 0 0 0-22m1 4h-2v8.4l6.8 4.4L22 18l-6-3.8z"/></svg><time class="meta__text" datetime="2020-04-04T13:46:52&#43;08:00">2020-04-04</time></div><div class="meta__item-categories meta__item"><svg class="meta__icon icon icon-category" width="16" height="16" viewBox="0 0 16 16"><path d="m7 2 1 2h8v11H0V2z"/></svg><span class="meta__text"><a class="meta__link" href="/categories/it/" rel="category">IT</a>
-	</span>
-</div></div>
-		</header>
-		<div class="content post__content clearfix">
-			<blockquote>
-<p><font color=grey><em>2020-04-29
+<!DOCTYPE html><html lang="ko"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"><title>일하지 않는 사람은 가라</title><link rel="stylesheet" href="/_astro/BaseLayout.CX9TvwsR.css">
+<style>.blog-content{font-size:1rem;line-height:1.8;color:#1a1a1a}.blog-content p{margin-top:0;margin-bottom:1.75em}.blog-content h1{font-size:1.875rem;font-weight:700;line-height:1.3;margin-top:2.5em;margin-bottom:.8em;letter-spacing:-.02em}.blog-content h2{font-size:1.5rem;font-weight:700;line-height:1.35;margin-top:2.5em;margin-bottom:.8em;padding-bottom:.4em;border-bottom:1px solid #e5e5e3;letter-spacing:-.02em}.blog-content h3{font-size:1.25rem;font-weight:700;line-height:1.4;margin-top:2em;margin-bottom:.6em;letter-spacing:-.01em}.blog-content h4{font-size:1.1rem;font-weight:600;margin-top:1.5em;margin-bottom:.5em}.blog-content blockquote{font-style:normal;border-left:3px solid #e5e5e3;padding-left:1.25em;margin:2em 0;color:#555}.blog-content blockquote p{margin-bottom:.75em}.blog-content img{border-radius:.375rem;margin:2em auto;max-width:100%;height:auto;display:block}.blog-content a{color:#2563eb;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#93c5fd}.blog-content a:hover{text-decoration-color:#2563eb}.blog-content hr{border:none;border-top:1px solid #e5e5e3;margin:3em 0}.blog-content code{font-family:var(--font-mono);font-size:.85em;background:#f4f4f2;padding:.2em .4em;border-radius:.25rem;font-weight:400}.blog-content pre{background:#f4f4f2;border:1px solid #e5e5e3;border-radius:.5rem;padding:1.25em 1.5em;overflow-x:auto;margin:2em 0}.blog-content pre code{background:none;padding:0;font-family:var(--font-mono);font-size:.85em;color:#1a1a1a;font-weight:400}.blog-content ul,.blog-content ol{margin:1.25em 0;padding-left:1.75em}.blog-content li{margin-bottom:.5em;line-height:1.85}.blog-content strong{font-weight:700}.blog-content table{width:100%;margin:2em 0;font-size:.9em}.blog-content th{font-weight:600;border-bottom:2px solid #e5e5e3;padding:.5em 1em;text-align:left}.blog-content td{border-bottom:1px solid #e5e5e3;padding:.5em 1em}
+</style></head> <body class="bg-(--color-bg) text-(--color-text) font-sans antialiased min-h-screen flex flex-col"> <div class="max-w-[640px] w-full mx-auto px-5 flex-1 flex flex-col"> <header class="py-10"> <nav class="flex items-center justify-between"> <a href="/" class="text-xl font-semibold tracking-tight hover:opacity-60 transition-opacity">
+장재휴
+</a> <div class="flex gap-5 text-sm text-(--color-text-muted)"> <a href="/post" class="hover:text-(--color-text) transition-colors text-(--color-text) font-medium"> 글 </a><a href="/essays" class="hover:text-(--color-text) transition-colors"> 에세이집 </a><a href="/tags" class="hover:text-(--color-text) transition-colors"> 태그 </a><a href="/about" class="hover:text-(--color-text) transition-colors"> 소개 </a> </div> </nav> </header> <main class="flex-1 pb-16">  <article class="mt-6"> <header class="mb-10 pb-8 border-b border-(--color-border)"> <h1 class="text-[2rem] font-bold leading-snug tracking-tight mb-3">일하지 않는 사람은 가라</h1> <div class="flex items-center gap-3 text-sm text-(--color-text-muted)"> <time>2020년 4월 4일</time>  <span class="text-(--color-border)">·</span>  <a href="/categories/IT" class="hover:text-(--color-text) transition-colors"> IT </a>  </div> </header> <div class="blog-content">  <blockquote>
+<p><font color="grey"><em>2020-04-29
 팝잇(popit)에 기고한 글</em> <a href="https://www.popit.kr/%ec%9d%bc%ed%95%98%ec%a7%80-%ec%95%8a%eb%8a%94-%ec%82%ac%eb%9e%8c%ec%9d%80-%ea%b0%80%eb%9d%bc/">⤴️</a></font></p>
 </blockquote>
 <p>이 글은 <a href="/post/2020.04.08.techset/">적당히 갖춰나간 운영 환경</a>의 후속 글이다.
@@ -100,7 +19,7 @@ if (!doNotTrack) {
 3년 정도에 걸쳐 짧은 스프린트 단위로 점진적으로 개선해가며 일하는 방식이 꽤 익숙해져 있었고,
 이젠 진짜로 개발팀에서 중간관리자를 없앤다는 선포가 있었다.
 단순히 선포만 했던 게 아니라, 실제 직급/직책을 없앴고, 직급/직책별로 다르게 책정되어 있던 휴가 일수도 동일하게 조정했다. 처음에는 의도적으로 중요한 논의 자리에 기존까지 중간관리자 역할을 해 왔던 사람들을 제외하기도 했다. 불편해도 직접 소통하자는 것이다.
-거기에 하나 더해서, &ldquo;두레이(Dooray)에 적힌 것만 일로 간주한다&quot;라는 꽤 공격적인 방식도 사용했다.
+거기에 하나 더해서, “두레이(Dooray)에 적힌 것만 일로 간주한다”라는 꽤 공격적인 방식도 사용했다.
 우리 회사에 두레이를 도입한 이야기는 아래 두 편에 흥미진진하게 적혀 있다.</p>
 <ul>
 <li><a href="https://www.popit.kr/%EC%9E%AC%ED%83%9D%EA%B7%BC%EB%AC%B4-dooray-not-remote-but-smart-25/">개발자가 아닌 관리자가 경험한 재택근무 - 제2편 : 믿는 구석!</a></li>
@@ -113,15 +32,15 @@ if (!doNotTrack) {
 <li>보고서를 없애자</li>
 <li>직접 소통하게 하자</li>
 </ul>
-<p>&ldquo;권위주의와 관료주의&quot;를 뿌리 뽑겠다는 최고 경영자의 결심과 실제적인 행동이 있지 않으면 불가능한 일이다.
+<p>“권위주의와 관료주의”를 뿌리 뽑겠다는 최고 경영자의 결심과 실제적인 행동이 있지 않으면 불가능한 일이다.
 하지만, 이렇게 문화를 바꿨다는 전제하에, 두레이(Dooray)는 정말 멋진 도구이다!</p>
 <h1 id="팀장은-필요-없다">팀장은 필요 없다</h1>
 <p>현재 우리 회사에는 50여 명의 개발자가 있다.
 개발팀장은 나 한 명이고 모두가 개발자이다.
 당연히 그전에는 중간중간 소규모 영역을 이끄는 팀장들이 포진하고 있었다.
-그들을 &ldquo;관리&quot;라는 쓸데없는 업무에서 해방시키고, 다시 코드를 짜는 원래의 자리로 돌려보냈다.
+그들을 “관리”라는 쓸데없는 업무에서 해방시키고, 다시 코드를 짜는 원래의 자리로 돌려보냈다.
 그 과정을 소개한다.</p>
-<h2 id="소규모-개발팀장의-문제점">&lsquo;소규모 개발팀장&rsquo;의 문제점</h2>
+<h2 id="소규모-개발팀장의-문제점">‘소규모 개발팀장’의 문제점</h2>
 <p>이들의 주 업무는 <u>업무 배분, 설계, 소통, 일정 관리, 팀원 관리, 정서(?) 관리</u> 등이다.
 MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으로 팀의 경계는 엄격하게 유지되어 있었다.
 여전히 팀장이 팀의 일감을 정하고 팀원들에게 배분하는 형태. 다른 팀과 소통할 일이 있으면 팀장이 주도적으로 소통을 하고 팀원들에게 전달해주는 방식이었다.</p>
@@ -161,26 +80,26 @@ MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으�
 (두레이의 도움으로!)
 그 리더십에 힘을 실어줌으로써 개발팀 전체의 수준을 끌어올릴 수 있었다.</p>
 <p>하지만 그 반대로, 기존에 해 오던 역할이 없어져 버린 사람들도 있었다.
-앞에 말했던 <code>바지 팀장</code>으로 전락해버린 이들&hellip;<br>
+앞에 말했던 <code>바지 팀장</code>으로 전락해버린 이들…<br>
 이미 그들에게 닥친 변화.<br>
 누군가는 성공적으로 변화의 문턱을 넘어섰지만, 누군가는 여전히 이전의 입장을 고수하고 있다.
 이런 문화 속에서는 <code>바지 팀장</code>의 영향력이 미치는 곳은 없다.
 자연스럽게 물러나게 된다.</p>
 <h1 id="micro-소통">micro 소통</h1>
-<p>어떤 형태의 보고서든 그것이 가진 문제는, 거기엔 <strong>&lsquo;사실&rsquo;</strong> 빠져있다는 것이다.
+<p>어떤 형태의 보고서든 그것이 가진 문제는, 거기엔 <strong>‘사실’</strong> 빠져있다는 것이다.
 제아무리 상세하게 작성된 보고서라 해도 그것은 사실을 그대로 반영하지 않는다.
 쓰는 사람의 관점으로 재해석된 이야기일 뿐이다.
 실제로 일어난 일련의 사건 중에, 보고서 작성자는 자신의 주관적 판단에 의해 보고서에 담을 내용과 무시할 내용을 결정한다.
 그렇게 작성자에 의해 선택된 정보들이 모여 한편의 보고서가 만들어지는 것이다.
 보고서는 보고되는 맥락 안에서만 의미를 갖는다.
-(세상 모든 이야기가 이렇지 않나? &lsquo;역사는 사실인가?&lsquo;라는 질문에, &lsquo;역사는 특정 관점으로 해석된 이야기일 뿐이다&rsquo;라고 대답하는 것과 비슷한 듯)
+(세상 모든 이야기가 이렇지 않나? ‘역사는 사실인가?‘라는 질문에, ‘역사는 특정 관점으로 해석된 이야기일 뿐이다’라고 대답하는 것과 비슷한 듯)
 이렇게 작성한 사람의 관점으로 해석된 보고서는 2~3단계만 거처도 심한 왜곡이 일어난다.</p>
 <p>그럼 보고서를 없애면 방법이 있나?
-중간관리자를 뺀다면, &ldquo;중간&quot;이 아닌, 단 한 명 남은 그 관리자는 어떻게 상황을 파악하지?<br>
+중간관리자를 뺀다면, “중간”이 아닌, 단 한 명 남은 그 관리자는 어떻게 상황을 파악하지?<br>
 어떻게 하긴!<br>
 보고서가 없다는 말은, 전부 다 본다는 말이다.<br>
 모든 직원이 하는 일을 전부 다?<br>
-&ldquo;Yes! 전부 다!&rdquo;</p>
+”Yes! 전부 다!”</p>
 <p>그걸 가능하게 해 주는 게 두레이다.
 페이스북의 타임라인을 보듯이, 그렇게 쭉쭉 보면서 각자 자신의 입장에서 생각을 보탠다.
 개발 팀장인 나도 그렇게 한 줄의 생각을 보탤 뿐이다.
@@ -188,7 +107,7 @@ MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으�
 모여진 생각으로 코드로 구현하고 배포를 해서 출시하면 끝이다.</p>
 <h2 id="빠른-의사결정">빠른 의사결정</h2>
 <p>두레이에서 생각이 모여지지 않으면 관련자들만 모여 합의점을 찾으면 된다.
-&ldquo;관련자들만&rdquo; 모이려면 그들이 누군지 알아야 하는데, 댓글로 생각을 보태가는 과정을 통해 이미 각자의 생각은 드러났고, 논의의 필수 참석자들은 가려진다.
+“관련자들만” 모이려면 그들이 누군지 알아야 하는데, 댓글로 생각을 보태가는 과정을 통해 이미 각자의 생각은 드러났고, 논의의 필수 참석자들은 가려진다.
 이미 두레이에서 충분한 대화를 나누고 왔기 때문에 사전 설명 같은 건 필요 없다.
 바로 핵심으로 들어가서, 화이트보드에 쓱쓱 그리며 논의를 하면 된다.</p>
 <p>이렇게 일하다 보면 개개인 간의 연결은 점차 탄탄해지고, 문제 해결 속도도 점점 빨라진다.
@@ -200,7 +119,7 @@ MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으�
 날짜를 박아놓고, 그 날짜 전후로 프로젝트와 운영을 나눈다.
 프로젝트 기간에는 빡쎄게 개발하다가 그 날짜가 다가오면 오픈을 한다.
 그리고 오픈 후에는 더 빡쎈 운영이 기다리고 있다.
-&lsquo;운영 안정화&rsquo;라고 이름 붙인 그 시간이 지나면, 지금까지 만들어온 것을 최대한 손대지 않고 조심조심 다루어야 한다. 그때부터는 <strong>soft</strong>ware가 아니다. 더이상 손댈 수 없는 <strong>hard</strong>ware가 된다.</p>
+‘운영 안정화’라고 이름 붙인 그 시간이 지나면, 지금까지 만들어온 것을 최대한 손대지 않고 조심조심 다루어야 한다. 그때부터는 <strong>soft</strong>ware가 아니다. 더이상 손댈 수 없는 <strong>hard</strong>ware가 된다.</p>
 <p>하지만 이렇게 두레이를 사용하며 micro 소통방식으로 일하다 보면 프로젝트/운영의 경계가 모호해진다.
 그냥 일상적인 일이 되어버리지.</p>
 <h2 id="글-앞에-평등">글 앞에 평등</h2>
@@ -210,25 +129,25 @@ MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으�
 권위에 의해 결정이 되는 경우도 많다.
 그 권위는 경력, 직책이 될 수도 있고, 말빨일 수도 있고, 목소리 크기일 수도 있고, 평소의 인맥일 수도 있고, 그 사람이 갖춘 지식에서 올 수도 있다.
 경력이 많다고, 아는 것이 많다고, 그 사람의 생각이 맞는 건 아니잖아?
-물론 그런 권위가 주는 힘을 아예 0으로 만들 순 없겠지만, &ldquo;말&rdquo; 보다는 &ldquo;글&quot;이 그런 권위를 줄여준다.</p>
+물론 그런 권위가 주는 힘을 아예 0으로 만들 순 없겠지만, “말” 보다는 “글”이 그런 권위를 줄여준다.</p>
 <h2 id="한-번에-확정하지-않고-지속하기">한 번에 확정하지 않고 지속하기</h2>
 <p>소프트웨어 개발 과정에서 다루는 문제는 대부분이 모호한 문제다.
 모호하지 않은 문제라면 이미 해결책이 나와 있고, 그 해결책은 이미 제품에 가까운 모양까지 갖추고 있다.
 즉, 분명한 문제는 문제가 아니라는 얘기. 그 정해진 해결책을 하는 것은 그냥 하면 될 일이다.
 개발과정에서 만나는 대부분의 일은 해결책이 정해지지 않은 문제들, 즉 한 발 한 발 나가보면서 다시 확인하고 궤도를 수정하며 가야 한다.</p>
-<p><strong>&ldquo;정할 수 없는 것은 정하지 말자&rdquo;</strong></p>
-<p>어찌 보면 당연한 말 같은데, 그전에는 &ldquo;정할 수 없어도 정해야 한다&quot;라는 미신을 가지고 있었다.
-&ldquo;정할 수 없어도 정한다&quot;라&hellip; 이 얼마나 바보 같은 말인가? 실패가 보장된 길이다.
+<p><strong>“정할 수 없는 것은 정하지 말자”</strong></p>
+<p>어찌 보면 당연한 말 같은데, 그전에는 “정할 수 없어도 정해야 한다”라는 미신을 가지고 있었다.
+“정할 수 없어도 정한다”라… 이 얼마나 바보 같은 말인가? 실패가 보장된 길이다.
 드러난 부분까지 가보고, 거기서 또 들춰보고 또 한발 나가보고,, 이렇게 점진적으로 개선 해가며 가야 한다.
 이렇게 두레이에서 소통을 하며 진행해왔다면, 다음 스텝을 나갈 때 그 전의 기록들을 들춰보면 된다.
 머릿속의 기억은 시간이 가면 흐릿해지거나 왜곡되지만(각자 자신에게 인상적이었던 것을 더 잘 기억하므로)
 두레이의 소통 기록을 보면 과거의 상태가 머릿속에 복원되어, 그 시점에서 다음 스텝을 이어갈 수 있다.</p>
 <h1 id="코드-리뷰">코드 리뷰</h1>
 <p>실제 개발을 해 보면 어떤 방식<sub>(web-api? grpc?)</sub>으로 communication을 하느냐보다 더 중요한 게 있다.
-&lsquo;적절한 상황에 적절한 API를 사용하는가?&lsquo;이다.
+‘적절한 상황에 적절한 API를 사용하는가?‘이다.
 물론, 중요한 스펙을 정할 때는 관련자들이 함께 모여 논의를 하며 정한다.
-하지만, 어떤 결정 사항이든 &ldquo;확정&quot;이란 건 없다.
-<strong>&ldquo;오늘&quot;이라는 특수한 상황</strong> 속에서만 적용되는 결정이었고, 내일이 되면 그것은 또 어떻게 변할지 모른다.
+하지만, 어떤 결정 사항이든 “확정”이란 건 없다.
+<strong>“오늘”이라는 특수한 상황</strong> 속에서만 적용되는 결정이었고, 내일이 되면 그것은 또 어떻게 변할지 모른다.
 개발하다 보면 새로운 파라미터가 추가되기도 하고, 결과 포맷이 변경되기도 한다.
 그럴 때마다 두레이에 변경 상황을 알리기도 하고, wiki에 기록한 API 스펙 문서도 수정을 한다.
 이런 일은 일상이다. 너무 자주 일어난다는 것이다.
@@ -237,8 +156,8 @@ MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으�
 <p>처음에는 이 문제를 개발자 개개인의 문제라 생각했다.
 내가 어떻게 해 줄 수 있는 게 아니라, 그들이 더 잘해야 할 문제라는 생각.
 하지만 그렇게 시간이 가도 바뀌지 않을 때는, 그 상황을 인정해야 한다.
-그게 우리의 수준이라고 받아들이고, &lsquo;그러면 어떻게 더 개선할 수 있을까?&lsquo;라고 생각하기로 했다.</p>
-<p>&ldquo;내가 전체 코드를 다 보자!&rdquo;<br>
+그게 우리의 수준이라고 받아들이고, ‘그러면 어떻게 더 개선할 수 있을까?‘라고 생각하기로 했다.</p>
+<p>“내가 전체 코드를 다 보자!”<br>
 예전에는 코드리뷰의 중요성을 잘 몰랐다. 개발자 개개인이 잘 짜야 하는 문제라 생각했다.
 하지만 MSA처럼 여러 마이크로서비스가 얽혀서 동작할 때는 서로 확인해주는 것이 중요하다.
 개개인이 잘 짜야 하는 문제라고 정의했을 때는, 사고가 나도 개인의 책임으로 돌리게 되고, 그 개인은 감추려고 한다.
@@ -249,7 +168,7 @@ MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으�
 업무 지식이 부족할 때는 더더욱 그렇다.
 그래도 안 하는 것보다는, 내가 할 수 있는 만큼만 하더라도, 안 하는 것보다는 효과가 훨씬 높다.</p>
 <p>처음에는 그냥 코드 스타일만 확인했다.<br>
-좋은 코드 스타일, 쓸데없는 주석처리 없애기, 더 나은 표현식&hellip;
+좋은 코드 스타일, 쓸데없는 주석처리 없애기, 더 나은 표현식…
 이렇게 시작하는 것은 2가지 효과를 가져오는데</p>
 <ol>
 <li>코드를 작성자의 입장에서:<br>
@@ -265,9 +184,9 @@ MSA과 관련된 기술을 사용하고는 있었지만, 개발팀장 중심으�
 문서를 작성한 후로 코드의 변경사항을 지속해서 문서에 반영해주는 것은 너무 어렵고, 문서는 만들어진 그 순간 과거 어느 시점의 상태를 드러낸 것일 뿐이다.
 그래서 코드를 봐야 한다고 한다.
 하지만, 그것은 모든 코드를 볼 수 있을 때의 얘기지, 전체 코드를 머릿속에 다 꿰고 있기가 가능한 일인가?
-이 부분에 대해 &ldquo;코드리뷰&quot;가 현실적인 방법이라 생각한다.
+이 부분에 대해 “코드리뷰”가 현실적인 방법이라 생각한다.
 완벽할 순 없지만, 모두의 이해도를 차츰차츰 높여가는 것, 서로의 연결고리를 차츰차츰 조밀하게 맺어 나가는 것.
-앞에서 얘기한 두레이를 통한 협업과 더불어, 코드 리뷰로 생각이 공유되도록 하는 것이 XP에서 얘기하는 &ldquo;아기 발걸음&rdquo;, &ldquo;오늘 할 수 있는 최선을 다하기&quot;의 원칙을 잘 반영한 실천 방법이라 생각한다.</p>
+앞에서 얘기한 두레이를 통한 협업과 더불어, 코드 리뷰로 생각이 공유되도록 하는 것이 XP에서 얘기하는 “아기 발걸음”, “오늘 할 수 있는 최선을 다하기”의 원칙을 잘 반영한 실천 방법이라 생각한다.</p>
 <h1 id="마무리">마무리</h1>
 <p>우리의 결과물은 기술과 사람이 만났을 때 비로소 만들어진다.
 물론 한두 명의 고오오오오급 개발자가 대부분 기능을 만들어내는 서비스도 있다.
@@ -318,191 +237,12 @@ https://pangpang.dooray.com/project/posts/2499129365821400761
 ## 영역별로 마일스톤을 대충 찍어놓고, 각 시점에 도달했을때 진단/계획 수정
 - 영역별로 다르다. 어떤 모듈은 첨부터 바로 고객 테스트
 - 어떤 모듈을 1주일 단위의 짧은 스프린트로 점진적 설계
-- 시작도 못함 -->
-
-		</div>
-		<footer class="post__footer">
-			
-<div class="post__tags tags clearfix">
-	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
-	<ul class="tags__list">
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/" rel="tag">애자일</a>
-		</li>
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/msa/" rel="tag">MSA</a>
-		</li>
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/%EA%B4%80%EB%A6%AC%EC%9E%90/" rel="tag">관리자</a>
-		</li>
-		<li class="tags__item">
-			<a class="tags__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" rel="tag">개발문화</a>
-		</li>
-	</ul>
-</div>
-		</footer>
-	</article>
-</main>
-
-<div class="authorbox clearfix">
-	<figure class="authorbox__avatar">
-		<img alt="장재휴 avatar" src="/images/jaehue.JPG" class="avatar" height="90" width="90">
-	</figure>
-	<div class="authorbox__header">
-		<span class="authorbox__name">About 장재휴</span>
-	</div>
-	<div class="authorbox__description">
-		Why Not Change the World?
-	</div>
-</div>
-
-<nav class="pager flex">
-	<div class="pager__item pager__item--prev">
-		<a class="pager__link" href="/post/2020.04.08.techset/" rel="prev">
-			<span class="pager__subtitle">«&thinsp;Previous</span>
-			<p class="pager__title">적당히 갖춰나간 운영 환경</p>
-		</a>
-	</div>
-	<div class="pager__item pager__item--next">
-		<a class="pager__link" href="/post/2020.07.01/" rel="next">
-			<span class="pager__subtitle">Next&thinsp;»</span>
-			<p class="pager__title">새로운 시작</p>
-		</a>
-	</div>
-</nav>
-
-<section class="comments">
-	<div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
-    
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "jaehue" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-</section>
-
-			</div>
-			<aside class="sidebar"><div class="widget-search widget">
-	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
-		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
-		<input class="widget-search__submit" type="submit" value="Search">
-		<input type="hidden" name="sitesearch" value="https://jaehue.github.io/">
-	</form>
-</div>
-<div class="widget-recent widget">
-	<h4 class="widget__title">Recent Posts</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item"><a class="widget__link" href="/post/2026.03.23/">나를 소개합니다</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2026.03.21/">호의에 대하여</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2026.02.26/">[책리뷰]강영안의 공부한다는 것</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2026.02.08/">2026 겨울 수련회</a></li>
-			<li class="widget__item"><a class="widget__link" href="/post/2026.01.24/">마흔네번째 생일</a></li>
-		</ul>
-	</div>
-</div>
-<div class="widget-categories widget">
-	<h4 class="widget__title">Categories</h4>
-	<div class="widget__content">
-		<ul class="widget__list">
-			<li class="widget__item">
-				<a class="widget__link" href="/categories/it/">IT</a></li>
-			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EB%AC%B5%EC%83%81/">묵상</a></li>
-			<li class="widget__item">
-				<a class="widget__link" href="/categories/%EC%8B%A0%EC%95%99/">신앙</a></li>
-		</ul>
-	</div>
-</div>
-<div class="widget-taglist widget">
-	<h4 class="widget__title">Tags</h4>
-	<div class="widget__content">
-		<a class="widget-taglist__link widget__link btn" href="/tags/4%EC%B0%A8-%EC%82%B0%EC%97%85%ED%98%81%EB%AA%85/" title="4차 산업혁명">4차 산업혁명 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/chatgpt/" title="ChatGPT">ChatGPT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/eventdriven/" title="Eventdriven">Eventdriven (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="Golang">Golang (7)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/it/" title="IT">IT (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="Kubernetes">Kubernetes (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/microservice/" title="Microservice">Microservice (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/msa/" title="MSA">MSA (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%80%EC%B9%98%EA%B4%80/" title="가치관">가치관 (47)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94/" title="개발문화">개발문화 (7)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B3%B5%EB%B6%80/" title="공부">공부 (14)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B4%80%EB%A6%AC%EC%9E%90/" title="관리자">관리자 (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%B5%90%ED%9A%8C/" title="교회">교회 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EA%BF%88/" title="꿈">꿈 (5)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EB%8F%88/" title="돈">돈 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EB%AC%B5%EC%83%81/" title="묵상">묵상 (3)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%84%B1%EC%9E%A5/" title="성장">성장 (15)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%88%98%EB%A0%A8%ED%9A%8C/" title="수련회">수련회 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%8B%A0%EB%AA%85%EA%B8%B0/" title="신명기">신명기 (1)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%95%84%EC%9B%83%EB%A6%AC%EC%B9%98/" title="아웃리치">아웃리치 (5)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%95%A0%EC%9E%90%EC%9D%BC/" title="애자일">애자일 (11)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%97%AC%ED%96%89/" title="여행">여행 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%9D%BC%ED%95%98%EB%8A%94%EB%B0%A9%EC%8B%9D/" title="일하는방식">일하는방식 (7)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%A4%91%EA%B5%AD/" title="중국">중국 (4)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%A4%91%EA%B5%ADit/" title="중국IT">중국IT (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%EC%B1%85/" title="책">책 (15)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ED%8F%89%EA%B0%80/" title="평가">평가 (2)</a>
-		<a class="widget-taglist__link widget__link btn" href="/tags/%ED%96%89%EB%B3%B5/" title="행복">행복 (9)</a>
-	</div>
-</div>
-<div class="widget-social widget">
-	<h4 class="widget-social__title widget__title">Social</h4>
-	<div class="widget-social__content widget__content">
-		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="Facebook" rel="noopener noreferrer" href="https://facebook.com/bbugguj" target="_blank">
-				<svg class="widget-social__link-icon icon icon-facebook" width="24" height="24" viewBox="0 0 352 352"><path d="m0 32v288c0 17.5 14.5 32 32 32h288c17.5 0 32-14.5 32-32v-288c0-17.5-14.5-32-32-32h-288c-17.5 0-32 14.5-32 32zm320 0v288h-83v-108h41.5l6-48h-47.5v-31c0-14 3.5-23.5 23.5-23.5h26v-43.5c-4.4-.6-19.8-1.5-37.5-1.5-36.9 0-62 22.2-62 63.5v36h-42v48h42v108h-155v-288z"/></svg>
-				<span>Facebook</span>
-			</a>
-		</div>
-		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="Instagram" rel="noopener noreferrer" href="https://www.instagram.com/jaehue.jang" target="_blank">
-				<svg class="widget-social__link-icon icon icon-instagram" width="24" height="24" viewBox="0 0 256 256"><circle cx="193" cy="59" r="15"/><path fill-rule="evenodd" d="M101 0h54c41 0 58.4 3.9 74.5 17C256.2 37.5 256 74.8 256 97.7v60c0 26.7 0 60.4-26.5 81.4-16 13.4-33.5 16.9-74.5 16.9h-54c-41 0-57.5-3.5-74.5-16.9C1 218.9.5 186.3.1 160.5L0 155V97.7c0-23-.2-60.2 26.5-80.7C45 2 60 0 101 0zm4.9 23h44.3c45.8 0 58.3 3.5 70.3 17.5 11.8 13.2 12 30.1 12.5 62.9V156c.2 20.8.3 45.8-12.5 59.5-12 14-24.5 17.5-70.3 17.5h-44.3c-45.9 0-57.3-3.5-70.4-17.5-12.2-13-12.3-36.5-12.4-56.7v-55.6c.4-32.6.7-49.6 12.4-62.7C48 26.5 60 23 105.9 23zm19.6 144.5a42 42 0 1 0 0-84 42 42 0 0 0 0 84zm0 22.5a64.5 64.5 0 1 0 0-129 64.5 64.5 0 0 0 0 129z"/></svg>
-				<span>Instagram</span>
-			</a>
-		</div>
-		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="GitHub" rel="noopener noreferrer" href="https://github.com/jaehue" target="_blank">
-				<svg class="widget-social__link-icon icon icon-github" width="24" height="24" viewBox="0 0 384 374"><path d="m192 0c-106.1 0-192 85.8-192 191.7 0 84.7 55 156.6 131.3 181.9 9.6 1.8 13.1-4.2 13.1-9.2 0-4.6-.2-16.6-.3-32.6-53.4 11.6-64.7-25.7-64.7-25.7-8.7-22.1-21.3-28-21.3-28-17.4-11.9 1.3-11.6 1.3-11.6 19.3 1.4 29.4 19.8 29.4 19.8 17.1 29.3 44.9 20.8 55.9 15.9 1.7-12.4 6.7-20.8 12.2-25.6-42.6-4.8-87.5-21.3-87.5-94.8 0-20.9 7.5-38 19.8-51.4-2-4.9-8.6-24.3 1.9-50.7 0 0 16.1-5.2 52.8 19.7 15.3-4.2 31.7-6.4 48.1-6.5 16.3.1 32.7 2.2 48.1 6.5 36.7-24.8 52.8-19.7 52.8-19.7 10.5 26.4 3.9 45.9 1.9 50.7 12.3 13.4 19.7 30.5 19.7 51.4 0 73.7-44.9 89.9-87.7 94.6 6.9 5.9 13 17.6 13 35.5 0 25.6-.2 46.3-.2 52.6 0 5.1 3.5 11.1 13.2 9.2 76.2-25.5 131.2-97.3 131.2-182 0-105.9-86-191.7-192-191.7z"/></svg>
-				<span>GitHub</span>
-			</a>
-		</div>
-		<div class="widget-social__item widget__item">
-			<a class="widget-social__link widget__link btn" title="Email" href="mailto:bbugguj@gmail.com">
-				<svg class="widget-social__link-icon icon icon-mail" width="24" height="24" viewBox="0 0 24 24"><path d="M0 3h24v18H0zm2 16h20V7l-10 6L2 7zM22 5H2l10 6z"/></svg>
-				<span>bbugguj@gmail.com</span>
-			</a>
-		</div>
-
-		
-	</div>
-</div>
-</aside>
-		</div>
-		<footer class="footer">
-	<div class="container footer__container flex">
-		
-		<div class="footer__copyright">
-			&copy; 2026 장재휴.
-			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
-		</div>
-	</div>
-</footer>
-	</div>
-<script async defer src="/js/menu.js"></script>
-</body>
-</html>
+- 시작도 못함 -->  </div> <div class="mt-16 pt-8 border-t border-(--color-border)"> <div class="flex flex-wrap gap-2"> <a href="/tags/%EC%95%A0%EC%9E%90%EC%9D%BC" class="text-[13px] px-2.5 py-1 bg-(--color-surface) rounded-full
+                     text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-border) transition-colors">
+#애자일 </a><a href="/tags/MSA" class="text-[13px] px-2.5 py-1 bg-(--color-surface) rounded-full
+                     text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-border) transition-colors">
+#MSA </a><a href="/tags/%EA%B4%80%EB%A6%AC%EC%9E%90" class="text-[13px] px-2.5 py-1 bg-(--color-surface) rounded-full
+                     text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-border) transition-colors">
+#관리자 </a><a href="/tags/%EA%B0%9C%EB%B0%9C%EB%AC%B8%ED%99%94" class="text-[13px] px-2.5 py-1 bg-(--color-surface) rounded-full
+                     text-(--color-text-muted) hover:text-(--color-text) hover:bg-(--color-border) transition-colors">
+#개발문화 </a> </div> </div> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var a=(s,i,o)=>{let r=async()=>{await(await s())()},t=typeof i.value=="object"?i.value:void 0,c={rootMargin:t==null?void 0:t.rootMargin},n=new IntersectionObserver(e=>{for(let l of e)if(l.isIntersecting){n.disconnect(),r();break}},c);for(let e of o.children)n.observe(e)};(self.Astro||(self.Astro={})).visible=a;window.dispatchEvent(new Event("astro:visible"));})();</script><script>(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>Number.POSITIVE_INFINITY*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="haHk1" prefix="r1" component-url="/_astro/Comments.Dn5yat7C.js" component-export="default" renderer-url="/_astro/client.DyczpTbx.js" props="{&quot;postSlug&quot;:[0,&quot;2020.04.04.devculture&quot;]}" ssr client="visible" opts="{&quot;name&quot;:&quot;Comments&quot;,&quot;value&quot;:true}" await-children><section style="margin-top:3rem;padding-top:2rem;border-top:1px solid #e5e5e3"><h2 style="font-size:1.25rem;font-weight:700;margin-bottom:1.5rem;color:#1a1a1a">댓글</h2><p style="color:#888;font-size:0.875rem">댓글을 불러오는 중...</p></section><!--astro:end--></astro-island> </article>  </main> <footer class="py-8 border-t border-(--color-border)"> <p class="text-sm text-(--color-text-muted)">© 2026 장재휴</p> </footer> </div> </body></html>
