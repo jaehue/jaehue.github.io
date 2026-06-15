@@ -7,38 +7,39 @@
 <style>:root{--pagefind-ui-primary: #1a1a1a;--pagefind-ui-text: #1a1a1a;--pagefind-ui-background: var(--color-bg);--pagefind-ui-border: #e5e5e3;--pagefind-ui-tag: var(--color-surface);--pagefind-ui-border-radius: .5rem;--pagefind-ui-font: inherit}
 </style></head> <body class="bg-(--color-bg) text-(--color-text) font-sans antialiased min-h-screen flex flex-col"> <div class="max-w-[640px] w-full mx-auto px-5 flex-1 flex flex-col"> <header class="py-10"> <nav class="flex items-center justify-between"> <a href="/" class="text-xl font-semibold tracking-tight hover:opacity-60 transition-opacity">
 장재휴
-</a> <div class="flex gap-5 text-sm text-(--color-text-muted)"> <a href="/post" class="hover:text-(--color-text) transition-colors"> 글 </a><a href="/tags" class="hover:text-(--color-text) transition-colors"> 태그 </a><a href="/search" class="hover:text-(--color-text) transition-colors text-(--color-text) font-medium"> 검색 </a><a href="/about" class="hover:text-(--color-text) transition-colors"> 소개 </a> </div> </nav> </header> <main class="flex-1 pb-16">  <div class="mt-4"> <h1 class="text-2xl font-bold tracking-tight mb-6">검색</h1> <div id="search"></div> <p id="search-fallback" class="text-sm text-(--color-text-muted) mt-4 hidden">
-검색 인덱스는 빌드 후 생성됩니다. 배포된 사이트에서 동작합니다. (로컬에서는 <code>npm run build &amp;&amp; npm run preview</code> 로 확인하세요.)
-</p> </div> <link rel="stylesheet" href="/pagefind/pagefind-ui.css"> <script src="/pagefind/pagefind-ui.js" onerror="document.getElementById('search-fallback')?.classList.remove('hidden')"></script> <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      if (typeof PagefindUI === 'undefined') {
-        document.getElementById('search-fallback')?.classList.remove('hidden');
-        return;
-      }
-      new PagefindUI({
-        element: '#search',
-        showSubResults: true,
-        showImages: false,
-        translations: {
-          placeholder: '검색어를 입력하세요',
-          clear_search: '지우기',
-          load_more: '결과 더 보기',
-          search_label: '블로그 검색',
-          zero_results: '[SEARCH_TERM]에 대한 결과가 없습니다',
-          many_results: '[SEARCH_TERM]에 대한 결과 [COUNT]개',
-          one_result: '[SEARCH_TERM]에 대한 결과 [COUNT]개',
-          searching: '[SEARCH_TERM] 검색 중…',
-        },
-      });
+</a> <div class="flex gap-5 text-sm text-(--color-text-muted)"> <a href="/post" class="hover:text-(--color-text) transition-colors"> 글 </a><a href="/tags" class="hover:text-(--color-text) transition-colors"> 태그 </a><a href="/search" class="hover:text-(--color-text) transition-colors text-(--color-text) font-medium"> 검색 </a><a href="/about" class="hover:text-(--color-text) transition-colors"> 소개 </a> </div> </nav> </header> <main class="flex-1 pb-16">  <div class="mt-4"> <h1 class="text-2xl font-bold tracking-tight mb-6">검색</h1> <div id="search"></div> <p id="search-fallback" class="text-sm text-(--color-text-muted) mt-2 hidden">
+검색 인덱스는 빌드 후 생성됩니다. 배포된 사이트에서 동작합니다.
+</p> <link rel="stylesheet" href="/pagefind/pagefind-ui.css"> <script src="/pagefind/pagefind-ui.js" onerror="document.getElementById('search-fallback')?.classList.remove('hidden')"></script> <script>(function(){const placeholder = "검색어를 입력하세요";
 
-      // URL ?q= 가 있으면 자동 검색
-      const q = new URLSearchParams(location.search).get('q');
-      if (q) {
-        const input = document.querySelector('#search .pagefind-ui__search-input');
-        if (input) {
-          input.value = q;
-          input.dispatchEvent(new Event('input', { bubbles: true }));
-        }
-      }
+  window.addEventListener('DOMContentLoaded', () => {
+    if (typeof PagefindUI === 'undefined') {
+      document.getElementById('search-fallback')?.classList.remove('hidden');
+      return;
+    }
+    new PagefindUI({
+      element: '#search',
+      showSubResults: true,
+      showImages: false,
+      translations: {
+        placeholder,
+        clear_search: '지우기',
+        load_more: '결과 더 보기',
+        search_label: '블로그 검색',
+        zero_results: '[SEARCH_TERM]에 대한 결과가 없습니다',
+        many_results: '[SEARCH_TERM]에 대한 결과 [COUNT]개',
+        one_result: '[SEARCH_TERM]에 대한 결과 [COUNT]개',
+        searching: '[SEARCH_TERM] 검색 중…',
+      },
     });
-  </script>  </main> <footer class="py-8 border-t border-(--color-border)"> <p class="text-sm text-(--color-text-muted)">© 2026 장재휴</p> </footer> </div> </body></html>
+
+    // URL ?q= 가 있으면 자동 검색
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) {
+      const input = document.querySelector('#search .pagefind-ui__search-input');
+      if (input) {
+        input.value = q;
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+  });
+})();</script> </div>  </main> <footer class="py-8 border-t border-(--color-border)"> <p class="text-sm text-(--color-text-muted)">© 2026 장재휴</p> </footer> </div> </body></html>
