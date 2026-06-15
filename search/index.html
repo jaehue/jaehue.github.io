@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="ko"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="description" content="장재휴 블로그 글 검색"><link rel="canonical" href="https://jaehue.github.io/search/"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:title" content="검색 · 장재휴"><meta property="og:description" content="장재휴 블로그 글 검색"><meta property="og:url" content="https://jaehue.github.io/search/"><meta property="og:site_name" content="장재휴"><meta property="og:locale" content="ko_KR"><!-- Twitter Card --><meta name="twitter:card" content="summary"><meta name="twitter:title" content="검색 · 장재휴"><meta name="twitter:description" content="장재휴 블로그 글 검색"><link rel="alternate" type="application/rss+xml" title="장재휴" href="https://jaehue.github.io/rss.xml"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"><script async src="https://www.googletagmanager.com/gtag/js?id=G-P5BBFN04HQ"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-P5BBFN04HQ');
+    </script><title>검색 · 장재휴</title><link rel="stylesheet" href="/_astro/BaseLayout.DQntYZvw.css">
+<style>:root{--pagefind-ui-primary: #1a1a1a;--pagefind-ui-text: #1a1a1a;--pagefind-ui-background: var(--color-bg);--pagefind-ui-border: #e5e5e3;--pagefind-ui-tag: var(--color-surface);--pagefind-ui-border-radius: .5rem;--pagefind-ui-font: inherit}
+</style></head> <body class="bg-(--color-bg) text-(--color-text) font-sans antialiased min-h-screen flex flex-col"> <div class="max-w-[640px] w-full mx-auto px-5 flex-1 flex flex-col"> <header class="py-10"> <nav class="flex items-center justify-between"> <a href="/" class="text-xl font-semibold tracking-tight hover:opacity-60 transition-opacity">
+장재휴
+</a> <div class="flex gap-5 text-sm text-(--color-text-muted)"> <a href="/post" class="hover:text-(--color-text) transition-colors"> 글 </a><a href="/tags" class="hover:text-(--color-text) transition-colors"> 태그 </a><a href="/search" class="hover:text-(--color-text) transition-colors text-(--color-text) font-medium"> 검색 </a><a href="/about" class="hover:text-(--color-text) transition-colors"> 소개 </a> </div> </nav> </header> <main class="flex-1 pb-16">  <div class="mt-4"> <h1 class="text-2xl font-bold tracking-tight mb-6">검색</h1> <div id="search"></div> <p id="search-fallback" class="text-sm text-(--color-text-muted) mt-4 hidden">
+검색 인덱스는 빌드 후 생성됩니다. 배포된 사이트에서 동작합니다. (로컬에서는 <code>npm run build &amp;&amp; npm run preview</code> 로 확인하세요.)
+</p> </div> <link rel="stylesheet" href="/pagefind/pagefind-ui.css"> <script src="/pagefind/pagefind-ui.js" onerror="document.getElementById('search-fallback')?.classList.remove('hidden')"></script> <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      if (typeof PagefindUI === 'undefined') {
+        document.getElementById('search-fallback')?.classList.remove('hidden');
+        return;
+      }
+      new PagefindUI({
+        element: '#search',
+        showSubResults: true,
+        showImages: false,
+        translations: {
+          placeholder: '검색어를 입력하세요',
+          clear_search: '지우기',
+          load_more: '결과 더 보기',
+          search_label: '블로그 검색',
+          zero_results: '[SEARCH_TERM]에 대한 결과가 없습니다',
+          many_results: '[SEARCH_TERM]에 대한 결과 [COUNT]개',
+          one_result: '[SEARCH_TERM]에 대한 결과 [COUNT]개',
+          searching: '[SEARCH_TERM] 검색 중…',
+        },
+      });
+
+      // URL ?q= 가 있으면 자동 검색
+      const q = new URLSearchParams(location.search).get('q');
+      if (q) {
+        const input = document.querySelector('#search .pagefind-ui__search-input');
+        if (input) {
+          input.value = q;
+          input.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+      }
+    });
+  </script>  </main> <footer class="py-8 border-t border-(--color-border)"> <p class="text-sm text-(--color-text-muted)">© 2026 장재휴</p> </footer> </div> </body></html>
